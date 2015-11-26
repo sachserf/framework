@@ -1,6 +1,6 @@
-Package: repres
+Package: framework
 Type: Package
-Title: Reproducible Research
+Title: framework for project management
 Version: 0.1
 Date: 2015-11-25
 Author: Frederik Sachser
