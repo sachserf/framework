@@ -60,5 +60,16 @@ source('scripts/clean.R')    #...")
     sink()
     } else {
       warning("make.R already exists")
-      }
+    }
+# create report.Rmd
+if(file.exists("report.Rmd") == FALSE){
+  sink("report.Rmd")
+  cat("```{r, echo = FALSE}
+# source make-like file:
+source('make.R')
+```")
+  sink()
+  } else {
+    warning("report.Rmd already exists")
+  }
 }
