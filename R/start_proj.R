@@ -28,6 +28,18 @@ start_proj <-
   } else {
     warning("functions (directory) already exists")
   }
+    # create packfun-function
+    if(file.exists("functions/packfun.R") == FALSE){
+      sink("functions/packfun.R")
+cat("packfun <- function(packlist = ..., load = TRUE){
+exist_pack <- packlist %in% rownames(installed.packages())
+if(any(!exist_pack)) install.packages(packlist[!exist_pack])
+if(load == TRUE) lapply(packlist, library, character.only = TRUE)
+    }")
+sink()
+    } else {
+      warning("packfun already exists")
+    }
   # create README.txt
   if(file.exists("README.txt") == FALSE){
     sink("README.txt")
@@ -40,19 +52,18 @@ start_proj <-
   if(file.exists("make.R") == FALSE){
     sink("make.R")
     cat("# make-like file
-# define function
-packfun <- function(packlist = ...){
-     exist_pack <- packlist %in% rownames(installed.packages())
-     if(any(!exist_pack)) install.packages(packlist[!exist_pack])
-     lapply(packlist, library, character.only = TRUE)
-}
-
-# load packages:
-packfun(c('devtools', 'ggplot2'))
+# clear workspace
+rm(list = ls())
 
 # source functions placed in directory <<functions>>:
 file.sources <- list.files('functions', pattern='*.R$', full.names=TRUE, ignore.case=TRUE)
 sapply(file.sources, source, .GlobalEnv)
+
+# install packages without loading:
+packfun(c('plyr'), load = FALSE)
+
+# install and load packages:
+packfun(c('dplyr', 'ggplot2'))
 
 # source files:
 source('scripts/load.R')
