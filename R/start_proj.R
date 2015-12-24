@@ -57,13 +57,13 @@ rm(list = ls())
 
 # source functions placed in directory <<functions>>:
 .file.sources <- list.files('functions', pattern='*.R$', full.names=TRUE, ignore.case=TRUE)
-sapply(file.sources, source, .GlobalEnv)
+sapply(.file.sources, source, .GlobalEnv)
 
 # install packages without loading:
-packfun(c('plyr'), load = FALSE)
+.packfun(c('plyr'), load = FALSE)
 
 # install and load packages:
-packfun(c('dplyr', 'ggplot2'))
+.packfun(c('dplyr', 'ggplot2'))
 
 # source files:
 source('scripts/load.R')
