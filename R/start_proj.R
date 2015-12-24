@@ -56,7 +56,7 @@ sink()
 rm(list = ls())
 
 # source functions placed in directory <<functions>>:
-file.sources <- list.files('functions', pattern='*.R$', full.names=TRUE, ignore.case=TRUE)
+.file.sources <- list.files('functions', pattern='*.R$', full.names=TRUE, ignore.case=TRUE)
 sapply(file.sources, source, .GlobalEnv)
 
 # install packages without loading:
