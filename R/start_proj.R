@@ -31,7 +31,7 @@ start_proj <-
     # create packfun-function
     if(file.exists("functions/packfun.R") == FALSE){
       sink("functions/packfun.R")
-cat("packfun <- function(packlist = ..., load = TRUE){
+cat(".packfun <- function(packlist = ..., load = TRUE){
 exist_pack <- packlist %in% rownames(installed.packages())
 if(any(!exist_pack)) install.packages(packlist[!exist_pack])
 if(load == TRUE) lapply(packlist, library, character.only = TRUE)
