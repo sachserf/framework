@@ -1,5 +1,5 @@
-\name{set_ts}
-\alias{set_ts}
+\name{dir_timestamp}
+\alias{dir_timestamp}
 \title{
 create directory named by timestamp
 }
@@ -7,7 +7,7 @@ create directory named by timestamp
 The function creates a directory named by the current time. Optionally a sub directory containing additional information (history, image, SessionInfo, etc.) is integrated. Furthermore it is possible to copy a specified directory or files. Unless otherwise specified the target directory will be within the current working directory.
 }
 \usage{
-set_ts(target_dir = getwd(), cp = FALSE, info = FALSE, changewd = FALSE)
+dir_timestamp(target_dir = getwd(), cp = FALSE, info = FALSE, changewd = FALSE)
 }
 \arguments{
   \item{target_dir}{
@@ -30,6 +30,6 @@ The output is a directory within the target directory. Optionally there are two 
 Frederik Sachser
 }
 \examples{
-set_ts()
+dir_timestamp()
 }
-\keyword{ set_ts }
+\keyword{ dir_timestamp }

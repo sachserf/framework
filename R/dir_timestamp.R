@@ -1,4 +1,4 @@
-set_ts <-
+dir_timestamp <-
   function(target_dir = getwd(), cp = FALSE, info = FALSE, changewd = FALSE){
   orig_wd <- getwd()
   stime <- format(Sys.time(), format(Sys.time(), format="%Y%m%d-%A-%H%M%S"))
