@@ -73,8 +73,8 @@ sink()
     # create SessionInfo-function
     if(file.exists("functions/session_info.R") == FALSE){
       sink("functions/session_info.R")
-      cat(".session_info <- function(){
-          sink('info/session_info.txt')
+      cat(".session_info <- function(file = 'info/session_info.txt'){
+          sink(file)
           print(Sys.time())
           print(sessionInfo())
           sink()
