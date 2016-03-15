@@ -135,15 +135,18 @@ subtitle: |
 author: |
   | First Author^1^, Second Author^2^
   | 1. university of somewhere
-  | 2. another 
-date: 01.01.1999
+  | 2. another affiliation
+date: \"`r format(Sys.time(), '%d %B %Y')`\"
+header-includes:
+  - \\usepackage[ngerman]{babel}
+  - \\pagenumbering{gobble}
 abstract: |
   this is the abstract
 output: 
   pdf_document:
     toc: yes
     number_sections: yes
-bibliography: references.bib
+#bibliography: references.bib
 ---
           
 ```{r setup, include=FALSE}
@@ -153,7 +156,10 @@ knitr::opts_chunk$set(echo = FALSE)
 ```{r, message = FALSE}
 source('../make.R', chdir = TRUE)
 library(knitr)
-```")
+```
+
+\\newpage
+\\pagenumbering{arabic}")
       sink()
     } else {
       warning("report.Rmd already exists")
