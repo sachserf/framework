@@ -82,7 +82,7 @@ sink()
       sink()
       } else {
         warning("session_info already exists")
-      }
+    }
     # create directory <<info>>
     if(dir.exists("info") == FALSE){
       dir.create("info")
@@ -127,10 +127,33 @@ sink()
     # create report.Rmd
     if(file.exists("reports/report.Rmd") == FALSE){
       sink("reports/report.Rmd")
-      cat("```{r, echo = FALSE}
-          # source make-like file:
-          source('../make.R', chdir = TRUE)
-          ```")
+      cat("--- 
+title: 'The Title'
+subtitle: |
+  | The Subtitle with 
+  | a second line
+author: |
+  | First Author^1^, Second Author^2^
+  | 1. university of somewhere
+  | 2. another 
+date: 01.01.1999
+abstract: |
+  this is the abstract
+output: 
+  pdf_document:
+    toc: yes
+    number_sections: yes
+bibliography: references.bib
+---
+          
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+          
+```{r, message = FALSE}
+source('../make.R', chdir = TRUE)
+library(knitr)
+```")
       sink()
     } else {
       warning("report.Rmd already exists")
