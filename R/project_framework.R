@@ -137,15 +137,15 @@ author: |
   | 1. university of somewhere
   | 2. another affiliation
 date: \"`r format(Sys.time(), '%d %B %Y')`\"
-header-includes:
-  - \\usepackage[ngerman]{babel}
-  - \\pagenumbering{gobble}
 abstract: |
   this is the abstract
 output: 
   pdf_document:
     toc: yes
     number_sections: yes
+    fig_caption: yes        
+    includes:  
+      in_header: preamble_latex.tex
 #bibliography: references.bib
 ---
           
@@ -159,7 +159,51 @@ library(knitr)
 ```
 
 \\newpage
-\\pagenumbering{arabic}")
+\\pagenumbering{arabic}
+
+# Introduction
+
+# Material and Methods
+
+# Results
+
+## Example of a plot
+
+```{r, fig.cap = 'This is a caption.'}
+data(iris)
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) + geom_point(aes(color = Species))
+```
+
+## Example of a table
+
+```{r}
+iris %>%
+  select(Sepal.Width, Sepal.Length) %>%
+  head() %>%
+  kable(caption = 'This is a caption.')
+```
+
+# Discussion
+
+# References
+          ")
+      sink()
+    } else {
+      warning("report.Rmd already exists")
+    }
+    # create report.Rmd
+    if(file.exists("reports/preamble_latex.tex") == FALSE){
+      sink("reports/preamble_latex.tex")
+      cat("\\pagenumbering{gobble}
+%\\usepackage[ngerman]{babel}
+\\usepackage{float}
+\\let\\origfigure\\figure
+\\let\\endorigfigure\\endfigure
+\\renewenvironment{figure}[1][2] {
+  \\expandafter\\origfigure\\expandafter[H]
+} {
+  \\endorigfigure
+}")
       sink()
     } else {
       warning("report.Rmd already exists")
