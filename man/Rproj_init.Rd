@@ -1,21 +1,16 @@
-\name{project_framework}
-\alias{project_framework}
+\name{Rproj_init}
+\alias{Rproj_init}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Create a project framework from scratch
+create a new .Rproj in current working directory
 }
 \description{
-The function will create a new directory and change the working directory. Furthermore it is a wrapper for project_skeleton, Rproj_init and git_init. Therefore it is straightforward to create a new project, generate basic directories and initialize a git repository. 
+creates a new .Rproj, which is named after the folder of the current working directory.
 }
 \usage{
-project_framework(dirname = paste(getwd(), format(Sys.time(), format(Sys.time(), format = "\%Y\%m\%d-\%A-\%H\%M\%S")), sep = "/"))
+Rproj_init()
 }
 %- maybe also 'usage' for other objects documented here.
-\arguments{
-  \item{dirname}{
-You can choose a new or still existing directory for the project. If nothing is specified the current system time will be used.
-}
-}
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
@@ -42,11 +37,9 @@ Frederik Sachser
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-project_framework()
+Rproj_init()
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ project_framework }
-\keyword{ project_skeleton }
 \keyword{ Rproj_init }
-\keyword{ git_init }
+\keyword{ project_framework }
