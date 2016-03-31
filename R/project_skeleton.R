@@ -24,17 +24,23 @@ project_skeleton <-
     } else {
       warning("data (directory) already exists")
     }
-    # create directory <<data/raw>>
-    if(dir.exists("data/raw") == FALSE){
-      dir.create("data/raw")
+    # create directory <<data/input>>
+    if(dir.exists("data/input") == FALSE){
+      dir.create("data/input")
     } else {
-      warning("data/raw (directory) already exists")
+      warning("data/input (directory) already exists")
     }
-    # create directory <<data/modified>>
-    if(dir.exists("data/modified") == FALSE){
-      dir.create("data/modified")
+    # create directory <<data/output>>
+    if(dir.exists("data/output") == FALSE){
+      dir.create("data/output")
     } else {
-      warning("data/modified (directory) already exists")
+      warning("data/output (directory) already exists")
+    }
+    # create directory <<data/output/GlobalEnv>>
+    if(dir.exists("data/output/GlobalEnv") == FALSE){
+      dir.create("data/output/GlobalEnv")
+    } else {
+      warning("data/output/GlobalEnv (directory) already exists")
     }
     # create directory <<reports>>
     if(dir.exists("reports") == FALSE){
@@ -106,6 +112,20 @@ sink()
       sink()
       } else {
         warning("session_info (function) already exists")
+      }
+    # create write_df2csv-function
+    if(file.exists("functions/write_df2csv.R") == FALSE){
+      sink("functions/write_df2csv.R")
+      cat(".write_df2csv <- function(listofdf = names(which(sapply(.GlobalEnv, is.data.frame) == TRUE))) {
+  innerfun <- function(...){
+    data_path <- paste(getwd(), '/data/output/GlobalEnv/', ..., '.csv', sep='')
+    write.table(get(...), data_path, sep=';', row.names = FALSE)
+  }
+  lapply(X = listofdf, FUN = innerfun)
+}")
+      sink()
+    } else {
+      warning("write_df2csv (function) already exists")
     }
     # create directory <<info>>
     if(dir.exists("info") == FALSE){
@@ -142,6 +162,10 @@ sapply(.file.sources, source, .GlobalEnv)
 source('scripts/load.R')
 source('scripts/clean.R')    #...
           
+
+# save all data frames (within .GlobalEnv) as csv
+.write_df2csv()
+
 # last line:
 .session_info()
           ")
