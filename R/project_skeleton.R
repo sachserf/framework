@@ -100,6 +100,41 @@ sink()
   } else {
     warning("packfun (function) already exists")
   }
+    # create write_dataframe-function
+    if(file.exists("functions/write_dataframe.R") == FALSE){
+      sink("functions/write_dataframe.R")
+      cat(".write_dataframe <- function(listofdf = 'GlobalEnv', output_dir =  'standard', file_format = 'rds') {
+  if(listofdf == 'GlobalEnv') {
+          listofdf <- names(which(sapply(.GlobalEnv, is.data.frame) == TRUE))
+    }
+          if(output_dir == 'standard') {
+          output_dir <- file.path(getwd(), '/data/output/')
+          }
+          if(dir.exists(output_dir) == FALSE) {
+          dir.create(output_dir, recursive = TRUE)
+          }
+          if(file_format == 'csv') {
+          csv_fun <- function(...){
+          data_path <- file.path(output_dir, ...)
+          data_path_extension <- paste(data_path, '.csv', sep = '')
+          write.table(get(...), data_path_extension, sep = ';', row.names = FALSE)
+          }
+          lapply(X = listofdf, FUN = csv_fun)
+          }
+          if(file_format == 'rds') {
+          rds_fun <- function(...){
+          data_path <- file.path(output_dir, ...)
+          data_path_extension <- paste(data_path, '.rds', sep = '')
+          saveRDS(object = get(...), file = data_path_extension)
+          }
+          lapply(X = listofdf, FUN = rds_fun)
+          }
+  }
+          ")
+      sink()
+    } else {
+      warning("write_dataframe (function) already exists")
+    }
     # create SessionInfo-function
     if(file.exists("functions/session_info.R") == FALSE){
       sink("functions/session_info.R")
@@ -113,19 +148,48 @@ sink()
       } else {
         warning("session_info (function) already exists")
       }
-    # create write_df2csv-function
-    if(file.exists("functions/write_df2csv.R") == FALSE){
-      sink("functions/write_df2csv.R")
-      cat(".write_df2csv <- function(listofdf = names(which(sapply(.GlobalEnv, is.data.frame) == TRUE))) {
-  innerfun <- function(...){
-    data_path <- paste(getwd(), '/data/output/GlobalEnv/', ..., '.csv', sep='')
-    write.table(get(...), data_path, sep=';', row.names = FALSE)
-  }
-  lapply(X = listofdf, FUN = innerfun)
-}")
+    # create backup-function
+    if(file.exists("functions/backup.R") == FALSE){
+      sink("functions/backup.R")
+      cat(".backup <-
+  function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwrite = FALSE){
+          projname <- paste('BACKUP_', unlist(strsplit(source_dir, split = '/'))[length(unlist(strsplit(source_dir, split = '/')))], sep = '')
+          if(target_dir == 'project_subdir') {
+          target_dir <- file.path(getwd(), projname)
+          } else { 
+          target_dir <- file.path(target_dir, projname)
+          }
+          stime <- format(Sys.time(), format(Sys.time(), format='%Y%m%d-%A-%H%M%S'))
+          target_dir_stime <- file.path(target_dir, stime)
+          sub_directories <- list.dirs(source_dir, full.names = FALSE)
+          project_files <- list.files(source_dir, all.files = TRUE, no.. = TRUE, recursive = TRUE)
+          # exclude backup directory and files if it is within the project directory
+          dir_exclude <- grep(pattern = target_dir, x = file.path(source_dir, sub_directories))
+          if(length(dir_exclude) != 0){
+          sub_directories <- file.path(sub_directories)[-dir_exclude]
+          }
+          project_files_full <- list.files(source_dir, full.names = TRUE, all.files = TRUE, no.. = TRUE, recursive = TRUE)
+          file_exclude <- grep(pattern = target_dir, x = project_files_full)
+          if(length(file_exclude) != 0){
+          project_files <- file.path(project_files)[-file_exclude]
+          }
+          # function to create directories
+          dir_create_or_exist <- function(thedirectory) {
+          if(dir.exists(thedirectory) == FALSE) {
+          dir.create(thedirectory, recursive = TRUE)
+          }
+          }
+          if (overwrite == TRUE) unlink(target_dir, recursive = TRUE)
+          # create directories
+          dir_create_or_exist(target_dir)
+          lapply(file.path(target_dir_stime, sub_directories), dir_create_or_exist)
+          # copy files
+          file.copy(from = file.path(source_dir, project_files), to = file.path(target_dir_stime, project_files),  recursive = FALSE)
+    }
+          ")
       sink()
     } else {
-      warning("write_df2csv (function) already exists")
+      warning("backup (function) already exists")
     }
     # create directory <<info>>
     if(dir.exists("info") == FALSE){
@@ -145,29 +209,40 @@ sink()
     if(file.exists("make.R") == FALSE){
       sink("make.R")
       cat("# make-like file
+
+############ PREAMBLE ############   
+
 # clear workspace
 rm(list = ls())
           
 # source functions placed in directory <<functions>>:
 .file.sources <- list.files('functions', pattern='*.R$', full.names=TRUE, ignore.case=TRUE)
 sapply(.file.sources, source, .GlobalEnv)
-        
+
+############ PACKAGES ############   
+
 # install packages without loading:
 .packfun(c('plyr', 'knitr', 'rmarkdown'), NAMESPACE_only = TRUE)
           
 # install and load packages:
 .packfun(c('dplyr', 'ggplot2', 'stringi'))
           
-# source files:
+############ SOURCE ############ 
+
 source('scripts/load.R')
 source('scripts/clean.R')    #...
-          
 
-# save all data frames (within .GlobalEnv) as csv
-.write_df2csv()
+############ BACKUP ############   
 
-# last line:
+# save all data frames (within .GlobalEnv) as rds (optionally csv)
+.write_dataframe()
+
+# write session_info
 .session_info()
+
+# backup the whole project directory
+# optionally change target directory (eg server-connection or cloud-service)
+.backup()
           ")
       sink()
     } else {

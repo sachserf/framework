@@ -1,5 +1,5 @@
 # framework
-this package provides functions to standardize the structure of R-projects. Furthermore it is straightforward to make backups of directories (e.g. the project folder) or files in a standardized way (possibly interesting for file transfer, collaboration and backups). The functions should support the reproducibility of projects.
+this package provides functions to standardize the structure of R-projects. Furthermore it is straightforward to make backups of directories (e.g. the project folder) or files in a standardized way (possibly interesting for file transfer, collaboration and backups). The functions should support the reproducibility of projects. The main function 'project_framework' (see below) is a wrapper for all other functions within the package. Once a project is created this way the package is not needed for proper performance of the project and can be passed on to colleagues that do not use the package itself (therefore some functions are being written into a subdirectory within each project).
 
 ## Requirements
 On windows machines you will need 'Rtools' (Xcode command line tools on Mac).
@@ -7,7 +7,10 @@ On windows machines you will need 'Rtools' (Xcode command line tools on Mac).
 ## Installation
 devtools::install_github("sachserf/framework")
 
-## optional software for complete functionality
+## Installation notes
+For some linux-distributions you need to specify 'options(unzip='internal')' before installing the package.
+
+## optional software for complete range of functions
 - git
 - pandoc
 - knitr
