@@ -36,12 +36,6 @@ project_skeleton <-
     } else {
       warning("data/output (directory) already exists")
     }
-    # create directory <<data/output/GlobalEnv>>
-    if(dir.exists("data/output/GlobalEnv") == FALSE){
-      dir.create("data/output/GlobalEnv")
-    } else {
-      warning("data/output/GlobalEnv (directory) already exists")
-    }
     # create directory <<reports>>
     if(dir.exists("reports") == FALSE){
       dir.create("reports")
