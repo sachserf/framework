@@ -40,7 +40,7 @@ sink()
     listofdf <- names(which(sapply(.GlobalEnv, is.data.frame) == TRUE))
   }
   if(target_dir == 'standard') {
-    target_dir <- file.path(getwd(), 'output/data')
+    target_dir <- file.path(getwd(), 'output/data/')
   }
   if(dir.exists(target_dir) == FALSE) {
     dir.create(target_dir, recursive = TRUE)
@@ -176,8 +176,8 @@ sapply(.file.sources, source, .GlobalEnv)
           
 ############ SOURCE ############ 
 
-source('scripts/load.R')
-source('scripts/clean.R')    #...
+source('input/R/load.R')
+source('input/R/clean.R')    #...
 
 ############ RENDER ############
 
@@ -230,7 +230,7 @@ makefile <- readLines('../../make.R')
 # delete lines including the word 'render'
 makefile_wo_render <- makefile[-grep('render', makefile)]
 # write new file '.do_not_edit.R'
-cat(makefile_wo_render, sep = '\n', file = '../../.do_not_edit.R') 
+cat(makefile_wo_render, sep = '\\n', file = '../../.do_not_edit.R') 
 # source '.do_not_edit.R'
 source(file = '../../.do_not_edit.R', chdir = TRUE)
 ```
