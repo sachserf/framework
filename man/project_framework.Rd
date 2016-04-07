@@ -8,7 +8,7 @@ Create a project framework from scratch
 The function will create a new directory and change the working directory. Furthermore it is a wrapper for project_skeleton, Rproj_init and git_init. Therefore it is straightforward to create a new project, generate basic directories and initialize a git repository. Optionally you can include packrat.
 }
 \usage{
-project_framework(dirname = paste(getwd(), format(Sys.time(), format(Sys.time(), format = "\%Y\%m\%d-\%A-\%H\%M\%S")), sep = "/"))
+project_framework(dirname, init_Rproj = TRUE, init_git = TRUE, init_packrat = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
