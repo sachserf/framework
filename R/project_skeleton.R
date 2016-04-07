@@ -76,7 +76,7 @@ sink()
     # create SessionInfo-function
     if(file.exists("input/R/fun/session_info.R") == FALSE){
       sink("input/R/fun/session_info.R")
-      cat(".session_info <- function(file = 'output/documents/session_info.txt'){
+      cat(".session_info <- function(file = 'output/documents/info/session_info.txt'){
   sink(file)
   print(Sys.time())
   print(sessionInfo())
@@ -86,6 +86,16 @@ sink()
       } else {
         warning("session_info (function) already exists")
       }
+# create reminder-function
+if(file.exists("input/R/fun/reminder.R") == FALSE){
+  sink("input/R/fun/reminder.R")
+  cat(".reminder <- function() {
+  print('Don´t forget to add & commit snapshots and pull & push your git repository.')
+}")
+  sink()
+} else {
+  warning("reminder (function) already exists")
+}
     # create render_documents-function
     if(file.exists("input/R/fun/render_documents.R") == FALSE){
       sink("input/R/fun/render_documents.R")
@@ -178,12 +188,13 @@ source('input/R/clean.R')    #...
 
 ############ RENDER ############
 
-.render_documents()
+.render_documents(source_dir = 'input/R', target_dir = 'output/documents/notebooks', file_format = 'R')
+.render_documents(source_dir = 'input/documents', target_dir = 'output/documents', file_format = 'Rmd')
 
 ############ SUPPLEMENT ############   
 
-# save all data frames (that are placed in .GlobalEnv) as rData 
-# (optionally csv or rds)
+# save all data frames (that are placed in .GlobalEnv) as csv 
+# (optionally rData or rds)
 .write_dataframe()
 
 # write session_info
@@ -193,7 +204,7 @@ source('input/R/clean.R')    #...
 # optionally change target directory 
 .backup()
 
-print('Reminder: Don´t forget to commit a snapshot frequently.')
+.reminder()
           ")
       sink()
     } else {
