@@ -35,7 +35,7 @@ sink()
     # create write_dataframe-function
     if(file.exists("input/functions/write_dataframe.R") == FALSE){
       sink("input/functions/write_dataframe.R")
-      cat(".write_dataframe <- function(listofdf = 'GlobalEnv', target_dir =  'standard', file_format = 'rData') {
+      cat(".write_dataframe <- function(listofdf = 'GlobalEnv', target_dir =  'standard', file_format = 'csv') {
   if(listofdf == 'GlobalEnv') {
     listofdf <- names(which(sapply(.GlobalEnv, is.data.frame) == TRUE))
   }
