@@ -215,20 +215,26 @@ output:
     highlight: tango
 ---
         
-```{r preamble, include=FALSE}
-# Copy this chunk to every .Rmd-file and edit the file paths if you want to use additional subdirectories (../)
-
+```{r setup, include=FALSE}
+# Copy the first and the second chunk to every .Rmd-file.
+# Edit the file path of this chunk 'setup' if you want to use additional subdirectories (for input AND output)
+    
 # set knitr options
+knitr::opts_knit$set(root.dir  = '../..')
+      
+# set chunk options
 knitr::opts_chunk$set(echo = FALSE, fig.path = '../../output/figures/')
+```
           
+```{r source_make, include=FALSE}
 # read make.R
-makefile <- readLines('../../make.R') 
+makefile <- readLines('make.R') 
 # delete lines including the word 'render'
 makefile_wo_render <- makefile[-grep('render', makefile)]
 # write new file '.do_not_edit.R'
-cat(makefile_wo_render, sep = '\\n', file = '../../.do_not_edit.R') 
+cat(makefile_wo_render, sep = '\n', file = '.do_not_edit.R') 
 # source '.do_not_edit.R'
-source(file = '../../.do_not_edit.R', chdir = TRUE)
+source(file = '.do_not_edit.R', chdir = TRUE)
 ```
           
 # Project Description

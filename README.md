@@ -13,6 +13,7 @@ For some linux-distributions you need to specify 'options(unzip='internal')' bef
 ## optional software for complete range of functions
 - git
 - rmarkdown
+- RStudio
 - knitr
 - packrat
 
