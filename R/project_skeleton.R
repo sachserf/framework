@@ -47,7 +47,7 @@ sink()
   }
   if(file_format == 'csv') {
     csv_fun <- function(objectname){
-      filename <- paste(file.path(target_dir, objectname), 'rds', sep = '.')
+      filename <- paste(file.path(target_dir, objectname), 'csv', sep = '.')
       write.table(get(objectname), filename, sep = ';', row.names = FALSE)
     }
     lapply(listofdf, FUN = csv_fun)
