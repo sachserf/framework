@@ -40,7 +40,7 @@ sink()
     listofdf <- names(which(sapply(.GlobalEnv, is.data.frame) == TRUE))
   }
   if(target_dir == 'standard') {
-    target_dir <- file.path(getwd(), '/data/output/')
+    target_dir <- file.path(getwd(), 'output/data')
   }
   if(dir.exists(target_dir) == FALSE) {
     dir.create(target_dir, recursive = TRUE)
@@ -112,7 +112,7 @@ sink()
       sink("input/R/fun/backup.R")
       cat(".backup <-
 function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwrite = TRUE){
-  suppressMessages {
+  suppressMessages(
     projname <- paste('BACKUP_', basename(getwd()), sep = '')
     if(target_dir == 'project_subdir') {
     target_dir <- file.path(getwd(), projname)
@@ -145,7 +145,7 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
     lapply(file.path(target_dir_stime, sub_directories), dir_create_or_exist)
     # copy files
     file.copy(from = file.path(source_dir, project_files), to = file.path(target_dir_stime, project_files),  recursive = FALSE)
-  }
+  )
 }
           ")
       sink()
