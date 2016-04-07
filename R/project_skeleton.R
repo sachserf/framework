@@ -46,30 +46,28 @@ sink()
     dir.create(target_dir, recursive = TRUE)
   }
   if(file_format == 'csv') {
-    csv_fun <- function(...){
-      data_path <- file.path(target_dir, ...)
-      data_path_extension <- paste(data_path, '.csv', sep = '')
-      write.table(get(...), data_path_extension, sep = ';', row.names = FALSE)
+    csv_fun <- function(objectname){
+      filename <- paste(file.path(target_dir, objectname), 'rds', sep = '.')
+      write.table(get(objectname), filename, sep = ';', row.names = FALSE)
     }
-    lapply(X = listofdf, FUN = csv_fun)
+    lapply(listofdf, FUN = csv_fun)
   }
   if(file_format == 'rds') {
-    rds_fun <- function(...){
-      data_path <- file.path(target_dir, ...)
-      data_path_extension <- paste(data_path, '.rds', sep = '')
-      saveRDS(object = get(...), file = data_path_extension)
+    rds_fun <- function(objectname){
+      filename <- paste(file.path(target_dir, objectname), 'rds', sep = '.')
+      saveRDS(object = get(objectname), file = filename)
     }
-  lapply(X = listofdf, FUN = rds_fun)
+    lapply(listofdf, FUN = rds_fun)
   }
   if(file_format == 'rData') {
-    rData_fun <- function(...){
-      data_path <- file.path(target_dir, ...)
-      data_path_extension <- paste(data_path, '.rData', sep = '')
-      save(get(...), file = data_path_extension)
+    rData_fun <- function(objectname){
+      filename <- paste(file.path(target_dir, objectname), 'rData', sep = '.')
+      save(file = filename, list = objectname)
     }
-  lapply(X = listofdf, FUN = rData_fun)
+    lapply(listofdf, FUN = rData_fun)
   }
 }
+
           ")
       sink()
     } else {
