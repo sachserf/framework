@@ -1,8 +1,8 @@
 project_skeleton <-
   function(){
     # create basic directories:
-    basic_dirs <- list('input/data', 'input/R/fun', 'input/documents', 
-                       'output/data', 'output/figures', 'output/documents')
+    basic_dirs <- list('input/data', 'input/R', 'input/functions', 'input/documents', 
+                       'output/data', 'output/figures', 'output/documents/info')
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
     # create load.R
     if(file.exists("input/R/load.R") == FALSE){
@@ -21,8 +21,8 @@ project_skeleton <-
       warning("input/R/clean.R already exists")
     }
     # create pkg_install-function
-    if(file.exists("input/R/fun/pkg_install.R") == FALSE){
-      sink("input/R/fun/pkg_install.R")
+    if(file.exists("input/functions/pkg_install.R") == FALSE){
+      sink("input/functions/pkg_install.R")
       cat(".pkg_install <- function(pkg_names = ..., attach = TRUE){
   exist_pack <- pkg_names %in% rownames(installed.packages())
   if(any(!exist_pack)) install.packages(pkg_names[!exist_pack])
@@ -33,8 +33,8 @@ sink()
     warning("pkg_install (function) already exists")
   }
     # create write_dataframe-function
-    if(file.exists("input/R/fun/write_dataframe.R") == FALSE){
-      sink("input/R/fun/write_dataframe.R")
+    if(file.exists("input/functions/write_dataframe.R") == FALSE){
+      sink("input/functions/write_dataframe.R")
       cat(".write_dataframe <- function(listofdf = 'GlobalEnv', target_dir =  'standard', file_format = 'rData') {
   if(listofdf == 'GlobalEnv') {
     listofdf <- names(which(sapply(.GlobalEnv, is.data.frame) == TRUE))
@@ -74,8 +74,8 @@ sink()
       warning("write_dataframe (function) already exists")
     }
     # create SessionInfo-function
-    if(file.exists("input/R/fun/session_info.R") == FALSE){
-      sink("input/R/fun/session_info.R")
+    if(file.exists("input/functions/session_info.R") == FALSE){
+      sink("input/functions/session_info.R")
       cat(".session_info <- function(file = 'output/documents/info/session_info.txt'){
   sink(file)
   print(Sys.time())
@@ -87,8 +87,8 @@ sink()
         warning("session_info (function) already exists")
       }
 # create reminder-function
-if(file.exists("input/R/fun/reminder.R") == FALSE){
-  sink("input/R/fun/reminder.R")
+if(file.exists("input/functions/reminder.R") == FALSE){
+  sink("input/functions/reminder.R")
   cat(".reminder <- function() {
   print('Don´t forget to add & commit snapshots and pull & push your git repository.')
 }")
@@ -97,8 +97,8 @@ if(file.exists("input/R/fun/reminder.R") == FALSE){
   warning("reminder (function) already exists")
 }
     # create render_documents-function
-    if(file.exists("input/R/fun/render_documents.R") == FALSE){
-      sink("input/R/fun/render_documents.R")
+    if(file.exists("input/functions/render_documents.R") == FALSE){
+      sink("input/functions/render_documents.R")
       cat(".render_documents <- function(source_dir = 'input/documents', target_dir = 'output/documents', file_format = 'rmd') {
   file_pattern <- paste('*.', file_format, sep = '')
   all_files <- list.files(path = source_dir, pattern = file_pattern,
@@ -117,8 +117,8 @@ if(file.exists("input/R/fun/reminder.R") == FALSE){
       warning("render_documents (function) already exists")
     }
     # create backup-function
-    if(file.exists("input/R/fun/backup.R") == FALSE){
-      sink("input/R/fun/backup.R")
+    if(file.exists("input/functions/backup.R") == FALSE){
+      sink("input/functions/backup.R")
       cat(".backup <-
 function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwrite = TRUE){
   projname <- paste('BACKUP_', basename(getwd()), sep = '')
@@ -169,8 +169,8 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
 # clear environment
 rm(list = ls())
           
-# source functions placed in directory <<input//R/fun>>:
-.file.sources <- list.files('input/R/fun', pattern='*.R$', full.names=TRUE, ignore.case=TRUE)
+# source functions placed in directory <<input/functions>>:
+.file.sources <- list.files('input/functions', pattern='*.R$', full.names=TRUE, ignore.case=TRUE)
 sapply(.file.sources, source, .GlobalEnv)
 
 ############ PACKAGES ############   
