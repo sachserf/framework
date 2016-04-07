@@ -98,7 +98,8 @@ sink()
   lapply(X = all_files,
          FUN = rmarkdown::render,
          output_dir = target_dir,
-         quiet = TRUE)
+         quiet = TRUE,
+         output_format = 'all')
 }
     ")
       sink()
@@ -165,7 +166,7 @@ sapply(.file.sources, source, .GlobalEnv)
 ############ PACKAGES ############   
 
 # install packages without loading:
-.pkg_install(c('plyr', 'rmarkdown', 'packrat', 'stringi'), attach = FALSE)
+.pkg_install(c('rmarkdown', 'knitr', 'packrat', 'plyr', 'stringi'), attach = FALSE)
           
 # install and load packages:
 .pkg_install(c('dplyr', 'ggplot2'), attach = TRUE)
@@ -213,13 +214,12 @@ output:
     theme: united
     highlight: tango
 ---
-          
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
         
-```{r source_make, include=FALSE}
+```{r preamble, include=FALSE}
 # Copy this chunk to every .Rmd-file and edit the file paths if you want to use additional subdirectories (../)
+
+# set knitr options
+knitr::opts_chunk$set(echo = FALSE, fig.path = '../../output/figures/')
           
 # read make.R
 makefile <- readLines('../../make.R') 
