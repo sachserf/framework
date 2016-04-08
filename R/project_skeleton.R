@@ -121,7 +121,7 @@ if(file.exists("input/functions/reminder.R") == FALSE){
     if(file.exists("input/functions/backup.R") == FALSE){
       sink("input/functions/backup.R")
       cat(".backup <-
-function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwrite = TRUE, exclude_directories){
+function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwrite = TRUE, exclude_directories = FALSE){
   projname <- paste('BACKUP_', basename(getwd()), sep = '')
   if(target_dir == 'project_subdir') {
     target_dir <- file.path(getwd(), projname)
@@ -137,9 +137,11 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
   if(length(dir_exclude) != 0){
     sub_directories <- file.path(sub_directories)[-dir_exclude]
   }
-  dir_exclude_custom <- grep(pattern = exclude_directories, x = file.path(source_dir, sub_directories))
-  if(length(dir_exclude_custom) != 0){
-    sub_directories <- file.path(sub_directories)[-dir_exclude_custom]
+  if(exclude_directories != FALSE) {
+    dir_exclude_custom <- grep(pattern = exclude_directories, x = file.path(source_dir, sub_directories))
+    if(length(dir_exclude_custom) != 0){
+      sub_directories <- file.path(sub_directories)[-dir_exclude_custom]
+    }
   }
   # exclude backup files if 'backup' is placed within the project directory
   project_files_full <- list.files(source_dir, full.names = TRUE, all.files = TRUE, no.. = TRUE, recursive = TRUE)
@@ -147,9 +149,11 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
   if(length(file_exclude) != 0){
     project_files <- file.path(project_files)[-file_exclude]
   }
-  file_exclude_custom <- grep(pattern = exclude_directories, x = project_files)
-  if(length(file_exclude_custom) != 0){
-    project_files <- file.path(project_files)[-file_exclude_custom]
+  if(exclude_directories != FALSE) {
+    file_exclude_custom <- grep(pattern = exclude_directories, x = project_files)
+    if(length(file_exclude_custom) != 0){
+      project_files <- file.path(project_files)[-file_exclude_custom]
+    }
   }
   # function to create directories
   dir_create_or_exist <- function(thedirectory) {
@@ -211,7 +215,7 @@ source('input/R/clean.R')    #...
 .session_info()
 
 # backup the whole project directory
-# optionally change target directory 
+# optionally change target directory and/or exclude directories
 .backup()
 
 .reminder()
