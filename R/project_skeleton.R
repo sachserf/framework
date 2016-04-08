@@ -121,7 +121,7 @@ if(file.exists("input/functions/reminder.R") == FALSE){
     if(file.exists("input/functions/backup.R") == FALSE){
       sink("input/functions/backup.R")
       cat(".backup <-
-function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwrite = TRUE, exclude_directories = FALSE){
+function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwrite = TRUE, exclude_directories = FALSE, exclude_files = FALSE){
   projname <- paste('BACKUP_', basename(getwd()), sep = '')
   if(target_dir == 'project_subdir') {
     target_dir <- file.path(getwd(), projname)
@@ -225,7 +225,7 @@ source('input/R/clean.R')    #...
 # optionally change target directory and/or exclude directories/files
 # wildcards are supported
 # e.g exclude directories 'data' and 'documents': 
-#   exclude_dirs = 'input/data|input/documents'
+#   exclude_directories = 'input/data|input/documents'
 # e.g. exclude all '.R'-files:
 #   exclude_files = '*.R'
 
