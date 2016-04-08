@@ -1,8 +1,8 @@
 Package: framework
 Type: Package
 Title: framework for project management
-Version: 1.1.3
-Date: 2016-04-07
+Version: 1.1.4
+Date: 2016-04-08
 Author: Frederik Sachser
 Maintainer:  <f.sachser@gmx.at>
 Description: The functions within the package facilitate the process of creating standardized project structures.
