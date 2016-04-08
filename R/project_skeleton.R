@@ -150,9 +150,16 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
     project_files <- file.path(project_files)[-file_exclude]
   }
   if(exclude_directories != FALSE) {
-    file_exclude_custom <- grep(pattern = exclude_directories, x = project_files)
-    if(length(file_exclude_custom) != 0){
-      project_files <- file.path(project_files)[-file_exclude_custom]
+    file_exclude_custom_dir <- grep(pattern = exclude_directories, x = project_files)
+    if(length(file_exclude_custom_dir) != 0){
+      project_files <- file.path(project_files)[-file_exclude_custom_dir]
+    }
+  }
+  # exclude files if specified
+  if(exclude_files != FALSE) {
+    file_exclude_custom_file <- grep(pattern = exclude_files, x = project_files)
+    if(length(file_exclude_custom_file) != 0){
+      project_files <- file.path(project_files)[-file_exclude_custom_file]
     }
   }
   # function to create directories
@@ -214,8 +221,14 @@ source('input/R/clean.R')    #...
 # write session_info
 .session_info()
 
-# backup the whole project directory
-# optionally change target directory and/or exclude directories
+# backup
+# optionally change target directory and/or exclude directories/files
+# wildcards are supported
+# e.g exclude directories 'data' and 'documents': 
+#   exclude_dirs = 'input/data|input/documents'
+# e.g. exclude all '.R'-files:
+#   exclude_files = '*.R'
+
 .backup()
 
 .reminder()
