@@ -106,10 +106,11 @@ if(file.exists("input/functions/reminder.R") == FALSE){
                           full.names = TRUE,
                           ignore.case = TRUE)
   lapply(X = all_files,
-         FUN = rmarkdown::render,
-         output_dir = target_dir,
-         quiet = TRUE,
-         output_format = 'all')
+        FUN = rmarkdown::render,
+        output_dir = target_dir,
+        quiet = TRUE,
+        output_format = 'all',
+        envir = .GlobalEnv)
 }
     ")
       sink()
@@ -240,12 +241,15 @@ knitr::opts_chunk$set(echo = FALSE, fig.path = '../../output/figures/')
 ```{r source_make, include=FALSE}
 # read make.R
 makefile <- readLines('make.R') 
-# delete lines including the word 'render'
-makefile_wo_render <- makefile[-grep('render', makefile)]
-# write new file '.do_not_edit.R'
-cat(makefile_wo_render, sep = '\n', file = '.do_not_edit.R') 
-# source '.do_not_edit.R'
-source(file = '.do_not_edit.R', chdir = TRUE)
+# exclude some lines from make.R
+make_trimmed <- makefile[-grep('render_documents|write_dataframe|session_info|backup', makefile)]
+# write new file 'ghost_file.R'
+cat(make_trimmed, sep = '
+', file = 'ghost_file.R') 
+# source 'ghost_file.R'
+source(file = 'ghost_file.R', chdir = TRUE)
+# delete 'ghost_file.R'
+unlink('ghost_file.R')
 ```
           
 # Project Description
