@@ -1,50 +1,49 @@
 project_skeleton <-
   function(){
     # create basic directories:
-    basic_dirs <- list('input/data', 'input/R', 'input/functions', 'input/documents', 
+    basic_dirs <- list('input/data', 'input/R', 'input/functions/sachserf_framework', 'input/documents', 
                        'output/data', 'output/figures', 'output/documents/info')
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
     # create load.R
     if(file.exists("input/R/load.R") == FALSE){
-      sink("input/R/load.R")
-      cat("# load data")
-      sink()
+      cat("# load data", file = "input/R/load.R")
     } else {
       warning("input/R/load.R already exists")
     }
     # create clean.R
     if(file.exists("input/R/clean.R") == FALSE){
-      sink("input/R/clean.R")
-      cat("# clean data")
-      sink()
+      cat("# clean data", file = "input/R/clean.R")
     } else {
       warning("input/R/clean.R already exists")
     }
     # create pkg_install-function
-    if(file.exists("input/functions/pkg_install.R") == FALSE){
-      sink("input/functions/pkg_install.R")
+    if(file.exists("input/functions/sachserf_framework/pkg_install.R") == FALSE){
       cat(".pkg_install <- function(pkg_names = ..., attach = TRUE){
   exist_pack <- pkg_names %in% rownames(installed.packages())
   if(any(!exist_pack)) install.packages(pkg_names[!exist_pack])
   if(attach == TRUE) lapply(pkg_names, library, character.only = TRUE)
-}")
-sink()
+}", file = file.path('input/functions/sacherf_framework', 'pkg_install.R'))
   } else {
     warning("pkg_install (function) already exists")
   }
     # create write_dataframe-function
-    if(file.exists("input/functions/write_dataframe.R") == FALSE){
-      sink("input/functions/write_dataframe.R")
-      cat(".write_dataframe <- function(listofdf = 'GlobalEnv', target_dir =  'standard', file_format = 'csv') {
+    if(file.exists("input/functions/sachserf_framework/write_dataframe.R") == FALSE){
+      cat(".write_dataframe <- function(listofdf = 'GlobalEnv', target_dir =  'standard', file_format = 'csv', overwrite = TRUE) {
   if(listofdf == 'GlobalEnv') {
     listofdf <- names(which(sapply(.GlobalEnv, is.data.frame) == TRUE))
   }
   if(target_dir == 'standard') {
     target_dir <- file.path(getwd(), 'output/data/')
   }
+  # delete 'old' data
+  if(overwrite == TRUE) {
+    unlink(target_dir, recursive = TRUE)
+  }
+  # create target_dir
   if(dir.exists(target_dir) == FALSE) {
     dir.create(target_dir, recursive = TRUE)
   }
+  # write data
   if(file_format == 'csv') {
     csv_fun <- function(objectname){
       filename <- paste(file.path(target_dir, objectname), 'csv', sep = '.')
@@ -59,46 +58,39 @@ sink()
     }
     lapply(listofdf, FUN = rds_fun)
   }
-  if(file_format == 'rData') {
-    rData_fun <- function(objectname){
-      filename <- paste(file.path(target_dir, objectname), 'rData', sep = '.')
+  if(file_format == 'RData') {
+    RData_fun <- function(objectname){
+      filename <- paste(file.path(target_dir, objectname), 'RData', sep = '.')
       save(file = filename, list = objectname)
     }
-    lapply(listofdf, FUN = rData_fun)
+    lapply(listofdf, FUN = RData_fun)
   }
 }
-
-          ")
-      sink()
+", file = file.path('input/functions/sacherf_framework', 'write_dataframe.R'))
     } else {
       warning("write_dataframe (function) already exists")
     }
     # create SessionInfo-function
-    if(file.exists("input/functions/session_info.R") == FALSE){
-      sink("input/functions/session_info.R")
+    if(file.exists("input/functions/sachserf_framework/session_info.R") == FALSE){
       cat(".session_info <- function(file = 'output/documents/info/session_info.txt'){
   sink(file)
   print(Sys.time())
   print(sessionInfo())
   sink()
-}")
-      sink()
+}", file = file.path('input/functions/sacherf_framework', 'session_info.R'))
       } else {
         warning("session_info (function) already exists")
       }
 # create reminder-function
-if(file.exists("input/functions/reminder.R") == FALSE){
-  sink("input/functions/reminder.R")
+if(file.exists("input/functions/sachserf_framework/reminder.R") == FALSE){
   cat(".reminder <- function() {
   print('Don´t forget to add & commit snapshots and pull & push your git repository.')
-}")
-  sink()
+}", file = file.path('input/functions/sacherf_framework', 'reminder.R'))
 } else {
   warning("reminder (function) already exists")
 }
     # create render_documents-function
-    if(file.exists("input/functions/render_documents.R") == FALSE){
-      sink("input/functions/render_documents.R")
+    if(file.exists("input/functions/sachserf_framework/render_documents.R") == FALSE){
       cat(".render_documents <- function(source_dir = 'input/documents', target_dir = 'output/documents', file_format = 'rmd') {
   file_pattern <- paste('*.', file_format, sep = '')
   all_files <- list.files(path = source_dir, pattern = file_pattern,
@@ -112,14 +104,51 @@ if(file.exists("input/functions/reminder.R") == FALSE){
         output_format = 'all',
         envir = .GlobalEnv)
 }
-    ")
-      sink()
+    ", file = file.path('input/functions/sacherf_framework', 'render_documents.R'))
     } else {
       warning("render_documents (function) already exists")
     }
+    # create compile_notebooks function
+    if(file.exists('input/functions/sachserf_framework/compile_notebooks.R') == FALSE) {
+      cat(".compile_notebooks <- function(make_filename = 'make.R', source_dir = 'input/R', target_dir = 'output/documents/notebooks', keep_Rmd = FALSE) {
+  # read makefile
+  makefile <- readLines(make_filename) 
+  # trim makefile (source scripts only)
+  make_trimmed <- makefile[grep('(?=.*input/R/)(?=.*source)', makefile, perl = TRUE)]
+  # extract file path of scripts
+  file_path_R <- substr(x = make_trimmed, start = 9, stop = nchar(make_trimmed)-2)
+  # extract filename of scripts 
+  file_name_R <- c()
+  for(i in seq_along(file_path_R)) {
+    tempfile <- strsplit(x = file_path_R, split = '/')[[i]]
+    file_name_R[i] <- tempfile[length(tempfile)]
+  }
+  # extract script-names:
+  script_names <- substr(file_name_R, start = 1, stop = nchar(file_name_R)-2)
+  # create directory
+  if(dir.exists(target_dir) == FALSE) dir.create(target_dir, recursive = TRUE)
+  file_path_Rmd <- paste(file.path(target_dir, script_names), 'Rmd', sep = '.')
+  # stitch Rmd files
+  for(i in seq_along(file_path_R)) {
+    knitr::stitch_rmd(script = file_path_R[i], output = file_path_Rmd[i], envir = globalenv())
+  }
+  # delete old figures and copy paste new figures
+  file_path_figure <- file.path(target_dir, 'figure')
+  if(dir.exists(file_path_figure)) unlink(file_path_figure, recursive = TRUE)
+  file.rename(from = 'figure', to = file_path_figure)
+  # render html files
+  for(i in seq_along(file_path_Rmd)) {
+    rmarkdown::render(input = file_path_Rmd[i])
+  }
+  # delete Rmd
+  if(keep_Rmd == FALSE) {
+    unlink(list.files(path = target_dir, pattern = '*.Rmd', full.names = TRUE))
+  }
+}
+          ", file = 'input/functions/sachserf_framework/compile_notebooks.R')
+    }
     # create backup-function
-    if(file.exists("input/functions/backup.R") == FALSE){
-      sink("input/functions/backup.R")
+    if(file.exists("input/functions/sachserf_framework/backup.R") == FALSE){
       cat(".backup <-
 function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwrite = TRUE, exclude_directories = FALSE, exclude_files = FALSE){
   projname <- paste('BACKUP_', basename(getwd()), sep = '')
@@ -175,14 +204,12 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
   # copy files
   file.copy(from = file.path(source_dir, project_files), to = file.path(target_dir_stime, project_files),  recursive = FALSE)
 }
-          ")
-      sink()
+          ", file = file.path('input/functions/sacherf_framework', 'backup.R'))
     } else {
       warning("backup (function) already exists")
     }
     # create make.R
     if(file.exists("make.R") == FALSE){
-      sink("make.R")
       cat("# make-like file
 
 ############ PREAMBLE ############   
@@ -191,8 +218,8 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
 rm(list = ls())
           
 # source functions placed in directory <<input/functions>>:
-.file.sources <- list.files('input/functions', pattern='*.R$', full.names=TRUE, ignore.case=TRUE)
-sapply(.file.sources, source, .GlobalEnv)
+.project_fun <- list.files('input/functions', pattern='*.R$', recursive = TRUE)
+sapply(.project_fun, source, .GlobalEnv)
 
 ############ PACKAGES ############   
 
@@ -203,43 +230,36 @@ sapply(.file.sources, source, .GlobalEnv)
 .pkg_install(c('dplyr', 'ggplot2'), attach = TRUE)
           
 ############ SOURCE ############ 
+# NOTE: There should not be any comment after source()
 
 source('input/R/load.R')
-source('input/R/clean.R')    #...
+source('input/R/clean.R')
 
 ############ RENDER ############
 
-.render_documents(source_dir = 'input/R', target_dir = 'output/documents/notebooks', file_format = 'R')
-.render_documents(source_dir = 'input/documents', target_dir = 'output/documents', file_format = 'Rmd')
+.render_documents()
+.compile_notebooks()
 
 ############ SUPPLEMENT ############   
 
 # save all data frames (that are placed in .GlobalEnv) as csv 
-# (optionally rData or rds)
+# (optionally RData or rds)
 .write_dataframe()
 
 # write session_info
 .session_info()
 
-# backup
-# optionally change target directory and/or exclude directories/files
-# wildcards are supported
-# e.g exclude directories 'data' and 'documents': 
-#   exclude_directories = 'input/data|input/documents'
-# e.g. exclude all '.R'-files:
-#   exclude_files = '*.R'
-
-.backup()
+# backup (optionally change target directory)
+.backup(exclude_directories = '.git|input/data|output',
+        exclude_files = '*.RData|*.Rhistory')
 
 .reminder()
-          ")
-      sink()
+          ", file = 'make.R')
     } else {
       warning("make.R already exists")
     }
     # create manual.Rmd
     if(file.exists("input/documents/manual.Rmd") == FALSE){
-      sink("input/documents/manual.Rmd")
       cat("---
 title: 'Manual'
 author: 'Your Name'
@@ -268,10 +288,9 @@ knitr::opts_chunk$set(echo = FALSE, fig.path = '../../output/figures/')
 # read make.R
 makefile <- readLines('make.R') 
 # exclude some lines from make.R
-make_trimmed <- makefile[-grep('render_documents|write_dataframe|session_info|backup', makefile)]
+make_trimmed <- makefile[grep('source|pkg_install', makefile)]
 # write new file 'ghost_file.R'
-cat(make_trimmed, sep = '
-', file = 'ghost_file.R') 
+cat(make_trimmed, sep = '\\n', file = 'ghost_file.R') 
 # source 'ghost_file.R'
 source(file = 'ghost_file.R', chdir = TRUE)
 # delete 'ghost_file.R'
@@ -290,8 +309,7 @@ unlink('ghost_file.R')
           
 ## data 2
           
-          ")
-      sink()
+          ", file = "input/documents/manual.Rmd")
     } else {
       warning("manual.Rmd already exists")
     }
