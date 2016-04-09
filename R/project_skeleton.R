@@ -22,7 +22,9 @@ project_skeleton <-
   exist_pack <- pkg_names %in% rownames(installed.packages())
   if(any(!exist_pack)) install.packages(pkg_names[!exist_pack])
   if(attach == TRUE) lapply(pkg_names, library, character.only = TRUE)
-}", file = "input/functions/sachserf_framework/pkg_install.R")
+}
+    
+", file = "input/functions/sachserf_framework/pkg_install.R")
   } else {
     warning("pkg_install (function) already exists")
   }
@@ -66,6 +68,7 @@ project_skeleton <-
     lapply(listofdf, FUN = RData_fun)
   }
 }
+
 ", file = "input/functions/sachserf_framework/write_dataframe.R")
     } else {
       warning("write_dataframe (function) already exists")
@@ -77,15 +80,19 @@ project_skeleton <-
   print(Sys.time())
   print(sessionInfo())
   sink()
-}", file = "input/functions/sachserf_framework/session_info.R")
+  }
+
+", file = "input/functions/sachserf_framework/session_info.R")
       } else {
         warning("session_info (function) already exists")
       }
 # create reminder-function
-if(file.exists("input/functions/sachserf_framework/reminder.R") == FALSE){
-  cat(".reminder <- function() {
-  print('Don´t forget to add & commit snapshots and pull & push your git repository.')
-}", file = "input/functions/sachserf_framework/reminder.R")
+  if(file.exists("input/functions/sachserf_framework/reminder.R") == FALSE){
+    cat(".reminder <- function() {
+    print('Don´t forget to add & commit snapshots and pull & push your git repository.')
+  }
+
+", file = "input/functions/sachserf_framework/reminder.R")
 } else {
   warning("reminder (function) already exists")
 }
@@ -103,7 +110,8 @@ if(file.exists("input/functions/sachserf_framework/reminder.R") == FALSE){
         quiet = TRUE,
         output_format = 'all',
         envir = .GlobalEnv)
-}
+      }
+
     ", file = "input/functions/sachserf_framework/render_documents.R")
     } else {
       warning("render_documents (function) already exists")
@@ -205,7 +213,8 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
   # copy files
   file.copy(from = file.path(source_dir, project_files), to = file.path(target_dir_stime, project_files),  recursive = FALSE)
 }
-          ", file = "input/functions/sachserf_framework/backup.R")
+
+", file = "input/functions/sachserf_framework/backup.R")
     } else {
       warning("backup (function) already exists")
     }
@@ -217,7 +226,7 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
 
 # clear environment
 rm(list = ls())
-          
+
 # source functions placed in directory <<input/functions>>:
 .project_fun <- list.files('input/functions', pattern='*.R$', full.names = TRUE, recursive = TRUE)
 sapply(.project_fun, source, .GlobalEnv)
@@ -226,10 +235,10 @@ sapply(.project_fun, source, .GlobalEnv)
 
 # install packages without loading:
 .pkg_install(c('rmarkdown', 'knitr', 'packrat', 'plyr', 'stringi'), attach = FALSE)
-          
+
 # install and load packages:
 .pkg_install(c('dplyr', 'ggplot2'), attach = TRUE)
-          
+
 ############ SOURCE ############ 
 # NOTE: There should not be any comment after source()
 
@@ -255,7 +264,8 @@ source('input/R/clean.R')
         exclude_files = '*.RData|*.Rhistory')
 
 .reminder()
-          ", file = 'make.R')
+
+", file = 'make.R')
     } else {
       warning("make.R already exists")
     }
@@ -273,18 +283,18 @@ output:
     theme: united
     highlight: tango
 ---
-        
+
 ```{r setup, include=FALSE}
 # Copy the first and the second chunk to every .Rmd-file.
 # Edit the file path of this chunk 'setup' if you want to use additional subdirectories (for input AND output)
-    
+
 # set knitr options
 knitr::opts_knit$set(root.dir  = '../..')
-      
+
 # set chunk options
 knitr::opts_chunk$set(echo = FALSE, fig.path = '../../output/figures/')
 ```
-          
+
 ```{r source_make, include=FALSE}
 # read make.R
 makefile <- readLines('make.R') 
@@ -297,20 +307,20 @@ source(file = 'ghost_file.R', chdir = TRUE)
 # delete 'ghost_file.R'
 unlink('ghost_file.R')
 ```
-          
+
 # Project Description
-          
+
 ## load.R
           
 ## clean.R
-          
+
 # Data Manual
-        
+
 ## data 1
-          
+
 ## data 2
-          
-          ", file = "input/documents/manual.Rmd")
+
+", file = "input/documents/manual.Rmd")
     } else {
       warning("manual.Rmd already exists")
     }
