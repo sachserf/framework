@@ -132,10 +132,11 @@ if(file.exists("input/functions/sachserf_framework/reminder.R") == FALSE){
   for(i in seq_along(file_path_R)) {
     knitr::stitch_rmd(script = file_path_R[i], output = file_path_Rmd[i], envir = globalenv())
   }
-  # delete old figures and copy paste new figures
+  # delete old figures
   file_path_figure <- file.path(target_dir, 'figure')
   if(dir.exists(file_path_figure)) unlink(file_path_figure, recursive = TRUE)
-  file.rename(from = 'figure', to = file_path_figure)
+  # copy paste new figures
+  if(dir.exists('figure')) file.rename(from = 'figure', to = file_path_figure)
   # render html files
   for(i in seq_along(file_path_Rmd)) {
     rmarkdown::render(input = file_path_Rmd[i])
@@ -218,7 +219,7 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
 rm(list = ls())
           
 # source functions placed in directory <<input/functions>>:
-.project_fun <- list.files('input/functions', pattern='*.R$', recursive = TRUE)
+.project_fun <- list.files('input/functions', pattern='*.R$', full.names = TRUE, recursive = TRUE)
 sapply(.project_fun, source, .GlobalEnv)
 
 ############ PACKAGES ############   
