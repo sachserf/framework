@@ -22,7 +22,7 @@ project_skeleton <-
   exist_pack <- pkg_names %in% rownames(installed.packages())
   if(any(!exist_pack)) install.packages(pkg_names[!exist_pack])
   if(attach == TRUE) lapply(pkg_names, library, character.only = TRUE)
-}", file = file.path('input/functions/sacherf_framework', 'pkg_install.R'))
+}", file = file.path(getwd(), 'input/functions/sacherf_framework', 'pkg_install.R'))
   } else {
     warning("pkg_install (function) already exists")
   }
@@ -66,7 +66,7 @@ project_skeleton <-
     lapply(listofdf, FUN = RData_fun)
   }
 }
-", file = file.path('input/functions/sacherf_framework', 'write_dataframe.R'))
+", file = file.path(getwd(), 'input/functions/sacherf_framework', 'write_dataframe.R'))
     } else {
       warning("write_dataframe (function) already exists")
     }
@@ -77,7 +77,7 @@ project_skeleton <-
   print(Sys.time())
   print(sessionInfo())
   sink()
-}", file = file.path('input/functions/sacherf_framework', 'session_info.R'))
+}", file = file.path(getwd(), 'input/functions/sacherf_framework', 'session_info.R'))
       } else {
         warning("session_info (function) already exists")
       }
@@ -85,7 +85,7 @@ project_skeleton <-
 if(file.exists("input/functions/sachserf_framework/reminder.R") == FALSE){
   cat(".reminder <- function() {
   print('Don´t forget to add & commit snapshots and pull & push your git repository.')
-}", file = file.path('input/functions/sacherf_framework', 'reminder.R'))
+}", file = file.path(getwd(), 'input/functions/sacherf_framework', 'reminder.R'))
 } else {
   warning("reminder (function) already exists")
 }
@@ -104,7 +104,7 @@ if(file.exists("input/functions/sachserf_framework/reminder.R") == FALSE){
         output_format = 'all',
         envir = .GlobalEnv)
 }
-    ", file = file.path('input/functions/sacherf_framework', 'render_documents.R'))
+    ", file = file.path(getwd(), 'input/functions/sacherf_framework', 'render_documents.R'))
     } else {
       warning("render_documents (function) already exists")
     }
@@ -204,7 +204,7 @@ function(target_dir = 'project_subdir', source_dir = file.path(getwd()), overwri
   # copy files
   file.copy(from = file.path(source_dir, project_files), to = file.path(target_dir_stime, project_files),  recursive = FALSE)
 }
-          ", file = file.path('input/functions/sacherf_framework', 'backup.R'))
+          ", file = file.path(getwd(), 'input/functions/sacherf_framework', 'backup.R'))
     } else {
       warning("backup (function) already exists")
     }
