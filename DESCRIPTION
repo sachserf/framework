@@ -1,10 +1,12 @@
 Package: framework
 Type: Package
 Title: framework for project management
-Version: 1.2.2
+Version: 1.2.3
 Date: 2016-04-09
 Author: Frederik Sachser
 Maintainer:  <f.sachser@gmx.at>
 Description: The functions within the package facilitate the process of creating standardized project structures.
 License: GPL-2
 LazyData: TRUE
+Depends:
+    R (>= 3.2)
