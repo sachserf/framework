@@ -16,7 +16,7 @@ project_skeleton <-
       warning("input/R/clean.R already exists")
     }
     # create pkg_install-function
-      framework::dput_function(pkg_fun = framework::pkg_install, 
+      framework::dput_function(pkg_fun = framework::git_init, 
                                target_dir = 'input/functions/sachserf/framework', 
                                substitute_framework = TRUE)
     # create write_dataframe-function
