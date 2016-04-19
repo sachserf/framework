@@ -18,7 +18,7 @@ project_skeleton <-
     # create pkg_install-function
     framework::dput_function(
       pkg_fun = framework::pkg_install,
-      target_dir = paste0(dirname, '/', 'input/functions/sachserf/framework'),
+      target_dir = 'input/functions/sachserf_framework',
       substitute_framework = TRUE
     )
     # create write_dataframe-function
