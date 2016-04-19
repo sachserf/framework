@@ -15,6 +15,14 @@ project_skeleton <-
     } else {
       warning("input/R/clean.R already exists")
     }
+    # create pkg_install-function
+    if(file.exists("input/functions/sachserf_framework/pkg_install.R") == FALSE){
+      framework::dput_function(pkg_fun = framework::pkg_install, 
+                               target_dir = 'input/functions/sachserf/framework', 
+                               substitute_framework = TRUE)
+    } else {
+      warning("pkg_install (function) already exists")
+    }
     # create write_dataframe-function
     if(file.exists("input/functions/sachserf_framework/write_dataframe.R") == FALSE){
       cat(".write_dataframe <- function(listofdf = 'GlobalEnv', target_dir =  'standard', file_format = 'csv', overwrite = TRUE) {
