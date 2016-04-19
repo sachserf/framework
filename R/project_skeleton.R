@@ -1,8 +1,7 @@
 project_skeleton <-
   function(){
     # create basic directories:
-    basic_dirs <- list('input/data', 'input/R', 'input/functions/sachserf_framework', 'input/documents', 
-                       'output/data', 'output/figures', 'output/documents/info')
+    basic_dirs <- list('input/data', 'input/R', 'input/functions/sachserf_framework', 'input/documents')
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
     # create load.R
     if(file.exists("input/R/load.R") == FALSE){
@@ -18,13 +17,9 @@ project_skeleton <-
     }
     # create pkg_install-function
     if(file.exists("input/functions/sachserf_framework/pkg_install.R") == FALSE){
-      cat(".pkg_install <- function(pkg_names = ..., attach = TRUE){
-  exist_pack <- pkg_names %in% rownames(installed.packages())
-  if(any(!exist_pack)) install.packages(pkg_names[!exist_pack])
-  if(attach == TRUE) lapply(pkg_names, library, character.only = TRUE)
-}
-    
-", file = "input/functions/sachserf_framework/pkg_install.R")
+      framework::dput_function(pkg_fun = framework::pkg_install, 
+                               target_dir = 'input/functions/sachserf/framework', 
+                               substitute_framework = TRUE)
   } else {
     warning("pkg_install (function) already exists")
   }

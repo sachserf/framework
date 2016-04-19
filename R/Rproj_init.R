@@ -4,7 +4,7 @@ Rproj_init <- function(){
   if(file.exists(paste(projname, '.Rproj', sep = '')) == TRUE) {
     print('project already exists')
   } else {
-    sink(paste(projname, '.Rproj', sep = ''))
+    sink(paste0(projname, '.Rproj'))
     cat('Version: 1.0
         
 RestoreWorkspace: Default
