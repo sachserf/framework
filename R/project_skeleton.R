@@ -234,7 +234,7 @@ print_lines <- function() {
 # write yaml file
 sink('.cache/website/_site.yml')
 c(cat("name: \'", basename(getwd()),"\'
-output_dir: \'../../out/auto/documents/website\'
+output_dir: \'../../out/auto/docs/website\'
 navbar:
   title: \'", basename(getwd()), "\'
   left:
@@ -265,6 +265,7 @@ rmarkdown::render_site(input = '.cache/website')
 }
 
 dump(list = 'render_website', file = 'in/R/sachserf_framework/render_website.R')
+cat(readLines(con = 'in/R/sachserf_framework/render_website.R'), 'render_website()', sep = '\n', append = TRUE, file = 'in/R/sachserf_framework/render_website.R')
   }
 
 
