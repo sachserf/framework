@@ -1,6 +1,6 @@
 make_notebook <-
   function (input_R = readRDS('.cache/df_cache_R.rds')$filename_full,
-            target_dir_html = 'out/auto/documents/notebooks',
+            target_dir_html = 'out/auto/docs/notebooks',
             target_dir_figures = 'out/auto/figures/notebooks')
   {
     if (any(
