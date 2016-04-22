@@ -21,7 +21,7 @@ make_notebook <-
         warning("Input files are not a subset of sourced files.")
       }
       else {
-        compile_me <- input_R[match(f_cache_R$filename_full, input_R)]
+        compile_me <- input_R[match(df_cache_R$filename_full, input_R)]
         compile_me <- compile_me[which(is.na(compile_me) ==
                                          FALSE)]
         all_not_rendered <-
