@@ -88,7 +88,7 @@ function (input_R, write_cache)
         if (dir.exists(dirname_cache_source[i]) == FALSE) 
             dir.create(dirname_cache_source[i], recursive = TRUE)
     }
-    input_data <- sapply(X = list.files("input/data", full.names = TRUE, 
+    input_data <- sapply(X = list.files("in/data", full.names = TRUE, 
         recursive = TRUE), FUN = file.info)
     saveRDS(object = load_me, file = ".cache/load_me.rds")
     saveRDS(object = source_me, file = ".cache/source_me.rds")

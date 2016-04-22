@@ -12,7 +12,7 @@ function ()
         input_R <- df_cache_R$filename_full
         if (identical(file.exists(df_cache_R$filename_image), 
             file.exists(df_cache_R$filename_mtime)) == FALSE) {
-            lapply(X = input_R, FUN = local_fun$source_n_save)
+            lapply(X = input_R, FUN = framework::source_n_save)
         }
         else {
             if (identical(sum(as.integer(is.na(source_me))), 
@@ -21,11 +21,11 @@ function ()
             }
             else if (identical(sum(as.integer(is.na(load_me))), 
                 length(load_me))) {
-                lapply(X = source_me, FUN = local_fun$source_n_save)
+                lapply(X = source_me, FUN = framework::source_n_save)
             }
             else {
                 load(load_me[length(load_me)], envir = .GlobalEnv)
-                lapply(X = source_me, FUN = local_fun$source_n_save)
+                lapply(X = source_me, FUN = framework::source_n_save)
             }
         }
     }

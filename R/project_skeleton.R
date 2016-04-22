@@ -1,92 +1,92 @@
 project_skeleton <-
   function(){
     #### create basic directories ####
-    basic_dirs <- list('input/data', 'input/R', 'input/functions/sachserf_framework', 'input/documents')
+    basic_dirs <- list('in/data', 'in/R', 'in/fun/sachserf_framework', 'in/documents', 'out/usr')
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
     
     #### create files ####
     # create load.R
-      cat("# load data", file = "input/R/load.R")
+      cat("# load data", file = "in/R/load.R")
     # create clean.R
-      cat("# clean data", file = "input/R/clean.R")
+      cat("# clean data", file = "in/R/clean.R")
     
-      #### create functions ####
+      #### create fun ####
       # create backup-function
       framework::dput_function(
         pkg_fun = framework::backup,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create compile_notebooks-function
       framework::dput_function(
         pkg_fun = framework::compile_notebooks,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create make_notebook-function
       framework::dput_function(
         pkg_fun = framework::make_notebook,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create make_source-function
       framework::dput_function(
         pkg_fun = framework::make_source,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create pkg_install-function
       framework::dput_function(
         pkg_fun = framework::pkg_install,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create prepare_cache-function
       framework::dput_function(
         pkg_fun = framework::prepare_cache,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create reminder-function
       framework::dput_function(
         pkg_fun = framework::reminder,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create render_Rmd-function
       framework::dput_function(
         pkg_fun = framework::render_Rmd,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create session_info-function
       framework::dput_function(
         pkg_fun = framework::session_info,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create source_n_save-function
       framework::dput_function(
         pkg_fun = framework::source_n_save,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create source_or_load-function
       framework::dput_function(
         pkg_fun = framework::source_or_load,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create template_Rmd-function
       framework::dput_function(
         pkg_fun = framework::template_Rmd,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       # create write_dataframe-function
       framework::dput_function(
         pkg_fun = framework::write_dataframe,
-        target_dir = 'input/functions/sachserf_framework',
+        target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
       
@@ -99,7 +99,7 @@ project_skeleton <-
           
 ############ PREAMBLE ############   
           
-source('input/R/sachserf_framework/preamble.R')
+source('in/R/sachserf_framework/preamble.R')
           
 ############ PACKAGES ############   
           
@@ -120,13 +120,13 @@ local_fun$pkg_install(c('dplyr',
 ############ SOURCE ############ 
           
 # fill in your R-scripts in chronological order
-local_fun$make_source(c('input/R/load.R',
-                        'input/R/clean.R'),
+local_fun$make_source(c('in/R/load.R',
+                        'in/R/clean.R'),
                       use_cache = TRUE)
           
 ############ SUPPLEMENT ############   
           
-source('input/R/sachserf_framework/supplement.R')
+source('in/R/sachserf_framework/supplement.R')
           
 local_fun$reminder()
 ", file = 'make.R')
@@ -135,35 +135,35 @@ local_fun$reminder()
     }
     
     #### write template_Rmd ####
-    framework::template_Rmd(file = 'input/docs/manual.Rmd')
+    framework::template_Rmd(file = 'in/docs/manual.Rmd')
     
     #### write preamble ####
     cat("# clear Global environment
 rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
         
-# create new environment for local functions
+# create new environment for local fun
 local_fun <- new.env(parent = .GlobalEnv)
         
-# list R-files placed in directory <<input/functions>>:
+# list R-files placed in directory <<in/fun>>:
 local_fun$list_local_fun <-
   list.files(
-    'input/functions',
+    'in/fun',
     pattern = '*.R$',
     full.names = TRUE,
     recursive = TRUE
   )
         
-# source every R-file within directory <<input/functions>> 
+# source every R-file within directory <<in/fun>> 
 sapply(local_fun$list_local_fun, 
        source, local = local_fun)
         
-# rm list of functions
+# rm list of fun
 rm(list_local_fun, envir = local_fun)
 
-# delete output/auto
-unlink('output/auto', recursive = TRUE)        
+# delete out/auto
+unlink('out/auto', recursive = TRUE)        
 
-", file = 'input/R/sachserf_framework/preamble.R', sep = '\n')
+", file = 'in/R/sachserf_framework/preamble.R', sep = '\n')
       
       #### write supplement ####
       cat("############ SUPPLEMENT ############   
@@ -175,7 +175,7 @@ local_fun$render_Rmd()
 local_fun$make_notebook()
           
 # create website 
-source('input/R/sachserf_framework/render_website.R')
+source('in/R/sachserf_framework/render_website.R')
           
 # save all data frames (within .GlobalEnv)
 local_fun$write_dataframe(file_format = 'csv')
@@ -184,10 +184,10 @@ local_fun$write_dataframe(file_format = 'csv')
 local_fun$session_info()
           
 # backup (optionally change target directory)
-local_fun$backup(exclude_directories = '.git|input/data|output|.cache',
+local_fun$backup(exclude_directories = '.git|in/data|out|.cache',
                  exclude_files = '*.RData|*.Rhistory')
 
-", file = 'input/R/sachserf_framework/supplement.R')
+", file = 'in/R/sachserf_framework/supplement.R')
       
       #### write render website ####
 render_website <- function() {
@@ -234,7 +234,7 @@ print_lines <- function() {
 # write yaml file
 sink('.cache/website/_site.yml')
 c(cat("name: \'", basename(getwd()),"\'
-output_dir: \'../../output/auto/documents/website\'
+output_dir: \'../../out/auto/documents/website\'
 navbar:
   title: \'", basename(getwd()), "\'
   left:
@@ -264,7 +264,7 @@ devtools::session_info()
 rmarkdown::render_site(input = '.cache/website')
 }
 
-dump(list = 'render_website', file = 'input/R/sachserf_framework/render_website.R')
+dump(list = 'render_website', file = 'in/R/sachserf_framework/render_website.R')
   }
 
 

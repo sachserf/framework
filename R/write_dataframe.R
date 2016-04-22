@@ -7,7 +7,7 @@ function (listofdf = "GlobalEnv", target_dir = "standard", file_format = "csv",
             TRUE))
     }
     if (target_dir == "standard") {
-        target_dir <- file.path(getwd(), "output/auto/data/")
+        target_dir <- file.path(getwd(), "out/auto/data/")
     }
     if (overwrite == TRUE) {
         unlink(target_dir, recursive = TRUE)

@@ -1,7 +1,7 @@
 make_notebook <-
   function (input_R = readRDS('.cache/df_cache_R.rds')$filename_full,
-            target_dir_html = 'output/auto/documents/notebooks',
-            target_dir_figures = 'output/auto/figures/notebooks')
+            target_dir_html = 'out/auto/documents/notebooks',
+            target_dir_figures = 'out/auto/figures/notebooks')
   {
     if (any(
       file.exists(
@@ -32,7 +32,7 @@ make_notebook <-
                                      input_R]
         compile_me <- unique(c(compile_me, add_these))
         if (length(compile_me) != 0) {
-          local_fun$compile_notebooks(file_path = compile_me,
+          framework::compile_notebooks(file_path = compile_me,
                                       target_dir = ".cache/notebooks")
         }
         names_only <- substr(
