@@ -3,23 +3,29 @@ render_Rmd <-
             target_dir = 'out/auto/docs/Rmd')
   {
     # list all files if input is directory
-      source_files <-
-        list.files(
-          path = source_dir,
-          pattern = ".Rmd",
-          recursive = TRUE,
-          full.names = TRUE,
-          ignore.case = TRUE
-        )
-    # kick out Rmd-files with preceding '_'
     source_files <-
+      list.files(
+        path = source_dir,
+        pattern = ".Rmd",
+        recursive = TRUE,
+        full.names = TRUE,
+        ignore.case = TRUE
+      )
+    # kick out Rmd-files with preceding '_'
+    no_ <-
       source_files[-grep(pattern = '_',
-                                   x = substr(
-                                     basename(source_files),
-                                     start = 1,
-                                     stop = 1
-                                   ))]
-    
+                         x = substr(basename(source_files),
+                                    start = 1,
+                                    stop = 1))]
+    if (length(no_) != 0) {
+      source_files <-
+        source_files[-grep(pattern = "_",
+                           x = substr(
+                             basename(source_files),
+                             start = 1,
+                             stop = 1
+                           ))]
+    }
     # render
     lapply(
       X = source_files,
@@ -37,11 +43,9 @@ render_Rmd <-
     
     # prepare names to copy html files
     no_ext <-
-      substr(
-        x = source_files,
-        start = 1,
-        stop = nchar(source_files) - 3
-      )
+      substr(x = source_files,
+             start = 1,
+             stop = nchar(source_files) - 3)
     html_names_source <- paste0(no_ext, 'html')
     html_names_target <-
       paste0(target_dir, '/', basename(html_names_source))
