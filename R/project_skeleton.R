@@ -1,7 +1,7 @@
 project_skeleton <-
   function(){
     #### create basic directories ####
-    basic_dirs <- list('in/data', 'in/R/sachserf_framework', 'in/fun/sachserf_framework', 'in/documents', 'out/usr')
+    basic_dirs <- list('in/data', 'in/R/sachserf_framework', 'in/fun/sachserf_framework', 'in/docs', 'out/usr')
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
     
     #### create files ####
