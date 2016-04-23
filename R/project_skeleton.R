@@ -96,38 +96,37 @@ project_skeleton <-
 
 # read README.txt for a short introduction
 # see https://github.com/sachserf/framework for further information
-          
+
 ############ PREAMBLE ############   
-          
+
 source('in/R/sachserf_framework/preamble.R')
-          
+
 ############ PACKAGES ############   
-          
+
 # install packages without loading:
 local_fun$pkg_install(c('rmarkdown', 
                         'knitr', 
                         'packrat', 
                         'plyr', 
-                        'stringi',
-                        'devtools'), 
+                        'stringi'), 
                       attach = FALSE)
-          
+
 # install and load packages:
 local_fun$pkg_install(c('dplyr', 
                         'ggplot2'), 
                       attach = TRUE)
-          
+
 ############ SOURCE ############ 
-          
+
 # fill in your R-scripts in chronological order
 local_fun$make_source(c('in/R/load.R',
                         'in/R/clean.R'),
                       use_cache = TRUE)
-          
+
 ############ SUPPLEMENT ############   
-          
+
 source('in/R/sachserf_framework/supplement.R')
-          
+
 local_fun$reminder()
 ", file = 'make.R')
     } else {
@@ -140,10 +139,10 @@ local_fun$reminder()
     #### write preamble ####
     cat("# clear Global environment
 rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
-        
+
 # create new environment for local fun
 local_fun <- new.env(parent = .GlobalEnv)
-        
+
 # list R-files placed in directory <<in/fun>>:
 local_fun$list_local_fun <-
   list.files(
@@ -152,37 +151,41 @@ local_fun$list_local_fun <-
     full.names = TRUE,
     recursive = TRUE
   )
-        
+
 # source every R-file within directory <<in/fun>> 
 sapply(local_fun$list_local_fun, 
        source, local = local_fun)
-        
+
 # rm list of fun
 rm(list_local_fun, envir = local_fun)
-
-# delete out/auto
-unlink('out/auto', recursive = TRUE)        
 
 ", file = 'in/R/sachserf_framework/preamble.R', sep = '\n')
       
       #### write supplement ####
       cat("############ SUPPLEMENT ############   
 
+# delete out/auto
+unlink('out/auto', recursive = TRUE)  
+
 # render Rmd-documents
 local_fun$render_Rmd()
-          
+
 # compile notebooks
 local_fun$make_notebook()
-          
-# create website 
-source('in/R/sachserf_framework/render_website.R')
-          
+
+# prepare website (experimental!! - delete these lines, 
+# if you don´t need a website of your input scripts)
+source('in/R/sachserf_framework/write_yaml.R')
+write_yaml()
+# render website
+rmarkdown::render_site(input = '.cache/website')
+
 # save all data frames (within .GlobalEnv)
 local_fun$write_dataframe(file_format = 'csv')
-          
+
 # write session_info
 local_fun$session_info()
-          
+
 # backup (optionally change target directory)
 local_fun$backup(exclude_directories = '.git|in/data|out|.cache',
                  exclude_files = '*.RData|*.Rhistory')
@@ -190,7 +193,7 @@ local_fun$backup(exclude_directories = '.git|in/data|out|.cache',
 ", file = 'in/R/sachserf_framework/supplement.R')
       
       #### write render website ####
-render_website <- function() {
+write_yaml <- function() {
 
 # copy directory cache/notebooks for website building
 if (dir.exists('.cache/website') == TRUE) {
@@ -255,17 +258,113 @@ The following files have been compiled:
           
 ```{r, echo = FALSE}
 list.files(pattern = 'Rmd')
-devtools::session_info()
+if ('devtools' %in% installed.packages() == TRUE) {
+  devtools::session_info()
+} else {
+  sessionInfo()
+}
 ```
 
 ", file = '.cache/website/index.Rmd')
-
-# render website
-rmarkdown::render_site(input = '.cache/website')
 }
 
-dump(list = 'render_website', file = 'in/R/sachserf_framework/render_website.R')
-cat(readLines(con = 'in/R/sachserf_framework/render_website.R'), 'render_website()', sep = '\n', append = TRUE, file = 'in/R/sachserf_framework/render_website.R')
+dump(list = 'write_yaml', file = 'in/R/sachserf_framework/write_yaml.R')
+
+#### write README.txt ####
+cat("
+################### INTRODUCTION ###################
+
+This project was build by using the R-package 'framework'.
+See https://github.com/sachserf/framework for further information
+Feel free to edit and redistribute the package 'framework'
+Licensed under GPL-2 
+
+###################  Why using a project-framework?  ################### 
+
+### Save time
+### Easy documentation of your project
+### Standardized structure improves readability
+### Easy-to-use Setup for collaboration and presentation
+### Make your projects more reproducible
+
+################### Quick How-To ################### 
+
+1. Write code or reports and place them into the appropriate input-directory.
+2. Add the path of your snippets as well as additional R-packages into 'make.R'
+3. source 'make.R' and browse through the output-directory
+
+User-defined functions:
+1. Write your own functions and save them into 'in/fun'
+--> By doing so your function will be sourced within a new environment named 'local_fun'
+2. call the function within your project by specifying the environment
+- e.g. local_fun$myfunction()
+
+Speed up your code:
+- When you don´t need the output directory and backups (e.g. while working on the project) you should put the supplement inside a comment.
+
+################### FILES AND DIRECTORIES ###################
+
+The 'base-directory' aka 'control-level'
+includes:
+
+### the make-like file 'make.R':
+This file is the heart of the project. By sourcing make.R the whole project will be executed. 
+If you want to use additional packages place them into the makefile.
+Fill in your single code snippets/R-files into the make_source function (chronological order!)
+
+### The current working directory (Don´t change the working directory manually)
+
+### An input directory 'in':
+This is the place for every file you want to include. Place your files according to the subdirectories (R = normal R scripts, docs = Rmd-files etc., fun = self-written functions, data = ...for your data)
+
+### An output-directory 'out':
+There are two subdirectories called 'auto' and 'usr'. 
+If you want to save plots, results etc. manually you should always use the path 'out/usr'.
+The subdir 'auto' will be deleted and rebuild every time you source 'make.R' and should be treated as read-only!
+
+### A hidden cache directory: 
+Don´t edit the files within the cache directory. If you want to source everything from scratch just delete the whole cache-dir by using the option 'use_cache = FALSE' (file: 'make.R' function: 'source_make') 
+
+### Optionally your main directory includes:
+
+### A Backup of your project (or just the most important files)
+
+### a git repository as well as a .gitignore (hidden)
+
+### a packrat repository
+
+### Default R-image and history (.RData & .Rhistory) - depending on your preferences.
+
+### An Rstudio project-file '*.Rproj'
+
+### This README
+
+
+################### Background jobs of make.R ###################
+
+### Backup your project on-the-fly (eg if Dropbox is installed on your machine you can save important files directly into your Dropbox - and of course exclude results and data)
+
+### Review the steps of your analysis by using automatically generated notebooks or a website.
+
+### Write Reports by using RMarkdown. Every Rmd-file within the directory input/documents will be rendered automatically. Include the first two chunks of the template 'manual.Rmd' in every Rmd-file (Autogenerated when using the function 'template_Rmd'). 
+The prewritten file 'manual.Rmd' should serve as a template for documentation of YOUR project. 
+
+### Use a cache-directory to speed up CPU-intensive analysis. Scripts will only being sourced if you change the order of the input-files (within make.R) or change the input-file itself. 
+
+### If your Code will break see out/auto/docs/info/sessionInfo.txt for information about the last session that worked properly. Additionally the backup is named with a timestamp and will be created only if there were no errors. When sourcing make.R a reminder (for git) will be printed to the console if there were no errors.
+
+### Automatically save all dataframes within your global environment either as csv, rds or RData for fast exchange of data across projects or to export output-data in a human-readable format.
+
+### Automatically save plots. If you create a plot within a R-script you will find a png-file with coarse resolution inside the directory out/auto/figures/notebooks. Including plots inside a Rmd-file will produce a better quality: See out/auto/figures/docs
+
+################### TROUBLESHOOTING ################### 
+
+- update knitr, rmarkdown, RStudio, and R to the most recent version.
+- specify the option use_cache = FALSE
+- put the supplement of the make file in a comment (simply write a preceding '#')
+
+", file='README.txt')
+
   }
 
 

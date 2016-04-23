@@ -1,5 +1,5 @@
 template_Rmd <-
-  function (file, Author = "Your Name", Date = '`r Sys.Date()`')
+  function (file, Author = Sys.info()['effective_user'], Date = '`r Sys.Date()`')
   {
     if (dir.exists(paths = dirname(file)) == FALSE) {
       dir.create(path = dirname(file), recursive = TRUE)

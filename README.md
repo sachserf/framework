@@ -10,20 +10,23 @@ devtools::install_github("sachserf/framework")
 ## Installation notes
 For some linux-distributions you need to specify 'options(unzip='internal')' before installing packages from github.
 
-## optional software for complete range of functions
+## required software for complete range of functions
+### you should use the latest versions
 - git
 - rmarkdown
 - RStudio
 - knitr
 - packrat
+- pandoc
+- R (>= 3.2)
 
 ## Beware
 by sourcing the make-like file 'as is' the following packages will be installed on your machine: dplyr, ggplot2, packrat, rmarkdown, knitr, plyr and stringi
 
 ### project_framework()
-The idea is to provide a standardized and easy-to-use framework for R-projects (including a .Rproj-file, a git repository, a packrat repository (default = FALSE), basic directories and a report template). The base-directory of the project will be the working directory and represents the 'control-level'. By this I mean it includes the packrat repo, RStudio-project file, .git repo, the make-file, optionally a backup directory and an input as well as an output directory. It is suggested to treat the output directory as 'read-only'. To ensure reproducibility some directories (e.g. output/data) will be deleted by default every time you run the make-file.
+The idea is to provide a standardized and easy-to-use framework for R-projects (including a .Rproj-file, a git repository, a packrat repository (default = FALSE), basic directories and a report template). The base-directory of the project will be the working directory and represents the 'control-level'. By this I mean it includes the packrat repo, RStudio-project file, .git repo, the make-file, a hidden cache directory, optionally a backup directory and an input as well as an output directory. It is suggested to treat the output directory 'out/auto' as 'read-only'. To ensure reproducibility the whole directory out/auto) will be deleted by default every time you run the make-file. User-defined output should be stored in 'out/usr'.
 
-After running project_framework() you are able to start writing scripts, functions and documentations immediately and place them into the corresponding directories. The framework should enhance the readability as well as reproducibility of your projects. The make-like file 'make.R' automatically sources all files within the directory 'input/functions/' (recursive); scripts must be specified due to the correct order. A prewritten R-markdown report (template) should enhance the usage of reports. When sourcing 'make.R' every Rmd-file within the directory 'input/documents' will be rendered automatically into the directory 'output/documents'. Additionally every R-script, that is specified in 'make.R' will be compiled to a notebook. 
+After running project_framework() you are able to start writing scripts, functions and documentations immediately and place them into the corresponding directories. The framework should enhance the readability as well as reproducibility of your projects. The make-like file 'make.R' automatically sources all files within the directory 'in/fun/' (recursive); scripts must be specified due to the correct order. A prewritten R-markdown report (template) should enhance the usage of reports. When sourcing 'make.R' every Rmd-file within the directory 'in/docs' will be rendered automatically into the directory 'out/auto/docs/Rmd'. Additionally every R-script, that is specified in 'make.R' will be compiled to a notebook (you can specify a customized subset as well). These notebooks will be used to build a webpage (experimental!).
 
 By using this framework it should be simple to keep your scripts short, clean and readable and write reproducible code and projects that can be passed on to colleagues.
 
