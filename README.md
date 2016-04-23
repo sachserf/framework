@@ -12,13 +12,15 @@ For some linux-distributions you need to specify 'options(unzip='internal')' bef
 
 ## required software for complete range of functions
 ### you should use the latest versions
-- git
-- rmarkdown
-- RStudio
-- knitr
-- packrat
-- pandoc
 - R (>= 3.2)
+- RStudio
+- rmarkdown
+- knitr
+- pandoc
+- git
+- packrat
+
+
 
 ## Beware
 by sourcing the make-like file 'as is' the following packages will be installed on your machine: dplyr, ggplot2, packrat, rmarkdown, knitr, plyr and stringi
@@ -30,14 +32,11 @@ After running project_framework() you are able to start writing scripts, functio
 
 By using this framework it should be simple to keep your scripts short, clean and readable and write reproducible code and projects that can be passed on to colleagues.
 
-#### Before source('make.R')
+#### Project Workflow
 
-![structure of the created files and directories before source('make.R')][1]
+The figure below depicts the workflow and main structure of a project. Every file should be placed in the directory 'in'. The make-file processes the input and creates output/auto (optionally by using the cache). User-defined output should be placed in the directory out/usr.
 
-[1]: figures/before.jpg "structure of the created files and directories before source('make.R')"
+![][1]
 
-#### After source('make.R')
+[1]: figures/project_workflow.png 
 
-![structure of the created files and directories after source('make.R')][2]
-
-[2]: figures/after.jpg "structure of the created files and directories after source('make.R')"
