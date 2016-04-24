@@ -236,16 +236,17 @@ local_fun$backup(exclude_directories = '.git|in/data|out|.cache',
         
         # write yaml file
         sink('.cache/website/_site.yml')
-        c(cat("name: \'", basename(getwd()),"\'
-              output_dir: \'../../out/auto/docs/website\'
-              navbar:
-              title: \'", basename(getwd()), "\'
-              left:
-              ", sep =''), print_lines(), cat("output:
-                                              html_document:
-                                              theme: cosmo
-                                              highlight: textmate
-                                              "))
+c(cat("name: \'", basename(getwd()),"\'
+output_dir: \'../../out/auto/docs/website\'
+navbar:
+  title: \'", basename(getwd()), "\'
+  left:
+", sep =''), print_lines(), cat(
+"output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+"))
         sink()
         
         cat("# This website is a collection of compiled notebooks of the project: \"`r basename(dirname(dirname(getwd())))`\". 
