@@ -173,12 +173,9 @@ local_fun$render_Rmd()
 # compile notebooks
 local_fun$make_notebook()
 
-# prepare website (experimental!! - delete these lines, 
+# buils website (experimental!! - delete these lines, 
 # if you don´t need a website of your input scripts)
-source('in/R/sachserf_framework/write_yaml.R')
-write_yaml()
-# render website
-rmarkdown::render_site(input = '.cache/website')
+source('in/R/sachserf_framework/build_website.R')
 
 # save all data frames (within .GlobalEnv)
 local_fun$write_dataframe(file_format = 'csv')
@@ -192,10 +189,8 @@ local_fun$backup(exclude_directories = '.git|in/data|out|.cache',
 
 ", file = 'in/R/sachserf_framework/supplement.R')
       
-      #### write render website ####
-write_yaml <- function() {
-
-# copy directory cache/notebooks for website building
+      #### write build_website ####
+cat("# copy directory cache/notebooks for website building
 if (dir.exists('.cache/website') == TRUE) {
   unlink('.cache/website', recursive = TRUE)
 }
@@ -236,19 +231,19 @@ print_lines <- function() {
         
 # write yaml file
 sink('.cache/website/_site.yml')
-c(cat("name: \'", basename(getwd()),"\'
+c(cat('name: \'', basename(getwd()),'\'
 output_dir: \'../../out/auto/docs/website\'
 navbar:
-  title: \'", basename(getwd()), "\'
+  title: \', basename(getwd()), '\'
   left:
-", sep =''), print_lines(), cat("output:
+'', sep =''), print_lines(), cat('output:
   html_document:
     theme: cosmo
     highlight: textmate
-"))
+''))
 sink()
           
-cat("# This website is a collection of compiled notebooks of the project: \"`r basename(dirname(dirname(getwd())))`\". 
+cat('# This website is a collection of compiled notebooks of the project: \"`r basename(dirname(dirname(getwd())))`\". 
           
 Compiled at `r Sys.time()`
           
@@ -265,10 +260,10 @@ if ('devtools' %in% installed.packages() == TRUE) {
 }
 ```
 
-", file = '.cache/website/index.Rmd')
-}
-
-dump(list = 'write_yaml', file = 'in/R/sachserf_framework/write_yaml.R')
+', file = '.cache/website/index.Rmd')
+# render website
+rmarkdown::render_site(input = '.cache/website')
+", file = 'in/R/sachserf_framework/build_website.R')
 
 #### write README.txt ####
 cat("
