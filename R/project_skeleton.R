@@ -175,7 +175,8 @@ local_fun$make_notebook()
 
 # buils website (experimental!! - delete these lines, 
 # if you don´t need a website of your input scripts)
-source('in/R/sachserf_framework/build_website.R')
+source('in/R/sachserf_framework/render_website.R')
+render_website()
 
 # save all data frames (within .GlobalEnv)
 local_fun$write_dataframe(file_format = 'csv')
@@ -189,82 +190,49 @@ local_fun$backup(exclude_directories = '.git|in/data|out|.cache',
 
 ", file = 'in/R/sachserf_framework/supplement.R')
       
-      #### write build_website ####
-cat("# copy directory cache/notebooks for website building
-if (dir.exists('.cache/website') == TRUE) {
-  unlink('.cache/website', recursive = TRUE)
-}
-dir.create('.cache/website/figure', recursive = TRUE)
-          
-source_rmd <- list.files(path = '.cache/notebooks', pattern = '.Rmd', full.names = TRUE)
-target_rmd <- file.path('.cache/website', list.files(path = '.cache/notebooks', pattern = '.Rmd'))
-          
-file.copy(from = source_rmd, to = target_rmd)
-          
-# paste0('.cache/website/figure/', basename(list.files('.cache/notebooks/figure')))
-# list.files('.cache/notebooks/figure')
-if (dir.exists('.cache/notebooks/figure')) {
-  file.copy(from = '.cache/notebooks/figure', to = '.cache/website', recursive = TRUE)
-}
-          
-# get list of all files that are being sourced (even if they are not stitched)
-# necessary for order
-html_files <- c(basename(readRDS('.cache/df_cache_R.rds')$notebooks_cache_html))
-# replace html with Rmd 
-Rmd_files <- gsub(pattern = 'html', replacement = 'Rmd', x = html_files, ignore.case = TRUE)
-# list all files in cache (already stitched)
-list_files <- list.files(path = '.cache/website', pattern = '.Rmd')
-# remove files that where not stitched
-rf <- Rmd_files[Rmd_files %in% list_files]
-# include index (precondition for websites)
-rf <- c('index.Rmd', rf)
-# replace Rmd with html
-hf <- gsub(pattern = 'Rmd', replacement = 'html', x = rf)
-# remove extension
-ne <- gsub(pattern = '.Rmd', replacement = '', x = rf)
-# write lines needed for yaml-file
-print_lines <- function() {
-  for (i in seq_along(ne)) {
-    cat('    - text: ', '\'', ne[i], '\'', '\n', '      href: ', hf[i], '\n', sep = '')
+  #### write render website ####
+      
+  render_website <- function() {
+  if (dir.exists(".cache/website") == TRUE) {
+      unlink(".cache/website", recursive = TRUE)
+    }
+    dir.create(".cache/website/figure", recursive = TRUE)
+    source_rmd <- list.files(path = ".cache/notebooks", pattern = ".Rmd", 
+                             full.names = TRUE)
+    target_rmd <- file.path(".cache/website", list.files(path = ".cache/notebooks", 
+                                                         pattern = ".Rmd"))
+    file.copy(from = source_rmd, to = target_rmd)
+    if (dir.exists(".cache/notebooks/figure")) {
+      file.copy(from = ".cache/notebooks/figure", to = ".cache/website", 
+                recursive = TRUE)
+    }
+    html_files <- c(basename(readRDS(".cache/df_cache_R.rds")$notebooks_cache_html))
+    Rmd_files <- gsub(pattern = "html", replacement = "Rmd", 
+                      x = html_files, ignore.case = TRUE)
+    list_files <- list.files(path = ".cache/website", pattern = ".Rmd")
+    rf <- Rmd_files[Rmd_files %in% list_files]
+    rf <- c("index.Rmd", rf)
+    hf <- gsub(pattern = "Rmd", replacement = "html", x = rf)
+    ne <- gsub(pattern = ".Rmd", replacement = "", x = rf)
+    print_lines <- function() {
+      for (i in seq_along(ne)) {
+        cat("    - text: ", "'", ne[i], "'", "\n", "      href: ", 
+            hf[i], "\n", sep = "")
+      }
+    }
+    sink(".cache/website/_site.yml")
+    c(cat("name: '", basename(getwd()), "'\noutput_dir: '../../out/auto/docs/website'\nnavbar:\n  title: '", 
+          basename(getwd()), "'\n  left:\n", sep = ""), print_lines(), 
+      cat("output:\n  html_document:\n    theme: cosmo\n    highlight: textmate\n"))
+    sink()
+    cat("# This website is a collection of compiled notebooks of the project: \"`r basename(dirname(dirname(getwd())))`\". \n          \nCompiled at `r Sys.time()`\n          \nThe following files have been compiled:\n          \n`r list.files('.cache/website', pattern = 'Rmd')`\n          \n```{r, echo = FALSE}\nlist.files(pattern = 'Rmd')\nif ('devtools' %in% installed.packages() == TRUE) {\n  devtools::session_info()\n} else {\n  sessionInfo()\n}\n```\n\n", 
+        file = ".cache/website/index.Rmd")
+    # render website
+    rmarkdown::render_site(input = '.cache/website')
   }
-}
-        
-# write yaml file
-sink('.cache/website/_site.yml')
-c(cat('name: \'', basename(getwd()),'\'
-output_dir: \'../../out/auto/docs/website\'
-navbar:
-  title: \', basename(getwd()), '\'
-  left:
-'', sep =''), print_lines(), cat('output:
-  html_document:
-    theme: cosmo
-    highlight: textmate
-''))
-sink()
-          
-cat('# This website is a collection of compiled notebooks of the project: \"`r basename(dirname(dirname(getwd())))`\". 
-          
-Compiled at `r Sys.time()`
-          
-The following files have been compiled:
-          
-`r list.files('.cache/website', pattern = 'Rmd')`
-          
-```{r, echo = FALSE}
-list.files(pattern = 'Rmd')
-if ('devtools' %in% installed.packages() == TRUE) {
-  devtools::session_info()
-} else {
-  sessionInfo()
-}
-```
-
-', file = '.cache/website/index.Rmd')
-# render website
-rmarkdown::render_site(input = '.cache/website')
-", file = 'in/R/sachserf_framework/build_website.R')
-
+  
+  dput(x = render_website, file = '~/Schreibtisch/cache/website/render_website.R')
+      
 #### write README.txt ####
 cat("
 ################### INTRODUCTION ###################
