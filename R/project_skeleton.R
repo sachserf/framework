@@ -231,7 +231,7 @@ local_fun$backup(exclude_directories = '.git|in/data|out|.cache',
     rmarkdown::render_site(input = '.cache/website')
   }
   
-  dput(x = render_website, file = '~/Schreibtisch/cache/website/render_website.R')
+  dput(x = render_website, file = 'in/R/sachserf_framework/render_website.R')
       
 #### write README.txt ####
 cat("
