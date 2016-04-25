@@ -121,30 +121,30 @@ source('in/R/sachserf_framework/preamble.R')
 ############ PACKAGES ############   
 
 # install packages without loading:
-local_fun$pkg_install(c('rmarkdown', 
-                        'knitr', 
-                        'packrat', 
-                        'plyr', 
-                        'stringi'), 
-                      attach = FALSE)
+pkg_install(c('rmarkdown', 
+              'knitr', 
+              'packrat', 
+              'plyr', 
+              'stringi'), 
+            attach = FALSE)
 
 # install and load packages:
-local_fun$pkg_install(c('dplyr', 
-                        'ggplot2'), 
-                      attach = TRUE)
+pkg_install(c('dplyr', 
+              'ggplot2'), 
+            attach = TRUE)
 
 ############ SOURCE ############ 
 
 # fill in your R-scripts in chronological order
-local_fun$make_source(c('in/R/load.R',
-                        'in/R/clean.R'),
-                      use_cache = TRUE)
+make_source(c('in/R/load.R',
+              'in/R/clean.R'),
+            use_cache = TRUE)
 
 ############ SUPPLEMENT ############   
 
 source('in/R/sachserf_framework/supplement.R')
 
-local_fun$reminder()
+reminder()
 ", file = 'make.R')
     } else {
       warning("make.R already exists")
@@ -173,8 +173,8 @@ local_fun$list_local_fun <-
 sapply(local_fun$list_local_fun, 
        source, local = local_fun)
 
-# rm list of fun
-rm(list_local_fun, envir = local_fun)
+attach(local_fun, name = 'local_fun')
+rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
 
 ", file = 'in/R/sachserf_framework/preamble.R', sep = '\n')
       
@@ -185,28 +185,28 @@ rm(list_local_fun, envir = local_fun)
 unlink('out/auto', recursive = TRUE)  
 
 # render Rmd-documents
-local_fun$render_Rmd()
+render_Rmd()
 
 # compile notebooks
-local_fun$make_notebook()
+make_notebook()
 
 # delete these lines, if you don´t need a website of your input scripts:
 # prepare website 
-local_fun$prepare_website_dir()
-local_fun$write_index_Rmd()
-local_fun$write_yaml()
+prepare_website_dir()
+write_index_Rmd()
+write_yaml()
 # render website
 rmarkdown::render_site(input = '.cache/website')
 
 # save all data frames (within .GlobalEnv)
-local_fun$write_dataframe(file_format = 'csv')
+write_dataframe(file_format = 'csv')
 
 # write session_info
-local_fun$session_info()
+session_info()
 
 # backup (optionally change target directory)
-local_fun$backup(exclude_directories = '.git|in/data|out|.cache',
-                 exclude_files = '*.RData|*.Rhistory')
+backup(exclude_directories = '.git|in/data|out|.cache',
+       exclude_files = '*.RData|*.Rhistory')
 
 ", file = 'in/R/sachserf_framework/supplement.R')
 

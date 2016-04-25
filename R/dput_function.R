@@ -21,7 +21,7 @@ dput_function <-
       if (substitute_framework == TRUE) {
         thefun <-
           gsub(pattern = 'framework::',
-               replacement = 'local_fun$',
+               replacement = '',
                x = thefun)
       }
       # include function_call and overwrite file
