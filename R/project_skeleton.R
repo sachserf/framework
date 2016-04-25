@@ -144,7 +144,6 @@ make_source(c('in/R/load.R',
 
 source('in/R/sachserf_framework/supplement.R')
 
-reminder()
 ", file = 'make.R')
     } else {
       warning("make.R already exists")
@@ -157,11 +156,8 @@ reminder()
     cat("# clear Global environment
 rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
 
-# create new environment for local fun
-local_fun <- new.env(parent = .GlobalEnv)
-
 # list R-files placed in directory <<in/fun>>:
-local_fun$list_local_fun <-
+list_local_fun <-
   list.files(
     'in/fun',
     pattern = '*.R$',
@@ -170,11 +166,8 @@ local_fun$list_local_fun <-
   )
 
 # source every R-file within directory <<in/fun>> 
-sapply(local_fun$list_local_fun, 
-       source, local = local_fun)
-
-attach(local_fun, name = 'local_fun')
-rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
+sapply(list_local_fun, source)
+rm(list_local_fun)
 
 ", file = 'in/R/sachserf_framework/preamble.R', sep = '\n')
       
@@ -207,6 +200,11 @@ session_info()
 # backup (optionally change target directory)
 backup(exclude_directories = '.git|in/data|out|.cache',
        exclude_files = '*.RData|*.Rhistory')
+
+reminder()
+
+# rm build-in functions
+rm(list = gsub(pattern = '.R', replacement = '', list.files(path = 'in/fun/sachserf_framework'), fixed = TRUE))
 
 ", file = 'in/R/sachserf_framework/supplement.R')
 
