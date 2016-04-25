@@ -33,7 +33,7 @@ template_Rmd <-
         paste_nr_subdir,
         "')\n  \n# set chunk options\nknitr::opts_chunk$set(echo = FALSE, fig.path = '",
         paste_nr_subdir,
-        "/out/auto/figures/docs/')\n```\n    \n```{r source_make, include=FALSE}\n# read make.R\nmakefile <- readLines('make.R') \n# exclude some lines from make.R\nmake_trimmed <- makefile[grep('## PREAMBLE ##', makefile) : grep('## SUPPLEMENT ##', makefile) - 1]\n# write new file 'ghost_file.R'\ncat(make_trimmed, sep = '\n', file = 'ghost_file.R') \n# source 'ghost_file.R'\nsource(file = 'ghost_file.R', chdir = TRUE)\n# delete 'ghost_file.R'\nunlink('ghost_file.R', recursive = TRUE)\n# clean workspace\nrm(makefile, make_trimmed)\n```\n    \n# Project Description\n    \n## load.R\n\n## clean.R\n    \n# Data Manual\n    \n## data 1\n    \n## data 2\n    \n",
+        "/out/auto/figures/docs/')\n```\n    \n```{r source_make, include=FALSE}\n# read make.R\nmakefile <- readLines('make.R') \n# exclude some lines from make.R\nmake_trimmed <- makefile[grep('## PREAMBLE ##', makefile) : grep('## SUPPLEMENT ##', makefile) - 1]\n# write new file 'ghost_file.R'\ncat(make_trimmed, sep = '\n', file = 'ghost_file.R') \n# source 'ghost_file.R'\nsource(file = 'ghost_file.R', chdir = TRUE)\n# delete 'ghost_file.R'\nunlink('ghost_file.R', recursive = TRUE)\n# clean workspace\nrm(makefile, make_trimmed)\n```\n\n# Project Description\n\n## load.R\n\n## clean.R\n\n# Data Manual\n\n## data 1\n\n## data 2\n\n",
         file = file,
         sep = ""
       )

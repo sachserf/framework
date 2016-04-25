@@ -121,6 +121,7 @@ source('in/R/sachserf_framework/preamble.R')
 ############ PACKAGES ############   
 
 # install packages without loading:
+
 pkg_install(c('rmarkdown', 
               'knitr', 
               'packrat', 
@@ -156,18 +157,13 @@ source('in/R/sachserf_framework/supplement.R')
     cat("# clear Global environment
 rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
 
-# list R-files placed in directory <<in/fun>>:
-list_local_fun <-
-  list.files(
-    'in/fun',
-    pattern = '*.R$',
-    full.names = TRUE,
-    recursive = TRUE
-  )
-
 # source every R-file within directory <<in/fun>> 
-sapply(list_local_fun, source)
-rm(list_local_fun)
+sapply(list.files(
+  'in/fun',
+  pattern = '*.R$',
+  full.names = TRUE,
+  recursive = TRUE
+), source)
 
 ", file = 'in/R/sachserf_framework/preamble.R', sep = '\n')
       
@@ -183,7 +179,10 @@ render_Rmd()
 # compile notebooks
 make_notebook()
 
-# delete these lines, if you don´t need a website of your input scripts:
+# Build website
+# if you want to use this feature you will need 
+# to install the development version of rmarkdown 
+# devtools::install_github('rstudio/rmarkdown')
 # prepare website 
 prepare_website_dir()
 write_index_Rmd()
@@ -203,8 +202,10 @@ backup(exclude_directories = '.git|in/data|out|.cache',
 
 reminder()
 
-# rm build-in functions
-rm(list = gsub(pattern = '.R', replacement = '', list.files(path = 'in/fun/sachserf_framework'), fixed = TRUE))
+# rm build-in functions except of template_Rmd
+local_fun <- gsub(pattern = '.R', replacement = '', list.files(path = 'in/fun/sachserf_framework'), fixed = TRUE)
+rm(list = local_fun[!local_fun %in% 'template_Rmd'])
+rm(local_fun)
 
 ", file = 'in/R/sachserf_framework/supplement.R')
 
@@ -232,18 +233,15 @@ Licensed under GPL-2
 3. source 'make.R' and browse through the output-directory
 
 User-defined functions:
-1. Write your own functions and save them into 'in/fun'
---> By doing so your function will be sourced within a new environment named 'local_fun'
-2. call the function within your project by specifying the environment
-- e.g. local_fun$myfunction()
+Write your own functions and save them into 'in/fun'
+--> All functions within in/fun will be sourced automatically
 
 Speed up your code:
 - When you don´t need the output directory and backups (e.g. while working on the project) you should put the supplement inside a comment.
 
 ################### FILES AND DIRECTORIES ###################
 
-The 'base-directory' aka 'control-level'
-includes:
+The main directory of the project (top level for all relative file paths within the project) includes:
 
 ### the make-like file 'make.R':
 This file is the heart of the project. By sourcing make.R the whole project will be executed. 
@@ -267,7 +265,7 @@ Don´t edit the files within the cache directory. If you want to source everythi
 
 ### A Backup of your project (or just the most important files)
 
-### a git repository as well as a .gitignore (hidden)
+### a git repository as well as a .gitignore
 
 ### a packrat repository
 
