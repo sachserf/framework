@@ -1,5 +1,5 @@
 render_Rmd <-
-  function (source_dir = 'in/docs',
+  function (source_dir = 'in/Rmd',
             target_dir = 'out/auto/docs/Rmd')
   {
     # list all files if input is directory

@@ -1,7 +1,7 @@
 project_skeleton <-
   function(){
     #### create basic directories ####
-    basic_dirs <- list('in/data', 'in/R/sachserf_framework', 'in/fun/sachserf_framework', 'in/docs', 'out/usr')
+    basic_dirs <- list('in/data', 'in/R/sachserf_framework', 'in/fun/sachserf_framework', 'in/Rmd', 'out/usr')
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
     
     #### create files ####
@@ -151,7 +151,7 @@ source('in/R/sachserf_framework/supplement.R')
     }
     
     #### write template_Rmd ####
-    framework::template_Rmd(file = 'in/docs/manual.Rmd')
+    framework::template_Rmd(file = 'in/Rmd/manual.Rmd')
     
     #### write preamble ####
     cat("# clear Global environment
@@ -247,11 +247,12 @@ The main directory of the project (top level for all relative file paths within 
 This file is the heart of the project. By sourcing make.R the whole project will be executed. 
 If you want to use additional packages place them into the makefile.
 Fill in your single code snippets/R-files into the make_source function (chronological order!)
+Don´t edit the headers!
 
 ### The current working directory (Don´t change the working directory manually)
 
 ### An input directory 'in':
-This is the place for every file you want to include. Place your files according to the subdirectories (R = normal R scripts, docs = Rmd-files etc., fun = self-written functions, data = ...for your data)
+This is the place for every file you want to include. Place your files according to the subdirectories (R = normal R scripts, Rmd = Rmd-files, fun = self-written functions, data = ...for your data)
 
 ### An output-directory 'out':
 There are two subdirectories called 'auto' and 'usr'. 
