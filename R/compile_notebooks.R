@@ -9,17 +9,16 @@ function (file_path, target_dir = ".cache/notebooks", figure_output = "figure")
         dir.create(target_figure, recursive = TRUE)
     }
     for (i in seq_along(file_path)) {
-        knitr::stitch_rmd(script = file_path[i], output = target_Rmd[i], 
-            envir = globalenv())
+      knitr::spin(hair = file_path[i], 
+                  envir = globalenv(),
+                  knit = FALSE)
     }
+    file.rename(from = paste0(file_path, 'md'), to = target_Rmd)
     if (dir.exists("figure") == TRUE) {
         file.copy(from = list.files("figure", full.names = TRUE), 
             to = paste0(target_figure, "/", list.files("figure")), 
             overwrite = TRUE)
         unlink("figure", recursive = TRUE)
-    }
-    for (i in seq_along(target_Rmd)) {
-        rmarkdown::render(input = target_Rmd[i])
     }
 #    unlink(target_Rmd, recursive = TRUE)
     source_fig <- list.files(paste0(target_figure, "/", list.files("figure")), 

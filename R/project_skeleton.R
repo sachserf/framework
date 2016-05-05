@@ -174,12 +174,15 @@ sapply(list.files(
 unlink('out/auto', recursive = TRUE)  
 
 # render Rmd-documents
-render_Rmd()
+render_Rmd(source_dir = 'in/Rmd', target_dir = 'out/auto/docs/Rmd')
 
-# compile notebooks
+# spin notebooks
 make_notebook()
 
-# Build website
+# render notebooks (standalone)
+#render_Rmd(source_dir = '.cache/notebooks', target_dir = 'out/auto/docs/notebooks/standalone')
+
+# render notebooks (website)
 # if you want to use this feature you will need 
 # to install the development version of rmarkdown 
 # devtools::install_github('rstudio/rmarkdown')
