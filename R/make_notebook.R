@@ -74,7 +74,7 @@ make_notebook <-
                               "/", basename(html_source))
         unlink(file.path(target_dir_html), recursive = TRUE)
         dir.create(file.path(target_dir_html), recursive = TRUE)
-        if (standalone == TRUE) {
+        if (standalone_html == TRUE) {
           render_Rmd(source_dir = '.cache/notebooks', target_dir = 'out/auto/docs/notebooks/standalone')
           file.copy(from = html_source, to = html_target)
         }
