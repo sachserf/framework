@@ -177,10 +177,7 @@ unlink('out/auto', recursive = TRUE)
 render_Rmd(source_dir = 'in/Rmd', target_dir = 'out/auto/docs/Rmd')
 
 # spin notebooks
-make_notebook()
-
-# render notebooks (standalone)
-#render_Rmd(source_dir = '.cache/notebooks', target_dir = 'out/auto/docs/notebooks/standalone')
+make_notebook(standalone_html = FALSE)
 
 # render notebooks (website)
 # if you want to use this feature you will need 

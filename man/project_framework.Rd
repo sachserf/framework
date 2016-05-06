@@ -15,18 +15,12 @@ project_framework(dirname, init_Rproj = TRUE, init_git = TRUE, init_packrat = FA
   \item{dirname}{
 Choose a new or still existing directory for the project. 
 }
-}
-\arguments{
   \item{init_Rproj}{
 logical. Default = TRUE. Initializes a Rproj. The name of the target directory (dirname) will be the project name. 
 }
-}
-\arguments{
   \item{init_git}{
 logical. Default = TRUE. If TRUE and git is installed a git repository will be created.
 }
-}
-\arguments{
   \item{init_packrat}{
 logical. Default = FALSE. If TRUE packrat will be installed and initialized. 
 }

@@ -1,7 +1,8 @@
 make_notebook <-
   function (input_R = readRDS('.cache/df_cache_R.rds')$filename_full,
+            #target_dir_figures = 'out/auto/figures/notebooks',
             target_dir_html = 'out/auto/docs/notebooks',
-            target_dir_figures = 'out/auto/figures/notebooks')
+            standalone_html = TRUE)
   {
     if (any(
       file.exists(
@@ -67,12 +68,16 @@ make_notebook <-
 #                                             `[[`, 1))
 #        unlink(cache_figures[!cache_figures_names %in% df_cache_R$filename_no_ext],
 #               recursive = TRUE)
+        # create standalone workbooks
         html_source <- df_cache_R$notebooks_cache_html
-        html_target <- paste0(file.path(target_dir_html),
+        html_target <- paste0(file.path(target_dir_html), 
                               "/", basename(html_source))
         unlink(file.path(target_dir_html), recursive = TRUE)
         dir.create(file.path(target_dir_html), recursive = TRUE)
-        file.copy(from = html_source, to = html_target)
+        if (standalone == TRUE) {
+          render_Rmd(source_dir = '.cache/notebooks', target_dir = 'out/auto/docs/notebooks/standalone')
+          file.copy(from = html_source, to = html_target)
+        }
 #        unlink(file.path(target_dir_figures), recursive = TRUE)
 #        dir.create(file.path(target_dir_figures), recursive = TRUE)
 #        if (dir.exists(".cache/notebooks/figure") == TRUE) {

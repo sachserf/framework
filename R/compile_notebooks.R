@@ -1,5 +1,7 @@
 compile_notebooks <- 
-  function (file_path, target_dir = ".cache/notebooks", figure_output = "figure") 
+  function (file_path, 
+            #figure_output = "figure",
+            target_dir = ".cache/notebooks") 
   {
     target_files_no_ext <- paste0(target_dir, "/", substr(basename(file_path), 
                                                           start = 1, stop = (nchar(basename(file_path)) - 2)))
