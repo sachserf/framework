@@ -54,38 +54,37 @@ make_notebook <-
         names_Rmd <- paste0(".cache/notebooks", "/", names_only,
                             ".Rmd")
         unlink(all_Rmd[!all_Rmd %in% names_Rmd], recursive = TRUE)
-        cache_figures <-
-          list.files(
-            path = ".cache/notebooks/figure",
-            pattern = "*png",
-            full.names = TRUE,
-            recursive = TRUE
-          )
-        figures_split <- strsplit(basename(cache_figures),
-                                  split = "-")
-        cache_figures_names <- unlist(lapply(figures_split,
-                                             `[[`, 1))
-        unlink(cache_figures[!cache_figures_names %in% df_cache_R$filename_no_ext],
-               recursive = TRUE)
+#        cache_figures <-
+#          list.files(
+#            path = ".cache/notebooks/figure",
+#            pattern = "*png",
+#            full.names = TRUE,
+#            recursive = TRUE
+#          )
+#        figures_split <- strsplit(basename(cache_figures),
+#                                  split = "-")
+#        cache_figures_names <- unlist(lapply(figures_split,
+#                                             `[[`, 1))
+#        unlink(cache_figures[!cache_figures_names %in% df_cache_R$filename_no_ext],
+#               recursive = TRUE)
         html_source <- df_cache_R$notebooks_cache_html
         html_target <- paste0(file.path(target_dir_html),
                               "/", basename(html_source))
         unlink(file.path(target_dir_html), recursive = TRUE)
         dir.create(file.path(target_dir_html), recursive = TRUE)
         file.copy(from = html_source, to = html_target)
-        unlink(file.path(target_dir_figures), recursive = TRUE)
-        dir.create(file.path(target_dir_figures), recursive = TRUE)
-        if (dir.exists(".cache/notebooks/figure") == TRUE) {
-          fig_source <- list.files(".cache/notebooks/figure",
-                                   full.names = TRUE)
-          fig_target <-
-            file.path(target_dir_figures,
-                      list.files(".cache/notebooks/figure"))
-          file.copy(from = fig_source,
-                    to = fig_target,
-                    overwrite = TRUE)
-        }
-        
+#        unlink(file.path(target_dir_figures), recursive = TRUE)
+#        dir.create(file.path(target_dir_figures), recursive = TRUE)
+#        if (dir.exists(".cache/notebooks/figure") == TRUE) {
+#          fig_source <- list.files(".cache/notebooks/figure",
+#                                   full.names = TRUE)
+#          fig_target <-
+#            file.path(target_dir_figures,
+#                      list.files(".cache/notebooks/figure"))
+#          file.copy(from = fig_source,
+#                    to = fig_target,
+#                    overwrite = TRUE)
+#        }
       }
     }
   }

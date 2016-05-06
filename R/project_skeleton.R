@@ -6,9 +6,9 @@ project_skeleton <-
     
     #### create files ####
     # create load.R
-      cat("# load data", file = "in/R/load.R")
+      cat("#' # load data", file = "in/R/load.R")
     # create clean.R
-      cat("# clean data", file = "in/R/clean.R")
+      cat("#' # clean data", file = "in/R/clean.R")
     
       #### create fun ####
       # create backup-function
