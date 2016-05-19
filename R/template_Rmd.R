@@ -33,7 +33,7 @@ template_Rmd <-
         paste_nr_subdir,
         "')\n  \n# set chunk options\nknitr::opts_chunk$set(echo = FALSE, fig.path = '",
         paste_nr_subdir,
-        "/out/auto/figure/",header,"/')\n```\n    \n```{r source_make, include=FALSE}\n# read make.R\nmakefile <- readLines('make.R') \n# exclude some lines from make.R\nmake_trimmed <- makefile[grep('## PREAMBLE ##', makefile) : grep('## SUPPLEMENT ##', makefile) - 1]\n# write new file 'ghost_file.R'\ncat(make_trimmed, sep = '\n', file = 'ghost_file.R') \n# source 'ghost_file.R'\nsource(file = 'ghost_file.R', chdir = TRUE)\n# delete 'ghost_file.R'\nunlink('ghost_file.R', recursive = TRUE)\n# clean workspace\nrm(makefile, make_trimmed)\n```\n\n# Note\n\n## You should assign labels to every chunk\n\n Otherwise:\n\”If your spinned scripts include plots and you do not use the cache there will be duplicated labels.",
+        "/out/auto/figure/",header,"/')\n```\n    \n```{r source_make, include=FALSE}\n# read make.R\nmakefile <- readLines('make.R') \n# exclude some lines from make.R\nmake_trimmed <- makefile[grep('## PREAMBLE ##', makefile) : grep('## SUPPLEMENT ##', makefile) - 1]\n# write new file 'ghost_file.R'\ncat(make_trimmed, sep = '\n', file = 'ghost_file.R') \n# source 'ghost_file.R'\nsource(file = 'ghost_file.R', chdir = TRUE)\n# delete 'ghost_file.R'\nunlink('ghost_file.R', recursive = TRUE)\n# clean workspace\nrm(makefile, make_trimmed)\n```\n\n# Note\n\n## You should assign labels to every chunk\n\nOtherwise:\n\nIf your spinned scripts include plots and you do not use the cache there will be duplicated labels.\n\n\n\n",
         file = file,
         sep = ""
       )
