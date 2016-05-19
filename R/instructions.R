@@ -3,6 +3,17 @@ instructions <-
             spin_index = 0,
             use_cache = TRUE)
   {
+    # detect changes in directory in/data
+    if (file.exists(".cache/input_data.rds") == TRUE && use_cache == TRUE) {
+      input_data_current <- sapply(X = list.files("in/data", 
+                                                  full.names = TRUE, recursive = TRUE), FUN = file.info)
+      input_data_source <- readRDS(file = ".cache/input_data.rds")
+      if (isTRUE(all.equal(target = input_data_source, current = input_data_current)) == 
+          FALSE) {
+        stop("files in directory <<in/data>> changed - use option <<use_cache = FALSE>> and retry.")
+      }
+    }
+    
     # delete cache if specified
     if (use_cache == FALSE) {
       unlink(x = ".cache", recursive = TRUE)
