@@ -1,13 +1,13 @@
-\name{project_skeleton}
-\alias{project_skeleton}
+\name{skeleton}
+\alias{skeleton}
 \title{
 Create an empty project skeleton
 }
 \description{
-The function creates directories, a few empty files, a template for a report and a make-like file. 
+The function creates a predefined directory structure and some files to enhance project organization.
 }
 \usage{
-project_skeleton()
+skeleton()
 }
 \value{
 The output are several files and directories within your working directory.
@@ -21,7 +21,7 @@ Frederik Sachser
 The function will not overwrite existing files or directories with the same name.
 }
 \examples{
-project_skeleton()
+skeleton()
 }
-\keyword{ project_skeleton }
+\keyword{ skeleton }
 \keyword{ project_framework }

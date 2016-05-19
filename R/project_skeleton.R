@@ -1,4 +1,4 @@
-project_skeleton <-
+skeleton <-
   function(){
     #### create basic directories ####
     basic_dirs <- list('in/data', 'in/R/sachserf_framework', 'in/fun/sachserf_framework', 'in/Rmd', 'out/usr')
@@ -17,33 +17,9 @@ project_skeleton <-
         target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
-      # create compile_notebooks-function
-      framework::dput_function(
-        pkg_fun = framework::compile_notebooks,
-        target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
-      )
-      # create make_notebook-function
-      framework::dput_function(
-        pkg_fun = framework::make_notebook,
-        target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
-      )
-      # create make_source-function
-      framework::dput_function(
-        pkg_fun = framework::make_source,
-        target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
-      )
       # create pkg_install-function
       framework::dput_function(
         pkg_fun = framework::pkg_install,
-        target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
-      )
-      # create prepare_cache-function
-      framework::dput_function(
-        pkg_fun = framework::prepare_cache,
         target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
@@ -65,18 +41,7 @@ project_skeleton <-
         target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
-      # create source_n_save-function
-      framework::dput_function(
-        pkg_fun = framework::source_n_save,
-        target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
-      )
-      # create source_or_load-function
-      framework::dput_function(
-        pkg_fun = framework::source_or_load,
-        target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
-      )
+
       # create template_Rmd-function
       framework::dput_function(
         pkg_fun = framework::template_Rmd,
@@ -89,9 +54,27 @@ project_skeleton <-
         target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
-      # create prepare_website_dir-function
+      # create instructions-function
       framework::dput_function(
-        pkg_fun = framework::prepare_website_dir,
+        pkg_fun = framework::instructions,
+        target_dir = 'in/fun/sachserf_framework',
+        substitute_framework = TRUE
+      )
+      # create specify_instructions-function
+      framework::dput_function(
+        pkg_fun = framework::specify_instructions,
+        target_dir = 'in/fun/sachserf_framework',
+        substitute_framework = TRUE
+      )
+      # create execute_instructions-function
+      framework::dput_function(
+        pkg_fun = framework::execute_instructions,
+        target_dir = 'in/fun/sachserf_framework',
+        substitute_framework = TRUE
+      )
+      # create prepare_website-function
+      framework::dput_function(
+        pkg_fun = framework::prepare_website,
         target_dir = 'in/fun/sachserf_framework',
         substitute_framework = TRUE
       )
@@ -137,9 +120,12 @@ pkg_install(c('dplyr',
 ############ SOURCE ############ 
 
 # fill in your R-scripts in chronological order
-make_source(c('in/R/load.R',
-              'in/R/clean.R'),
-            use_cache = TRUE)
+instructions(input_R = c('in/R/load.R', 
+                         'in/R/clean.R'), 
+             spin_index = 'all', 
+             use_cache = TRUE)
+
+execute_instructions()
 
 ############ SUPPLEMENT ############   
 
@@ -170,24 +156,14 @@ sapply(list.files(
       #### write supplement ####
       cat("############ SUPPLEMENT ############   
 
-# delete out/auto
-unlink('out/auto', recursive = TRUE)  
-
 # render Rmd-documents
 render_Rmd(source_dir = 'in/Rmd', target_dir = 'out/auto/docs/Rmd')
-
-# spin notebooks
-make_notebook(standalone_html = FALSE)
 
 # render notebooks (website)
 # if you want to use this feature you will need 
 # to install the development version of rmarkdown 
 # devtools::install_github('rstudio/rmarkdown')
-# prepare website 
-prepare_website_dir()
-write_index_Rmd()
-write_yaml()
-# render website
+prepare_website()
 rmarkdown::render_site(input = '.cache/website')
 
 # save all data frames (within .GlobalEnv)
@@ -232,12 +208,18 @@ Licensed under GPL-2
 2. Add the path of your snippets as well as additional R-packages into 'make.R'
 3. source 'make.R' and browse through the output-directory
 
-User-defined functions:
-Write your own functions and save them into 'in/fun'
+Save User-defined functions into 'in/fun'
 --> All functions within in/fun will be sourced automatically
 
 Speed up your code:
-- When you don´t need the output directory and backups (e.g. while working on the project) you should put the supplement inside a comment.
+- use option use_cache = TRUE
+- rule out the supplement
+- use option spin = 0
+
+NOTES:
+- Do not edit or delete the headers in 'make.R'
+- Save User-defined functions into 'in/fun':
+  All R-files within in/fun will be sourced automatically
 
 ################### FILES AND DIRECTORIES ###################
 
@@ -246,7 +228,7 @@ The main directory of the project (top level for all relative file paths within 
 ### the make-like file 'make.R':
 This file is the heart of the project. By sourcing make.R the whole project will be executed. 
 If you want to use additional packages place them into the makefile.
-Fill in your single code snippets/R-files into the make_source function (chronological order!)
+Fill in your single code snippets/R-files into the 'instructions'-function (chronological order!)
 Don´t edit the headers!
 
 ### The current working directory (Don´t change the working directory manually)
@@ -260,7 +242,7 @@ If you want to save plots, results etc. manually you should always use the path 
 The subdir 'auto' will be deleted and rebuild every time you source 'make.R' and should be treated as read-only!
 
 ### A hidden cache directory: 
-Don´t edit the files within the cache directory. If you want to source everything from scratch just delete the whole cache-dir by using the option 'use_cache = FALSE' (file: 'make.R' function: 'source_make') 
+Don´t edit the files within the cache directory. If you want to source everything from scratch just delete the whole cache-dir by using the option 'use_cache = FALSE' (file: 'make.R' function: 'instructions') 
 
 ### Optionally your main directory includes:
 
@@ -279,11 +261,11 @@ Don´t edit the files within the cache directory. If you want to source everythi
 
 ################### Background jobs of make.R ###################
 
-### Backup your project on-the-fly (eg if Dropbox is installed on your machine you can save important files directly into your Dropbox - and of course exclude results and data)
+### Backup your project on-the-fly (eg if Dropbox is installed on your machine you can save important files directly into your Dropbox - and of course exclude results and data). If you do so consider the usage of an encrypted file system.
 
-### Review the steps of your analysis by using automatically generated notebooks or a website.
+### Review the steps of your analysis by using automatically generated notebooks (single html-files or a website).
 
-### Write Reports by using RMarkdown. Every Rmd-file within the directory input/documents will be rendered automatically. Include the first two chunks of the template 'manual.Rmd' in every Rmd-file (Autogenerated when using the function 'template_Rmd'). 
+### Write Reports by using RMarkdown. Every Rmd-file within the directory input/Rmd will be rendered automatically. Include the first two chunks of the template 'manual.Rmd' in every Rmd-file (Autogenerated when using the function 'template_Rmd'). 
 The prewritten file 'manual.Rmd' should serve as a template for documentation of YOUR project. 
 
 ### Use a cache-directory to speed up CPU-intensive analysis. Scripts will only being sourced if you change the order of the input-files (within make.R) or change the input-file itself. 
@@ -292,13 +274,11 @@ The prewritten file 'manual.Rmd' should serve as a template for documentation of
 
 ### Automatically save all dataframes within your global environment either as csv, rds or RData for fast exchange of data across projects or to export output-data in a human-readable format.
 
-### Automatically save plots. If you create a plot within a R-script you will find a png-file with coarse resolution inside the directory out/auto/figures/notebooks. Including plots inside a Rmd-file will produce a better quality: See out/auto/figures/docs
+### Automatically save plots for spinned R-files (e.g. use option spin_index = 'all'): If you create a plot within a R-script you will find a png-file with coarse resolution inside the directory out/auto/figure/scriptname. Including plots inside a Rmd-file will produce a better quality: See out/auto/figure
 
 ################### TROUBLESHOOTING ################### 
 
 - update knitr, rmarkdown, RStudio, and R to the most recent version.
-- specify the option use_cache = FALSE
-- put the supplement of the make file in a comment (simply write a preceding '#')
 
 ", file='README.txt')
 

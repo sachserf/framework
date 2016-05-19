@@ -56,6 +56,6 @@ project_framework()
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ project_framework }
-\keyword{ project_skeleton }
+\keyword{ skeleton }
 \keyword{ Rproj_init }
 \keyword{ git_init }
