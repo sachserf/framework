@@ -6,9 +6,9 @@ skeleton <-
     
     #### create files ####
     # create load.R
-      cat("#' # load data", file = "in/R/load.R")
+      cat("#' # load data\n\n", file = "in/R/load.R")
     # create clean.R
-      cat("#' # clean data", file = "in/R/clean.R")
+      cat("#' # clean data\n\n", file = "in/R/clean.R")
     
       #### create fun ####
       # create backup-function
@@ -94,8 +94,8 @@ skeleton <-
     if(file.exists("make.R") == FALSE){
       cat("############ make-like file ############ 
 
-# read README.txt for a short introduction
-# see https://github.com/sachserf/framework for further information
+# see 'how-to-guide.txt' for a short introduction
+# visit https://github.com/sachserf/framework for further information
 
 ############ PREAMBLE ############   
 
@@ -187,7 +187,7 @@ rm(local_fun)
 
 ", file = 'in/R/sachserf_framework/supplement.R')
 
-#### write README.txt ####
+#### write how-to-guide.txt ####
 cat("
 ################### INTRODUCTION ###################
 
@@ -258,7 +258,7 @@ Don´t edit the files within the cache directory. If you want to source everythi
 
 ### An Rstudio project-file '*.Rproj'
 
-### This README
+### This how-to-guide
 
 
 ################### Background jobs of make.R ###################
@@ -282,7 +282,7 @@ The prewritten file 'manual.Rmd' should serve as a template for documentation of
 
 - update knitr, rmarkdown, RStudio, and R to the most recent version.
 
-", file='README.txt')
+", file='how-to-guide.txt')
 
   }
 

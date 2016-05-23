@@ -29,11 +29,11 @@ template_Rmd <-
         Author,
         "'\ndate: '",
         Date,
-        "'\noutput: \n  html_document: \n    number_sections: yes\n    toc: yes\n    toc_float: yes\n    theme: united\n    highlight: tango\n---\n    \n```{r setup, include=FALSE}\n# Copy the first and the second chunk to every .Rmd-file or use the function 'template_Rmd'.\n# Edit the file path of this chunk 'setup' if you want to use additional subdirectories (for input AND output) \n\n# set knitr options\nknitr::opts_knit$set(root.dir  = '",
+        "'\noutput: \n  html_document: \n    number_sections: yes\n    toc: yes\n    toc_float: yes\n    theme: united\n    highlight: tango\n---\n    \n```{r setup, include=FALSE}\n# set knitr options\nknitr::opts_knit$set(root.dir  = '",
         paste_nr_subdir,
         "')\n  \n# set chunk options\nknitr::opts_chunk$set(echo = FALSE, fig.path = '",
         paste_nr_subdir,
-        "/out/auto/figure/",header,"/')\n```\n    \n```{r source_make, include=FALSE}\n# read make.R\nmakefile <- readLines('make.R') \n# exclude some lines from make.R\nmake_trimmed <- makefile[grep('## PREAMBLE ##', makefile) : grep('## SUPPLEMENT ##', makefile) - 1]\n# write new file 'ghost_file.R'\ncat(make_trimmed, sep = '\n', file = 'ghost_file.R') \n# source 'ghost_file.R'\nsource(file = 'ghost_file.R', chdir = TRUE)\n# delete 'ghost_file.R'\nunlink('ghost_file.R', recursive = TRUE)\n# clean workspace\nrm(makefile, make_trimmed)\n```\n\n# Note\n\n## You should assign labels to every chunk\n\nOtherwise:\n\nIf your spinned scripts include plots and you do not use the cache there will be duplicated labels.\n\n\n\n",
+        "/out/auto/figure/",header,"/')\n```\n    \n```{r source_make, include=FALSE}\n# read make.R\nmakefile <- readLines('make.R') \n# exclude some lines from make.R\nmake_trimmed <- makefile[grep('## PREAMBLE ##', makefile) : grep('## SUPPLEMENT ##', makefile) - 1]\n# choose option use_cache = TRUE\nmake_trimmed <- gsub(pattern = 'use_cache = FALSE', replacement = 'use_cache = TRUE', x = make_trimmed)\n# write new file 'ghost_file.R'\ncat(make_trimmed, sep = '\n', file = 'ghost_file.R') \n# source 'ghost_file.R'\nsource(file = 'ghost_file.R', chdir = TRUE)\n# delete 'ghost_file.R'\nunlink('ghost_file.R', recursive = TRUE)\n# clean workspace\nrm(makefile, make_trimmed)\n```\n\n# Note\n\nThis file was created by calling the function 'template_Rmd'.\n\n",
         file = file,
         sep = ""
       )
