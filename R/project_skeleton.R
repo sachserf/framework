@@ -208,7 +208,7 @@ Licensed under GPL-2
 ### Easy-to-use Setup for collaboration and presentation
 ### Make your projects more reproducible
 
-################### Requirements ################### 
+################### REQUIREMENTS ################### 
 
 - R (>= 3.2)
 - development version of rmarkdown (see: https://github.com/rstudio/rmarkdown)
@@ -218,7 +218,7 @@ Licensed under GPL-2
 - git 
 - packrat 
 
-################### Quick How-To ################### 
+################### QUICK HOW-TO ################### 
 
 1. Write code or reports and place them into the appropriate input-directory.
 2. Add the path of your snippets as well as additional R-packages into 'make.R'
@@ -236,6 +236,12 @@ NOTES:
 - Do not edit or delete the headers in 'make.R'
 - Save User-defined functions into 'in/fun':
   All R-files within in/fun will be sourced automatically
+
+################### NOT-TO-DO LIST ###################
+
+- Do not source another R-script within R-Scripts if you want to use the cache: Detection of changed files is not recursive
+- Do not change the workspace manually
+- Do not edit files in 'out/auto': the directory will be deleted and rebuild when you source 'make.R' and all your changes will be lost
 
 ################### FILES AND DIRECTORIES ###################
 
