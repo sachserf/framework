@@ -159,7 +159,11 @@ sapply(list.files(
 saveRDS(object = data.frame(script = readRDS('.cache/df_cache.rds')$basename_in, instruction = readRDS('.cache/df_cache.rds')$instruction), file = '.cache/df_cache_summary.rds')
 
 # render Rmd-documents
-render_Rmd(source_dir = 'in/Rmd', target_dir = 'out/auto/reports')
+render_Rmd(source_dir = 'in/Rmd', 
+          target_dir = 'out/auto/reports',
+          quiet = TRUE,
+          output_format = 'all',
+          envir = new.env())
 
 # render notebooks (website)
 # if you want to use this feature you will need 
@@ -203,6 +207,16 @@ Licensed under GPL-2
 ### Standardized structure improves readability
 ### Easy-to-use Setup for collaboration and presentation
 ### Make your projects more reproducible
+
+################### Requirements ################### 
+
+- R (>= 3.2)
+- development version of rmarkdown (see: https://github.com/rstudio/rmarkdown)
+- RStudio (testet under 0.99.878)
+- knitr 
+- pandoc 
+- git 
+- packrat 
 
 ################### Quick How-To ################### 
 

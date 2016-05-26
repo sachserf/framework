@@ -1,6 +1,7 @@
 render_Rmd <-
   function (source_dir = 'in/Rmd',
-            target_dir = 'out/auto/reports')
+            target_dir = 'out/auto/reports'
+            , ...)
   {
     # list all files if input is directory
     source_files <-
@@ -30,9 +31,7 @@ render_Rmd <-
     lapply(
       X = source_files,
       FUN = rmarkdown::render,
-      quiet = TRUE,
-      output_format = "all",
-      envir = new.env()
+      ...
     )
     
     # delete and create target dir
