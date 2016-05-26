@@ -242,6 +242,8 @@ NOTES:
 - Do not source another R-script within R-Scripts if you want to use the cache: Detection of changed files is not recursive
 - Do not change the workspace manually
 - Do not edit files in 'out/auto': the directory will be deleted and rebuild when you source 'make.R' and all your changes will be lost
+- Do not edit the headers in 'make.R'
+- Do not change the order of the functions in 'make.R' and the supplement
 
 ################### FILES AND DIRECTORIES ###################
 
