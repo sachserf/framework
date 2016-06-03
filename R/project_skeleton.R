@@ -101,7 +101,7 @@ skeleton <-
 
 source('in/R/sachserf_framework/preamble.R')
 
-############ PACKAGES ############   
+############ PACKAGES ############
 
 # install packages without loading:
 
