@@ -1,5 +1,5 @@
 # framework
-this package provides functions to standardize the structure of R-projects. Furthermore it is straightforward to make backups of directories (e.g. the project directory). The project structure should support the reproducibility of projects. The main function 'project_framework' (see below) is a wrapper for all other functions within the package. Once a project is created this way the package itself is not needed for proper performance of the project and can be passed on to colleagues 'as is' (therefore some functions are being written into a subdirectory within each project).
+This package provides functions to standardize the structure of R-projects. Furthermore it is straightforward to make backups of directories (e.g. the project directory). The project structure should support the reproducibility of projects. The main function 'project_framework' (see below) is a wrapper for all other functions within the package. Once a project is created this way the package itself is not needed for proper performance of the project and can be passed on to colleagues 'as is' (therefore some functions are being written into a subdirectory within each project).
 
 ## Requirements for Installation
 On windows machines you will need 'Rtools' (Xcode command line tools on Mac).
