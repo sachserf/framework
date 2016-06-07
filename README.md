@@ -13,7 +13,7 @@ devtools::install_github("sachserf/framework")
 ## Post-Installation notes
 If you don´t want to install/use the development version of rmarkdown you will need to exclude the 'website-feature' within 'in/R/sachserf_framework/supplement.R' after creating a project. 
 
-## required software for complete range of functions
+## Required software for complete range of functions
 - R (>= 3.2)
 - development version of rmarkdown (see: https://github.com/rstudio/rmarkdown)
 - RStudio (testet under 0.99.878)
