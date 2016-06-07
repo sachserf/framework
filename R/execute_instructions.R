@@ -57,13 +57,13 @@ execute_instructions <-
         full.names = TRUE
       )
     weg1 <- da[!da %in% keep]
-    
-    for (i in 1:length(weg1)) {
-      if (length(grep(pattern = weg1[i], x = keep)) == 0) {
-        unlink(weg1[i], recursive = TRUE)
+    if (length(weg1) > 0) {
+      for (i in 1:length(weg1)) {
+        if (length(grep(pattern = weg1[i], x = keep)) == 0) {
+          unlink(weg1[i], recursive = TRUE)
+        }
       }
     }
-    
     all_figures_from <-
       list.files(path = '.cache/figure',
                  recursive = TRUE,
