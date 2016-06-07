@@ -97,7 +97,6 @@ source('in/src/opt/preamble.R')
 ############ PACKAGES ############   
 
 # install packages without loading:
-
 pkg_install(c('rmarkdown', 
               'knitr', 
               'packrat', 
