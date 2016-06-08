@@ -9,7 +9,8 @@ execute_instructions <-
         filename_image = df_cache$filename_image[i],
         filename_mtime = df_cache$filename_mtime[i],
         filename_Rmd = df_cache$filename_Rmd[i],
-        instruction = df_cache$instruction[i]
+        instruction = df_cache$instruction[i],
+        filename_dot = df_cache$filename_dot[i]
       )
     }
     new_figures <-

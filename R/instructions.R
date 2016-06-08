@@ -53,6 +53,7 @@ instructions <-
     filename_mtime <- paste0(".cache/", basename_in, "_mtime.rds")
     filename_Rmd <- paste0(".cache/", basename_in, ".Rmd")
     filename_md <- paste0(".cache/", basename_in, ".md")
+    filename_dot <- paste0(".cache/docs/", basename_in, ".")
     filename_html <- paste0(".cache/docs/", basename_in, ".html")
     filename_nb <- paste0(".cache/docs/", basename_in, ".nb.html")
     filename_pdf <- paste0(".cache/docs/", basename_in, ".pdf")
@@ -63,9 +64,9 @@ instructions <-
     mtime_current <- file.mtime(input_R)
     df_cache <- data.frame(filename_in, basename_in, nr_basename,
                            filename_image, basedirname, 
-                           filename_mtime, filename_Rmd, filename_md, 
-                           filename_html, filename_nb, filename_pdf,
-                           filename_docx, 
+                           filename_mtime, filename_Rmd, filename_md,
+                           filename_dot, filename_html, filename_nb, 
+                           filename_pdf, filename_docx, 
                            dirname_figure, dirname_figure_in,
                            mtime_current, stringsAsFactors = FALSE)
     df_cache$instruction <- "source"
@@ -145,6 +146,10 @@ instructions <-
     if (sum(cache_index) > 0) {
       df_cache$instruction[which(df_cache$load == TRUE)] <- "load"
     }
+    
+    # delete deprecated figures
+    del_fig <- df_cache$dirname_figure[which(df_cache$instruction == 'render')]
+    unlink(x = del_fig, recursive = TRUE)
     
     input_data <- sapply(X = list.files("in/data", full.names = TRUE, 
                                         recursive = TRUE), FUN = file.info)

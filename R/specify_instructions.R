@@ -4,7 +4,8 @@ specify_instructions <-
             filename_image,
             filename_mtime,
             filename_Rmd,
-            instruction)
+            instruction,
+            filename_dot)
   {
     if (instruction == "load") {
       load(filename_image, envir = .GlobalEnv)
@@ -15,6 +16,9 @@ specify_instructions <-
       saveRDS(object = x, file = filename_mtime)
       save(list = ls(.GlobalEnv), file = filename_image)
     } else if (instruction == "render") {
+      all_files <- list.files(path = '.cache/docs', full.names = TRUE)
+      del_files <- all_files[grep(pattern = filename_dot, x = all_files)]
+      unlink(del_files, recursive = TRUE) 
       rmarkdown::render(
         input = filename_in,
         envir = globalenv(),
