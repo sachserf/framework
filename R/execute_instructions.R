@@ -84,7 +84,7 @@ execute_instructions <-
       all_figures_to[nr_index]
       nr_names <-
         paste0(as.character(i), '_', all_figures_to[nr_index])
-      nr_names <- file.path('out/auto/figure', nr_names)
+      nr_names <- file.path('out/figure', nr_names)
       file.copy(from = all_figures_from[nr_index], to = nr_names)
     }
     
@@ -127,8 +127,8 @@ execute_instructions <-
     deprecated_files <- cache_files[-keep_files]
     unlink(deprecated_files, recursive = TRUE)
     
-    if (dir.exists('out/auto/docs') == FALSE) {
-      dir.create('out/auto/docs')
+    if (dir.exists('out/docs') == FALSE) {
+      dir.create('out/docs')
     }
     
     # final output (pdf, html and docx)
@@ -149,13 +149,13 @@ execute_instructions <-
         paste0(as.character(i), '_', for_cache_files)
       file.copy(
         from = file.path('.cache/docs/', for_cache_files),
-        to = file.path('out/auto/docs', nr_basename_docs)
+        to = file.path('out/docs', nr_basename_docs)
       )
     }
     
     # temp output (md, spin.R etc)
-    if (dir.exists('out/auto/docs/temp_files') == FALSE) {
-      dir.create('out/auto/docs/temp_files', recursive = TRUE)
+    if (dir.exists('out/docs/temp_files') == FALSE) {
+      dir.create('out/docs/temp_files', recursive = TRUE)
     }
     
     cache_files <-
@@ -175,7 +175,7 @@ execute_instructions <-
         paste0(as.character(i), '_', for_cache_files)
       file.copy(
         from = file.path('.cache/docs/', for_cache_files),
-        to = file.path('out/auto/docs/temp_files', nr_basename_docs)
+        to = file.path('out/docs/temp_files', nr_basename_docs)
       )
     }
   }

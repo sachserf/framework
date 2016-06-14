@@ -1,5 +1,5 @@
 write_dataframe <- 
-function (listofdf = "GlobalEnv", target_dir = "out/auto/data/", file_format = "csv", 
+function (listofdf = "GlobalEnv", target_dir = "out/data/", file_format = "csv", 
     overwrite = TRUE) 
 {
     if (listofdf == "GlobalEnv") {

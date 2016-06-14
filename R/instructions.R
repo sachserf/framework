@@ -155,9 +155,9 @@ instructions <-
                                         recursive = TRUE), FUN = file.info)
     saveRDS(object = input_data, file = ".cache/input_data.rds")
     saveRDS(object = df_cache, file = ".cache/df_cache.rds")
-    if (dir.exists("out/auto")) {
-      unlink(x = "out/auto", recursive = TRUE)
+    if (dir.exists("out")) {
+      unlink(x = "out", recursive = TRUE)
     }
-    dir.create("out/auto/figure", recursive = TRUE)
-    dir.create("out/auto/data", recursive = TRUE)
+    dir.create("out/figure", recursive = TRUE)
+    dir.create("out/data", recursive = TRUE)
   }
