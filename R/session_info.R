@@ -1,5 +1,5 @@
 session_info <- 
-function (file = "out/auto/session_info.txt") 
+function (file = "session_info.txt") 
 {
     if (dir.exists(dirname(file)) == FALSE) {
         dir.create(dirname(file), recursive = TRUE)

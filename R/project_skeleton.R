@@ -92,7 +92,15 @@ skeleton <-
 
 ############ PREAMBLE ############   
 
-source('in/src/opt/preamble.R')
+# clear Global environment
+rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
+# source every R-file within directory <<in/fun>> 
+sapply(list.files(
+  'in/fun',
+  pattern = '*.R$',
+  full.names = TRUE,
+  recursive = TRUE
+), source)
 
 ############ PACKAGES ############   
 
@@ -112,10 +120,8 @@ pkg_install(c('dplyr',
 ############ SOURCE ############ 
 
 # fill in source-files in chronological order
-instructions(input_R = c('in/src/prepare/load.R', 
-                         'in/src/prepare/clean.R',
-                          'in/src/analyze/plot.Rmd',
-                          'in/src/report/report.Rmd'), 
+instructions(input_R = c('in/src/load.R', 
+                          'in/src/report.Rmd'), 
              spin_index = 'all', 
              cache_index = 'all')
 
@@ -123,7 +129,19 @@ execute_instructions()
 
 ############ SUPPLEMENT ############   
 
-source('in/src/opt/supplement.R')
+# save all data frames (within .GlobalEnv)
+write_dataframe(file_format = 'csv')
+# write session_info
+session_info()
+# backup (optionally change target directory and excluded files/dir)
+backup(exclude_directories = '.git|in/data|out|.cache',
+       exclude_files = '*.RData|*.Rhistory')
+# rm build-in functions except of templates and reminder
+local_fun <- gsub(pattern = '.R', replacement = '', list.files(path = 'in/fun/sachserf_framework'), fixed = TRUE)
+rm(list = local_fun[-grep(pattern = 'reminder|template_R|template_Rmd', x = local_fun)])
+rm(local_fun)
+# print reminder to console
+reminder()
 
 ", file = 'make.R')
     } else {
@@ -131,45 +149,11 @@ source('in/src/opt/supplement.R')
     }
     
     #### write template_Rmd ####
-    framework::template_R(file = 'in/src/prepare/load.R')
-    framework::template_R(file = 'in/src/prepare/clean.R')
-    framework::template_Rmd(file = 'in/src/analyze/plot.Rmd')
-    framework::template_Rmd(file = 'in/src/report/report.Rmd')
-    
-    #### write preamble ####
-    cat("# clear Global environment
-rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
+    framework::template_R(file = 'in/src/load.R')
+    framework::template_Rmd(file = 'in/src/report.Rmd')
 
-# source every R-file within directory <<in/fun>> 
-sapply(list.files(
-  'in/fun',
-  pattern = '*.R$',
-  full.names = TRUE,
-  recursive = TRUE
-), source)
-
-", file = 'in/src/opt/preamble.R', sep = '\n')
-      
-      #### write supplement ####
-      cat("############ SUPPLEMENT ############   
-# save all data frames (within .GlobalEnv)
-write_dataframe(file_format = 'csv')
-
-# write session_info
-session_info()
-
-# backup (optionally change target directory and excluded files/dir)
-backup(exclude_directories = '.git|in/data|out|.cache',
-       exclude_files = '*.RData|*.Rhistory')
-
-reminder()
-
-# rm build-in functions except of template_Rmd
-local_fun <- gsub(pattern = '.R', replacement = '', list.files(path = 'in/fun/sachserf_framework'), fixed = TRUE)
-rm(list = local_fun[-grep(pattern = 'template_R|template_Rmd', x = local_fun)])
-rm(local_fun)
-
-", file = 'in/src/opt/supplement.R')
+#### write README.md ####
+cat('# Readme of the project: ',basename(getwd()),'\n\nThis project was created from **',Sys.info()['user'],'** at **',as.character(Sys.time()),'**\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.', file = 'README.md', sep = '')
 
 #### write how-to-guide.txt ####
 cat("
@@ -213,20 +197,22 @@ Save User-defined functions into 'in/fun'
 
 Specify R-Packages within 'make.R' 
 
+Document your code and edit README.md
+
 Speed up your code: 
 Choose the following options within the functions 'instructions()'
 - use option spin_index = 0
 - use option cache_index = 'all'
 
 NOTES:
-- If you want to automatically save all plots of your input R-Scripts set spin_index = 'all' (This will spin/render your R-Scripts and take some time)
+- If you want to automatically save all plots of your input R-Scripts set spin_index = 'all' (This will spin/render your R-Scripts).
 
 ################### NOT-TO-DO LIST ###################
 
 - Do not source another R-script within R-Scripts if you want to use the cache: Detection of changed files is not recursive
 - Do not use child-documents within Rmd-files if you want to use the cache: Detection of changed files is not recursive
 - Do not change the workspace manually
-- Do not edit files in 'out/auto': the directory will be deleted and rebuild when you source 'make.R' and all your changes will be lost
+- Do not edit files in the output directory 'out': the directory will be deleted and rebuild when you source 'make.R' and all your changes will be lost. If you want to store specific files over the long term you should create a directory (e.g. 'storage') in the top level of your project.
 
 ################### FILES AND DIRECTORIES ###################
 
@@ -238,11 +224,9 @@ If you want to use additional packages place them into the makefile.
 Fill in your single Rmd/R-files into the 'instructions'-function (chronological order!)
 
 ### An input directory 'in':
-This is the place for every file you want to include. Place your files according to the subdirectories (src = source files, fun = self-written functions, data = ...for your data)
+This is the place for every file you want to include. Place your files according to the subdirectories (src = source files, fun = self-written functions, data = ...for your data). You can use subdirectories according to your preferences.
 
 ### An output-directory 'out':
-There are two subdirectories called 'auto' and 'usr'. 
-If you want to save plots, results etc. manually you should always use the path 'out/usr'.
 The subdir 'auto' will be deleted and rebuild every time you source 'make.R' and should be treated as read-only!
 
 ### A hidden cache directory: 
@@ -255,21 +239,22 @@ Don´t edit the files within the cache directory. If you want to source everythi
 - Default R-image and history (.RData & .Rhistory) - depending on your preferences.
 - An Rstudio project-file '*.Rproj'
 - This how-to-guide
-
+- A README.md (and eventually a rendered html-version): Be aware that the html-version will nbot be rendered automatically!
+- An automatically updated session_info.txt
 
 ################### Background jobs of make.R ###################
 
-### Backup your project on-the-fly (eg if Dropbox is installed on your machine you can save important files directly into your Dropbox - and of course exclude results and data). If you do so consider the usage of an encrypted file system.
+### Backup your project on-the-fly (eg if Dropbox is installed on your machine you can save important files directly into your Dropbox - and of course optionally exclude results and data). If you do so consider the usage of an encrypted file system.
 
 ### Review the steps of your analysis by using automatically generated notebooks/reports (eg html or pdf-files).
 
 ### Use a cache-directory to speed up CPU-intensive analysis. Scripts will only being sourced if you change the order of the input-files (within make.R) or change the input-file itself. If an input file will be sourced/rendered all subsequent files will not be loaded!
 
-### If your Code will break see out/auto/docs/info/sessionInfo.txt for information about the last session that worked properly. Additionally the backup is named with a timestamp and will be created only if there were no errors. When sourcing make.R a reminder (for git) will be printed to the console if there were no errors.
+### If your Code will break see the sessionInfo.txt for information about the last session that worked properly. Additionally the backup is named with a timestamp and will be created only if there were no errors. When sourcing make.R a reminder (for git) will be printed to the console if there were no errors.
 
 ### Automatically save all dataframes within your global environment either as csv, rds or RData for fast exchange of data across projects or to export output-data in a human-readable format.
 
-### Automatically save plots for spinned R-files (e.g. use option spin_index = 'all'): If you create a plot within a R-script you will find a png-file with coarse resolution inside the directory out/auto/figure. Including plots inside a Rmd-file will also produce figures (same directory).
+### Automatically save plots for all spinned R-files (e.g. use option spin_index = 'all') and of course Rmd-files in a single directory (with meaningful filenames).
 
 ################### TROUBLESHOOTING ################### 
 
