@@ -1,7 +1,7 @@
 skeleton <-
   function(){
     #### create basic directories ####
-    basic_dirs <- list('in/data', 'in/src/opt', 'in/fun/sachserf_framework', 'out/usr')
+    basic_dirs <- list('in/data', 'in/src', 'in/fun/sachserf_framework', 'out')
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
 
       #### create fun ####
