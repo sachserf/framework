@@ -134,7 +134,7 @@ write_dataframe(file_format = 'csv')
 # write session_info
 session_info()
 # backup (optionally change target directory and excluded files/dir)
-backup(exclude_directories = '.git|in/data|out|.cache',
+backup(exclude_directories = 'packrat|.git|in/data|out|.cache',
        exclude_files = '*.RData|*.Rhistory')
 # rm build-in functions except of templates and reminder
 local_fun <- gsub(pattern = '.R', replacement = '', list.files(path = 'in/fun/sachserf_framework'), fixed = TRUE)
