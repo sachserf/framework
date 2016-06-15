@@ -14,7 +14,7 @@ template_Rmd <-
       warning("File exists.")
     }
     else {
-      cat("---\ntitle: '", header, "'\nauthor: '",Author, "'\ndate: '",Date, "'\noutput: \n  html_notebook: \n    number_sections: yes\n    toc: yes\n    toc_float: yes\n    theme: united\n    highlight: tango\n---\n\n```{r setup, include=FALSE}\n# additional pdf-output of figures\nknitr::opts_chunk$set(dev = c('png', 'pdf'))\n```\n\n# Note\n\nThis file was created by calling the function 'template_Rmd'.\n\n",
+      cat("---\ntitle: '", header, "'\nauthor: '",Author, "'\ndate: '",Date, "'\noutput: \n  html_notebook: \n    number_sections: yes\n    toc: yes\n    toc_float: yes\n    theme: united\n    highlight: tango\n---\n\n```{r setup, include=FALSE}\n# additional pdf-output of figures\nknitr::opts_chunk$set(dev = c('png', 'pdf'), dpi = 100)\n```\n\n# Note\n\nThis file was created by calling the function 'template_Rmd'.\n\n",
           file = file,
           sep = ""
       )
