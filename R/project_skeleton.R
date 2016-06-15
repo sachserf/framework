@@ -223,14 +223,25 @@ This file is the heart of the project. By sourcing make.R the whole project will
 If you want to use additional packages place them into the makefile.
 Fill in your single Rmd/R-files into the 'instructions'-function (chronological order!)
 
+### A hidden cache directory: 
+Don´t edit the files within the cache directory. If you want to source everything from scratch just delete the whole cache-dir by using the option 'cache_index = 0' (file: 'make.R' function: 'instructions') 
+
 ### An input directory 'in':
 This is the place for every file you want to include. Place your files according to the subdirectories (src = source files, fun = self-written functions, data = ...for your data). You can use subdirectories according to your preferences.
 
 ### An output-directory 'out':
 All but the 'usr' subdirectories will be deleted and rebuild every time you source 'make.R' and should be treated as read-only! User-specific output should only be saved in out/usr!
 
-### A hidden cache directory: 
-Don´t edit the files within the cache directory. If you want to source everything from scratch just delete the whole cache-dir by using the option 'cache_index = 0' (file: 'make.R' function: 'instructions') 
+Beware:
+When saving user-specified output you should be aware that rendered documents change the working directory temporarily. This is also true for spinned R-files, but not if they´re sourced. Therefore it could be necessary to include '../' for each directory level of the file.
+
+Example: You want to store a specific object as a rds-file (the underlying script is placed in 'in/src/myfile.R = two subdirectories of the top-level of the project):
+
+sorced R-script: 
+saveRDS(object = myobject, file = 'out/usr/myobject.rds')
+
+spinned R-script or Rmd-file: 
+saveRDS(object = myobject, file = '../../out/usr/myobject.rds')
 
 ### Potentially the main directory further includes:
 - A Backup of your project (or just the most important files)
