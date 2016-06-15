@@ -1,7 +1,7 @@
 skeleton <-
   function(){
     #### create basic directories ####
-    basic_dirs <- list('in/data', 'in/src', 'in/fun/sachserf_framework', 'out')
+    basic_dirs <- list('in/data', 'in/src', 'in/fun/sachserf_framework', 'out/usr')
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
 
       #### create fun ####
@@ -227,7 +227,7 @@ Fill in your single Rmd/R-files into the 'instructions'-function (chronological 
 This is the place for every file you want to include. Place your files according to the subdirectories (src = source files, fun = self-written functions, data = ...for your data). You can use subdirectories according to your preferences.
 
 ### An output-directory 'out':
-The subdir 'auto' will be deleted and rebuild every time you source 'make.R' and should be treated as read-only!
+All but the 'usr' subdirectories will be deleted and rebuild every time you source 'make.R' and should be treated as read-only! User-specific output should only be saved in out/usr!
 
 ### A hidden cache directory: 
 Don´t edit the files within the cache directory. If you want to source everything from scratch just delete the whole cache-dir by using the option 'cache_index = 0' (file: 'make.R' function: 'instructions') 
