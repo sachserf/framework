@@ -5,5 +5,7 @@ git_init <- function(){
     print(".git already exists")
   } else {
     system('git init')
+    system("git add .")
+    system("git commit -am 'auto init commit'")
   }
 }
