@@ -7,5 +7,6 @@ git_init <- function(){
     system('git init')
     system("git add .")
     system("git commit -am 'auto init commit'")
+    system('git checkout -b devel')
   }
 }
