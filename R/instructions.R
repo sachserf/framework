@@ -28,7 +28,7 @@ instructions <-
       input_data_source <- readRDS(file = ".cache/input_data.rds")
       if (isTRUE(all.equal(target = input_data_source, current = input_data_current)) == 
           FALSE) {
-        stop("files in directory <<in/data>> changed - use option <<cache_index = FALSE>> and retry.")
+        stop("files in directory <<in/data>> changed - use option <<cache_index = 0>> and retry.")
       }
     }
     

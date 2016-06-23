@@ -1,13 +1,9 @@
 write_dataframe <- 
-function (listofdf = "GlobalEnv", target_dir = "out/data/", file_format = "csv", 
-    overwrite = TRUE) 
+function (listofdf = "GlobalEnv", target_dir = "out/data/", file_format = "csv") 
 {
     if (listofdf == "GlobalEnv") {
         listofdf <- names(which(sapply(.GlobalEnv, is.data.frame) == 
             TRUE))
-    }
-    if (overwrite == TRUE) {
-        unlink(target_dir, recursive = TRUE)
     }
     if (dir.exists(target_dir) == FALSE) {
         dir.create(target_dir, recursive = TRUE)
