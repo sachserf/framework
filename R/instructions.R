@@ -28,7 +28,7 @@ instructions <-
       input_data_source <- readRDS(file = ".cache/input_data.rds")
       if (isTRUE(all.equal(target = input_data_source, current = input_data_current)) == 
           FALSE) {
-        stop("files in directory <<in/data>> changed - use option <<cache_index = 0>> and retry.")
+        warning("files in directory <<in/data>> changed - use option <<cache_index = 0>> and retry.")
       }
     }
     
@@ -146,7 +146,10 @@ instructions <-
     if (sum(cache_index) > 0) {
       df_cache$instruction[which(df_cache$load == TRUE)] <- "load"
     }
-    
+    if(length(which(df_cache$instruction == "load")) > 1) {
+      nothing_index <- 1: (max(which(df_cache$instruction == "load")) - 1)
+      df_cache$instruction[nothing_index] <- 'nothing'
+    }
     # delete deprecated figures
     del_fig <- df_cache$dirname_figure[which(df_cache$instruction == 'render')]
     unlink(x = del_fig, recursive = TRUE)
