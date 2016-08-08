@@ -119,7 +119,7 @@ pkg_install(c('dplyr',
 
 ############ SOURCE ############ 
 
-# fill in source-files in chronological order
+# fill in R/Rmd-files in chronological order
 instructions(input_R = c('in/src/load.R', 
                           'in/src/report.Rmd'), 
              spin_index = 'all', 
