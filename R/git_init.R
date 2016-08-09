@@ -6,7 +6,7 @@ git_init <- function(){
   } else {
     system('git init')
     system("git add .")
-    system("git commit -am 'V0'")
+    system("git commit -am 'v0.0.0'")
     system('git checkout -b devel')
     print("commit master and checkout devel: done")
   }

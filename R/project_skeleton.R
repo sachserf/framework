@@ -91,16 +91,31 @@ skeleton <-
 # visit https://github.com/sachserf/framework for further information
 
 ############ PREAMBLE ############   
+# detach localfun
+if('localfun' %in% search() == TRUE) {
+  detach(localfun)
+}
 
 # clear Global environment
 rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
+
+# initialize new environment: <<localfun>>
+localfun <- new.env(parent = .GlobalEnv)
+
 # source every R-file within directory <<in/fun>> 
+# and assign them to the environment <<localfun>>
 sapply(list.files(
   'in/fun',
   pattern = '*.R$',
   full.names = TRUE,
   recursive = TRUE
-), source)
+), source, local = localfun)
+
+# attach the environment <<localfun>>
+attach(localfun)
+
+# remove the environment <<localfun>> from .GlobalEnv
+rm(localfun)
 
 ############ PACKAGES ############   
 
@@ -108,13 +123,14 @@ sapply(list.files(
 pkg_install(c('rmarkdown', 
               'knitr', 
               'packrat', 
-              'plyr', 
-              'stringi'), 
+              'tidyr',
+              'readr'), 
             attach = FALSE)
 
 # install and load packages:
 pkg_install(c('dplyr', 
-              'ggplot2'), 
+              'ggplot2'
+              'stringi'), 
             attach = TRUE)
 
 ############ SOURCE ############ 
@@ -131,15 +147,14 @@ execute_instructions() # don´t edit
 
 # save all data frames (within .GlobalEnv)
 write_dataframe(file_format = 'csv')
+
 # write session_info
 session_info()
+
 # backup (optionally change target directory and excluded files/dir)
 backup(exclude_directories = 'packrat|.git|in/data|out|.cache',
        exclude_files = '*.RData|*.Rhistory')
-# rm build-in functions except of templates and reminder
-local_fun <- gsub(pattern = '.R', replacement = '', list.files(path = 'in/fun/sachserf_framework'), fixed = TRUE)
-rm(list = local_fun[-grep(pattern = 'reminder|template_R|template_Rmd', x = local_fun)])
-rm(local_fun)
+
 # print reminder to console
 reminder()
 
@@ -176,26 +191,26 @@ Licensed under GPL-2
 
 # required
 - R (>= 3.2)
-- RStudio (testet under 0.99.878)
-- rmarkdown
-- knitr 
-- pandoc 
+- RStudio (>=0.99.878)
 
 # recommended
 - latex
 - git 
 - packrat 
+- pandoc 
+- rmarkdown
+- knitr 
 
 ################### QUICK HOW-TO ################### 
 
-1. Write code or reports and place them into the directory 'in/src'.
-2. Edit 'make.R': Add the path of the input files to the function 'instructions()'
+1. Write R-files or Rmd-files and place them into the directory 'in/src'.
+2. Edit 'make.R': Add the path of the input files (R/Rmd) to the function 'instructions()'
 3. source 'make.R' and browse through the output-directory
 
 Save User-defined functions into 'in/fun'
---> All R-files within in/fun will be sourced automatically
+--> All R-files within in/fun will be sourced automatically. 
 
-Specify R-Packages within 'make.R' 
+Specify additional R-Packages within 'make.R' (not anywhere inside some scripts).
 
 Document your code and edit README.md
 
@@ -207,12 +222,23 @@ Choose the following options within the functions 'instructions()'
 NOTES:
 - If you want to automatically save all plots of your input R-Scripts set spin_index = 'all' (This will spin/render your R-Scripts).
 
+User-specified output should be saved in the directory 'out/usr'
+
+################### SOURCE MAKE.R ###################
+There are several ways to source the makefile:
+1. Type 'source('make.R')' into the console and press 'enter'.
+2. Open the file 'make.R' and hit the button 'source' (within RStudio).
+3. Go to the console and use the addin 'insert source make R' (go to 'Addins -->...'). Afterwards press 'enter'.
+4. Just use the RStudio-Addin 'source make R'.
+5. Specify a shortcut for the Addins: go to 'Tools' --> 'Modify Keyboard Shortcuts...' and search for source make R to specify your preferred keybinding
+
 ################### NOT-TO-DO LIST ###################
 
-- Do not source another R-script within R-Scripts if you want to use the cache: Detection of changed files is not recursive
-- Do not use child-documents within Rmd-files if you want to use the cache: Detection of changed files is not recursive
-- Do not change the workspace manually
-- Do not edit files in the output directory 'out': the directory will be deleted and rebuild when you source 'make.R' and all your changes will be lost. If you want to store specific files over the long term you should create a directory (e.g. 'storage') in the top level of your project.
+- Do not source another R-script within R-Scripts if you want to use the cache: Detection of changed files is not recursive (You can specify a subset of cached files)
+- Do not use child-documents within Rmd-files while caching the document: Detection of changed files is not recursive (You can specify a subset of cached files)
+- Do not change the working directory manually
+- Do not edit files in the output directory 'out' (except of 'out/usr': the directory will be deleted and rebuild every time you source the file 'make.R' and all your changes will be lost. 
+- Write 'source('make.R')' inside a script that should be sourced by 'make.R'
 
 ################### FILES AND DIRECTORIES ###################
 
@@ -237,7 +263,7 @@ When saving user-specified output you should be aware that rendered documents ch
 
 Example: You want to store a specific object as a rds-file (the underlying script is placed in 'in/src/myfile.R = two subdirectories of the top-level of the project):
 
-sorced R-script: 
+sourced R-script: 
 saveRDS(object = myobject, file = 'out/usr/myobject.rds')
 
 spinned R-script or Rmd-file: 
@@ -250,18 +276,18 @@ saveRDS(object = myobject, file = '../../out/usr/myobject.rds')
 - Default R-image and history (.RData & .Rhistory) - depending on your preferences.
 - An Rstudio project-file '*.Rproj'
 - This how-to-guide
-- A README.md (and eventually a rendered html-version): Be aware that the html-version will nbot be rendered automatically!
+- A README.md (and eventually a rendered html-version): Be aware that the html-version is not being rendered automatically when you source the makefile!
 - An automatically updated session_info.txt
 
-################### Background jobs of make.R ###################
+################### Benefits of a framework-project ###################
 
 ### Backup your project on-the-fly (eg if Dropbox is installed on your machine you can save important files directly into your Dropbox - and of course optionally exclude results and data). If you do so consider the usage of an encrypted file system.
 
 ### Review the steps of your analysis by using automatically generated notebooks/reports (eg html or pdf-files).
 
-### Use a cache-directory to speed up CPU-intensive analysis. Scripts will only being sourced if you change the order of the input-files (within make.R) or change the input-file itself. If an input file will be sourced/rendered all subsequent files will not be loaded!
+### Use a cache-directory to speed up CPU-intensive analysis. Scripts will only being sourced if you change the order of the input-files (within make.R) or change the input-file itself. If an input file will be sourced/rendered all subsequent files will be sourced/rendered as well!
 
-### If your Code will break see the sessionInfo.txt for information about the last session that worked properly. Additionally the backup is named with a timestamp and will be created only if there were no errors. When sourcing make.R a reminder (for git) will be printed to the console if there were no errors.
+### If your Code breaks see the sessionInfo.txt for information about the last session that worked properly. Additionally the backup is named with a timestamp and will be created only if there were no errors. When sourcing make.R a reminder (for git) will be printed to the console if there were no errors.
 
 ### Automatically save all dataframes within your global environment either as csv, rds or RData for fast exchange of data across projects or to export output-data in a human-readable format.
 
@@ -270,6 +296,7 @@ saveRDS(object = myobject, file = '../../out/usr/myobject.rds')
 ################### TROUBLESHOOTING ################### 
 
 - update knitr, rmarkdown, RStudio, and R to the most recent version.
+- contact the maintainer
 
 ", file='how-to-guide.txt')
 
