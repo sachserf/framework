@@ -129,7 +129,7 @@ pkg_install(c('rmarkdown',
 
 # install and load packages:
 pkg_install(c('dplyr', 
-              'ggplot2'
+              'ggplot2',
               'stringi'), 
             attach = TRUE)
 
