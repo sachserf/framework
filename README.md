@@ -36,7 +36,7 @@ After running project_framework() you are able to start writing scripts, functio
 
 ## The file 'make.R'
 The make-like file 'make.R' should be the heart of your project. It should contain all information (ie commands) of your work in a logical order. Therefore it is needed to specify the (relative) path of each script (.R or .Rmd-file) you want to include (e.g. source it) and also every additional R-package you want to use. The benefit is that you only need to source this make-like file and everything else will be done automatically (for further info see section 'Output'). Everytime you source the make.R-file YOUR WHOLE PROJECT WILL BE PROCESSED. If there are files that did not change since the last run of course they won´t be compiled/sourced etc again. This is not true, if the order of he files have changed.
-Thanks to the addin 'source make R' you can specify a shortcut to source the make.R-file (even without opening it). Mine is Strg+Shift+M.
+Thanks to the addin 'source make R' you can specify a shortcut to source the make.R-file (even without opening it). Mine is Strg+Shift+P (the P stands for Project, because the whole Project will be executed).
 By using this framework it should be simple to keep your scripts short, clean and readable and write reproducible code and projects that can be passed on to colleagues.
 
 ## Version control
