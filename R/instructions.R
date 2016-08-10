@@ -1,5 +1,13 @@
+#' Check file changes and write instructions
+#' 
+#' @param input_R Character. A vector of filepaths that should be executed.
+#' @param spin_index Integer. A vector specifying the files that should be spinned. Choose option 'all' instead of an integer vector, if you want to spin all R-scripts.
+#' @param cache_index Integer. A vector specyfing the files that should be run only if necessary. Choose option 'all' instead of an integer vector, if you want to use the cache for all input files.
+#' @return The directories out/docs, out/figure and out/data will be deleted. A dataframe including the specified instructions will be written/updated within a hidden cache directory. 
+#' @note The function only makes sense if you use it within a framework-project. Call project_framework() and have a look at the file make.R
+#' @author Frederik Sachser
 instructions <- 
-  function (input_R, spin_index = 0, cache_index = 0) 
+  function(input_R, spin_index = 0, cache_index = 0) 
   {
     # specify input
     if (length(cache_index) == 1 && cache_index == "all") {
@@ -39,7 +47,7 @@ instructions <-
     if (length(Rmd_index > 0)) {
       filename_in[Rmd_index] <- substr(x = filename_in[Rmd_index], 
                                        start = 1, 
-                                       stop = nchar(filename_in[Rmd_index])-2)
+                                       stop = nchar(filename_in[Rmd_index]) - 2)
       
     }
 
@@ -146,8 +154,8 @@ instructions <-
     if (sum(cache_index) > 0) {
       df_cache$instruction[which(df_cache$load == TRUE)] <- "load"
     }
-    if(length(which(df_cache$instruction == "load")) > 1) {
-      nothing_index <- 1: (max(which(df_cache$instruction == "load")) - 1)
+    if (length(which(df_cache$instruction == "load")) > 1) {
+      nothing_index <- 1:(max(which(df_cache$instruction == "load")) - 1)
       df_cache$instruction[nothing_index] <- 'nothing'
     }
     # delete deprecated figures

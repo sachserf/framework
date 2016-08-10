@@ -1,5 +1,9 @@
+#' Print a reminder and summary to the console
+#' 
+#' @description The function will print a summary of the instructions and remind you to use git.
+#' @author Frederik Sachser
 reminder <-
-  function ()
+  function()
   {
     print(data.frame(
       script = readRDS(".cache/df_cache.rds")$basename_in,

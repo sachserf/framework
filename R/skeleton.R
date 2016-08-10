@@ -5,7 +5,6 @@
 #' @note There is a wrapper-function to call this function. You might want to use project_framework() instead.
 #' @seealso \code{\link{project_framework}}
 #' @author Frederik Sachser
-
 skeleton <-
   function(){
     #### create basic directories ####
@@ -92,7 +91,7 @@ skeleton <-
         substitute_framework = TRUE
       )
     #### create make.R ####
-    if(file.exists("make.R") == FALSE){
+    if (file.exists("make.R") == FALSE) {
       cat("############ make-like file ############ 
 
 # see 'how-to-guide.txt' for a short introduction
@@ -306,7 +305,7 @@ saveRDS(object = myobject, file = '../../out/usr/myobject.rds')
 - update knitr, rmarkdown, RStudio, and R to the most recent version.
 - contact the maintainer
 
-", file='how-to-guide.txt')
+", file = 'how-to-guide.txt')
 
   }
 

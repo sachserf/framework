@@ -1,5 +1,15 @@
+#' Create a template R-file
+#' 
+#' @param file Character. Specify the path to save the new file. Use relative file paths and specify the file extension; e.g. 'in/src/new_dir/myfile.R'. 
+#' @param Author Character. Optionally customize the name of the Author (used for the YAML header). Default is the effective user of the system info.
+#' @param Date Character. Optionally customize the date (used for the YAML header). Default is the current Date (format YYYY-MM-DD).
+#' @note Missing directories will be created recursively.
+#' @note It is not possible to overwrite existing files.
+#' @note The file contains a YAML header and Roxygen comment prefixes. It is possible to source these file as well as to spin it (using knitr).
+#' @note Other YAML header options will be choosen automatically. Edit the resulting file to customize the YAML header.
+#' @author Frederik Sachser
 template_R <-
-  function (file,
+  function(file,
             Author = Sys.info()["effective_user"],
             Date = "`r Sys.Date()`")
   {
