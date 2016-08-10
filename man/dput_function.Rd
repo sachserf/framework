@@ -2,12 +2,23 @@
 % Please edit documentation in R/dput_function.R
 \name{dput_function}
 \alias{dput_function}
-\title{dsfrrgrdsgh}
+\title{Dput a function}
 \usage{
-dput_function(pkg_fun, target_dir, substitute_framework = FALSE)
+dput_function(pkg_fun, target_dir, rm_pattern = FALSE)
+}
+\arguments{
+\item{pkg_fun}{Name of a package and function separated by '::'. E.g. 
+framework::reminder}
+
+\item{target_dir}{Character. Specify the file path, where you want to write 
+the file.}
+
+\item{rm_pattern}{Character. Choose any pattern that should be removed. E.g. 
+'framework::' to exclude the name of the package framework.}
 }
 \description{
-aswgarsg sweg
+Choose a function of an installed R-package and save it to the 
+  specified target.
 }
 \author{
 Frederik Sachser

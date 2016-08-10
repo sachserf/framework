@@ -2,12 +2,19 @@
 % Please edit documentation in R/session_info.R
 \name{session_info}
 \alias{session_info}
-\title{dsfrrgrddddsgh}
+\title{Write a file with current session info}
 \usage{
 session_info(file = "session_info.txt")
 }
+\arguments{
+\item{file}{Character. File path to the target.}
+}
 \description{
-aswgarsg swegddd
+The function writes the current timestamp and session info to a
+  file.
+}
+\note{
+Directories will be created recursively.
 }
 \author{
 Frederik Sachser

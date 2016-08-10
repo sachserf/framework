@@ -22,79 +22,79 @@ skeleton <-
       framework::dput_function(
         pkg_fun = framework::backup,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create pkg_install-function
       framework::dput_function(
         pkg_fun = framework::pkg_install,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create reminder-function
       framework::dput_function(
         pkg_fun = framework::reminder,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create session_info-function
       framework::dput_function(
         pkg_fun = framework::session_info,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create template_Rmd-function
       framework::dput_function(
         pkg_fun = framework::template_Rmd,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create template_R-function
       framework::dput_function(
         pkg_fun = framework::template_R,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create write_dataframe-function
       framework::dput_function(
         pkg_fun = framework::write_dataframe,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create instructions-function
       framework::dput_function(
         pkg_fun = framework::instructions,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create specify_instructions-function
       framework::dput_function(
         pkg_fun = framework::specify_instructions,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create execute_instructions-function
       framework::dput_function(
         pkg_fun = framework::execute_instructions,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create prepare_website-function
       framework::dput_function(
         pkg_fun = framework::prepare_website,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create write_index_Rmd-function
       framework::dput_function(
         pkg_fun = framework::write_index_Rmd,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
       # create write_yaml-function
       framework::dput_function(
         pkg_fun = framework::write_yaml,
         target_dir = 'in/fun/sachserf_framework',
-        substitute_framework = TRUE
+        rm_pattern = 'framework::'
       )
     #### create make.R ####
     if (file.exists("make.R") == FALSE) {
@@ -134,16 +134,15 @@ rm(localfun)
 
 # install packages without loading:
 pkg_install(c('rmarkdown', 
-              'knitr', 
-              'packrat', 
-              'tidyr',
-              'readr'), 
+              'knitr'), 
             attach = FALSE)
 
 # install and load packages:
 pkg_install(c('dplyr', 
               'ggplot2',
-              'stringi'), 
+              'stringi,
+              'tidyr',
+              'readr'), 
             attach = TRUE)
 
 ############ SOURCE ############ 
@@ -154,7 +153,7 @@ instructions(input_R = c('in/src/load.R',
              spin_index = 'all', 
              cache_index = 'all')
 
-execute_instructions() # don´t edit
+execute_instructions() # don not edit
 
 ############ SUPPLEMENT ############   
 
@@ -166,7 +165,7 @@ session_info()
 
 # backup (optionally change target directory and excluded files/dir)
 backup(exclude_directories = 'packrat|.git|in/data|out|.cache',
-       exclude_files = '*.RData|*.Rhistory')
+       exclude_files = '*.RData|*.Rhistory', delete_target = TRUE)
 
 # print reminder to console
 reminder()
@@ -263,7 +262,7 @@ If you want to use additional packages place them into the makefile.
 Fill in your single Rmd/R-files into the 'instructions'-function (chronological order!)
 
 ### A hidden cache directory: 
-Don´t edit the files within the cache directory. If you want to source everything from scratch just delete the whole cache-dir by using the option 'cache_index = 0' (file: 'make.R' function: 'instructions') 
+Do not edit the files within the cache directory. If you want to source everything from scratch just delete the whole cache-dir by using the option 'cache_index = 0' (file: 'make.R' function: 'instructions') 
 
 ### An input directory 'in':
 This is the place for every file you want to include. Place your files according to the subdirectories (src = source files, fun = self-written functions, data = ...for your data). You can use subdirectories according to your preferences.
@@ -272,7 +271,7 @@ This is the place for every file you want to include. Place your files according
 All but the 'usr' subdirectories will be deleted and rebuild every time you source 'make.R' and should be treated as read-only! User-specific output should only be saved in out/usr!
 
 Beware:
-When saving user-specified output you should be aware that rendered documents change the working directory temporarily. This is also true for spinned R-files, but not if they´re sourced. Therefore it could be necessary to include '../' for each directory level of the file.
+When saving user-specified output you should be aware that rendered documents change the working directory temporarily. This is also true for spinned R-files, but not if they are sourced. Therefore it could be necessary to include '../' for each directory level of the file.
 
 Example: You want to store a specific object as a rds-file (the underlying script is placed in 'in/src/myfile.R = two subdirectories of the top-level of the project):
 
@@ -286,7 +285,7 @@ saveRDS(object = myobject, file = '../../out/usr/myobject.rds')
 - A Backup of your project (or just the most important files)
 - a git repository as well as a .gitignore
 - a packrat repository
-- Default R-image and history (.RData & .Rhistory) - depending on your preferences.
+- Default R-image and history (.RData + .Rhistory) - depending on your preferences.
 - An Rstudio project-file '*.Rproj'
 - This how-to-guide
 - A README.md (and eventually a rendered html-version): Be aware that the html-version is not being rendered automatically when you source the makefile!

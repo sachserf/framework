@@ -7,6 +7,7 @@
 insert_srcmake_addin()
 }
 \description{
-Call this function as an addin to insert preformatted text at the cursor position.
+Call this function as an addin to insert preformatted text at the cursor
+position.
 }
 

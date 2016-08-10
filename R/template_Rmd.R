@@ -1,11 +1,16 @@
 #' Create a template Rmd-file
 #' 
-#' @param file Character. Specify the path to save the new file. Use relative file paths and specify the file extension; e.g. 'in/src/new_dir/myfile.Rmd'. 
-#' @param Author Character. Optionally customize the name of the Author (used for the YAML header). Default is the effective user of the system info.
-#' @param Date Character. Optionally customize the date (used for the YAML header). Default is the current Date (format YYYY-MM-DD).
+#' @param file Character. Specify the path to save the new file. Use relative
+#'   file paths and specify the file extension; e.g.
+#'   'in/src/new_dir/myfile.Rmd'.
+#' @param Author Character. Optionally customize the name of the Author (used
+#'   for the YAML header). Default is the effective user of the system info.
+#' @param Date Character. Optionally customize the date (used for the YAML
+#'   header). Default is the current Date (format YYYY-MM-DD).
 #' @note Missing directories will be created recursively.
 #' @note It is not possible to overwrite existing files.
-#' @note Other YAML header options will be choosen automatically. Edit the resulting file to customize the YAML header.
+#' @note Other YAML header options will be choosen automatically. Edit the
+#'   resulting file to customize the YAML header.
 #' @author Frederik Sachser
 #' @export
 template_Rmd <-

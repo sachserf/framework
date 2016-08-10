@@ -1,10 +1,18 @@
-#' dsfrrgrjjdsgh
+#' Specify instructions for a framework-project
 #' 
-#' @description aswgarsg swegjj
+#' @description This function will be called inside the function
+#'   'execute_instructions'. It is not meant to be called directly.
+#' @param filename_in Name of the file.
+#' @param basename_in Basename of the file.
+#' @param filename_image Path to the image of the file.
+#' @param filename_mtime mtime of the file.
+#' @param filename_Rmd Filename of Rmd-files
+#' @param instruction Specification of the instruction.
+#' @param filename_dot filename with dot.
 #' @author Frederik Sachser
 #' @export
 specify_instructions <-
-  function (filename_in,
+  function(filename_in,
             basename_in,
             filename_image,
             filename_mtime,

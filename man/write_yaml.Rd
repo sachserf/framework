@@ -5,7 +5,12 @@
 \title{dsfrrgrqqdsgh}
 \usage{
 write_yaml(target_dir_yaml = ".cache/website",
-  target_dir_website = "out/auto/notebooks/website")
+  target_dir_website = "out/website")
+}
+\arguments{
+\item{target_dir_yaml}{some text}
+
+\item{target_dir_website}{some text}
 }
 \description{
 aswgarsg swegqq

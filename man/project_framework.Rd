@@ -2,15 +2,42 @@
 % Please edit documentation in R/project_framework.R
 \name{project_framework}
 \alias{project_framework}
-\title{dsfrrgrggdsgh}
+\title{Initialize a framework-project}
 \usage{
 project_framework(dirname, init_Rproj = TRUE, init_git = TRUE,
   init_packrat = FALSE)
 }
+\arguments{
+\item{dirname}{Character. Specify the path to the directory where you want to
+create a new project. The last directory will be the project directory 
+itself. The name of the project will be the name of the project directory. 
+E.g. '~/Desktop/MyProject' will create a project directory on your desktop.}
+
+\item{init_Rproj}{Logical. TRUE calls the function Rproj_init.}
+
+\item{init_git}{Logical. TRUE calls the function git_init.}
+
+\item{init_packrat}{Logical. TRUE initializes a packrat repo.}
+}
 \description{
-aswgarsg sweggda
+This function is the heart of the package framework and it is 
+  probably the only one you need to call by hand. Furthermore it is a wrapper
+  for skeleton, Rproj_init and git_init. Therefore it is straightforward to 
+  create a new project, change the working directory, generate basic
+  directories and initialize a git repository. Optionally you can initialize
+  a packrat repo.
+}
+\note{
+Creation of the dirname is recursive.
+
+After calling the function go to the project directory and open the 
+  .Rproj file with RStudio.
 }
 \author{
 Frederik Sachser
+}
+\seealso{
+\code{\link{Rproj_init}}, \code{\link{git_init}}, 
+  \code{\link{skeleton}}
 }
 

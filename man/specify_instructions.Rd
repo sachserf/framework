@@ -2,13 +2,29 @@
 % Please edit documentation in R/specify_instructions.R
 \name{specify_instructions}
 \alias{specify_instructions}
-\title{dsfrrgrjjdsgh}
+\title{Specify instructions for a framework-project}
 \usage{
 specify_instructions(filename_in, basename_in, filename_image, filename_mtime,
   filename_Rmd, instruction, filename_dot)
 }
+\arguments{
+\item{filename_in}{Name of the file.}
+
+\item{basename_in}{Basename of the file.}
+
+\item{filename_image}{Path to the image of the file.}
+
+\item{filename_mtime}{mtime of the file.}
+
+\item{filename_Rmd}{Filename of Rmd-files}
+
+\item{instruction}{Specification of the instruction.}
+
+\item{filename_dot}{filename with dot.}
+}
 \description{
-aswgarsg swegjj
+This function will be called inside the function
+  'execute_instructions'. It is not meant to be called directly.
 }
 \author{
 Frederik Sachser

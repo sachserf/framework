@@ -20,10 +20,9 @@ AlwaysSaveHistory: Default
 EnableCodeIndexing: Yes
 UseSpacesForTab: Yes
 NumSpacesForTab: 4
-Encoding: Default
       
 RnwWeave: knitr
-LaTeX: XeLaTex
+LaTeX: Default
         
 AutoAppendNewline: Yes
         ')

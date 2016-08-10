@@ -1,8 +1,9 @@
 #' Initialize a git repo
 #' 
-#' @description Initialize a git repo within the current working directory. 
-#' @return Add and commit all existing files to branch master. Afterwards checkout to a newly created branch devel.
-#' @note The function will work only if git is installed and '.git' is absent. 
+#' @description Initialize a git repo within the current working directory.
+#' @return Add and commit all existing files to branch master. Afterwards
+#'   checkout to a newly created branch devel.
+#' @note The function will work only if git is installed and '.git' is absent.
 #' @author Frederik Sachser
 #' @export
 git_init <- function(){

@@ -2,12 +2,19 @@
 % Please edit documentation in R/pkg_install.R
 \name{pkg_install}
 \alias{pkg_install}
-\title{dsfrrgrsgdsgh}
+\title{Install and attach packages}
 \usage{
-pkg_install(pkg_names = ..., attach = TRUE)
+pkg_install(pkg_names, attach = TRUE)
+}
+\arguments{
+\item{pkg_names}{Character. A vector specifying the names of packages you
+want to install.}
+
+\item{attach}{Logical. If TRUE the packages will be loaded.}
 }
 \description{
-aswgarsg swegsdg
+The function checks if the specified packages are installed.
+  Packages that are not installed are going to be installed.
 }
 \author{
 Frederik Sachser

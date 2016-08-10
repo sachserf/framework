@@ -1,12 +1,19 @@
-#' dsfrrgrdsgh
+#' Dput a function
 #' 
-#' @description aswgarsg sweg
+#' @description Choose a function of an installed R-package and save it to the 
+#'   specified target.
+#' @param pkg_fun Name of a package and function separated by '::'. E.g. 
+#'   framework::reminder
+#' @param target_dir Character. Specify the file path, where you want to write 
+#'   the file.
+#' @param rm_pattern Character. Choose any pattern that should be removed. E.g. 
+#'   'framework::' to exclude the name of the package framework.
 #' @author Frederik Sachser
 #' @export
 dput_function <-
   function(pkg_fun,
            target_dir,
-           substitute_framework = FALSE) {
+           rm_pattern = FALSE) {
     if (dir.exists(target_dir) == FALSE) {
       dir.create(target_dir, recursive = TRUE)
     }
@@ -22,10 +29,10 @@ dput_function <-
       dput(x = pkg_fun, file = filename)
       # read file
       thefun <- readLines(filename)
-      # substitute framework:: with local_fun$
-      if (substitute_framework == TRUE) {
+      # rm pattern 
+      if (rm_pattern != FALSE) {
         thefun <-
-          gsub(pattern = 'framework::',
+          gsub(pattern = rm_pattern,
                replacement = '',
                x = thefun)
       }

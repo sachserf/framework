@@ -1,10 +1,18 @@
 #' Check file changes and write instructions
 #' 
 #' @param input_R Character. A vector of filepaths that should be executed.
-#' @param spin_index Integer. A vector specifying the files that should be spinned. Choose option 'all' instead of an integer vector, if you want to spin all R-scripts.
-#' @param cache_index Integer. A vector specyfing the files that should be run only if necessary. Choose option 'all' instead of an integer vector, if you want to use the cache for all input files.
-#' @return The directories out/docs, out/figure and out/data will be deleted. A dataframe including the specified instructions will be written/updated within a hidden cache directory. 
-#' @note The function only makes sense if you use it within a framework-project. Call project_framework() and have a look at the file make.R
+#' @param spin_index Integer. A vector specifying the files that should be
+#'   spinned. Choose option 'all' instead of an integer vector, if you want to
+#'   spin all R-scripts.
+#' @param cache_index Integer. A vector specyfing the files that should be run
+#'   only if necessary. Choose option 'all' instead of an integer vector, if you
+#'   want to use the cache for all input files.
+#' @return The directories out/docs, out/figure and out/data will be deleted. A
+#'   dataframe including the specified instructions will be written/updated
+#'   within a hidden cache directory.
+#' @note The function only makes sense if you use it within a framework-project.
+#'   Call project_framework() and have a look at the file make.R
+#'   @seealso \code{\link{execute_instructions}}
 #' @author Frederik Sachser
 #' @export
 instructions <- 

@@ -1,10 +1,11 @@
 #' dsfrrgroodsgh
 #' 
 #' @description aswgarsg swegoo
+#' @param target_index_Rmd some text
 #' @author Frederik Sachser
 #' @export
 write_index_Rmd <- 
-function (target_index_Rmd = ".cache/website/index.Rmd") 
+function(target_index_Rmd = ".cache/website/index.Rmd") 
 {
     if (file.exists(target_index_Rmd) == TRUE) {
         warning("index.Rmd does exist.")

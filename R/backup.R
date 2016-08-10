@@ -1,10 +1,27 @@
-#' erhth
+#' Copy a directory with timestamp
 #' 
-#' @description srg argrag
+#' @description The function will copy the specified directory and create a 
+#'   timestamp at the target.
+#' @param target_dir Character. Path to the target directory. Alternatively use 
+#'   'project_subdir' to point to a subfolder of your current working directory.
+#' @param source_dir Character. Path to the source directory. Default is the 
+#'   current working directory.
+#' @param delete_target Logical. If TRUE all directories within the target
+#'   directory will be deleted! Only the current version of your backup will be
+#'   existent.
+#' @param exclude_directories Character. Specify directories to exclude from 
+#'   backup. If you want to exclude multiple directories use | as separator. 
+#'   Choose FALSE if you don not want to exclude any directories.
+#' @param exclude_files Character. Specify files to exclude from backup. If you 
+#'   want to exclude multiple directories use | as separator. Choose FALSE if 
+#'   you don not want to exclude any files
+#' @note Beware! If you choose an existing target directory and option
+#'   delete_target = TRUE: ALL YOUR FILES WILL BE DELETED!
+#' @author Frederik Sachser
 #' @export
 backup <- 
 function(target_dir = "project_subdir", source_dir = file.path(getwd()), 
-    overwrite = TRUE, exclude_directories = FALSE, exclude_files = FALSE) 
+    delete_target = FALSE, exclude_directories = FALSE, exclude_files = FALSE) 
 {
     projname <- paste("BACKUP_", basename(getwd()), sep = "")
     if (target_dir == "project_subdir") {
@@ -55,7 +72,7 @@ function(target_dir = "project_subdir", source_dir = file.path(getwd()),
             dir.create(thedirectory, recursive = TRUE)
         }
     }
-    if (overwrite == TRUE) 
+    if (delete_target == TRUE) 
         unlink(target_dir, recursive = TRUE)
     dir_create_or_exist(target_dir)
     lapply(file.path(target_dir_stime, sub_directories), dir_create_or_exist)

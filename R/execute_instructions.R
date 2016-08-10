@@ -1,6 +1,13 @@
-#' dsfrrgsgrdsgh
+#' Execute instructions of df_cache.rds
 #' 
-#' @description aswsggarsg sweg
+#' @description The function executes the instructions according to the file 
+#'   df_cache.rds. Furthermore it is a wrapper for specify_instructions.
+#' @param filename_df_cache Character. Specify the file path where to find the 
+#'   file df_cache.rds.
+#' @note The function only makes sense after calling 'instructions()'. You might
+#'   want to create a new framework-project (using 'project_framework()') and 
+#'   have a look at the file make.R.
+#' @seealso \code{\link{specify_instructions}}
 #' @author Frederik Sachser
 #' @export
 execute_instructions <-

@@ -1,11 +1,13 @@
 #' dsfrrgrqqdsgh
 #' 
 #' @description aswgarsg swegqq
+#' @param target_dir_yaml some text
+#' @param target_dir_website some text
 #' @author Frederik Sachser
 #' @export
 write_yaml <- 
-  function (target_dir_yaml = ".cache/website",
-            target_dir_website = "out/auto/notebooks/website") 
+  function(target_dir_yaml = ".cache/website",
+            target_dir_website = "out/website") 
   {
     Rmd_files <- c(basename(readRDS(".cache/df_cache.rds")$filename_Rmd))
     basename_Rmd <- list.files(path = target_dir_yaml, pattern = ".Rmd")

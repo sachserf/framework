@@ -7,7 +7,8 @@
 git_init()
 }
 \value{
-Add and commit all existing files to branch master. Afterwards checkout to a newly created branch devel.
+Add and commit all existing files to branch master. Afterwards
+  checkout to a newly created branch devel.
 }
 \description{
 Initialize a git repo within the current working directory.

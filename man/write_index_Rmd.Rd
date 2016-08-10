@@ -6,6 +6,9 @@
 \usage{
 write_index_Rmd(target_index_Rmd = ".cache/website/index.Rmd")
 }
+\arguments{
+\item{target_index_Rmd}{some text}
+}
 \description{
 aswgarsg swegoo
 }
