@@ -1,3 +1,8 @@
+#' dsfrrgrggdsgh
+#' 
+#' @description aswgarsg sweggda
+#' @author Frederik Sachser
+#' @export
 project_framework <- function(dirname, init_Rproj = TRUE, init_git = TRUE, init_packrat = FALSE) {
   if(dir.exists(dirname) == FALSE) dir.create(dirname, recursive = TRUE)
   setwd(dirname)  

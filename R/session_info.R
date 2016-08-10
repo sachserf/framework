@@ -1,3 +1,8 @@
+#' dsfrrgrddddsgh
+#' 
+#' @description aswgarsg swegddd
+#' @author Frederik Sachser
+#' @export
 session_info <- 
 function (file = "session_info.txt") 
 {

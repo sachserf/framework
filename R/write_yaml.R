@@ -1,3 +1,8 @@
+#' dsfrrgrqqdsgh
+#' 
+#' @description aswgarsg swegqq
+#' @author Frederik Sachser
+#' @export
 write_yaml <- 
   function (target_dir_yaml = ".cache/website",
             target_dir_website = "out/auto/notebooks/website") 

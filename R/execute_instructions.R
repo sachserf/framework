@@ -1,5 +1,10 @@
+#' dsfrrgsgrdsgh
+#' 
+#' @description aswsggarsg sweg
+#' @author Frederik Sachser
+#' @export
 execute_instructions <-
-  function (filename_df_cache = ".cache/df_cache.rds")
+  function(filename_df_cache = ".cache/df_cache.rds")
   {
     df_cache <- readRDS(filename_df_cache)
     for (i in 1:nrow(df_cache)) {

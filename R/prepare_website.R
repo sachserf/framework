@@ -1,3 +1,8 @@
+#' dsfrrgrdsghtdh
+#' 
+#' @description aswgarsg swegsg
+#' @author Frederik Sachser
+#' @export
 prepare_website <- function() {
   # copy files - prepare directory
   if (dir.exists('.cache/website') == TRUE) {

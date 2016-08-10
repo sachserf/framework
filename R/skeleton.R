@@ -1,10 +1,16 @@
 #' Create a framework-project skeleton
-#' @description The function creates a predefined directory structure and some files to enhance project organization.
-#' @return The output are several files and directories within your working directory. The structure contains a how-to-guide.txt, README.md, directories for input and output, some file-templates and several functions for proper functioning of the project.
-#' @note There are no parameters to specify. 
-#' @note There is a wrapper-function to call this function. You might want to use project_framework() instead.
+#' @description The function creates a predefined directory structure and some
+#'   files to enhance project organization.
+#' @return The output are several files and directories within your working
+#'   directory. The structure contains a how-to-guide.txt, README.md,
+#'   directories for input and output, some file-templates and several functions
+#'   for proper functioning of the project.
+#' @note There are no parameters to specify.
+#' @note There is a wrapper-function to call this function. You might want to
+#'   use project_framework() instead.
 #' @seealso \code{\link{project_framework}}
 #' @author Frederik Sachser
+#' @export
 skeleton <-
   function(){
     #### create basic directories ####

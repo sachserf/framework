@@ -1,3 +1,8 @@
+#' dsfrrgrdsgh
+#' 
+#' @description aswgarsg sweg
+#' @author Frederik Sachser
+#' @export
 dput_function <-
   function(pkg_fun,
            target_dir,

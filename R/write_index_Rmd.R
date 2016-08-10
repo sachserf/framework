@@ -1,3 +1,8 @@
+#' dsfrrgroodsgh
+#' 
+#' @description aswgarsg swegoo
+#' @author Frederik Sachser
+#' @export
 write_index_Rmd <- 
 function (target_index_Rmd = ".cache/website/index.Rmd") 
 {

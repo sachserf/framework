@@ -7,6 +7,7 @@
 #' @note It is not possible to overwrite existing files.
 #' @note Other YAML header options will be choosen automatically. Edit the resulting file to customize the YAML header.
 #' @author Frederik Sachser
+#' @export
 template_Rmd <-
   function(file,
             Author = Sys.info()["effective_user"],

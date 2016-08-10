@@ -1,3 +1,8 @@
+#' dsfrrgrjjdsgh
+#' 
+#' @description aswgarsg swegjj
+#' @author Frederik Sachser
+#' @export
 specify_instructions <-
   function (filename_in,
             basename_in,

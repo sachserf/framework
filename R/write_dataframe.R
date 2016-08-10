@@ -1,3 +1,8 @@
+#' dsfrrgrdsghrr
+#' 
+#' @description aswgarsg swegrr
+#' @author Frederik Sachser
+#' @export
 write_dataframe <- 
 function (listofdf = "GlobalEnv", target_dir = "out/data/", file_format = "csv") 
 {

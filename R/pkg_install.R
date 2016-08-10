@@ -1,3 +1,8 @@
+#' dsfrrgrsgdsgh
+#' 
+#' @description aswgarsg swegsdg
+#' @author Frederik Sachser
+#' @export
 pkg_install <- 
 function (pkg_names = ..., attach = TRUE) 
 {

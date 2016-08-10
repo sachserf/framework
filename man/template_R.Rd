@@ -26,4 +26,7 @@ The file contains a YAML header and Roxygen comment prefixes. It is possible to 
 
 Other YAML header options will be choosen automatically. Edit the resulting file to customize the YAML header.
 }
+\author{
+Frederik Sachser
+}
 

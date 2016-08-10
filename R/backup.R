@@ -1,5 +1,9 @@
+#' erhth
+#' 
+#' @description srg argrag
+#' @export
 backup <- 
-function (target_dir = "project_subdir", source_dir = file.path(getwd()), 
+function(target_dir = "project_subdir", source_dir = file.path(getwd()), 
     overwrite = TRUE, exclude_directories = FALSE, exclude_files = FALSE) 
 {
     projname <- paste("BACKUP_", basename(getwd()), sep = "")

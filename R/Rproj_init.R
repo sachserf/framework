@@ -3,6 +3,7 @@
 #' @description Creates an .Rproj-file within your current working directory.
 #' @note It is not possible to overwrite an existing Rproj.
 #' @author Frederik Sachser
+#' @export
 Rproj_init <- function(){
   dirname <- getwd()
   projname <- unlist(strsplit(dirname, split = '/'))[length(unlist(strsplit(dirname, split = '/')))]

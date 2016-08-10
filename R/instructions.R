@@ -6,6 +6,7 @@
 #' @return The directories out/docs, out/figure and out/data will be deleted. A dataframe including the specified instructions will be written/updated within a hidden cache directory. 
 #' @note The function only makes sense if you use it within a framework-project. Call project_framework() and have a look at the file make.R
 #' @author Frederik Sachser
+#' @export
 instructions <- 
   function(input_R, spin_index = 0, cache_index = 0) 
   {

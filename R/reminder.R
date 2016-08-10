@@ -1,7 +1,9 @@
 #' Print a reminder and summary to the console
 #' 
-#' @description The function will print a summary of the instructions and remind you to use git.
+#' @description The function will print a summary of the instructions and remind
+#'   you to use git.
 #' @author Frederik Sachser
+#' @export
 reminder <-
   function()
   {
