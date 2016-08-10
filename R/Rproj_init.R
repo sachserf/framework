@@ -19,8 +19,8 @@ AlwaysSaveHistory: Default
         
 EnableCodeIndexing: Yes
 UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: native.enc
+NumSpacesForTab: 4
+Encoding: Default
       
 RnwWeave: knitr
 LaTeX: XeLaTex
