@@ -13,7 +13,7 @@ Depends:
     R (>= 3.2)
 Imports:
     rstudioapi (>= 0.5),
-    rmarkdown,
+    rmarkdown (>= 0.9.6),
     packrat,
     utils
 RoxygenNote: 5.0.1
