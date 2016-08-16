@@ -49,7 +49,10 @@ website <-
           file = target_index)
     }
     # write yaml
-    the_files <- list.files(path = target_Rmd, pattern = '*Rmd', full.names = TRUE)
+    the_files <- filename_target_Rmd
+    if (grepl(pattern = "index", x = the_files) == TRUE) {
+      the_files <- the_files[-grep(pattern = "index", x = the_files)]
+    }
     basename_html <- basename(gsub(pattern = ".Rmd", replacement = ".html", 
                                    x = the_files))
     basename_next <- basename(gsub(pattern = ".Rmd", replacement = "", 
