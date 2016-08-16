@@ -4,10 +4,10 @@
 \alias{instructions}
 \title{Check file changes and write instructions}
 \usage{
-instructions(input_R, spin_index = 0, cache_index = 0)
+instructions(input_src, spin_index = 0, cache_index = 0)
 }
 \arguments{
-\item{input_R}{Character. A vector of filepaths that should be executed.}
+\item{input_src}{Character. A vector of filepaths that should be executed.}
 
 \item{spin_index}{Integer. A vector specifying the files that should be
 spinned. Choose option 'all' instead of an integer vector, if you want to

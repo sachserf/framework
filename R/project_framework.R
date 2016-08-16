@@ -3,8 +3,8 @@
 #' @description This function is the heart of the package framework and it is 
 #'   probably the only one you need to call by hand. Furthermore it is a wrapper
 #'   for skeleton, Rproj_init and git_init. Therefore it is straightforward to 
-#'   create a new project, change the working directory, generate basic
-#'   directories and initialize a git repository. Optionally you can initialize
+#'   create a new project, change the working directory, generate basic 
+#'   directories and initialize a git repository. Optionally you can initialize 
 #'   a packrat repo.
 #' @param dirname Character. Specify the path to the directory where you want to
 #'   create a new project. The last directory will be the project directory 
@@ -13,6 +13,9 @@
 #' @param init_Rproj Logical. TRUE calls the function Rproj_init.
 #' @param init_git Logical. TRUE calls the function git_init.
 #' @param init_packrat Logical. TRUE initializes a packrat repo.
+#' @param custom_makeR Character. File path to a local make-like R-file. Specify
+#'   this option if you want to use a customized version instead of the template
+#'   for the file 'make.R'.
 #' @note Creation of the dirname is recursive.
 #' @note After calling the function go to the project directory and open the 
 #'   .Rproj file with RStudio.
@@ -20,10 +23,10 @@
 #'   \code{\link{skeleton}}
 #' @author Frederik Sachser
 #' @export
-project_framework <- function(dirname, init_Rproj = TRUE, init_git = TRUE, init_packrat = FALSE) {
+project_framework <- function(dirname, init_Rproj = TRUE, init_git = TRUE, init_packrat = FALSE, custom_makeR = NULL) {
   if (dir.exists(dirname) == FALSE) dir.create(dirname, recursive = TRUE)
   setwd(dirname)  
-  framework::skeleton()
+  framework::skeleton(custom_makeR)
   if (init_Rproj == TRUE) framework::Rproj_init()
   if (init_packrat == TRUE) {
     if ('packrat' %in% rownames(utils::installed.packages()) == FALSE) {

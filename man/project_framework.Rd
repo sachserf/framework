@@ -5,7 +5,7 @@
 \title{Initialize a framework-project}
 \usage{
 project_framework(dirname, init_Rproj = TRUE, init_git = TRUE,
-  init_packrat = FALSE)
+  init_packrat = FALSE, custom_makeR = NULL)
 }
 \arguments{
 \item{dirname}{Character. Specify the path to the directory where you want to
@@ -18,13 +18,17 @@ E.g. '~/Desktop/MyProject' will create a project directory on your desktop.}
 \item{init_git}{Logical. TRUE calls the function git_init.}
 
 \item{init_packrat}{Logical. TRUE initializes a packrat repo.}
+
+\item{custom_makeR}{Character. File path to a local make-like R-file. Specify
+this option if you want to use a customized version instead of the template
+for the file 'make.R'.}
 }
 \description{
 This function is the heart of the package framework and it is 
   probably the only one you need to call by hand. Furthermore it is a wrapper
   for skeleton, Rproj_init and git_init. Therefore it is straightforward to 
-  create a new project, change the working directory, generate basic
-  directories and initialize a git repository. Optionally you can initialize
+  create a new project, change the working directory, generate basic 
+  directories and initialize a git repository. Optionally you can initialize 
   a packrat repo.
 }
 \note{

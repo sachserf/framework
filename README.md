@@ -49,7 +49,7 @@ framework::project_framework(path/2/your/new/project)
 The functional principle of framework-projects is inspired by the software `GNU Make`. Basically a project consists of several processing steps. Ideally these steps are written separately into different files (which will hereinafter be referred to as 'source-files'). An additional `makefile` (or in the case of a framework-project a make-like file `make.R`) contains all information and instructions to process and combine the source-files. In other words: **By calling the make-like file `make.R` the whole framework-project will be processed.** Additionally you will always be able to keep track of your processing steps by reading the file `make.R`. If your source-files as well as the order of your processing steps do not change it is not necessary to process them. Therefore a framework-project makes use of a cache-directory per default (nonetheless optionally for each source-file). Thanks to this feature the processing speed of a framework-project is very fast. Furthermore the output of a framework-project is always up-to-date and you will be able to detect and locate bugs at an early stage.
 
 ## A Metaphor on how to use a framework-project
-Wrting a book is similar to writing an R-project.  
+Writing a book is similar to writing an R-project.  
 - First of all you will specify a title and make up a concept to work on:  
 `framework::project_framework("path/2/your/new/project")`
 - Afterwards you don´t want to loose time and start writing your "chapters" (alias source-files). To create a link you should specify the chapters in your table of contents:  
@@ -64,16 +64,19 @@ use git to commit snapshots of your project.
 use packrat to ensure applicability of your project.
 
 ## Installation of the R-package `framework`
+
 ### Required Software
 - `R` (>= 3.2)
 - `RStudio` (testet under 0.99.878)
 - R-package `devtools` (for Installation only!)
+
 ### Recommended Software
 - rmarkdown
 - knitr
 - pandoc
 - git
 - packrat
+
 ### Installation
 `devtools::install_github("sachserf/framework")`
 
@@ -112,5 +115,5 @@ use packrat to ensure applicability of your project.
 - Do not write 'source('make.R')' inside a script that should be sourced by 'make.R'
 
 ## Further information
-- see https://github.com/sachserf/framework
+- see https://github.com/sachserf/framework for further information and source code of the package *framework*
 - For detailed information on specific functions of the R-package `framework` see the help pages (`?function_name`: eg `?framework::write_dataframe`)

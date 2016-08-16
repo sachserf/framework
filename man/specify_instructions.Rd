@@ -8,23 +8,28 @@ specify_instructions(filename_in, basename_in, filename_image, filename_mtime,
   filename_Rmd, instruction, filename_dot)
 }
 \arguments{
-\item{filename_in}{Name of the file.}
+\item{filename_in}{Path to input files (.R or .Rmd)}
 
-\item{basename_in}{Basename of the file.}
+\item{basename_in}{Basename of the file without extension.}
 
-\item{filename_image}{Path to the image of the file.}
+\item{filename_image}{Path to the image of the file (The resulting file of
+'save.image()')}
 
-\item{filename_mtime}{mtime of the file.}
+\item{filename_mtime}{Path to an RDS-file containing information about the
+mtime of the input-file ('filename_in').}
 
-\item{filename_Rmd}{Filename of Rmd-files}
+\item{filename_Rmd}{Path to temporary Rmd_files (cache).}
 
-\item{instruction}{Specification of the instruction.}
+\item{instruction}{Specification of the instruction. These predefined values
+(nothing, load, source, render) will be used to specify the instruction.}
 
-\item{filename_dot}{filename with dot.}
+\item{filename_dot}{Path to a temporary files (cache) ending with a dot (no
+extension)}
 }
 \description{
-This function will be called inside the function
-  'execute_instructions'. It is not meant to be called directly.
+This function will be called inside the function 
+  'execute_instructions'. It is not meant to be called directly. It is used
+  to specify further processing for predefined instructions.
 }
 \author{
 Frederik Sachser
