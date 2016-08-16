@@ -146,10 +146,10 @@ instructions(input_src = c('in/src/load.R',
 
 execute_instructions() # do not edit
 
-# Optionally render a website of the following Rmd-files
+# Optionally render Rmd-files as a website
 # website(Rmd_input = c('.cache/docs/load.spin.Rmd', 
-                        'in/src/report.Rmd'), 
-          target_dir = 'out/website')
+#                        'in/src/report.Rmd'), 
+#          target_dir = 'out/website')
 
 ############ SUPPLEMENT ############   
 
