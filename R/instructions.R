@@ -51,7 +51,7 @@ instructions <-
     
     filename_in <- paste0(input_src)
 
-    Rmd_index <- grep(pattern = '.Rmd', filename_in)
+    Rmd_index <- grep(pattern = '.Rmd', filename_in, fixed = TRUE)
     
     if (length(Rmd_index > 0)) {
       filename_in[Rmd_index] <- substr(x = filename_in[Rmd_index], 
@@ -60,10 +60,10 @@ instructions <-
       
     }
 
-    basename_in <- gsub(pattern = ".R", replacement = "", x = basename(filename_in))
-    basename_in <- gsub(pattern = ".R", replacement = "", x = basename(filename_in))
+    basename_in <- gsub(pattern = ".R", replacement = "", x = basename(filename_in), fixed = TRUE)
+    basename_in <- gsub(pattern = ".R", replacement = "", x = basename(filename_in), fixed = TRUE)
     basedirname <- paste0(dirname(filename_in), '/', basename_in)
-    basedirname <- gsub(pattern = 'in/src/', replacement = '', basedirname)
+    basedirname <- gsub(pattern = 'in/src/', replacement = '', basedirname, fixed = TRUE)
     
     nr_basename <- paste0(seq_along(basename_in), '_', basename_in)
     filename_image <- paste0(".cache/", basename_in, "_image.RData")
@@ -94,7 +94,7 @@ instructions <-
     
     #### delete deprecated pdf and html from cache
     cache_files <- list.files(path = '.cache/docs', recursive = FALSE, full.names = TRUE)
-    keep_files <- grep(pattern = paste(paste0('.cache/docs/', df_cache$basename[which(df_cache$instruction == 'render')], '.', collapse = '|')), x = cache_files)
+    keep_files <- grep(pattern = paste(paste0('.cache/docs/', df_cache$basename[which(df_cache$instruction == 'render')], '.', collapse = '|')), x = cache_files, fixed = TRUE)
     deprecated_output <- cache_files[-keep_files]
     unlink(deprecated_output)
     
@@ -137,7 +137,7 @@ instructions <-
     
     # render again if files not exist 
     for (i in which(df_cache$instruction_orig == 'render')) {
-      check_file_exist <- length(grep(pattern = paste(paste0('.cache/docs/', df_cache$basename[i], '.', collapse = '|')), x = cache_files))
+      check_file_exist <- length(grep(pattern = paste(paste0('.cache/docs/', df_cache$basename[i], '.', collapse = '|')), x = cache_files, fixed = TRUE))
       if (check_file_exist == 0) {
         df_cache$load[i] <- FALSE
       }
