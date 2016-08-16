@@ -80,19 +80,7 @@ skeleton <-
       )
       # create prepare_website-function
       framework::dput_function(
-        pkg_fun = framework::prepare_website,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create write_index_Rmd-function
-      framework::dput_function(
-        pkg_fun = framework::write_index_Rmd,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create write_yaml-function
-      framework::dput_function(
-        pkg_fun = framework::write_yaml,
+        pkg_fun = framework::website,
         target_dir = 'in/fun/sachserf_framework',
         rm_pattern = 'framework::'
       )
@@ -140,7 +128,7 @@ pkg_install(c('rmarkdown',
 # install and load packages:
 pkg_install(c('dplyr', 
               'ggplot2',
-              'stringi,
+              'stringi',
               'tidyr',
               'readr'), 
             attach = TRUE)
@@ -148,7 +136,7 @@ pkg_install(c('dplyr',
 ############ SOURCE ############ 
 
 # fill in R/Rmd-files in chronological order
-instructions(input_R = c('in/src/load.R', 
+instructions(input_src = c('in/src/load.R', 
                           'in/src/report.Rmd'), 
              spin_index = 'all', 
              cache_index = 'all')

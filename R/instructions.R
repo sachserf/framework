@@ -1,6 +1,6 @@
 #' Check file changes and write instructions
 #' 
-#' @param input_R Character. A vector of filepaths that should be executed.
+#' @param input_src Character. A vector of filepaths that should be executed.
 #' @param spin_index Integer. A vector specifying the files that should be
 #'   spinned. Choose option 'all' instead of an integer vector, if you want to
 #'   spin all R-scripts.
@@ -16,14 +16,14 @@
 #' @author Frederik Sachser
 #' @export
 instructions <- 
-  function(input_R, spin_index = 0, cache_index = 0) 
+  function(input_src, spin_index = 0, cache_index = 0) 
   {
     # specify input
     if (length(cache_index) == 1 && cache_index == "all") {
-      cache_index <- 1:length(input_R)
+      cache_index <- 1:length(input_src)
     }
     if (length(spin_index) == 1 && spin_index == "all") {
-      spin_index <- 1:length(input_R)
+      spin_index <- 1:length(input_src)
     }
     # delete cache
     if (length(cache_index) == 1 && cache_index == 0) {
@@ -49,7 +49,7 @@ instructions <-
       }
     }
     
-    filename_in <- paste0(input_R)
+    filename_in <- paste0(input_src)
 
     Rmd_index <- grep(pattern = '.Rmd', filename_in)
     
@@ -78,7 +78,7 @@ instructions <-
     dirname_figure_in <- paste0(dirname(filename_in), '/', basename_in, '_files')
     dirname_figure <- paste0(".cache/figure/", dirname_figure_in)
     dirname_figure <- gsub(pattern = 'in/src/', replacement = '', x = dirname_figure, fixed = TRUE)
-    mtime_current <- file.mtime(input_R)
+    mtime_current <- file.mtime(input_src)
     df_cache <- data.frame(filename_in, basename_in, nr_basename,
                            filename_image, basedirname, 
                            filename_mtime, filename_Rmd, filename_md,
@@ -90,7 +90,7 @@ instructions <-
     df_cache$instruction[spin_index] <- "render"
     
     df_cache$instruction[Rmd_index] <- 'render'
-    df_cache$filename_in[Rmd_index] <- paste0(input_R[Rmd_index])
+    df_cache$filename_in[Rmd_index] <- paste0(input_src[Rmd_index])
     
     #### delete deprecated pdf and html from cache
     cache_files <- list.files(path = '.cache/docs', recursive = FALSE, full.names = TRUE)
