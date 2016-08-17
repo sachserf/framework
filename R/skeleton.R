@@ -81,9 +81,9 @@ skeleton <-
         target_dir = 'in/fun/sachserf_framework',
         rm_pattern = 'framework::'
       )
-      # create prepare_website-function
+      # create prepare_site-function
       framework::dput_function(
-        pkg_fun = framework::website,
+        pkg_fun = framework::prepare_site,
         target_dir = 'in/fun/sachserf_framework',
         rm_pattern = 'framework::'
       )
@@ -147,9 +147,15 @@ instructions(input_src = c('in/src/load.R',
 execute_instructions() # do not edit
 
 # Optionally render Rmd-files as a website
-# website(Rmd_input = c('.cache/docs/load.spin.Rmd', 
-#                        'in/src/report.Rmd'), 
-#          target_dir = 'out/website')
+#prepare_site(
+#  Rmd_input = c('in/src/website/placeholder.Rmd'),
+#  target_dir = 'out/website',
+#  index_menu = FALSE, 
+#  index_name = 'Home',
+#  page_name = 'framework-hp'
+#)
+
+rmarkdown::render_site(input = 'in/src/website/')
 
 ############ SUPPLEMENT ############   
 
