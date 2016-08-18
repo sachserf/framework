@@ -45,7 +45,8 @@ prepare_site <-
     
     # write index.Rmd
     if (file.exists(index_filepath) == FALSE) {
-      cat("# This website is a collection of compiled notebooks of the project: \"`r basename(dirname(dirname(getwd())))`\". \n            \n            Compiled at `r Sys.time()`\n            \n            The following files have been compiled: `r list.files(target_Rmd, pattern = 'Rmd')`\n            \n            ```{r, echo = FALSE}\n            list.files(pattern = 'Rmd')\n            if ('devtools' %in% installed.packages() == TRUE) {\n            devtools::session_info()\n            } else {\n            sessionInfo()\n            }\n            ```\n            \n            ", 
+      list_of_files <- list.files(source_dir, pattern = 'Rmd')
+      cat("# This website is a collection of compiled notebooks of the project: \"`r basename(dirname(dirname(getwd())))`\". \n            \n            Compiled at `r Sys.time()`\n            \n            The following files have been compiled: ", list_of_files," \n            \n            ```{r, echo = FALSE}\n            list.files(pattern = 'Rmd')\n            if ('devtools' %in% installed.packages() == TRUE) {\n            devtools::session_info()\n            } else {\n            sessionInfo()\n            }\n            ```\n            \n            ", 
           file = index_filepath)
     }
     # optionally delete index-button
