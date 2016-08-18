@@ -35,7 +35,7 @@ skeleton <-
       )
       # create reminder-function
       framework::dput_function(
-        pkg_fun = framework::reminder,
+        pkg_fun = framework::summary_instructions,
         target_dir = 'in/fun/sachserf_framework',
         rm_pattern = 'framework::'
       )
@@ -146,7 +146,7 @@ instructions(input_src = c('in/src/load.R',
 
 execute_instructions() # do not edit
 
-# Optionally render Rmd-files as a website
+# Optionally prepare and render Rmd-files as a website
 #prepare_site(
 #  Rmd_input = c('in/src/website/placeholder.Rmd'),
 #  target_dir = 'out/website',
@@ -155,7 +155,7 @@ execute_instructions() # do not edit
 #  page_name = 'framework-hp'
 #)
 
-rmarkdown::render_site(input = 'in/src/website/')
+#rmarkdown::render_site(input = 'in/src/website/') # same input_dir as the files in prepare_site
 
 ############ SUPPLEMENT ############   
 
@@ -169,8 +169,8 @@ session_info()
 backup(exclude_directories = 'packrat|.git|in/data|out|.cache',
        exclude_files = '*.RData|*.Rhistory', delete_target = TRUE)
 
-# print reminder to console
-reminder()
+# print summary of instructions
+summary_instructions()
 
 ", file = 'make.R')
     } else {
