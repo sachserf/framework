@@ -91,8 +91,8 @@ skeleton <-
     if (is.null(custom_makeR) == TRUE) {
       cat("############ make-like file ############ 
 
-# see 'how-to-guide.txt' for a short introduction
-# visit https://github.com/sachserf/framework for further information
+# see 'how-to-guide.md' for a short introduction
+# visit https://github.com/sachserf/framework and https://sachserf.github.io for further information
 
 ############ PREAMBLE ############   
 # detach localfun
