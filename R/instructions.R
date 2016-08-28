@@ -1,183 +1,22 @@
-#' Check file changes and write instructions
-#' 
-#' @param input_src Character. A vector of filepaths that should be executed.
-#' @param spin_index Integer. A vector specifying the files that should be
-#'   spinned. Choose option 'all' instead of an integer vector, if you want to
-#'   spin all R-scripts.
-#' @param cache_index Integer. A vector specyfing the files that should be run
-#'   only if necessary. Choose option 'all' instead of an integer vector, if you
-#'   want to use the cache for all input files.
-#' @return The directories out/docs, out/figure and out/data will be deleted. A
-#'   dataframe including the specified instructions will be written/updated
-#'   within a hidden cache directory.
-#' @note The function only makes sense if you use it within a framework-project.
-#'   Call project_framework() and have a look at the file make.R
-#'   @seealso \code{\link{execute_instructions}}
-#' @author Frederik Sachser
-#' @export
-instructions <- 
-  function(input_src, spin_index = 0, cache_index = 0) 
-  {
-    # specify input
-    if (length(cache_index) == 1 && cache_index == "all") {
-      cache_index <- 1:length(input_src)
-    }
-    if (length(spin_index) == 1 && spin_index == "all") {
-      spin_index <- 1:length(input_src)
-    }
-    # delete cache
-    if (length(cache_index) == 1 && cache_index == 0) {
-      unlink(x = ".cache", recursive = TRUE)
-    }
-    if (dir.exists(".cache") == FALSE) {
-      dir.create(".cache")
-    }
-    # write file info of in/src
-    src_files <- list.files(path = 'in/src', all.files = TRUE, recursive = TRUE, full.names = TRUE)
-    file_info_src <- file.info(src_files)
-    saveRDS(object = file_info_src, file = '.cache/file_info_src.rds')
-    
-    # check if data changed
-    if (file.exists(".cache/input_data.rds") == TRUE && 
-        sum(cache_index) > 0) {
-      input_data_current <- sapply(X = list.files("in/data", 
-                                                  full.names = TRUE, recursive = TRUE), FUN = file.mtime)
-      input_data_source <- readRDS(file = ".cache/input_data.rds")
-      if (isTRUE(all.equal(target = input_data_source, current = input_data_current)) == 
-          FALSE) {
-        warning("files in directory <<in/data>> changed - use option <<cache_index = 0>> and retry.")
-      }
-    }
-    
-    filename_in <- paste0(input_src)
-
-    Rmd_index <- grep(pattern = '.Rmd', filename_in, fixed = TRUE)
-    
-    if (length(Rmd_index > 0)) {
-      filename_in[Rmd_index] <- substr(x = filename_in[Rmd_index], 
-                                       start = 1, 
-                                       stop = nchar(filename_in[Rmd_index]) - 2)
-      
-    }
-
-    basename_in <- gsub(pattern = ".R", replacement = "", x = basename(filename_in), fixed = TRUE)
-    basename_in <- gsub(pattern = ".R", replacement = "", x = basename(filename_in), fixed = TRUE)
-    basedirname <- paste0(dirname(filename_in), '/', basename_in)
-    basedirname <- gsub(pattern = 'in/src/', replacement = '', basedirname, fixed = TRUE)
-    
-    nr_basename <- paste0(seq_along(basename_in), '_', basename_in)
-    filename_image <- paste0(".cache/", basename_in, "_image.RData")
-    filename_mtime <- paste0(".cache/", basename_in, "_mtime.rds")
-    filename_Rmd <- paste0(".cache/", basename_in, ".Rmd")
-    filename_md <- paste0(".cache/", basename_in, ".md")
-    filename_dot <- paste0(".cache/docs/", basename_in, ".")
-    filename_html <- paste0(".cache/docs/", basename_in, ".html")
-    filename_nb <- paste0(".cache/docs/", basename_in, ".nb.html")
-    filename_pdf <- paste0(".cache/docs/", basename_in, ".pdf")
-    filename_docx <- paste0(".cache/docs/", basename_in, ".docx")
-    dirname_figure_in <- paste0(dirname(filename_in), '/', basename_in, '_files')
-    dirname_figure <- paste0(".cache/figure/", dirname_figure_in)
-    dirname_figure <- gsub(pattern = 'in/src/', replacement = '', x = dirname_figure, fixed = TRUE)
-    mtime_current <- file.mtime(input_src)
-    df_cache <- data.frame(filename_in, basename_in, nr_basename,
-                           filename_image, basedirname, 
-                           filename_mtime, filename_Rmd, filename_md,
-                           filename_dot, filename_html, filename_nb, 
-                           filename_pdf, filename_docx, 
-                           dirname_figure, dirname_figure_in,
-                           mtime_current, stringsAsFactors = FALSE)
-    df_cache$instruction <- "source"
-    df_cache$instruction[spin_index] <- "render"
-    
-    df_cache$instruction[Rmd_index] <- 'render'
-    df_cache$filename_in[Rmd_index] <- paste0(input_src[Rmd_index])
-    
-    #### delete deprecated pdf and html from cache
-    cache_files <- list.files(path = '.cache/docs', recursive = FALSE, full.names = TRUE)
-    keep_files <- grep(pattern = paste(paste0('.cache/docs/', df_cache$basename[which(df_cache$instruction == 'render')], '.', collapse = '|')), x = cache_files, fixed = TRUE)
-    deprecated_output <- cache_files[-keep_files]
-    unlink(deprecated_output)
-    
-    df_cache$instruction_orig <- df_cache$instruction
-
-    filename_image_pre <- list.files(path = ".cache", pattern = "*_image.RData", 
-                                     recursive = TRUE, full.names = TRUE)
-    image_del <- filename_image_pre[!filename_image_pre %in% 
-                                      df_cache$filename_image]
-    unlink(image_del, recursive = TRUE)
-    df_cache$file_exist_mtime <- file.exists(df_cache$filename_mtime)
-    df_cache$mtime_read <- as.POSIXct(x = "1970-01-02")
-    add_mtime_read <- function(row_id) {
-      x <- readRDS(df_cache$filename_mtime[row_id])
-      df_cache$mtime_read[row_id] <<- x
-    }
-    file_exist_index <- as.integer(which(df_cache$file_exist_mtime == 
-                                           TRUE))
-    lapply(X = file_exist_index, FUN = add_mtime_read)
-    df_cache$mtime_read <- as.POSIXct(df_cache$mtime_read)
-    df_cache$file_exist_mtime <- NULL
-    df_cache$difftime <- as.integer(df_cache$mtime_current) - 
-      as.integer(df_cache$mtime_read)
-    df_cache$load <- FALSE
-
-    # exclude load by cache_index
-    df_cache$use_cache <- FALSE
-    df_cache$use_cache <- 1:nrow(df_cache) %in% cache_index
-    df_cache$load[which(df_cache$difftime == 0 & df_cache$use_cache == TRUE)] <- TRUE
-    if (any(df_cache$difftime != 0) == TRUE) {
-      df_cache$load[min(which(df_cache$difftime != 0)):nrow(df_cache)] <- FALSE
-    }
-    for (i in which(df_cache$load == TRUE)) {
-      if (file.exists(df_cache$filename_image[i]) == FALSE) {
-        df_cache$load[i] <- FALSE
-      }
-    }
-    
-    cache_files <- list.files(path = '.cache/docs', full.names = TRUE, recursive = TRUE)
-    
-    # render again if files not exist 
-    for (i in which(df_cache$instruction_orig == 'render')) {
-      check_file_exist <- length(grep(pattern = paste(paste0('.cache/docs/', df_cache$basename[i], '.', collapse = '|')), x = cache_files, fixed = TRUE))
-      if (check_file_exist == 0) {
-        df_cache$load[i] <- FALSE
-      }
-    }
-
-    if (file.exists(".cache/df_cache.rds")) {
-      df_cache_old <- readRDS(".cache/df_cache.rds")
-      df_cache$row_names <- row.names(df_cache)
-      df_cache_old$row_names <- row.names(df_cache_old)
-      df_cache_both <- merge(x = df_cache, y = df_cache_old[, 
-                                                            c("filename_in", "row_names")], by = "filename_in", 
-                             all.x = TRUE)
-      df_cache_both <- df_cache_both[order(df_cache_both$row_names.x), 
-                                     ]
-      df_cache_both$pos_match <- as.numeric(df_cache_both$row_names.x) - 
-        as.numeric(df_cache_both$row_names.y)
-      df_cache$load[which(df_cache_both$pos_match != 0)] <- FALSE
-    }
-    if (any(df_cache$load == FALSE) == TRUE) {
-      df_cache$load[min(which(df_cache$load == FALSE)):nrow(df_cache)] <- FALSE
-    }
-
-    if (sum(cache_index) > 0) {
-      df_cache$instruction[which(df_cache$load == TRUE)] <- "load"
-    }
-    if (length(which(df_cache$instruction == "load")) > 1) {
-      nothing_index <- 1:(max(which(df_cache$instruction == "load")) - 1)
-      df_cache$instruction[nothing_index] <- 'nothing'
-    }
-    # delete deprecated figures
-    del_fig <- df_cache$dirname_figure[which(df_cache$instruction == 'render')]
-    unlink(x = del_fig, recursive = TRUE)
-    
-    input_data <- sapply(X = list.files("in/data", full.names = TRUE, 
-                                        recursive = TRUE), FUN = file.mtime)
-    saveRDS(object = input_data, file = ".cache/input_data.rds")
-    saveRDS(object = df_cache, file = ".cache/df_cache.rds")
-    unlink(x = "out/figure", recursive = TRUE)
-    unlink(x = "out/data", recursive = TRUE)
-    unlink(x = "out/docs", recursive = TRUE)
-    dir.create("out/figure", recursive = TRUE)
-    dir.create("out/data", recursive = TRUE)
-  }
+instructions <- function(source_files,
+                         spin_index,
+                         cache_index,
+                         cache_dir,
+                         source_dir,
+                         data_dir,
+                         target_dir_figure,
+                         target_dir_docs,
+                         target_dir_data) {
+    prepare_instructions(source_files,
+                         spin_index,
+                         cache_index,
+                         cache_dir,
+                         source_dir,
+                         data_dir,
+                         target_dir_figure,
+                         target_dir_docs,
+                         target_dir_data)
+    implement_instructions(cache_dir)
+    check_instructions(cache_dir)
+    execute_instructions(cache_dir)
+}

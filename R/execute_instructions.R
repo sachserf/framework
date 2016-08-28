@@ -1,193 +1,188 @@
-#' Execute instructions of df_cache.rds
-#' 
-#' @description The function executes the instructions according to the file 
-#'   df_cache.rds. Furthermore it is a wrapper for specify_instructions.
-#' @param filename_df_cache Character. Specify the file path where to find the 
-#'   file df_cache.rds.
-#' @note The function only makes sense after calling 'instructions()'. You might
-#'   want to create a new framework-project (using 'project_framework()') and 
-#'   have a look at the file make.R.
-#' @seealso \code{\link{specify_instructions}}
-#' @author Frederik Sachser
-#' @export
 execute_instructions <-
-  function(filename_df_cache = ".cache/df_cache.rds")
-  {
-    df_cache <- readRDS(filename_df_cache)
-    for (i in 1:nrow(df_cache)) {
-      specify_instructions(
-        filename_in = df_cache$filename_in[i],
-        basename_in = df_cache$basename_in[i],
-        filename_image = df_cache$filename_image[i],
-        filename_mtime = df_cache$filename_mtime[i],
-        filename_Rmd = df_cache$filename_Rmd[i],
-        instruction = df_cache$instruction[i],
-        filename_dot = df_cache$filename_dot[i]
-      )
-    }
-    new_figures <-
-      df_cache$dirname_figure_in[dir.exists(df_cache$dirname_figure_in)]
-    
-    if (length(new_figures > 0)) {
-      deprecated_fig <-
-        gsub(pattern = 'in/src',
-             replacement = '.cache/figure',
-             x = new_figures)
-      unlink(x = deprecated_fig, recursive = TRUE)
-      figure_copy_from <-
-        list.files(path = new_figures,
-                   recursive = TRUE,
-                   full.names = TRUE)
-      figure_copy_to <-
-        gsub(pattern = 'in/src',
-             replacement = '.cache/figure',
-             x = figure_copy_from)
-      lapply(
-        X = file.path(dirname(figure_copy_to)),
-        dir.create,
-        recursive = TRUE,
-        showWarnings = FALSE
-      )
-      file.copy(from = figure_copy_from, to = figure_copy_to)
-      unlink(x = new_figures, recursive = TRUE)
-    }
-    
-    # delete deprecated figures
-    figure_keep <-
-      df_cache$dirname_figure[which(df_cache$instruction_orig == 'render')]
-    keep <-
-      list.files(
-        path = figure_keep,
-        recursive = TRUE,
-        include.dirs = TRUE,
-        full.names = TRUE
-      )
-    da <-
-      list.files(
-        '.cache/figure',
-        recursive = TRUE,
-        include.dirs = TRUE,
-        full.names = TRUE
-      )
-    weg1 <- da[!da %in% keep]
-    if (length(weg1) > 0) {
-      for (i in 1:length(weg1)) {
-        if (length(grep(pattern = weg1[i], x = keep)) == 0) {
-          unlink(weg1[i], recursive = TRUE)
+    function(cache_dir = ".cache")
+    {
+        # check prerequisites
+        if (any(file.exists(
+            file.path(cache_dir, 'df_source_files_temp.rds'),
+            file.path(cache_dir, "instructions.RData")
+        )) == FALSE) {
+            stop(
+                "Required files in cache are missing. Recall function prepare_instructions() and implement_instructions() and retry."
+            )
         }
-      }
+        # reload instructions
+        load(file.path(cache_dir, "instructions.RData"))
+        # reload temporary df_source_files
+        df_source_files <-
+            readRDS(file = file.path(cache_dir, 'df_source_files_temp.rds'))
+        
+        # create all required directories in cache and output
+        new_directories <-
+            unique(
+                c(
+                    df_source_files$figure_cache,
+                    df_source_files$docs_cache,
+                    dirname(df_source_files$figure_out),
+                    dirname(df_source_files$docs_out),
+                    df_source_files$temp_docs_out
+                )
+            )
+        sapply(
+            X = new_directories,
+            FUN = dir.create,
+            recursive = TRUE,
+            showWarnings = FALSE
+        )
+        
+        # list all files of source_dir before rendering
+        if (file.exists(file.path(cache_dir, "source_dir_files_pre.rds")) == FALSE) {
+            source_dir_files_pre <-
+                list.files(
+                    source_dir,
+                    full.names = TRUE,
+                    recursive = TRUE,
+                    all.files = TRUE
+                )
+            saveRDS(object = source_dir_files_pre,
+                    file = file.path(cache_dir, 'source_dir_files_pre.rds'))
+        }
+        
+        # call specify_instructions()
+        for (i in 1:nrow(df_source_files)) {
+            specify_instructions(
+                filename = df_source_files$filename[i],
+                image_cache = df_source_files$image_cache[i],
+                instruction = df_source_files$instruction[i]
+            )
+        }
+        
+        # delete docs and figures for files that should not be rendered/spinned
+        deprecated_render_docs <- which(df_source_files$file_ext == "R" & df_source_files$use_spin == FALSE)
+        for (i in deprecated_render_docs) {
+            unlink(df_source_files$figure_cache[i], recursive = TRUE)
+            unlink(df_source_files$docs_cache[i], recursive = TRUE)
+        }
+
+        # copy new rendered figures to cache and delete from source
+        for (i in 1:nrow(df_source_files)) {
+            if (dir.exists(df_source_files$figure_source[i])) {
+                source_figures <-
+                    list.files(path = df_source_files$figure_source[i],
+                               full.names = TRUE)
+                #                cache_figures <- file.path(df_source_files$figure_cache[i], basename(source_figures))
+                file.copy(
+                    from = source_figures,
+                    to = df_source_files$figure_cache[i],
+                    recursive = TRUE
+                )
+                unlink(df_source_files$figure_source[i], recursive = TRUE)
+            }
+        }
+        
+        # copy all figures from cache to output
+        for (i in 1:nrow(df_source_files)) {
+            if (length(list.files(df_source_files$figure_cache[i])) > 0) {
+                cache_figures <-
+                    list.files(df_source_files$figure_cache[i], full.names = TRUE, recursive = TRUE)
+                figure_out_files <-
+                    paste0(df_source_files$figure_out[i],
+                           "_",
+                           basename(cache_figures))
+                file.copy(from = cache_figures, to = figure_out_files)
+            }
+        }
+        
+        
+        # list all files of source_dir after rendering (without figures)
+        source_dir_files_post <-
+            list.files(
+                source_dir,
+                full.names = TRUE,
+                recursive = TRUE,
+                all.files = TRUE
+            )
+        # subset new source_files
+        source_dir_files_pre <- readRDS(file = file.path(cache_dir, 'source_dir_files_pre.rds'))
+        new_files <-
+            source_dir_files_post[!source_dir_files_post %in% source_dir_files_pre]
+        file.remove(file.path(cache_dir, 'source_dir_files_pre.rds'))
+        
+        # copy new rendered files to cache and delete them from input
+        for (i in 1:nrow(df_source_files)) {
+            new_files_subset <-
+                new_files[grep(pattern = paste0(df_source_files$filename_noxt[i], '.'),
+                               x = new_files,
+                               fixed = TRUE)]
+            file.copy(from = new_files_subset,
+                      to = file.path(df_source_files$docs_cache[i]))
+            file.remove(new_files_subset)
+        }
+        
+        # copy all rendered files from cache to output
+        for (i in 1:nrow(df_source_files)) {
+            all_files <-
+                list.files(df_source_files$docs_cache[i], full.names = TRUE)
+            html_files <-
+                all_files[grep(pattern = ".html",
+                               x = all_files,
+                               fixed = TRUE)]
+            pdf_files <-
+                all_files[grep(pattern = ".pdf",
+                               x = all_files,
+                               fixed = TRUE)]
+            docx_files <-
+                all_files[grep(pattern = ".docx",
+                               x = all_files,
+                               fixed = TRUE)]
+            html_pdf_docx <- c(html_files, pdf_files, docx_files)
+            out_docs <-
+                paste0(df_source_files$docs_out[i],
+                       "_",
+                       basename(html_pdf_docx))
+            file.copy(from = html_pdf_docx,
+                      to = out_docs)
+            temp_files <-
+                all_files[!all_files %in% html_pdf_docx]
+            file.copy(from = temp_files, to = df_source_files$temp_docs_out[i])
+        }
+        
+        # delete df_source_files_temp.rds and instructions.RData from cache
+        file.remove(
+            file.path(cache_dir, 'df_source_files_temp.rds'),
+            file.path(cache_dir, "instructions.RData")
+        )
+        # write current df_source_files
+        saveRDS(object = df_source_files,
+                file = file.path(cache_dir, 'df_source_files.rds'))
+        
+        # delete snapshots
+        if (file.exists(path_snapshot_source_dir) == TRUE) {
+            file.remove(path_snapshot_source_dir)
+        }
+        if (file.exists(path_snapshot_data_dir) == TRUE) {
+            file.remove(path_snapshot_data_dir)
+        }
+        
+        # write new file-snapshot of the files within the source-dir
+        snapshot_source_dir <-
+            utils::fileSnapshot(path = "in/data",
+                                md5sum = TRUE,
+                                recursive = TRUE)
+        saveRDS(object = snapshot_source_dir, file = path_snapshot_source_dir)
+        
+        # write new file-snapshot of the files within the data-dir
+        snapshot_data_dir <-
+            utils::fileSnapshot(path = "in/data",
+                                md5sum = TRUE,
+                                recursive = TRUE)
+        saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)
+#        cat("\n--------------------------------------------\nSummary of executed instructions:\n\n")
+#        print(data.frame(filename = df_source_files$filename, 
+#                         instruction = df_source_files$instruction))
+#        cat("\n--------------------------------------------\n")
+        if (file.exists("summary_instructions.csv")) {
+            unlink("summary_instructions.csv")
+        }
+        write.csv(data.frame(filename = df_source_files$filename, instruction = df_source_files$instruction), file = "summary_instructions.csv", row.names = FALSE)
+
     }
-    all_figures_from <-
-      list.files(path = '.cache/figure',
-                 recursive = TRUE,
-                 full.names = TRUE)
-    all_figures_to <-
-      gsub(pattern = '.cache/figure/',
-           replacement = '',
-           x = all_figures_from)
-    all_figures_to <-
-      gsub(pattern = '/', replacement = '-', all_figures_to)
-    all_figures_to <-
-      gsub(pattern = '_files-figure', replacement = '', all_figures_to)
-    
-    for (i in seq_along(df_cache$dirname_figure)) {
-      nr_index <-
-        grep(pattern = df_cache$dirname_figure[i], all_figures_from)
-      all_figures_to[nr_index]
-      nr_names <-
-        paste0(as.character(i), '_', all_figures_to[nr_index])
-      nr_names <- file.path('out/figure', nr_names)
-      file.copy(from = all_figures_from[nr_index], to = nr_names)
-    }
-    
-    ####### delete spinned_R-files
-    
-    src_files <- list.files(path = "in/src",
-                            recursive = TRUE,
-                            full.names = TRUE)
-    
-    file_info_src <- readRDS('.cache/file_info_src.rds')
-    temp_files <-
-      src_files[!src_files %in% row.names(file_info_src)]
-    
-    equally_named_files <-
-      src_files[src_files %in% row.names(file_info_src)]
-    new_rendered_files <-
-      equally_named_files[!file.info(equally_named_files)$mtime %in% file_info_src$mtime]
-    
-    temp_and_new_rendered <- c(temp_files, new_rendered_files)
-    
-    if (dir.exists('.cache/docs') == FALSE) {
-      dir.create('.cache/docs')
-    }
-    
-    file.copy(from = temp_and_new_rendered,
-              to = '.cache/docs',
-              recursive = TRUE)
-    
-    unlink(x = temp_and_new_rendered, recursive = TRUE)
-    
-    # delete deprecated docs
-    cache_files <-
-      list.files(path = '.cache/docs',
-                 full.names = TRUE,
-                 recursive = TRUE)
-    keep_files <-
-      grep(pattern = paste(
-        paste0('.cache/docs/', df_cache$basename, '.', collapse = '|')
-      ), x = cache_files)
-    deprecated_files <- cache_files[-keep_files]
-    unlink(deprecated_files, recursive = TRUE)
-    
-    if (dir.exists('out/docs') == FALSE) {
-      dir.create('out/docs')
-    }
-    
-    # final output (pdf, html and docx)
-    cache_files <-
-      list.files(path = '.cache/docs', recursive = TRUE)
-    cache_files <-
-      cache_files[grep(pattern = '.html|.pdf|.docx', x = cache_files)]
-    
-    split_elements <- strsplit(cache_files, split = "[.]")
-    first_element <- lapply(split_elements, `[[`, 1)
-    
-    grep(pattern = '.html|.pdf|.docx', x = cache_files)
-    
-    for (i in seq_along(df_cache$basename)) {
-      nr_index <- grep(pattern = df_cache$basename[i], x = first_element)
-      for_cache_files <- cache_files[nr_index]
-      nr_basename_docs <-
-        paste0(as.character(i), '_', for_cache_files)
-      file.copy(
-        from = file.path('.cache/docs/', for_cache_files),
-        to = file.path('out/docs', nr_basename_docs)
-      )
-    }
-    
-    # temp output (md, spin.R etc)
-    if (dir.exists('out/docs/temp_files') == FALSE) {
-      dir.create('out/docs/temp_files', recursive = TRUE)
-    }
-    
-    cache_files <-
-      list.files(path = '.cache/docs', recursive = TRUE)
-    cache_files <-
-      cache_files[-grep(pattern = '.html|.pdf|.docx', x = cache_files)]
-    
-    split_elements <- strsplit(cache_files, split = "[.]")
-    first_element <- lapply(split_elements, `[[`, 1)
-    
-    grep(pattern = '.html|.pdf|.docx', x = cache_files)
-    
-    for (i in seq_along(df_cache$basename)) {
-      nr_index <- grep(pattern = df_cache$basename[i], x = first_element)
-      for_cache_files <- cache_files[nr_index]
-      nr_basename_docs <-
-        paste0(as.character(i), '_', for_cache_files)
-      file.copy(
-        from = file.path('.cache/docs/', for_cache_files),
-        to = file.path('out/docs/temp_files', nr_basename_docs)
-      )
-    }
-  }

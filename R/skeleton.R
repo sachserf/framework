@@ -15,171 +15,70 @@
 #' @author Frederik Sachser
 #' @export
 skeleton <-
-  function(custom_makeR = NULL){
+  function(custom_makeR = NULL, 
+           target_makeR = 'make.R', 
+           fun_dir = 'in/fun',
+           source_files = c('load.R',
+                            'report.Rmd'),
+           cache_dir = '.cache',
+           source_dir = 'in/src',
+           data_dir = 'in/data',
+           target_dir_figure = 'out/figure',
+           target_dir_docs = 'out/docs',
+           target_dir_data = 'out/data') {
     #### create basic directories ####
-    basic_dirs <- list('in/data', 'in/src', 'in/fun/sachserf_framework', 'out/usr')
+    basic_dirs <- list(file.path(data_dir), file.path(source_dir), file.path(fun_dir, 'sachserf_framework'), file.path(target_dir_figure), file.path(target_dir_data), file.path(target_dir_docs))
     lapply(X = basic_dirs, FUN = dir.create, recursive = TRUE)
 
-      #### create fun ####
-      # create backup-function
-      framework::dput_function(
-        pkg_fun = framework::backup,
-        target_dir = 'in/fun/sachserf_framework',
+      #### write fun ####
+      # write local copy of functions
+    lapply(
+        X = c(framework::backup, 
+              framework::pkg_install, 
+              framework::summary_instructions,
+              framework::session_info,
+              framework::template_Rmd,
+              framework::template_R,
+              framework::write_dataframe,
+              framework::instructions,
+              framework::prepare_instructions,
+              framework::implement_instructions,
+              framework::check_instructions,
+              framework::specify_instructions,
+              framework::execute_instructions,
+              framework::summary_instructions,
+              framework::prepare_site),
+        FUN = framework::dput_function,
+        target_dir = file.path(fun_dir, 'sachserf_framework'),
         rm_pattern = 'framework::'
-      )
-      # create pkg_install-function
-      framework::dput_function(
-        pkg_fun = framework::pkg_install,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create reminder-function
-      framework::dput_function(
-        pkg_fun = framework::summary_instructions,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create session_info-function
-      framework::dput_function(
-        pkg_fun = framework::session_info,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create template_Rmd-function
-      framework::dput_function(
-        pkg_fun = framework::template_Rmd,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create template_R-function
-      framework::dput_function(
-        pkg_fun = framework::template_R,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create write_dataframe-function
-      framework::dput_function(
-        pkg_fun = framework::write_dataframe,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create instructions-function
-      framework::dput_function(
-        pkg_fun = framework::instructions,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create specify_instructions-function
-      framework::dput_function(
-        pkg_fun = framework::specify_instructions,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create execute_instructions-function
-      framework::dput_function(
-        pkg_fun = framework::execute_instructions,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
-      # create prepare_site-function
-      framework::dput_function(
-        pkg_fun = framework::prepare_site,
-        target_dir = 'in/fun/sachserf_framework',
-        rm_pattern = 'framework::'
-      )
+    )
+
     #### create make.R ####
     if (is.null(custom_makeR) == TRUE) {
-      cat("############ make-like file ############ 
-
-# see 'how-to-guide.md' for a short introduction
-# visit https://github.com/sachserf/framework and https://sachserf.github.io for further information
-
-############ PREAMBLE ############   
-# detach localfun
-if ('localfun' %in% search() == TRUE) {
-  detach(localfun)
-}
-
-# clear Global environment
-rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
-
-# initialize new environment: <<localfun>>
-localfun <- new.env(parent = .GlobalEnv)
-
-# source every R-file within directory <<in/fun>> 
-# and assign them to the environment <<localfun>>
-sapply(list.files(
-  'in/fun',
-  pattern = '*.R$',
-  full.names = TRUE,
-  recursive = TRUE
-), source, local = localfun)
-
-# attach the environment <<localfun>>
-attach(localfun)
-
-# remove the environment <<localfun>> from .GlobalEnv
-rm(localfun)
-
-############ PACKAGES ############   
-
-# install packages without loading:
-pkg_install(c('rmarkdown', 
-              'knitr'), 
-            attach = FALSE)
-
-# install and load packages:
-pkg_install(c('dplyr', 
-              'ggplot2',
-              'stringi',
-              'tidyr',
-              'readr'), 
-            attach = TRUE)
-
-############ SOURCE ############ 
-
-# fill in R/Rmd-files in chronological order
-instructions(input_src = c('in/src/load.R', 
-                          'in/src/report.Rmd'), 
-             spin_index = 'all', 
-             cache_index = 'all')
-
-execute_instructions() # do not edit
-
-# Optionally prepare and render Rmd-files as a website
-#prepare_site(
-#  Rmd_input = c('in/src/website/placeholder.Rmd'),
-#  target_dir = 'out/website',
-#  index_menu = FALSE, 
-#  index_name = 'Home',
-#  page_name = 'framework-hp'
-#)
-
-#rmarkdown::render_site(input = 'in/src/website/') # same input_dir as the files in prepare_site
-
-############ SUPPLEMENT ############   
-
-# save all data frames (within .GlobalEnv)
-write_dataframe(file_format = 'csv')
-
-# write session_info
-session_info()
-
-# backup (optionally change target directory and excluded files/dir)
-backup(exclude_directories = 'packrat|.git|in/data|out|.cache',
-       exclude_files = '*.RData|*.Rhistory', delete_target = TRUE)
-
-# print summary of instructions
-summary_instructions()
-
-", file = 'make.R')
+        template_make(target_makeR, 
+                                  fun_dir,
+                                  source_files,
+                                  cache_dir,
+                                  source_dir,
+                                  data_dir,
+                                  target_dir_figure,
+                                  target_dir_docs,
+                                  target_dir_data)
     } else {
-      file.copy(from = custom_makeR, to = 'make.R', overwrite = FALSE)
+      file.copy(from = custom_makeR, to = target_makeR, overwrite = FALSE)
     }
     
-    #### write template_Rmd ####
-    framework::template_R(file = 'in/src/load.R')
-    framework::template_Rmd(file = 'in/src/report.Rmd')
+    #### write templates for source-files ####
+    for (i in seq_along(source_files)) {
+        source_files_R <- source_files[which(tools::file_ext(source_files) == "R")]
+        source_files_Rmd <- source_files[which(tools::file_ext(source_files) == "Rmd")]
+        if (length(source_files_R) > 0) {
+            lapply(X = source_files_R, FUN = framework::template_R)
+        }
+        if (length(source_files_Rmd) > 0) {
+            lapply(X = source_files_Rmd, FUN = framework::template_Rmd)
+        }
+    }
 
   #### write README.md ####
   cat('# Readme of the project: ',basename(getwd()),'\n\nThis project was created from **',Sys.info()['user'],'** at **',as.character(Sys.time()),'**\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.', file = 'README.md', sep = '')

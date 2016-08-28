@@ -1,15 +1,9 @@
-#' Print a reminder and summary to the console
-#' 
-#' @description The function will print a summary of the instructions.
-#' @author Frederik Sachser
+#' summary_instructions
+#' @description summary_instructions
 #' @export
-summary_instructions <-
-  function()
-  {
-    cat("\n--------------------------------------------\nSummary of executed instructions:\n\n")
-    print(data.frame(
-      script = readRDS(".cache/df_cache.rds")$basename_in,
-      instruction = readRDS(".cache/df_cache.rds")$instruction
-    ))
+summary_instructions <- function(csv_file = "summary_instructions.csv") {
+    cat("\n--------------------------------------------\n\nSummary of executed instructions:\n\n")
+    print(read.csv(csv_file))
     cat("\n--------------------------------------------\n")
-  }
+#    unlink(csv_file)
+}

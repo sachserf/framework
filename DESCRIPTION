@@ -1,7 +1,7 @@
 Package: framework
 Type: Package
 Title: framework for project organisation
-Version: 1.7.18
+Version: 1.8.28
 Date: 2016-08-18
 Author: Frederik Sachser
 Maintainer: <f.sachser@gmx.at>
@@ -12,6 +12,7 @@ LazyData: TRUE
 Depends:
     R (>= 3.2)
 Imports:
+    tools,
     rstudioapi (>= 0.5),
     rmarkdown (>= 0.9.6),
     packrat,

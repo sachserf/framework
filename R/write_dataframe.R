@@ -1,36 +1,29 @@
-#' Write multiple dataframes to target
-#' 
-#' @description The function writes a list of dataframes into a target
-#'   directory.
-#' @param listofdf Character. A vector of dataframes to save. Choose "GlobalEnv"
-#'   to save all dataframes that are currently in your Global Environment.
-#' @param target_dir Character. Path to the target directory.
-#' @param file_format Character. Currently there are three options for output
-#'   format: 'csv', 'rds' and 'RData'
-#' @author Frederik Sachser
+#' write_dataframe
+#' @description write_dataframe
 #' @export
 write_dataframe <- 
-function(listofdf = "GlobalEnv", target_dir = "out/data/", file_format = "csv") 
+function(listofdf = "GlobalEnv", data_dir = "out/data", file_format = "csv") 
 {
+    data_dir <- file.path(data_dir)
     if (listofdf == "GlobalEnv") {
         listofdf <- names(which(sapply(.GlobalEnv, is.data.frame) == 
             TRUE))
     }
-    if (dir.exists(target_dir) == FALSE) {
-        dir.create(target_dir, recursive = TRUE)
+    if (dir.exists(data_dir) == FALSE) {
+        dir.create(data_dir, recursive = TRUE)
     }
     if (file_format == "csv") {
         csv_fun <- function(objectname) {
-            filename <- paste(file.path(target_dir, objectname), 
+            filename <- paste(file.path(data_dir, objectname), 
                 "csv", sep = ".")
-            utils::write.table(x = get(objectname), file = filename, sep = ";", 
-                row.names = FALSE)
+            utils::write.table(x = get(objectname), file = filename, 
+                sep = ";", row.names = FALSE)
         }
         lapply(listofdf, FUN = csv_fun)
     }
     if (file_format == "rds") {
         rds_fun <- function(objectname) {
-            filename <- paste(file.path(target_dir, objectname), 
+            filename <- paste(file.path(data_dir, objectname), 
                 "rds", sep = ".")
             saveRDS(object = get(objectname), file = filename)
         }
@@ -38,7 +31,7 @@ function(listofdf = "GlobalEnv", target_dir = "out/data/", file_format = "csv")
     }
     if (file_format == "RData") {
         RData_fun <- function(objectname) {
-            filename <- paste(file.path(target_dir, objectname), 
+            filename <- paste(file.path(data_dir, objectname), 
                 "RData", sep = ".")
             save(file = filename, list = objectname)
         }
