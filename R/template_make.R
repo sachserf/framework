@@ -14,9 +14,11 @@ template_make <- function(target_makeR = 'make.R',
     if (file.exists(target_makeR)) {
         stop("File exists. Delete the file and retry.")
     }
+  framework_version <- paste0(unlist(utils::packageVersion('framework')), collapse = ".")
     cat(
 "############ make-like file ############
 
+# This project was build by using the package <<framework>> (v", framework_version, ")
 # see 'how-to-guide.md' for a short introduction
 # visit https://sachserf.github.io for further information
 
@@ -47,13 +49,21 @@ attach(localfun)
 # remove the environment <<localfun>> from .GlobalEnv
 rm(localfun)
 
+# check if Working directory is different from active Project
+if ('rstudioapi' %in% utils::installed.packages() == TRUE) {
+  if (identical(rstudioapi::getActiveProject(), getwd()) == FALSE) {
+    stop('Working directory is different from active Project')
+  }
+}
+
 ############ PACKAGES ############
 
 # install packages without loading:
 pkg_install(c('utils', 
         'tools',
         'rmarkdown',
-        'knitr'),
+        'knitr',
+        'rstudioapi'),
     attach = FALSE)
 
 # install and load packages:
@@ -93,7 +103,7 @@ instructions(
 ############ SUPPLEMENT ############
 
 # save all data frames (within .GlobalEnv)
-write_dataframe(data_dir = '", data_dir, "' file_format = 'csv')
+write_dataframe(data_dir = '", data_dir, "', file_format = 'csv')
 
 # write session_info
 session_info()

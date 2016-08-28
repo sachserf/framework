@@ -4,9 +4,8 @@
 #' @note It is not possible to overwrite an existing Rproj.
 #' @author Frederik Sachser
 #' @export
-Rproj_init <- function(){
-  dirname <- getwd()
-  projname <- unlist(strsplit(dirname, split = '/'))[length(unlist(strsplit(dirname, split = '/')))]
+Rproj_init <- function(project_dir){
+  projname <- unlist(strsplit(project_dir, split = '/'))[length(unlist(strsplit(project_dir, split = '/')))]
   if (file.exists(paste(projname, '.Rproj', sep = '')) == TRUE) {
     stop('project already exists')
   } else {

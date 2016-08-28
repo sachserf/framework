@@ -5,12 +5,16 @@
 \title{Initialize a framework-project}
 \usage{
 project_framework(dirname, init_Rproj = TRUE, init_git = TRUE,
-  init_packrat = FALSE, custom_makeR = NULL)
+  init_packrat = FALSE, custom_makeR = NULL, target_makeR = "make.R",
+  fun_dir = "in/fun", source_files = c("load.R", "report.Rmd"),
+  cache_dir = ".cache", source_dir = "in/src", data_dir = "in/data",
+  target_dir_figure = "out/figure", target_dir_docs = "out/docs",
+  target_dir_data = "out/data")
 }
 \arguments{
 \item{dirname}{Character. Specify the path to the directory where you want to
-create a new project. The last directory will be the project directory 
-itself. The name of the project will be the name of the project directory. 
+create a new project. The last directory will be the project directory
+itself. The name of the project will be the name of the project directory.
 E.g. '~/Desktop/MyProject' will create a project directory on your desktop.}
 
 \item{init_Rproj}{Logical. TRUE calls the function Rproj_init.}
@@ -24,24 +28,24 @@ this option if you want to use a customized version instead of the template
 for the file 'make.R'.}
 }
 \description{
-This function is the heart of the package framework and it is 
+This function is the heart of the package framework and it is
   probably the only one you need to call by hand. Furthermore it is a wrapper
-  for skeleton, Rproj_init and git_init. Therefore it is straightforward to 
-  create a new project, change the working directory, generate basic 
-  directories and initialize a git repository. Optionally you can initialize 
+  for skeleton, Rproj_init and git_init. Therefore it is straightforward to
+  create a new project, change the working directory, generate basic
+  directories and initialize a git repository. Optionally you can initialize
   a packrat repo.
 }
 \note{
 Creation of the dirname is recursive.
 
-After calling the function go to the project directory and open the 
+After calling the function go to the project directory and open the
   .Rproj file with RStudio.
 }
 \author{
 Frederik Sachser
 }
 \seealso{
-\code{\link{Rproj_init}}, \code{\link{git_init}}, 
+\code{\link{Rproj_init}}, \code{\link{git_init}},
   \code{\link{skeleton}}
 }
 

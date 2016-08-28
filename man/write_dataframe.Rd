@@ -2,25 +2,12 @@
 % Please edit documentation in R/write_dataframe.R
 \name{write_dataframe}
 \alias{write_dataframe}
-\title{Write multiple dataframes to target}
+\title{write_dataframe}
 \usage{
-write_dataframe(listofdf = "GlobalEnv", target_dir = "out/data/",
+write_dataframe(listofdf = "GlobalEnv", data_dir = "out/data",
   file_format = "csv")
 }
-\arguments{
-\item{listofdf}{Character. A vector of dataframes to save. Choose "GlobalEnv"
-to save all dataframes that are currently in your Global Environment.}
-
-\item{target_dir}{Character. Path to the target directory.}
-
-\item{file_format}{Character. Currently there are three options for output
-format: 'csv', 'rds' and 'RData'}
-}
 \description{
-The function writes a list of dataframes into a target
-  directory.
-}
-\author{
-Frederik Sachser
+write_dataframe
 }
 

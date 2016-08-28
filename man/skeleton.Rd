@@ -4,7 +4,11 @@
 \alias{skeleton}
 \title{Create a framework-project skeleton}
 \usage{
-skeleton(custom_makeR = NULL)
+skeleton(custom_makeR = NULL, target_makeR = "make.R", fun_dir = "in/fun",
+  source_files = c("load.R", "report.Rmd"), cache_dir = ".cache",
+  source_dir = "in/src", data_dir = "in/data",
+  target_dir_figure = "out/figure", target_dir_docs = "out/docs",
+  target_dir_data = "out/data")
 }
 \arguments{
 \item{custom_makeR}{Character. File path to a local make-like R-file. Specify

@@ -19,3 +19,5 @@ git_init <- function(){
     print("commit master and checkout devel: done")
   }
 }
+
+

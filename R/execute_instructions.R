@@ -1,3 +1,6 @@
+#' execute_instructions
+#' @description execute_instructions
+#' @export
 execute_instructions <-
     function(cache_dir = ".cache")
     {
@@ -165,14 +168,14 @@ execute_instructions <-
         
         # write new file-snapshot of the files within the source-dir
         snapshot_source_dir <-
-            utils::fileSnapshot(path = "in/data",
+            utils::fileSnapshot(path = source_dir,
                                 md5sum = TRUE,
                                 recursive = TRUE)
         saveRDS(object = snapshot_source_dir, file = path_snapshot_source_dir)
         
         # write new file-snapshot of the files within the data-dir
         snapshot_data_dir <-
-            utils::fileSnapshot(path = "in/data",
+            utils::fileSnapshot(path = data_dir,
                                 md5sum = TRUE,
                                 recursive = TRUE)
         saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)

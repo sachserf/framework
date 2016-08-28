@@ -2,14 +2,11 @@
 % Please edit documentation in R/summary_instructions.R
 \name{summary_instructions}
 \alias{summary_instructions}
-\title{Print a reminder and summary to the console}
+\title{summary_instructions}
 \usage{
-summary_instructions()
+summary_instructions(csv_file = "summary_instructions.csv")
 }
 \description{
-The function will print a summary of the instructions.
-}
-\author{
-Frederik Sachser
+summary_instructions
 }
 

@@ -2,35 +2,12 @@
 % Please edit documentation in R/instructions.R
 \name{instructions}
 \alias{instructions}
-\title{Check file changes and write instructions}
+\title{instructions}
 \usage{
-instructions(input_src, spin_index = 0, cache_index = 0)
-}
-\arguments{
-\item{input_src}{Character. A vector of filepaths that should be executed.}
-
-\item{spin_index}{Integer. A vector specifying the files that should be
-spinned. Choose option 'all' instead of an integer vector, if you want to
-spin all R-scripts.}
-
-\item{cache_index}{Integer. A vector specyfing the files that should be run
-only if necessary. Choose option 'all' instead of an integer vector, if you
-want to use the cache for all input files.}
-}
-\value{
-The directories out/docs, out/figure and out/data will be deleted. A
-  dataframe including the specified instructions will be written/updated
-  within a hidden cache directory.
+instructions(source_files, spin_index, cache_index, cache_dir, source_dir,
+  data_dir, target_dir_figure, target_dir_docs, target_dir_data)
 }
 \description{
-Check file changes and write instructions
-}
-\note{
-The function only makes sense if you use it within a framework-project.
-  Call project_framework() and have a look at the file make.R
-  @seealso \code{\link{execute_instructions}}
-}
-\author{
-Frederik Sachser
+instructions
 }
 

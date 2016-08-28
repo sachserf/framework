@@ -1,3 +1,6 @@
+#' instructions
+#' @description instructions
+#' @export
 instructions <- function(source_files,
                          spin_index,
                          cache_index,
