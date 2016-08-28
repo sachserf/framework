@@ -8,7 +8,6 @@
 #' @param data_dir ewg
 #' @param target_dir_figure ew
 #' @param target_dir_docs wt
-#' @param target_dir_data wetg
 #' @export
 prepare_instructions <-
     function(source_files,
@@ -18,8 +17,7 @@ prepare_instructions <-
              source_dir = 'in/src',
              data_dir = 'in/data',
              target_dir_figure = 'out/figure',
-             target_dir_docs = 'out/docs',
-             target_dir_data = 'out/data') {
+             target_dir_docs = 'out/docs') {
 
         # specify full path to source-files
         source_files <-
@@ -61,13 +59,7 @@ prepare_instructions <-
             unlink(x = target_dir_docs, recursive = TRUE)
         }
         dir.create(path = target_dir_docs, recursive = TRUE)
-        
-        if (dir.exists(target_dir_data) == TRUE) {
-            unlink(x = target_dir_data, recursive = TRUE)
-        }
-        dir.create(path = target_dir_data, recursive = TRUE)
-        
-        
+
         # Make sure that there is no outdated instruction
         if (file.exists(file.path(cache_dir, 'instructions.RData'))) {
             unlink(x = file.path(cache_dir, 'instructions.RData'),
@@ -84,7 +76,6 @@ prepare_instructions <-
             data_dir,
             target_dir_figure,
             target_dir_docs,
-            target_dir_data,
             path_snapshot_source_dir,
             path_snapshot_data_dir,
             file = file.path(cache_dir, 'instructions.RData')

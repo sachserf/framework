@@ -29,33 +29,25 @@ project_framework <-
            init_git = TRUE,
            init_packrat = FALSE,
            custom_makeR = NULL,
-           target_makeR = 'analysis/make.R',
-           fun_dir = 'R',
-           source_files = c('scripts/load.R',
+           target_makeR = 'make.R',
+           fun_dir = 'in/fun',
+           source_files = c('load.R',
                             'report.Rmd'),
            cache_dir = '.cache',
-           source_dir = 'analysis',
-           data_dir = 'data',
+           source_dir = 'in/src',
+           data_dir = 'in/data',
            target_dir_figure = 'out/figure',
            target_dir_docs = 'out/docs',
            target_dir_data = 'out/data',
-           devtools_create = TRUE) {
+           devtools_create = FALSE) {
     # create project directory
     if (dir.exists(project_dir) == TRUE) {
-      stop("Project directory exists. Choose a differnet path and retry")
+      stop("Project directory exists. Choose a different path and retry")
     } else {
       dir.create(project_dir, recursive = TRUE)
     }
     # set working directory
     setwd(project_dir)
-    # create R-project
-    if ('devtools' %in% utils::installed.packages() == TRUE &
-        devtools_create == TRUE) {
-      devtools::create(path = project_dir)
-    } else if (rstudio == TRUE) {
-      framework::Rproj_init(project_dir)
-#      devtools::use_rstudio(pkg = file.path(project_dir))
-    }
     # create skeleton for a framework project
     framework::skeleton(
       custom_makeR,
@@ -69,6 +61,13 @@ project_framework <-
       target_dir_docs,
       target_dir_data
     )
+    # create R-project
+    if ('devtools' %in% utils::installed.packages() == TRUE &
+        devtools_create == TRUE) {
+      devtools::create(path = project_dir)
+    } else if (rstudio == TRUE) {
+      framework::Rproj_init(project_dir)
+    }
     # initialize packrat
     if (init_packrat == TRUE) {
       if ('packrat' %in% rownames(utils::installed.packages()) == FALSE) {
@@ -80,4 +79,7 @@ project_framework <-
     if (init_git == TRUE) {
       framework::git_init()
     }
+
+    invisible(lapply(X = list.files(system.file("templates", package = "framework"), full.names = TRUE), FUN = file.copy, to = fun_dir, recursive = TRUE))
   }
+

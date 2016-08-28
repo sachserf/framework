@@ -78,15 +78,14 @@ pkg_install(c('dplyr',
 
 # fill in R/Rmd-files in chronological order
 instructions(
-    source_files = c('", paste(source_files, collapse = '\',\''),"'),
+    source_files = c('", paste(source_files, collapse = '\',\''),"'),   # relative to source_dir
     spin_index = 'all',
     cache_index = 'all',
     cache_dir = '", cache_dir,"',
     source_dir = '", source_dir,"',
     data_dir = '", data_dir,"',
     target_dir_figure = '", target_dir_figure,"',
-    target_dir_docs = '", target_dir_docs,"',
-    target_dir_data = '", target_dir_data,"'
+    target_dir_docs = '", target_dir_docs,"'
 )
 
 # Optionally prepare and render Rmd-files as a website
@@ -103,7 +102,7 @@ instructions(
 ############ SUPPLEMENT ############
 
 # save all data frames (within .GlobalEnv)
-write_dataframe(data_dir = '", data_dir, "', file_format = 'csv')
+write_dataframe(target_dir_data = '", target_dir_data, "', file_format = 'csv')
 
 # write session_info
 session_info()

@@ -8,8 +8,7 @@ instructions <- function(source_files,
                          source_dir,
                          data_dir,
                          target_dir_figure,
-                         target_dir_docs,
-                         target_dir_data) {
+                         target_dir_docs) {
     prepare_instructions(source_files,
                          spin_index,
                          cache_index,
@@ -17,8 +16,7 @@ instructions <- function(source_files,
                          source_dir,
                          data_dir,
                          target_dir_figure,
-                         target_dir_docs,
-                         target_dir_data)
+                         target_dir_docs)
     implement_instructions(cache_dir)
     check_instructions(cache_dir)
     execute_instructions(cache_dir)

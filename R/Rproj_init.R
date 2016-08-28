@@ -10,21 +10,22 @@ Rproj_init <- function(project_dir){
     stop('project already exists')
   } else {
     sink(paste0(projname, '.Rproj'))
-    cat('Version: 1.0
-        
-RestoreWorkspace: Default
-SaveWorkspace: Default
+    cat("Version: 1.0
+
+RestoreWorkspace: No
+SaveWorkspace: No
 AlwaysSaveHistory: Default
-        
+
 EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 4
-      
-RnwWeave: knitr
-LaTeX: Default
-        
+Encoding: UTF-8
+
 AutoAppendNewline: Yes
-        ')
+StripTrailingWhitespace: Yes
+
+BuildType: Package
+PackageUseDevtools: Yes
+PackageInstallArgs: --no-multiarch --with-keep.source
+PackageRoxygenize: rd,collate,namespace")
 sink()
 }
 }

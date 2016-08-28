@@ -183,9 +183,9 @@ execute_instructions <-
 #        print(data.frame(filename = df_source_files$filename, 
 #                         instruction = df_source_files$instruction))
 #        cat("\n--------------------------------------------\n")
-        if (file.exists("summary_instructions.csv")) {
-            unlink("summary_instructions.csv")
+        if (file.exists(".summary_instructions.csv")) {
+            unlink(".summary_instructions.csv")
         }
-        write.csv(data.frame(filename = df_source_files$filename, instruction = df_source_files$instruction), file = "summary_instructions.csv", row.names = FALSE)
+        write.csv(data.frame(filename = df_source_files$filename, instruction = df_source_files$instruction), file = ".summary_instructions.csv", row.names = FALSE)
 
     }
