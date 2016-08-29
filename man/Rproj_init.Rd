@@ -4,7 +4,7 @@
 \alias{Rproj_init}
 \title{Initialize an RStudio-project}
 \usage{
-Rproj_init()
+Rproj_init(project_dir)
 }
 \description{
 Creates an .Rproj-file within your current working directory.

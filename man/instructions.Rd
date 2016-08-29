@@ -5,7 +5,7 @@
 \title{instructions}
 \usage{
 instructions(source_files, spin_index, cache_index, cache_dir, source_dir,
-  data_dir, target_dir_figure, target_dir_docs, target_dir_data)
+  data_dir, target_dir_figure, target_dir_docs)
 }
 \description{
 instructions

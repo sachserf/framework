@@ -4,20 +4,18 @@
 \alias{project_framework}
 \title{Initialize a framework-project}
 \usage{
-project_framework(dirname, init_Rproj = TRUE, init_git = TRUE,
+project_framework(project_dir, rstudio = TRUE, init_git = TRUE,
   init_packrat = FALSE, custom_makeR = NULL, target_makeR = "make.R",
   fun_dir = "in/fun", source_files = c("load.R", "report.Rmd"),
   cache_dir = ".cache", source_dir = "in/src", data_dir = "in/data",
   target_dir_figure = "out/figure", target_dir_docs = "out/docs",
-  target_dir_data = "out/data")
+  target_dir_data = "out/data", devtools_create = FALSE)
 }
 \arguments{
-\item{dirname}{Character. Specify the path to the directory where you want to
+\item{project_dir}{Character. Specify the path to the directory where you want to
 create a new project. The last directory will be the project directory
 itself. The name of the project will be the name of the project directory.
 E.g. '~/Desktop/MyProject' will create a project directory on your desktop.}
-
-\item{init_Rproj}{Logical. TRUE calls the function Rproj_init.}
 
 \item{init_git}{Logical. TRUE calls the function git_init.}
 
@@ -26,6 +24,8 @@ E.g. '~/Desktop/MyProject' will create a project directory on your desktop.}
 \item{custom_makeR}{Character. File path to a local make-like R-file. Specify
 this option if you want to use a customized version instead of the template
 for the file 'make.R'.}
+
+\item{init_Rproj}{Logical. TRUE calls the function Rproj_init.}
 }
 \description{
 This function is the heart of the package framework and it is
@@ -36,7 +36,7 @@ This function is the heart of the package framework and it is
   a packrat repo.
 }
 \note{
-Creation of the dirname is recursive.
+Creation of the project_dir is recursive.
 
 After calling the function go to the project directory and open the
   .Rproj file with RStudio.

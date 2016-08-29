@@ -1,10 +1,9 @@
-#' Insert source('make.R') to console
+#' Execute source('make.R')
 #'
-#' Call this function as an addin to print source("make.R") to console. 
-
+#' Call this function as an addin to source the file 'make.R'
 #'
 #' @export
-insert_srcmake_addin <- function() {
+srcmake_addin <- function() {
   filepath_make <-
     list.files(
       path = rstudioapi::getActiveProject(),
@@ -15,7 +14,6 @@ insert_srcmake_addin <- function() {
   if (length(filepath_make) != 1) {
     stop("file make.R does not exist or is not unique within project directory")
   } else {
-    rstudioapi::sendToConsole(paste0("source('", filepath_make, "')"), execute = FALSE)
+    rstudioapi::sendToConsole(paste0("source('", filepath_make, "')"), execute = TRUE)
   }
 }
-

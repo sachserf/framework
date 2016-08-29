@@ -16,19 +16,19 @@ this option if you want to use a customized version instead of the template
 for the file 'make.R'.}
 }
 \value{
-The output are several files and directories within your working 
-  directory. The structure contains a how-to-guide.txt, README.md, 
+The output are several files and directories within your working
+  directory. The structure contains a how-to-guide.txt, README.md,
   directories for input and output, some file-templates and several functions
   for proper functioning of the project.
 }
 \description{
-The function creates a predefined directory structure and some 
+The function creates a predefined directory structure and some
   files to enhance project organization.
 }
 \note{
 There are no parameters to specify.
 
-There is a wrapper-function to call this function. You might want to 
+There is a wrapper-function to call this function. You might want to
   use project_framework() instead.
 }
 \author{

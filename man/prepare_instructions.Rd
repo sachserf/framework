@@ -6,8 +6,7 @@
 \usage{
 prepare_instructions(source_files, spin_index = 0, cache_index = 0,
   cache_dir = ".cache", source_dir = "in/src", data_dir = "in/data",
-  target_dir_figure = "out/figure", target_dir_docs = "out/docs",
-  target_dir_data = "out/data")
+  target_dir_figure = "out/figure", target_dir_docs = "out/docs")
 }
 \arguments{
 \item{source_files}{eg}
@@ -25,8 +24,6 @@ prepare_instructions(source_files, spin_index = 0, cache_index = 0,
 \item{target_dir_figure}{ew}
 
 \item{target_dir_docs}{wt}
-
-\item{target_dir_data}{wetg}
 }
 \description{
 prepare_instructions

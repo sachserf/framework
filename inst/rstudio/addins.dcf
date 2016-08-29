@@ -1,9 +1,9 @@
-Name: Insert source make R
-Description: Inserts `source('make.R')` at the cursor position.
+Name: Insert source('make.R') to console
+Description: Insert `source('make.R')` to console
 Binding: insert_srcmake_addin
 Interactive: false
 
-Name: source make R
-Description: execute `source('make.R')`
+Name: Execute source('make.R')
+Description: Execute `source('make.R')`
 Binding: srcmake_addin
 Interactive: false

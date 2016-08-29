@@ -4,7 +4,7 @@
 \alias{write_dataframe}
 \title{write_dataframe}
 \usage{
-write_dataframe(listofdf = "GlobalEnv", data_dir = "out/data",
+write_dataframe(listofdf = "GlobalEnv", target_dir_data = "out/data",
   file_format = "csv")
 }
 \description{
