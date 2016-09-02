@@ -19,6 +19,14 @@ check_instructions <-
         df_source_files <-
             readRDS(file = file.path(cache_dir, 'df_source_files_temp.rds'))
         
+        # Check if source dir is part of target_dirs
+        if (grepl(pattern = paste(cache_dir, target_dir_docs, target_dir_figure, sep = "|"),
+                  x = source_dir) == TRUE) {
+          stop(
+            "Source_dir should neither be equal nor a subdirectory of target directories and/or cache directory! Change paths and retry."
+          )
+        }
+        
         # check snapshot of data-dir
         
         # if snapshot is missing: do not use cache
