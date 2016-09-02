@@ -10,7 +10,9 @@ template_make <- function(target_makeR = 'make.R',
                           data_dir = 'in/data',
                           target_dir_figure = 'out/figure',
                           target_dir_docs = 'out/docs',
-                          target_dir_data = 'out/data') {
+                          target_dir_data = 'out/data',
+                          rename_figure = TRUE,
+                          rename_docs = TRUE) {
     if (file.exists(target_makeR)) {
         stop("File exists. Delete the file and retry.")
     }
@@ -85,7 +87,9 @@ instructions(
     source_dir = '", source_dir,"',
     data_dir = '", data_dir,"',
     target_dir_figure = '", target_dir_figure,"',
-    target_dir_docs = '", target_dir_docs,"'
+    target_dir_docs = '", target_dir_docs,"',
+    rename_figure = ", rename_figure, ",
+    rename_docs = ", rename_docs, "
 )
 
 # Optionally prepare and render Rmd-files as a website
