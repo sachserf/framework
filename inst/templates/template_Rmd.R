@@ -29,7 +29,7 @@ template_Rmd <-
       stop("File exists.")
     }
     else {
-      cat("---\ntitle: '", header, "'\nauthor: '",Author, "'\ndate: '",Date, "'\noutput: \n  html_document: \n    number_sections: yes\n    toc: yes\n    toc_float: yes\n    theme: cosmo\n    highlight: textmate\n---\n\n```{r setup, include=FALSE}\n# additional pdf-output of figures\nknitr::opts_chunk$set(dev = c('png', 'pdf'), dpi = 100) # first value should be suitable for output format (e.g.: html=png, docx=jpeg, pdf=pdf)  \n```\n\n# Note\n\nThis file was created by calling the function 'template_Rmd'.\n\n",
+      cat("---\ntitle: '", header, "'\nauthor: '",Author, "'\ndate: '",Date, "'\noutput: \n  html_document: \n    number_sections: yes\n    toc: yes\n    toc_float: yes\n    theme: cosmo\n    highlight: textmate\n---\n\n```{r setup, include=FALSE}\n# additional pdf-output of figures\nknitr::opts_chunk$set(dev = c('png', 'pdf'), dpi = 100) # first 'dev'-value should be suitable for output format specifies in YAML metadata (e.g.: html_document and word_document: png or jpeg, pdf_document: pdf)  \n```\n\n# Note\nThis file was created by calling the function 'template_Rmd'.\n\n",
           file = file,
           sep = ""
       )

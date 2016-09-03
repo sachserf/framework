@@ -31,8 +31,9 @@ output_instructions <- function(cache_dir = ".cache") {
   }
 
   if (rename_figure == TRUE) {
-    dir.create(
-      path = dirname(df_source_files$figure_out),
+    sapply(
+      X = dirname(df_source_files$figure_out),
+      FUN = dir.create,
       recursive = TRUE,
       showWarnings = FALSE
     )

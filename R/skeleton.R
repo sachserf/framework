@@ -42,76 +42,76 @@ skeleton <-
     
     #### write fun ####
     # write local copy of functions
-    framework::dput_function(
-      pkg_fun = framework::backup,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::pkg_install,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::session_info,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::template_Rmd,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::template_R,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::write_dataframe,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::instructions,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::prepare_instructions,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::implement_instructions,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::check_instructions,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::specify_instructions,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::execute_instructions,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::summary_instructions,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
-    framework::dput_function(
-      pkg_fun = framework::prepare_site,
-      target_dir = file.path(fun_dir, 'sachserf_framework'),
-      rm_pattern = 'framework::'
-    )
+#    framework::dput_function(
+#      pkg_fun = framework::backup,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::pkg_install,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::session_info,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::template_Rmd,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::template_R,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::write_dataframe,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::instructions,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::prepare_instructions,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::implement_instructions,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::check_instructions,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::specify_instructions,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::execute_instructions,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::summary_instructions,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
+#    framework::dput_function(
+#      pkg_fun = framework::prepare_site,
+#      target_dir = file.path(fun_dir, 'sachserf_framework'),
+#      rm_pattern = 'framework::'
+#    )
     
     
     #### create make.R ####

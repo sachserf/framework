@@ -67,11 +67,13 @@ execute_instructions <-
                                                md5sum = TRUE,
                                                recursive = TRUE)
     saveRDS(object = snapshot_source_dir, file = path_snapshot_source_dir)
-    snapshot_data_dir <- utils::fileSnapshot(path = data_dir,
-                                             md5sum = TRUE,
-                                             recursive = TRUE)
-    saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)
-
+    
+    if (is.null(data_dir) == FALSE & length(list.files(data_dir)) > 0) {
+      snapshot_data_dir <- utils::fileSnapshot(path = data_dir,
+                                               md5sum = TRUE,
+                                               recursive = TRUE)
+      saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)
+    }
     # remove .summary_instructions.csv
     if (file.exists(".summary_instructions.csv")) {
       unlink(".summary_instructions.csv")

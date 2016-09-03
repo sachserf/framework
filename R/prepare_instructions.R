@@ -16,7 +16,9 @@ prepare_instructions <-
     # call file_path for input
     cache_dir <- file.path(cache_dir)
     source_dir <- file.path(source_dir)
-    data_dir <- file.path(data_dir)
+    if (is.null(data_dir) == FALSE) {
+      data_dir <- file.path(data_dir)
+    }
     if (is.null(target_dir_figure) == FALSE) {
       target_dir_figure <- file.path(target_dir_figure)
     }

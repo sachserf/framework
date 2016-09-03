@@ -53,7 +53,7 @@ implement_instructions <-
     figure_out <- file.path(target_dir_figure, paste0(row_names,
                                                       filename_out))
     } else {
-      figure_out <- file.path("wildcard")
+      figure_out <- cache_dir
     }
     if (is.null(target_dir_docs) == FALSE) {
     docs_out <- file.path(target_dir_docs, paste0(row_names))
@@ -61,7 +61,7 @@ implement_instructions <-
                                "temp_files",
                                paste0(row_names, filename_out))
     } else {
-      docs_out <- file.path("wildcard")
+      docs_out <- cache_dir
       temp_docs_out <- file.path(docs_out,
                                  "temp_files",
                                  paste0(row_names, filename_out))

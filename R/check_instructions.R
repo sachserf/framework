@@ -48,7 +48,7 @@ check_instructions <-
       df_source_files$use_cache_qualified <- FALSE
     }
     else {
-      if (length(list.files(data_dir)) > 0) {
+      if (is.null(data_dir) == FALSE & length(list.files(data_dir)) > 0) {
         # check file changes
         # specify changed files
         snapshot_data_dir <- readRDS(file = path_snapshot_data_dir)
