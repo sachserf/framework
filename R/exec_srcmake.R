@@ -9,7 +9,8 @@ srcmake_addin <- function() {
       path = rstudioapi::getActiveProject(),
       pattern = "^make.R$",
       recursive = TRUE,
-      all.files = TRUE
+      all.files = TRUE,
+      full.names = TRUE
     )
   if (length(filepath_make) != 1) {
     stop("file make.R does not exist or is not unique within project directory")

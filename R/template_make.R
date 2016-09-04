@@ -21,10 +21,18 @@ template_make <- function(target_makeR = 'make.R',
 "############ make-like file ############
 
 # This project was build by using the package <<framework>> (v", framework_version, ")
-# see 'how-to-guide.md' for a short introduction
-# visit https://sachserf.github.io for further information
+# visit https://github.com/sachserf/framework/blob/master/README.md for a short introduction
+# visit https://sachserf.github.io for further information and tutorials
 
 ############ PREAMBLE ############
+
+# check if Working directory is different from active Project
+if ('rstudioapi' %in% utils::installed.packages() == TRUE) {
+  if (identical(rstudioapi::getActiveProject(), getwd()) == FALSE) {
+    stop('Working directory is different from active Project')
+  }
+}
+
 # detach localfun
 if ('localfun' %in% search() == TRUE) {
     detach(localfun)
@@ -50,13 +58,6 @@ attach(localfun)
 
 # remove the environment <<localfun>> from .GlobalEnv
 rm(localfun)
-
-# check if Working directory is different from active Project
-if ('rstudioapi' %in% utils::installed.packages() == TRUE) {
-  if (identical(rstudioapi::getActiveProject(), getwd()) == FALSE) {
-    stop('Working directory is different from active Project')
-  }
-}
 
 ############ PACKAGES ############
 
@@ -91,17 +92,6 @@ instructions(
     rename_figure = ", rename_figure, ",
     rename_docs = ", rename_docs, "
 )
-
-# Optionally prepare and render Rmd-files as a website
-#prepare_site(
-#  Rmd_input = c('in/src/website/placeholder.Rmd'),
-#  target_dir = 'out/website',
-#  index_menu = FALSE,
-#  index_name = 'Home',
-#  page_name = 'framework-hp'
-#)
-
-#rmarkdown::render_site(input = 'in/src/website/') # same input_dir as the files in prepare_site
 
 ############ SUPPLEMENT ############
 

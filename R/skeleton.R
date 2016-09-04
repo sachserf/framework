@@ -26,12 +26,15 @@ skeleton <-
            target_dir_figure = 'out/figure',
            target_dir_docs = 'out/docs',
            target_dir_data = 'out/data') {
+    # specify framework_dun directory
+    framework_fun <- file.path(fun_dir, "framework")
+    
     #### create basic directories ####
     basic_dirs <-
       list(
         file.path(data_dir),
         file.path(source_dir),
-        file.path(fun_dir, 'sachserf_framework'),
+        file.path(framework_fun),
         file.path(target_dir_figure),
         file.path(target_dir_data),
         file.path(target_dir_docs)
@@ -40,80 +43,17 @@ skeleton <-
            FUN = dir.create,
            recursive = TRUE)
     
-    #### write fun ####
-    # write local copy of functions
-#    framework::dput_function(
-#      pkg_fun = framework::backup,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::pkg_install,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::session_info,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::template_Rmd,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::template_R,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::write_dataframe,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::instructions,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::prepare_instructions,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::implement_instructions,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::check_instructions,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::specify_instructions,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::execute_instructions,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::summary_instructions,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-#    framework::dput_function(
-#      pkg_fun = framework::prepare_site,
-#      target_dir = file.path(fun_dir, 'sachserf_framework'),
-#      rm_pattern = 'framework::'
-#    )
-    
-    
+    # copy the following functions to current project_directory
+    # [1] "backup.R"                 "check_instructions.R"    
+    # [3] "execute_instructions.R"   "implement_instructions.R"
+    # [5] "instructions.R"           "output_instructions.R"   
+    # [7] "pkg_install.R"            "prepare_instructions.R"  
+    # [9] "prepare_site.R"           "session_info.R"          
+    # [11] "specify_instructions.R"   "summary_instructions.R"  
+    # [13] "template_R.R"             "template_Rmd.R"          
+    # [15] "write_dataframe.R"       
+    invisible(lapply(X = list.files(system.file("templates", package = "framework"), full.names = TRUE), FUN = file.copy, to = framework_fun, recursive = TRUE))
+   
     #### create make.R ####
     if (is.null(custom_makeR) == TRUE) {
       template_make(
@@ -146,7 +86,6 @@ skeleton <-
       lapply(X = source_files_Rmd, FUN = framework::template_Rmd)
     }
     
-    
     #### write README.md ####
     cat(
       '# Readme of the project: ',
@@ -161,7 +100,8 @@ skeleton <-
     )
     
     #### write how-to-guide.md
-    htm <-
-      readLines(con = "https://raw.githubusercontent.com/sachserf/framework/vignettes/README.md")
-    cat(htm, file = "how-to-guide.md", sep = "\n")
+#    htm <-
+#      readLines(con = "https://raw.githubusercontent.com/sachserf/framework/vignettes/README.md")
+    htg <- readLines(file.path(system.file(package = "framework"), "how_to_guide/README.md"))
+    cat(htg, file = "how-to-guide.md", sep = "\n")
   }

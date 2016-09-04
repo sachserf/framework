@@ -29,13 +29,13 @@ project_framework <-
            init_git = TRUE,
            init_packrat = FALSE,
            custom_makeR = NULL,
-           target_makeR = 'vignettes/make.R',
+           target_makeR = 'make.R',
            fun_dir = 'R',
            source_files = c('load.R',
                             'report.Rmd'),
            cache_dir = '.cache',
-           source_dir = 'vignettes',
-           data_dir = 'inst/extdata',
+           source_dir = 'in/analysis',
+           data_dir = 'in/data',
            target_dir_figure = 'out/figure',
            target_dir_docs = 'out/docs',
            target_dir_data = 'out/data',
@@ -55,6 +55,7 @@ project_framework <-
     } else if (rstudio == TRUE) {
       framework::Rproj_init(project_dir)
     }
+    
     # create skeleton for a framework project
     framework::skeleton(
       custom_makeR,
@@ -68,7 +69,13 @@ project_framework <-
       target_dir_docs,
       target_dir_data
     )
-
+    
+    # initialize git
+    if (init_git == TRUE) {
+      cat(".Rproj.user", ".Rhistory", ".RData", data_dir, target_dir_figure, target_dir_data, target_dir_docs, file = ".gitignore", sep = "\n")
+      framework::git_init()
+    }
+    
     # initialize packrat
     if (init_packrat == TRUE) {
       if ('packrat' %in% rownames(utils::installed.packages()) == FALSE) {
@@ -76,23 +83,15 @@ project_framework <-
       }
       packrat::init(project_dir)
     }
-    # initialize git
-    if (init_git == TRUE) {
-      framework::git_init()
-    }
-    
-    # edit gitignore, Rbuildignore and DESCRIPTION
+
+    # edit Rbuildignore and DESCRIPTION
     if (file.exists(".Rbuildignore")) {
-      lapply(X = c(cache_dir, target_dir_figure, target_dir_data, target_dir_docs), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
+      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, target_dir_figure, target_dir_data, target_dir_docs, "session_info.txt", "how-to-guide.md", target_makeR, source_dir, data_dir), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
     }
-    if (file.exists(".gitignore")) {
-      lapply(X = c(data_dir, target_dir_figure, target_dir_data, target_dir_docs), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".gitignore", append = TRUE, sep = "\n"))
-    }
+
     if (file.exists("DESCRIPTION")) {
       cat("Suggests:", "    rmarkdown (>= 0.9.6),", "    knitr", file = "DESCRIPTION", append = TRUE, sep = "\n")
     }
     
-    # copy functions to project_directory
-    invisible(lapply(X = list.files(system.file("templates", package = "framework"), full.names = TRUE), FUN = file.copy, to = fun_dir, recursive = TRUE))
   }
 
