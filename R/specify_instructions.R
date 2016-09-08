@@ -18,7 +18,7 @@ specify_instructions <-
            file_ext)
   {
     # deprecated source_files
-    files_source_dir <- list.files(source_dir, full.names = TRUE)
+    files_source_dir <- list.files(source_dir, full.names = TRUE, recursive = TRUE)
     filename_dot <- paste0(filename_noxt, ".")
     source_docs <-
       files_source_dir[grep(pattern = filename_dot,
@@ -66,9 +66,9 @@ specify_instructions <-
 
 
     # delete rendered files if R-file should not be spinned
-    if (file_ext == "R" & use_spin == FALSE) {
-      unlink(delete_deprecated_files, recursive = TRUE)
-    }
+#    if (file_ext == "R" & use_spin == FALSE) {
+#      unlink(delete_deprecated_files, recursive = TRUE)
+#    }
 
     if (instruction != "nothing") {
       # specify instruction "load"
@@ -81,7 +81,11 @@ specify_instructions <-
 
         # specify instruction "source"
         if (instruction == "source") {
+          temp_fig_path <- file.path(figure_out, paste0(filename_noxt, "_files"))
+          dir.create(path = temp_fig_path, showWarnings = FALSE, recursive = TRUE)
+          pdf(file.path(temp_fig_path, paste0(basename_noxt, ".pdf")))
           source(filename)
+          dev.off()
           save(list = ls(.GlobalEnv), file = image_cache)
         }
         # specify instruction "render"

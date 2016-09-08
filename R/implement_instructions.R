@@ -53,7 +53,7 @@ implement_instructions <-
     figure_out <- file.path(target_dir_figure, paste0(row_names,
                                                       filename_out))
     } else {
-      figure_out <- cache_dir
+      figure_out <- getwd()
     }
     if (is.null(target_dir_docs) == FALSE) {
     docs_out <- file.path(target_dir_docs, paste0(row_names))

@@ -42,7 +42,7 @@ prepare_instructions <-
 
     # delete and rebuild cache
     if (length(cache_index) == 1 && cache_index == 0) {
-      unlink(x = cache_dir, recursive = TRUE)
+      lapply(X = c(cache_dir, target_dir_figure, target_dir_docs), FUN = unlink, recursive = TRUE)
     }
     if (dir.exists(cache_dir) == FALSE) {
       dir.create(cache_dir)

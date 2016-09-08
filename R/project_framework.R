@@ -34,11 +34,11 @@ project_framework <-
            source_files = c('load.R',
                             'report.Rmd'),
            cache_dir = '.cache',
-           source_dir = 'in/analysis',
-           data_dir = 'in/data',
-           target_dir_figure = 'out/figure',
-           target_dir_docs = 'out/docs',
-           target_dir_data = 'out/data',
+           source_dir = 'scripts',
+           data_dir = 'data/raw',
+           target_dir_figure = 'figures',
+           target_dir_docs = 'docs',
+           target_dir_data = 'data/processed',
            devtools_create = TRUE) {
     # create project directory
     if (dir.exists(project_dir) == TRUE) {

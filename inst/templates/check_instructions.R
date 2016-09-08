@@ -151,7 +151,7 @@ check_instructions <-
     # check existence of (rendered) files (if output should not be copied)
     if (is.null(target_dir_docs) == TRUE) {
       for (i in 1:nrow(df_source_files)) {
-        files_source_dir <- list.files(source_dir, full.names = TRUE)
+        files_source_dir <- list.files(source_dir, full.names = TRUE, recursive = TRUE)
         filename_dot <-
           paste0(df_source_files$filename_noxt[i], ".")
         source_docs <-
@@ -160,7 +160,7 @@ check_instructions <-
                                 fixed = TRUE)]
         render_docs <-
           source_docs[-which(source_docs == df_source_files$filename[i])]
-        if (length(render_docs) == 0) {
+        if (length(render_docs) == 0 & df_source_files$instruction_no_cache[i] != "source") {
           df_source_files$use_cache_qualified[i] <- FALSE
         }
       }
