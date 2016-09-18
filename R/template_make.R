@@ -26,13 +26,6 @@ template_make <- function(target_makeR = 'make.R',
 
 ############ PREAMBLE ############
 
-# check if Working directory is different from active Project
-if ('rstudioapi' %in% utils::installed.packages() == TRUE) {
-  if (identical(rstudioapi::getActiveProject(), getwd()) == FALSE) {
-    stop('Working directory is different from active Project')
-  }
-}
-
 # detach localfun
 if ('localfun' %in% search() == TRUE) {
     detach(localfun)
