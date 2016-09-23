@@ -1,5 +1,12 @@
 #' check_instructions
 #' @description check_instructions
+#' @inheritParams instructions
+#' @note This function is part of a family of functions each of which end with 
+#'   '_instructions'. The order to call these functions is: 
+#'   'prepare_instructions', 'implement_instructions', 'check_instructions', 
+#'   'execute_instructions' and optionally 'output_instructions'. There is a
+#'   wrapper for these functions called 'instructions'.
+#' @author Frederik Sachser
 #' @export
 check_instructions <-
   function (cache_dir = ".cache")
@@ -8,7 +15,7 @@ check_instructions <-
     if (any(file.exists(
       file.path(cache_dir, "df_source_files_temp.rds"),
       file.path(cache_dir, "instructions.RData")
-    )) == FALSE) {
+    ) == FALSE)) {
       stop(
         "Required files in cache are missing. Recall preceding functions of the 'framework instructions'-family and retry. For details see ?instructions"
       )

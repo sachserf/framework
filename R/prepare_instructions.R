@@ -1,5 +1,16 @@
 #' prepare_instructions
 #' @description prepare_instructions
+#' @inheritParams instructions
+#' @note This function is part of a family of functions each of which end with 
+#'   '_instructions'. The order to call these functions is: 
+#'   'prepare_instructions', 'implement_instructions', 'check_instructions', 
+#'   'execute_instructions' and optionally 'output_instructions'. There is a
+#'   wrapper for these functions called 'instructions'.
+#' @seealso \code{\link{instructions}}, 
+#'   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
+#'   \code{\link{delete_deprecated_instructions}},
+#'   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
+#' @author Frederik Sachser
 #' @export
 prepare_instructions <-
   function(source_files,
@@ -49,10 +60,10 @@ prepare_instructions <-
     }
 
     # specify indices
-    if (length(cache_index) == 1 && cache_index == "all") {
+    if (length(cache_index) == 1 && cache_index == 999) {
       cache_index <- 1:length(source_files)
     }
-    if (length(spin_index) == 1 && spin_index == "all") {
+    if (length(spin_index) == 1 && spin_index == 999) {
       spin_index <- 1:length(source_files)
     }
 

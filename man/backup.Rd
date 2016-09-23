@@ -33,7 +33,7 @@ The function will copy the specified directory and create a
 }
 \note{
 Beware! If you choose an existing target directory and option
-  delete_target = TRUE: ALL YOUR FILES WILL BE DELETED!
+  delete_target = TRUE: ALL EXISTING FILES WILL BE DELETED!
 }
 \author{
 Frederik Sachser

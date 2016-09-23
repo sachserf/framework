@@ -1,5 +1,16 @@
 #' execute_instructions
-#' @description execute_instructions
+#' @description The function will execute the instructions.
+#' @inheritParams project_framework
+#' @note This function is part of a family of functions each of which end with 
+#'   '_instructions'. The order to call these functions is: 
+#'   'prepare_instructions', 'implement_instructions', 'check_instructions', 
+#'   'execute_instructions' and optionally 'output_instructions'. There is a 
+#'   wrapper for these functions called 'instructions'.
+#' @seealso \code{\link{prepare_instructions}}, 
+#'   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
+#'   \code{\link{delete_deprecated_instructions}}, \code{\link{instructions}},
+#'   \code{\link{output_instructions}}, \code{\link{specify_instructions}}
+#' @author Frederik Sachser
 #' @export
 execute_instructions <-
   function (cache_dir = ".cache")
@@ -8,7 +19,7 @@ execute_instructions <-
     if (any(file.exists(
       file.path(cache_dir, "df_source_files_temp.rds"),
       file.path(cache_dir, "instructions.RData")
-    )) == FALSE) {
+    ) == FALSE)) {
       stop(
         "Required files in cache are missing. Recall preceding functions of the 'framework instructions'-family and retry. For details see ?instructions"
       )
@@ -74,17 +85,4 @@ execute_instructions <-
                                                recursive = TRUE)
       saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)
     }
-    # remove .summary_instructions.csv
-    if (file.exists(".summary_instructions.csv")) {
-      unlink(".summary_instructions.csv")
-    }
-    # write current .summary_instructions.csv
-    write.csv(
-      data.frame(
-        filename = df_source_files$filename,
-        instruction = df_source_files$instruction
-      ),
-      file = ".summary_instructions.csv",
-      row.names = FALSE
-    )
   }

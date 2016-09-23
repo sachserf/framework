@@ -8,6 +8,6 @@ write_dataframe(listofdf = "GlobalEnv", target_dir_data = "out/data",
   file_format = "csv")
 }
 \description{
-write_dataframe
+write all dataframes
 }
 

@@ -4,9 +4,33 @@
 \alias{specify_instructions}
 \title{specify_instructions}
 \usage{
-specify_instructions(filename, image_cache, instruction)
+specify_instructions(target_dir_docs, target_dir_figure, source_dir, filename,
+  image_cache, instruction, docs_out, filename_noxt, basename_noxt,
+  temp_docs_out, figure_source, figure_out, use_spin, file_ext)
+}
+\arguments{
+\item{target_dir_docs}{Character. Treat this directory as read-only. By using
+the function 'framework::instructions()' the directory will contain 
+rendered documents (pdf, html, ...) of your input scripts.}
+
+\item{target_dir_figure}{Character. Treat this directory as read-only. By 
+using the function 'framework::instructions()' the directory will contain 
+rendered plots that are specified within your input scripts.}
+
+\item{source_dir}{Character. Specify file path to directory where you want to
+store all your input files.}
 }
 \description{
 specify_instructions
+}
+\note{
+This function is part of a family of functions each of which end with 
+  '_instructions'. The order to call these functions is: 
+  'prepare_instructions', 'implement_instructions', 'check_instructions', 
+  'execute_instructions' and optionally 'output_instructions'. There is a
+  wrapper for these functions called 'instructions'.
+}
+\author{
+Frederik Sachser
 }
 

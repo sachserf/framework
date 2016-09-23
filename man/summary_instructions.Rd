@@ -4,7 +4,7 @@
 \alias{summary_instructions}
 \title{summary_instructions}
 \usage{
-summary_instructions(csv_file = ".summary_instructions.csv")
+summary_instructions(cache_dir)
 }
 \description{
 summary_instructions

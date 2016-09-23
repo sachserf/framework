@@ -1,12 +1,23 @@
 #' output_instructions
 #' @description output_instructions
+#' @inheritParams project_framework
+#' @note This function is part of a family of functions each of which end with 
+#'   '_instructions'. The order to call these functions is: 
+#'   'prepare_instructions', 'implement_instructions', 'check_instructions', 
+#'   'execute_instructions' and optionally 'output_instructions'. There is a
+#'   wrapper for these functions called 'instructions'.
+#' @seealso \code{\link{prepare_instructions}}, 
+#'   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
+#'   \code{\link{delete_deprecated_instructions}},
+#'   \code{\link{execute_instructions}}, \code{\link{instructions}}
+#'   @author Frederik Sachser
 #' @export
 output_instructions <- function(cache_dir = ".cache") {
   # check prerequisites
   if (any(file.exists(
     file.path(cache_dir, "df_source_files.rds"),
     file.path(cache_dir, "instructions.RData")
-  )) == FALSE) {
+  ) == FALSE)) {
     stop(
       "Required files in cache are missing. Recall preceding functions of the 'framework instructions'-family and retry. For details see ?instructions"
     )

@@ -1,5 +1,8 @@
 #' template_make
-#' @description template_make
+#' @description This function will create a template for a make-like file. It is
+#'   possible to specify a predefined set of parameters.
+#' @inheritParams project_framework
+#' @author Frederik Sachser
 #' @export
 template_make <- function(target_makeR = 'make.R', 
                           fun_dir = 'in/fun',
@@ -12,7 +15,9 @@ template_make <- function(target_makeR = 'make.R',
                           target_dir_docs = 'out/docs',
                           target_dir_data = 'out/data',
                           rename_figure = TRUE,
-                          rename_docs = TRUE) {
+                          rename_docs = TRUE,
+                          spin_index,
+                          cache_index) {
     if (file.exists(target_makeR)) {
         stop("File exists. Delete the file and retry.")
     }
@@ -63,11 +68,7 @@ pkg_install(c('utils',
     attach = FALSE)
 
 # install and load packages:
-pkg_install(c('dplyr',
-        'ggplot2',
-        'stringi',
-        'tidyr',
-        'readr'),
+pkg_install(c('tidyr'),
     attach = TRUE)
 
 ############ SOURCE ############
@@ -75,8 +76,8 @@ pkg_install(c('dplyr',
 # fill in R/Rmd-files in chronological order
 instructions(
     source_files = c('", paste(source_files, collapse = '\',\''),"'),   # relative to source_dir
-    spin_index = 'all',
-    cache_index = 'all',
+    spin_index = ", spin_index,",
+    cache_index = ", cache_index,",
     cache_dir = '", cache_dir,"',
     source_dir = '", source_dir,"',
     data_dir = '", data_dir,"',
@@ -99,7 +100,7 @@ session_info()
 #       exclude_files = '*.RData|*.Rhistory|*.rds', delete_target = TRUE)
 
 # print summary of instructions
-summary_instructions()
+summary_instructions(cache_dir = '", cache_dir,"')
 
 ",
         file = target_makeR, sep = ""

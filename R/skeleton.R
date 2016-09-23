@@ -1,16 +1,11 @@
 #' Create a framework-project skeleton
 #' @description The function creates a predefined directory structure and some
 #'   files to enhance project organization.
-#' @param custom_makeR Character. File path to a local make-like R-file. Specify
-#'   this option if you want to use a customized version instead of the template
-#'   for the file 'make.R'.
+#' @inheritParams project_framework
 #' @return The output are several files and directories within your working
 #'   directory. The structure contains a how-to-guide.txt, README.md,
 #'   directories for input and output, some file-templates and several functions
 #'   for proper functioning of the project.
-#' @note There are no parameters to specify.
-#' @note There is a wrapper-function to call this function. You might want to
-#'   use project_framework() instead.
 #' @seealso \code{\link{project_framework}}
 #' @author Frederik Sachser
 #' @export
@@ -25,7 +20,11 @@ skeleton <-
            data_dir = 'in/data',
            target_dir_figure = 'out/figure',
            target_dir_docs = 'out/docs',
-           target_dir_data = 'out/data') {
+           target_dir_data = 'out/data',
+           rename_figure = TRUE,
+           rename_docs = TRUE,
+           spin_index,
+           cache_index) {
     # specify framework_dun directory
     framework_fun <- file.path(fun_dir, "framework")
     
@@ -51,7 +50,7 @@ skeleton <-
     # [9] "prepare_site.R"           "session_info.R"          
     # [11] "specify_instructions.R"   "summary_instructions.R"  
     # [13] "template_R.R"             "template_Rmd.R"          
-    # [15] "write_dataframe.R"       
+    # [15] "write_dataframe.R"       "delete_deprecated_instructions"
     invisible(lapply(X = list.files(system.file("templates", package = "framework"), full.names = TRUE), FUN = file.copy, to = framework_fun, recursive = TRUE))
    
     #### create make.R ####
@@ -65,7 +64,11 @@ skeleton <-
         data_dir,
         target_dir_figure,
         target_dir_docs,
-        target_dir_data
+        target_dir_data,
+        rename_figure,
+        rename_docs,
+        spin_index,
+        cache_index
       )
     } else {
       file.copy(from = custom_makeR,

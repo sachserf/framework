@@ -16,7 +16,7 @@
 #'   want to exclude multiple directories use | as separator. Choose FALSE if 
 #'   you don not want to exclude any files
 #' @note Beware! If you choose an existing target directory and option
-#'   delete_target = TRUE: ALL YOUR FILES WILL BE DELETED!
+#'   delete_target = TRUE: ALL EXISTING FILES WILL BE DELETED!
 #' @author Frederik Sachser
 #' @export
 backup <- 

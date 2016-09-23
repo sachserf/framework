@@ -5,9 +5,61 @@
 \title{instructions}
 \usage{
 instructions(source_files, spin_index, cache_index, cache_dir, source_dir,
-  data_dir, target_dir_figure, target_dir_docs)
+  data_dir, target_dir_figure, target_dir_docs, rename_figure, rename_docs)
+}
+\arguments{
+\item{source_files}{Character. Specify a vector of file paths, if you want to
+create predefined templates for your analysis (relative to 'source_dir'). 
+Use file extensions '.R' or '.Rmd'.}
+
+\item{spin_index}{Integer. Can be of length one or a vector. Specify index of
+'source_files' that should  be spinned (ignored for file extension 'Rmd'). 
+Choose 0 (zero) if you do not want to spin any R-files. Choose 999 if you 
+want to spin all R-files.}
+
+\item{cache_index}{Integer. Can be of length one or a vector. Specify index 
+of 'source_files' that should  be integrated into the cache. Choose 0 
+(zero) if you do not want to use the cache. Choose 999 if you want to use 
+the cache for all files.}
+
+\item{cache_dir}{Character. Specify file path for the cache directory.}
+
+\item{source_dir}{Character. Specify file path to directory where you want to
+store all your input files.}
+
+\item{data_dir}{Character. Specify file path to directory where you want to 
+store your data files. This directory will be monitored. When files change 
+in this directory the cache will be ignored (when using the framework 
+template of the file 'make.R').}
+
+\item{target_dir_figure}{Character. Treat this directory as read-only. By 
+using the function 'framework::instructions()' the directory will contain 
+rendered plots that are specified within your input scripts.}
+
+\item{target_dir_docs}{Character. Treat this directory as read-only. By using
+the function 'framework::instructions()' the directory will contain 
+rendered documents (pdf, html, ...) of your input scripts.}
+
+\item{rename_figure}{Logical. If TRUE the rendered figures will be renamed 
+and moved into a single directory.}
+
+\item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
+will be renamed and moved into a single directory.}
 }
 \description{
-instructions
+This function is the heart of the package 'framework'. It is a 
+  wrapper for the following functions: 'prepare_instructions', 
+  'implement_instructions', 'check_instructions', 
+  'delete_deprecated_instructions', 'execute_instructions' and 
+  'output_instructions'.
+}
+\author{
+Frederik Sachser
+}
+\seealso{
+\code{\link{prepare_instructions}}, 
+  \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
+  \code{\link{delete_deprecated_instructions}},
+  \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 }
 

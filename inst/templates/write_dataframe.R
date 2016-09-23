@@ -12,6 +12,11 @@ write_dataframe <-
     if (dir.exists(target_dir_data) == FALSE) {
       dir.create(target_dir_data, recursive = TRUE)
     }
+    
+    # delete all existing data
+    unlink(list.files(target_dir_data, full.names = TRUE), recursive = TRUE)
+    
+    # write files
     if (file_format == "csv") {
       csv_fun <- function(objectname) {
         filename <- paste(file.path(target_dir_data, objectname), 

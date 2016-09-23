@@ -8,9 +8,66 @@ template_make(target_makeR = "make.R", fun_dir = "in/fun",
   source_files = c("load.R", "report.Rmd"), cache_dir = ".cache",
   source_dir = "in/src", data_dir = "in/data",
   target_dir_figure = "out/figure", target_dir_docs = "out/docs",
-  target_dir_data = "out/data")
+  target_dir_data = "out/data", rename_figure = TRUE, rename_docs = TRUE,
+  spin_index, cache_index)
+}
+\arguments{
+\item{target_makeR}{Character. Target directory of the 'makefile'. Default is
+'make.R'. Specify relative file path if you want to use subdirectories.}
+
+\item{fun_dir}{Character. Target directory of functions. Default is 'I-fun'. 
+Some functions of the framework-package will be copied to a subdirectory of
+this folder. By using the framework template of the file 'make.R' all 
+R-Scripts (functions) within this directory will be attached to a 
+predefined environment.}
+
+\item{source_files}{Character. Specify a vector of file paths, if you want to
+create predefined templates for your analysis (relative to 'source_dir'). 
+Use file extensions '.R' or '.Rmd'.}
+
+\item{cache_dir}{Character. Specify file path for the cache directory.}
+
+\item{source_dir}{Character. Specify file path to directory where you want to
+store all your input files.}
+
+\item{data_dir}{Character. Specify file path to directory where you want to 
+store your data files. This directory will be monitored. When files change 
+in this directory the cache will be ignored (when using the framework 
+template of the file 'make.R').}
+
+\item{target_dir_figure}{Character. Treat this directory as read-only. By 
+using the function 'framework::instructions()' the directory will contain 
+rendered plots that are specified within your input scripts.}
+
+\item{target_dir_docs}{Character. Treat this directory as read-only. By using
+the function 'framework::instructions()' the directory will contain 
+rendered documents (pdf, html, ...) of your input scripts.}
+
+\item{target_dir_data}{Character. Treat this directory as read-only. By using
+the function 'framework::write_dataframe()' the directory will contain data
+of type 'RData', 'rds' or 'csv'.}
+
+\item{rename_figure}{Logical. If TRUE the rendered figures will be renamed 
+and moved into a single directory.}
+
+\item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
+will be renamed and moved into a single directory.}
+
+\item{spin_index}{Integer. Can be of length one or a vector. Specify index of
+'source_files' that should  be spinned (ignored for file extension 'Rmd'). 
+Choose 0 (zero) if you do not want to spin any R-files. Choose 999 if you 
+want to spin all R-files.}
+
+\item{cache_index}{Integer. Can be of length one or a vector. Specify index 
+of 'source_files' that should  be integrated into the cache. Choose 0 
+(zero) if you do not want to use the cache. Choose 999 if you want to use 
+the cache for all files.}
 }
 \description{
-template_make
+This function will create a template for a make-like file. It is
+  possible to specify a predefined set of parameters.
+}
+\author{
+Frederik Sachser
 }
 
