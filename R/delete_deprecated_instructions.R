@@ -12,11 +12,7 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
   if (any(file.exists(
     file.path(cache_dir, "df_source_files.rds"),
     file.path(cache_dir, "instructions.RData")
-  ) == FALSE)) {
-    print(
-      "Required files in cache are missing. Can not delete deprecated output from last session."
-    )
-  } else {
+  ) == FALSE) == FALSE) {
     # reload instructions
     load(file.path(cache_dir, "instructions.RData"))
     # reload df_source_files (last session)

@@ -1,10 +1,12 @@
-#' check_instructions
-#' @description check_instructions
+#' Check instructions
+#' @description This function will check and potentially correct your 
+#'   instructions (e.g. if you want to load a file from cache the image of the 
+#'   file should exist).
 #' @inheritParams instructions
 #' @note This function is part of a family of functions each of which end with 
 #'   '_instructions'. The order to call these functions is: 
 #'   'prepare_instructions', 'implement_instructions', 'check_instructions', 
-#'   'execute_instructions' and optionally 'output_instructions'. There is a
+#'   'execute_instructions' and optionally 'output_instructions'. There is a 
 #'   wrapper for these functions called 'instructions'.
 #' @author Frederik Sachser
 #' @export

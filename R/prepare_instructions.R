@@ -37,8 +37,9 @@ prepare_instructions <-
       target_dir_docs <- file.path(target_dir_docs)
     }
 
-    # specify file paths
-    source_files <- file.path(source_dir, source_files)
+    # specify file paths (add source_dir if necessary)
+    path_included <- grepl(pattern = source_dir, x = source_files)
+    source_files <- ifelse(path_included == TRUE, file.path(source_files), file.path(source_dir, source_files))
     path_snapshot_source_dir <-
       file.path(cache_dir, "snapshot_source_dir.rds")
     path_snapshot_data_dir <-
