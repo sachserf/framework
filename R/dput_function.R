@@ -2,8 +2,8 @@
 #' 
 #' @description Choose a function of an installed R-package and save it to the 
 #'   specified target.
-#' @param pkg_fun Name of a package and function separated by '::'. E.g. 
-#'   framework::reminder
+#' @param pkg_fun Character. Name of a package and function separated by '::'. E.g. 
+#'   framework::summary_instructions. Do not use quotation marks.
 #' @param target_dir Character. Specify the file path, where you want to write 
 #'   the file.
 #' @param rm_pattern Character. Choose any pattern that should be removed. E.g. 

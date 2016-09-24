@@ -1,17 +1,24 @@
-#' Create a template R-file
+#' A framework template for an R-script
 #' 
-#' @param file Character. Specify the path to save the new file. Use relative
-#'   file paths and specify the file extension; e.g. 'in/src/new_dir/myfile.R'.
-#' @param Author Character. Optionally customize the name of the Author (used
+#' @description This function will create an R-script including some predefined 
+#'   lines. By using this template for R-scripts within a framework-project it 
+#'   is straightforward to save all plots you will specify within the script as 
+#'   pdf and png version (using knitr::spin or rmarkdown::render). The function
+#'   is designed to save some time writing the same input again and again (e.g. Author, date
+#'   and other things).
+#' @param file Character. Specify the path to save the new file. Use relative 
+#'   file paths and specify the file extension; e.g. 'scripts/myfile.R'.
+#' @param Author Character. Optionally customize the name of the Author (used 
 #'   for the YAML header). Default is the effective user of the system info.
-#' @param Date Character. Optionally customize the date (used for the YAML
+#' @param Date Character. Optionally customize the date (used for the YAML 
 #'   header). Default is the current Date (format YYYY-MM-DD).
 #' @note Missing directories will be created recursively.
 #' @note It is not possible to overwrite existing files.
-#' @note The file contains a YAML header and Roxygen comment prefixes. It is
+#' @note The file contains a YAML header and Roxygen comment prefixes. It is 
 #'   possible to source these file as well as to spin it (using knitr).
-#' @note Other YAML header options will be choosen automatically. Edit the
+#' @note Other YAML header options will be choosen automatically. Edit the 
 #'   resulting file to customize the YAML header.
+#' @seealso \code{\link{template_Rmd}}
 #' @author Frederik Sachser
 #' @export
 template_R <-

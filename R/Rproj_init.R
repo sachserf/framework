@@ -1,6 +1,7 @@
 #' Initialize an RStudio-project
 #' 
 #' @description Creates an .Rproj-file within your current working directory.
+#' @inheritParams project_framework
 #' @note It is not possible to overwrite an existing Rproj.
 #' @author Frederik Sachser
 #' @export

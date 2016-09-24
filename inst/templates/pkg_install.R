@@ -1,8 +1,9 @@
 #' Install and attach packages
 #' 
-#' @description The function checks if the specified packages are installed.
-#'   Packages that are not installed are going to be installed.
-#' @param pkg_names Character. A vector specifying the names of packages you
+#' @description The function checks whether the specified packages are installed
+#'   or not. Packages that are not installed on your machine are going to be
+#'   installed.
+#' @param pkg_names Character. A vector specifying the names of packages you 
 #'   want to install.
 #' @param attach Logical. If TRUE the packages will be loaded.
 #' @author Frederik Sachser

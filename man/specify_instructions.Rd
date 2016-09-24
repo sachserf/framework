@@ -2,35 +2,88 @@
 % Please edit documentation in R/specify_instructions.R
 \name{specify_instructions}
 \alias{specify_instructions}
-\title{specify_instructions}
+\title{Specify instructions!}
 \usage{
 specify_instructions(target_dir_docs, target_dir_figure, source_dir, filename,
   image_cache, instruction, docs_out, filename_noxt, basename_noxt,
   temp_docs_out, figure_source, figure_out, use_spin, file_ext)
 }
 \arguments{
-\item{target_dir_docs}{Character. Treat this directory as read-only. By using
-the function 'framework::instructions()' the directory will contain 
-rendered documents (pdf, html, ...) of your input scripts.}
+\item{target_dir_docs}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
 
-\item{target_dir_figure}{Character. Treat this directory as read-only. By 
-using the function 'framework::instructions()' the directory will contain 
-rendered plots that are specified within your input scripts.}
+\item{target_dir_figure}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
 
-\item{source_dir}{Character. Specify file path to directory where you want to
-store all your input files.}
+\item{source_dir}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{filename}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{image_cache}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{instruction}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{docs_out}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{filename_noxt}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{basename_noxt}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{temp_docs_out}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{figure_source}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{figure_out}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{use_spin}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
+
+\item{file_ext}{For further information and examples run the function
+'instructions' and open the file 'df_source_files.rds' within the cache
+directory.}
 }
 \description{
-specify_instructions
+This function is not meant to be called directly by the user. It
+  is integrated into the function 'execute_instructions'.
 }
 \note{
 This function is part of a family of functions each of which end with 
   '_instructions'. The order to call these functions is: 
   'prepare_instructions', 'implement_instructions', 'check_instructions', 
-  'execute_instructions' and optionally 'output_instructions'. There is a
-  wrapper for these functions called 'instructions'.
+  'delete_deprecated_instructions', 'execute_instructions' and optionally 
+  'output_instructions'. There is a wrapper for these functions called 
+  'instructions'.
 }
 \author{
 Frederik Sachser
+}
+\seealso{
+\code{\link{prepare_instructions}}, 
+  \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
+  \code{\link{instructions}}, \code{\link{execute_instructions}}, 
+  \code{\link{output_instructions}}
 }
 

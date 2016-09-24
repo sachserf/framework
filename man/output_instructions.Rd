@@ -2,7 +2,7 @@
 % Please edit documentation in R/output_instructions.R
 \name{output_instructions}
 \alias{output_instructions}
-\title{output_instructions}
+\title{Reorganize your output!}
 \usage{
 output_instructions(cache_dir = ".cache")
 }
@@ -10,20 +10,23 @@ output_instructions(cache_dir = ".cache")
 \item{cache_dir}{Character. Specify file path for the cache directory.}
 }
 \description{
-output_instructions
+This function will rename and move the whole output of your
+  instructions into predefined target directories.
 }
 \note{
 This function is part of a family of functions each of which end with 
   '_instructions'. The order to call these functions is: 
   'prepare_instructions', 'implement_instructions', 'check_instructions', 
-  'execute_instructions' and optionally 'output_instructions'. There is a
+  'execute_instructions' and optionally 'output_instructions'. There is a 
   wrapper for these functions called 'instructions'.
+}
+\author{
+Frederik Sachser
 }
 \seealso{
 \code{\link{prepare_instructions}}, 
   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
-  \code{\link{delete_deprecated_instructions}},
+  \code{\link{delete_deprecated_instructions}}, 
   \code{\link{execute_instructions}}, \code{\link{instructions}}
-  @author Frederik Sachser
 }
 

@@ -2,11 +2,20 @@
 % Please edit documentation in R/summary_instructions.R
 \name{summary_instructions}
 \alias{summary_instructions}
-\title{summary_instructions}
+\title{Summarize what has been done!}
 \usage{
 summary_instructions(cache_dir)
 }
+\arguments{
+\item{cache_dir}{Character. Specify file path for the cache directory.}
+}
 \description{
-summary_instructions
+This function reads information from your cache and prints the 
+  filenames as well as related instructions. Therefore you can track the 
+  executed instructions. The information corresponds to the point in time
+  when you run the function 'execute_instructions'.
+}
+\author{
+Frederik Sachser
 }
 

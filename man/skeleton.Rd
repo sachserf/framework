@@ -68,14 +68,15 @@ of 'source_files' that should  be integrated into the cache. Choose 0
 the cache for all files.}
 }
 \value{
-The output are several files and directories within your working
-  directory. The structure contains a how-to-guide.txt, README.md,
+The output are several files and directories within your working 
+  directory. The structure contains a how-to-guide.txt, README.md, 
   directories for input and output, some file-templates and several functions
   for proper functioning of the project.
 }
 \description{
-The function creates a predefined directory structure and some
-  files to enhance project organization.
+The function creates a predefined directory structure and some 
+  files to enhance project organization. Among other things it is a wrapper
+  for 'template_make'.
 }
 \author{
 Frederik Sachser

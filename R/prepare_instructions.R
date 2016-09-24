@@ -1,14 +1,18 @@
 #' prepare_instructions
-#' @description prepare_instructions
+#' 
+#' @description This function processes the given instructions.
 #' @inheritParams instructions
 #' @note This function is part of a family of functions each of which end with 
 #'   '_instructions'. The order to call these functions is: 
-#'   'prepare_instructions', 'implement_instructions', 'check_instructions', 
-#'   'execute_instructions' and optionally 'output_instructions'. There is a
-#'   wrapper for these functions called 'instructions'.
-#' @seealso \code{\link{instructions}}, 
-#'   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
-#'   \code{\link{delete_deprecated_instructions}},
+#'   'prepare_instructions', 'implement_instructions', 'check_instructions',
+#'   'delete_deprecated_instructions', 'execute_instructions' and optionally
+#'   'output_instructions'. There is a wrapper for these functions called
+#'   'instructions'.
+#' @return RData file within the cache directory containing all information of
+#'   the given instructions.
+#' @seealso \code{\link{instructions}}, \code{\link{implement_instructions}},
+#'   \code{\link{check_instructions}}, 
+#'   \code{\link{delete_deprecated_instructions}}, 
 #'   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 #' @author Frederik Sachser
 #' @export

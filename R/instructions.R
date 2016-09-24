@@ -1,4 +1,5 @@
-#' instructions
+#' Wrap your instructions!
+#' 
 #' @description This function is the heart of the package 'framework'. It is a 
 #'   wrapper for the following functions: 'prepare_instructions', 
 #'   'implement_instructions', 'check_instructions', 

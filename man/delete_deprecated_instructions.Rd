@@ -2,7 +2,7 @@
 % Please edit documentation in R/delete_deprecated_instructions.R
 \name{delete_deprecated_instructions}
 \alias{delete_deprecated_instructions}
-\title{delete_deprecated_instructions}
+\title{Keep your output clean!}
 \usage{
 delete_deprecated_instructions(cache_dir = ".cache")
 }
@@ -10,7 +10,16 @@ delete_deprecated_instructions(cache_dir = ".cache")
 \item{cache_dir}{Character. Specify file path for the cache directory.}
 }
 \description{
-delete_deprecated_instructions
+This function will delete all deprecated files frem your last 
+  session.
+}
+\note{
+This function is part of a family of functions each of which end with 
+  '_instructions'. The order to call these functions is: 
+  'prepare_instructions', 'implement_instructions', 'check_instructions',
+  'delete_deprecated_instructions', 'execute_instructions' and optionally
+  'output_instructions'. There is a wrapper for these functions called
+  'instructions'.
 }
 \author{
 Frederik Sachser
@@ -18,7 +27,7 @@ Frederik Sachser
 \seealso{
 \code{\link{prepare_instructions}}, 
   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
-  \code{\link{instructions}}, \code{\link{execute_instructions}},
+  \code{\link{instructions}}, \code{\link{execute_instructions}}, 
   \code{\link{output_instructions}}
 }
 

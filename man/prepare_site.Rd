@@ -13,7 +13,7 @@ a single directory.}
 
 \item{target_dir}{Character. Path to the output directory of the website.}
 
-\item{index_menu}{Logical. If False there will not be an additional button for 
+\item{index_menu}{Logical. If False there will not be an additional button for
 the main page.}
 
 \item{index_name}{Character. Alternative name for the index (main page).}
@@ -25,8 +25,8 @@ A _site.yml and optionally an index.Rmd
 }
 \description{
 The function will prepare given Rmd-files to simplify the process
- of building websites. It should fasten the process of creating webpages by
- using a predefined template and layout. After calling this function you can
+ of building websites. It should fasten the process of creating webpages by 
+ using a predefined template and layout. After calling this function you can 
  use rmarkdown::render_site() to render a local website.
 }
 \note{

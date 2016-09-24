@@ -2,7 +2,7 @@
 % Please edit documentation in R/instructions.R
 \name{instructions}
 \alias{instructions}
-\title{instructions}
+\title{Wrap your instructions!}
 \usage{
 instructions(source_files, spin_index, cache_index, cache_dir, source_dir,
   data_dir, target_dir_figure, target_dir_docs, rename_figure, rename_docs)

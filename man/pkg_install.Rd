@@ -7,14 +7,15 @@
 pkg_install(pkg_names, attach = TRUE)
 }
 \arguments{
-\item{pkg_names}{Character. A vector specifying the names of packages you
+\item{pkg_names}{Character. A vector specifying the names of packages you 
 want to install.}
 
 \item{attach}{Logical. If TRUE the packages will be loaded.}
 }
 \description{
-The function checks if the specified packages are installed.
-  Packages that are not installed are going to be installed.
+The function checks whether the specified packages are installed
+  or not. Packages that are not installed on your machine are going to be
+  installed.
 }
 \author{
 Frederik Sachser

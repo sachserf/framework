@@ -1,10 +1,10 @@
 #' Initialize a framework-project
 #' 
-#' @description This function is probably the only one you need to call by hand.
-#'   Furthermore it is a wrapper for skeleton, Rproj_init and git_init.
-#'   Therefore it is straightforward to create a new project, change the working
-#'   directory, generate basic directories and initialize a git repository.
-#'   Optionally you can initialize a packrat repo.
+#' @description This function is probably the only function of the whole package
+#'   'framework' you need to call by hand. It is a wrapper for skeleton,
+#'   Rproj_init and git_init. Therefore it is straightforward to create a new
+#'   project, change the working directory, generate basic directories/files and
+#'   initialize a git repository. Optionally you can initialize a packrat repo.
 #' @param project_dir Character. Specify the path to the directory where you 
 #'   want to create a new project. The last directory will be the project 
 #'   directory itself. The name of the project will be the name of the project 

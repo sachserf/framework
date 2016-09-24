@@ -8,28 +8,36 @@ template_Rmd(file, Author = Sys.info()["effective_user"],
   Date = "`r Sys.Date()`")
 }
 \arguments{
-\item{file}{Character. Specify the path to save the new file. Use relative
-file paths and specify the file extension; e.g.
+\item{file}{Character. Specify the path to save the new file. Use relative 
+file paths and specify the file extension; e.g. 
 'in/src/new_dir/myfile.Rmd'.}
 
-\item{Author}{Character. Optionally customize the name of the Author (used
+\item{Author}{Character. Optionally customize the name of the Author (used 
 for the YAML header). Default is the effective user of the system info.}
 
-\item{Date}{Character. Optionally customize the date (used for the YAML
+\item{Date}{Character. Optionally customize the date (used for the YAML 
 header). Default is the current Date (format YYYY-MM-DD).}
 }
 \description{
-Create a template Rmd-file
+This function will create an Rmd-file including some predefined 
+  lines. By using this template for Rmd-files within a framework-project it 
+  is straightforward to save all plots you will specify within the script as 
+  pdf and png version (using rmarkdown::render). The function is designed to
+  save some time writing the same input again and again (e.g. Author, date
+  and other things).
 }
 \note{
 Missing directories will be created recursively.
 
 It is not possible to overwrite existing files.
 
-Other YAML header options will be choosen automatically. Edit the
+Other YAML header options will be choosen automatically. Edit the 
   resulting file to customize the YAML header.
 }
 \author{
 Frederik Sachser
+}
+\seealso{
+\code{\link{template_R}}
 }
 

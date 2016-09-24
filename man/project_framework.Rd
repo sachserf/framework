@@ -87,11 +87,11 @@ of 'source_files' that should  be integrated into the cache. Choose 0
 the cache for all files.}
 }
 \description{
-This function is probably the only one you need to call by hand.
-  Furthermore it is a wrapper for skeleton, Rproj_init and git_init.
-  Therefore it is straightforward to create a new project, change the working
-  directory, generate basic directories and initialize a git repository.
-  Optionally you can initialize a packrat repo.
+This function is probably the only function of the whole package
+  'framework' you need to call by hand. It is a wrapper for skeleton,
+  Rproj_init and git_init. Therefore it is straightforward to create a new
+  project, change the working directory, generate basic directories/files and
+  initialize a git repository. Optionally you can initialize a packrat repo.
 }
 \note{
 Creation of the project_dir is recursive.

@@ -1,5 +1,13 @@
-#' write_dataframe
-#' @description write all dataframes
+#' Save a bunch of dataframes
+#' 
+#' @description This function will write multiple dataframes into separate 
+#'   files. File extension can be of type 'RData', 'rds' or 'csv'.
+#' @param listofdf Character. Specify a vector of dataframes to write. Choose
+#'   "GlobalEnv" if you want to write all dataframes within your Global
+#'   Environment to separated files.
+#' @param target_dir_data Character. File path to the target directory.
+#' @param file_format Character. Choose between 'csv', 'rds' or 'RData'.
+#' @author Frederik Sachser 
 #' @export
 write_dataframe <- 
   function(listofdf = "GlobalEnv", target_dir_data = "out/data", file_format = "csv") 

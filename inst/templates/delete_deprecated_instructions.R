@@ -1,9 +1,17 @@
-#' delete_deprecated_instructions
-#' @description delete_deprecated_instructions
+#' Keep your output clean!
+#' 
+#' @description This function will delete all deprecated files frem your last 
+#'   session.
 #' @inheritParams project_framework
+#' @note This function is part of a family of functions each of which end with 
+#'   '_instructions'. The order to call these functions is: 
+#'   'prepare_instructions', 'implement_instructions', 'check_instructions',
+#'   'delete_deprecated_instructions', 'execute_instructions' and optionally
+#'   'output_instructions'. There is a wrapper for these functions called
+#'   'instructions'.
 #' @seealso \code{\link{prepare_instructions}}, 
 #'   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
-#'   \code{\link{instructions}}, \code{\link{execute_instructions}},
+#'   \code{\link{instructions}}, \code{\link{execute_instructions}}, 
 #'   \code{\link{output_instructions}}
 #' @author Frederik Sachser
 #' @export
@@ -12,11 +20,7 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
   if (any(file.exists(
     file.path(cache_dir, "df_source_files.rds"),
     file.path(cache_dir, "instructions.RData")
-  ) == FALSE)) {
-    print(
-      "Required files in cache are missing. Can not delete deprecated output from last session."
-    )
-  } else {
+  ) == FALSE) == FALSE) {
     # reload instructions
     load(file.path(cache_dir, "instructions.RData"))
     # reload df_source_files (last session)

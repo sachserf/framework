@@ -1,7 +1,9 @@
 #' Insert source('make.R') to console
 #'
-#' Call this function as an addin to print source("make.R") to console. 
-
+#' This addin only works when using RStudio. Call this function as an addin to
+#' print source("make.R") to console. Optionally it is possible to assign a custom 
+#' keybinding (see RStudio/Tools/Modify keyboard shortcuts... and search for 
+#' "Execute source('make.R')").
 #'
 #' @export
 insert_srcmake_addin <- function() {

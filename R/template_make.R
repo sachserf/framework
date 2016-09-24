@@ -1,4 +1,5 @@
-#' template_make
+#' Template for a make-like file
+#' 
 #' @description This function will create a template for a make-like file. It is
 #'   possible to specify a predefined set of parameters.
 #' @inheritParams project_framework

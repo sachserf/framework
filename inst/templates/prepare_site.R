@@ -1,13 +1,13 @@
 #'Prepare and render a local website
 #'
 #'@description The function will prepare given Rmd-files to simplify the process
-#'  of building websites. It should fasten the process of creating webpages by
-#'  using a predefined template and layout. After calling this function you can
+#'  of building websites. It should fasten the process of creating webpages by 
+#'  using a predefined template and layout. After calling this function you can 
 #'  use rmarkdown::render_site() to render a local website.
 #'@param Rmd_input Character. A vector of Rmd-Files that should be placed within
 #'  a single directory.
 #'@param target_dir Character. Path to the output directory of the website.
-#'@param index_menu Logical. If False there will not be an additional button for 
+#'@param index_menu Logical. If False there will not be an additional button for
 #'  the main page.
 #'@param index_name Character. Alternative name for the index (main page).
 #'@param page_name Character. Name for the homepage.

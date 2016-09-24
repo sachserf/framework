@@ -1,13 +1,14 @@
-#' Copy a directory with timestamp
+#' Copy a directory into timestamp-dir
 #' 
 #' @description The function will copy the specified directory and create a 
-#'   timestamp at the target.
+#'   directory at the target. The target directory will be named after the
+#'   current date and time.
 #' @param target_dir Character. Path to the target directory. Alternatively use 
 #'   'project_subdir' to point to a subfolder of your current working directory.
 #' @param source_dir Character. Path to the source directory. Default is the 
 #'   current working directory.
-#' @param delete_target Logical. If TRUE all directories within the target
-#'   directory will be deleted! Only the current version of your backup will be
+#' @param delete_target Logical. If TRUE all directories within the target 
+#'   directory will be deleted! Only the current version of your backup will be 
 #'   existent.
 #' @param exclude_directories Character. Specify directories to exclude from 
 #'   backup. If you want to exclude multiple directories use | as separator. 
@@ -15,7 +16,7 @@
 #' @param exclude_files Character. Specify files to exclude from backup. If you 
 #'   want to exclude multiple directories use | as separator. Choose FALSE if 
 #'   you don not want to exclude any files
-#' @note Beware! If you choose an existing target directory and option
+#' @note Beware! If you choose an existing target directory and option 
 #'   delete_target = TRUE: ALL EXISTING FILES WILL BE DELETED!
 #' @author Frederik Sachser
 #' @export

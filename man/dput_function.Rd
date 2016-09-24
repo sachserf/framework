@@ -7,8 +7,8 @@
 dput_function(pkg_fun, target_dir, rm_pattern = FALSE)
 }
 \arguments{
-\item{pkg_fun}{Name of a package and function separated by '::'. E.g. 
-framework::reminder}
+\item{pkg_fun}{Character. Name of a package and function separated by '::'. E.g. 
+framework::summary_instructions. Do not use quotation marks.}
 
 \item{target_dir}{Character. Specify the file path, where you want to write 
 the file.}

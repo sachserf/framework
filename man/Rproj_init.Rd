@@ -6,6 +6,13 @@
 \usage{
 Rproj_init(project_dir)
 }
+\arguments{
+\item{project_dir}{Character. Specify the path to the directory where you 
+want to create a new project. The last directory will be the project 
+directory itself. The name of the project will be the name of the project 
+directory. E.g. '~/Desktop/MyProject' will create a project directory on 
+your desktop.}
+}
 \description{
 Creates an .Rproj-file within your current working directory.
 }

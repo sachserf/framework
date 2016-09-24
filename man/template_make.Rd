@@ -2,7 +2,7 @@
 % Please edit documentation in R/template_make.R
 \name{template_make}
 \alias{template_make}
-\title{template_make}
+\title{Template for a make-like file}
 \usage{
 template_make(target_makeR = "make.R", fun_dir = "in/fun",
   source_files = c("load.R", "report.Rmd"), cache_dir = ".cache",

@@ -2,7 +2,7 @@
 % Please edit documentation in R/backup.R
 \name{backup}
 \alias{backup}
-\title{Copy a directory with timestamp}
+\title{Copy a directory into timestamp-dir}
 \usage{
 backup(target_dir = "project_subdir", source_dir = file.path(getwd()),
   delete_target = FALSE, exclude_directories = FALSE,
@@ -15,8 +15,8 @@ backup(target_dir = "project_subdir", source_dir = file.path(getwd()),
 \item{source_dir}{Character. Path to the source directory. Default is the 
 current working directory.}
 
-\item{delete_target}{Logical. If TRUE all directories within the target
-directory will be deleted! Only the current version of your backup will be
+\item{delete_target}{Logical. If TRUE all directories within the target 
+directory will be deleted! Only the current version of your backup will be 
 existent.}
 
 \item{exclude_directories}{Character. Specify directories to exclude from 
@@ -29,10 +29,11 @@ you don not want to exclude any files}
 }
 \description{
 The function will copy the specified directory and create a 
-  timestamp at the target.
+  directory at the target. The target directory will be named after the
+  current date and time.
 }
 \note{
-Beware! If you choose an existing target directory and option
+Beware! If you choose an existing target directory and option 
   delete_target = TRUE: ALL EXISTING FILES WILL BE DELETED!
 }
 \author{

@@ -1,9 +1,11 @@
 #' Create a framework-project skeleton
-#' @description The function creates a predefined directory structure and some
-#'   files to enhance project organization.
+#' 
+#' @description The function creates a predefined directory structure and some 
+#'   files to enhance project organization. Among other things it is a wrapper
+#'   for 'template_make'.
 #' @inheritParams project_framework
-#' @return The output are several files and directories within your working
-#'   directory. The structure contains a how-to-guide.txt, README.md,
+#' @return The output are several files and directories within your working 
+#'   directory. The structure contains a how-to-guide.txt, README.md, 
 #'   directories for input and output, some file-templates and several functions
 #'   for proper functioning of the project.
 #' @seealso \code{\link{project_framework}}

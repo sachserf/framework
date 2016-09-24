@@ -1,5 +1,11 @@
-#' summary_instructions
-#' @description summary_instructions
+#' Summarize what has been done!
+#' 
+#' @description This function reads information from your cache and prints the 
+#'   filenames as well as related instructions. Therefore you can track the 
+#'   executed instructions. The information corresponds to the point in time
+#'   when you run the function 'execute_instructions'.
+#' @inheritParams project_framework
+#' @author Frederik Sachser
 #' @export
 summary_instructions <- function(cache_dir) {
   # reload df_source_files
