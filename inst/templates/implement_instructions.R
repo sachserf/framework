@@ -1,15 +1,15 @@
 #' Implement specified instructions
-#' 
+#'
 #' @description This function will prepare implement the given instructions
 #'   (e.g. specify instruction depending on file extension).
 #' @inheritParams project_framework
-#' @note This function is part of a family of functions each of which end with 
-#'   '_instructions'. The order to call these functions is: 
-#'   'prepare_instructions', 'implement_instructions', 'check_instructions', 
-#'   'delete_deprecated_instructions', 'execute_instructions' and optionally 
-#'   'output_instructions'. There is a wrapper for these functions called 
+#' @note This function is part of a family of functions each of which end with
+#'   '_instructions'. The order to call these functions is:
+#'   'prepare_instructions', 'implement_instructions', 'check_instructions',
+#'   'delete_deprecated_instructions', 'execute_instructions' and optionally
+#'   'output_instructions'. There is a wrapper for these functions called
 #'   'instructions'.
-#' @seealso \code{\link{prepare_instructions}}, 
+#' @seealso \code{\link{prepare_instructions}},
 #'   \code{\link{delete_deprecated_instructions}},
 #'   \code{\link{check_instructions}}, \code{\link{instructions}},
 #'   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
@@ -50,13 +50,11 @@ implement_instructions <-
     # specify directory for rendered figures
     figure_source <- paste0(filename_noxt, "_files")
 
-    # specify directory for figures in cache
-    figure_cache <- file.path(cache_dir, filename_noxt, "figure")
+
     # specify path to image of the file
     image_cache <- paste0(file.path(cache_dir, filename_noxt,
                                     basename(filename_noxt)), ".RData")
-    # specify directory for (rendered) docs in cache
-    docs_cache <- file.path(cache_dir, filename_noxt, "docs")
+
 
     # specify names for target files in output
     filename_out <- gsub(pattern = source_dir, replacement = "",
@@ -90,9 +88,7 @@ implement_instructions <-
         filename_noxt,
         file_ext,
         figure_source,
-        figure_cache,
         image_cache,
-        docs_cache,
         figure_out,
         docs_out,
         temp_docs_out,

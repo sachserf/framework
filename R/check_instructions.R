@@ -61,8 +61,7 @@ check_instructions <-
     # if snapshot is missing: do not use cache
     if (file.exists(path_snapshot_data_dir) == FALSE) {
       df_source_files$use_cache_qualified <- FALSE
-    }
-    else {
+    } else {
       if (is.null(data_dir) == FALSE & length(list.files(data_dir)) > 0) {
         # check file changes
         # specify changed files
@@ -81,8 +80,7 @@ check_instructions <-
     # if snapshot is missing: do not use cache
     if (file.exists(path_snapshot_source_dir) == FALSE) {
       df_source_files$use_cache_qualified <- FALSE
-    }
-    else {
+    } else {
       df_source_files$use_cache_qualified <- TRUE
       # check file changes
       # specify changed files
@@ -112,7 +110,7 @@ check_instructions <-
     # check cache-files
     # make sure not to use the cache if rendered files from last session are missing
     if (is.null(target_dir_docs) == FALSE) {
-      nofile_index <- basename(df_source_files$temp_docs_out) %in% tools::file_path_sans_ext(list.files(target_dir_docs, recursive = TRUE))
+      nofile_index <- paste0(df_source_files$row_names, "_", df_source_files$basename_noxt) %in% tools::file_path_sans_ext(list.files(target_dir_docs, recursive = TRUE))
       df_source_files$use_cache_qualified[which(nofile_index == FALSE & df_source_files$instruction_no_cache == "render")] <- FALSE
     }
 
@@ -208,14 +206,14 @@ check_instructions <-
     }
 
     # delete deprecated files in cache
-    deprecated_cache <-
-      dirname(df_source_files$docs_cache[df_source_files$instruction !=
-                                           "nothing"])
-    if (length(deprecated_cache) > 0) {
-      lapply(X = deprecated_cache,
-             FUN = unlink,
-             recursive = TRUE)
-    }
+#    deprecated_cache <-
+#      dirname(df_source_files$docs_cache[df_source_files$instruction !=
+#                                           "nothing"])
+#    if (length(deprecated_cache) > 0) {
+#      lapply(X = deprecated_cache,
+#             FUN = unlink,
+#             recursive = TRUE)
+#    }
 
     # make sure the most recent file in cache will be loaded
     if (any(df_source_files$instruction == "nothing")) {
