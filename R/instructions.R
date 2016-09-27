@@ -1,13 +1,13 @@
 #' Wrap your instructions!
-#' 
-#' @description This function is the heart of the package 'framework'. It is a 
-#'   wrapper for the following functions: 'prepare_instructions', 
-#'   'implement_instructions', 'check_instructions', 
-#'   'delete_deprecated_instructions', 'execute_instructions' and 
+#'
+#' @description This function is the heart of the package 'framework'. It is a
+#'   wrapper for the following functions: 'prepare_instructions',
+#'   'implement_instructions', 'check_instructions',
+#'   'delete_deprecated_instructions', 'execute_instructions' and
 #'   'output_instructions'.
 #' @inheritParams project_framework
-#' @seealso \code{\link{prepare_instructions}}, 
-#'   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
+#' @seealso \code{\link{prepare_instructions}},
+#'   \code{\link{implement_instructions}}, \code{\link{check_instructions}},
 #'   \code{\link{delete_deprecated_instructions}},
 #'   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 #' @author Frederik Sachser
@@ -22,7 +22,8 @@ instructions <-
             target_dir_figure,
             target_dir_docs,
             rename_figure,
-            rename_docs)
+            rename_docs,
+            knitr_cache)
   {
     prepare_instructions(
       source_files,
@@ -34,7 +35,8 @@ instructions <-
       target_dir_figure,
       target_dir_docs,
       rename_figure,
-      rename_docs
+      rename_docs,
+      knitr_cache
     )
     implement_instructions(cache_dir)
     check_instructions(cache_dir)

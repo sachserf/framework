@@ -1,9 +1,9 @@
 #' prepare_instructions
-#' 
+#'
 #' @description This function processes the given instructions.
 #' @inheritParams instructions
-#' @note This function is part of a family of functions each of which end with 
-#'   '_instructions'. The order to call these functions is: 
+#' @note This function is part of a family of functions each of which end with
+#'   '_instructions'. The order to call these functions is:
 #'   'prepare_instructions', 'implement_instructions', 'check_instructions',
 #'   'delete_deprecated_instructions', 'execute_instructions' and optionally
 #'   'output_instructions'. There is a wrapper for these functions called
@@ -11,8 +11,8 @@
 #' @return RData file within the cache directory containing all information of
 #'   the given instructions.
 #' @seealso \code{\link{instructions}}, \code{\link{implement_instructions}},
-#'   \code{\link{check_instructions}}, 
-#'   \code{\link{delete_deprecated_instructions}}, 
+#'   \code{\link{check_instructions}},
+#'   \code{\link{delete_deprecated_instructions}},
 #'   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 #' @author Frederik Sachser
 #' @export
@@ -26,7 +26,8 @@ prepare_instructions <-
            target_dir_figure = "out/figure",
            target_dir_docs = "out/docs",
            rename_figure = TRUE,
-           rename_docs = TRUE)
+           rename_docs = TRUE,
+           knitr_cache = TRUE)
   {
     # call file_path for input
     cache_dir <- file.path(cache_dir)
@@ -77,6 +78,11 @@ prepare_instructions <-
       unlink(x = file.path(cache_dir, "instructions.RData"),
              recursive = TRUE)
     }
+    
+    # if knitr_cache = TRUE make sure that target_dir_figure = NULL
+    if (knitr_cache == TRUE) {
+      target_dir_figure <- NULL
+    } 
 
     # write input to 'instructions.RData'
     save(
@@ -92,6 +98,7 @@ prepare_instructions <-
       path_snapshot_data_dir,
       rename_figure,
       rename_docs,
+      knitr_cache,
       file = file.path(cache_dir, "instructions.RData")
     )
   }

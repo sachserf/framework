@@ -18,7 +18,8 @@ template_make <- function(target_makeR = 'make.R',
                           rename_figure = TRUE,
                           rename_docs = TRUE,
                           spin_index,
-                          cache_index) {
+                          cache_index,
+                          knitr_cache) {
     if (file.exists(target_makeR)) {
         stop("File exists. Delete the file and retry.")
     }
@@ -85,7 +86,8 @@ instructions(
     target_dir_figure = '", target_dir_figure,"',
     target_dir_docs = '", target_dir_docs,"',
     rename_figure = ", rename_figure, ",
-    rename_docs = ", rename_docs, "
+    rename_docs = ", rename_docs, ",
+    knitr_cache = ", knitr_cache, "
 )
 
 ############ SUPPLEMENT ############

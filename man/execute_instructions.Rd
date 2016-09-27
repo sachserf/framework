@@ -10,25 +10,25 @@ execute_instructions(cache_dir = ".cache")
 \item{cache_dir}{Character. Specify file path for the cache directory.}
 }
 \description{
-The function will execute the instructions (source/render 
+The function will execute the instructions (source/render
   specified files etc). Among other things it is a wrapper for the function
   'specify_instructions'.
 }
 \note{
-This function is part of a family of functions each of which end with 
-  '_instructions'. The order to call these functions is: 
-  'prepare_instructions', 'implement_instructions', 'check_instructions', 
-  'delete_deprecated_instructions', 'execute_instructions' and optionally 
-  'output_instructions'. There is a wrapper for these functions called 
+This function is part of a family of functions each of which end with
+  '_instructions'. The order to call these functions is:
+  'prepare_instructions', 'implement_instructions', 'check_instructions',
+  'delete_deprecated_instructions', 'execute_instructions' and optionally
+  'output_instructions'. There is a wrapper for these functions called
   'instructions'.
 }
 \author{
 Frederik Sachser
 }
 \seealso{
-\code{\link{prepare_instructions}}, 
-  \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
-  \code{\link{delete_deprecated_instructions}}, \code{\link{instructions}}, 
+\code{\link{prepare_instructions}},
+  \code{\link{implement_instructions}}, \code{\link{check_instructions}},
+  \code{\link{delete_deprecated_instructions}}, \code{\link{instructions}},
   \code{\link{output_instructions}}, \code{\link{specify_instructions}}
 }
 

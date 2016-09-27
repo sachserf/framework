@@ -5,7 +5,8 @@
 \title{Wrap your instructions!}
 \usage{
 instructions(source_files, spin_index, cache_index, cache_dir, source_dir,
-  data_dir, target_dir_figure, target_dir_docs, rename_figure, rename_docs)
+  data_dir, target_dir_figure, target_dir_docs, rename_figure, rename_docs,
+  knitr_cache)
 }
 \arguments{
 \item{source_files}{Character. Specify a vector of file paths, if you want to
@@ -45,20 +46,25 @@ and moved into a single directory.}
 
 \item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
 will be renamed and moved into a single directory.}
+
+\item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
+chunks of a file you should additionally specify knitr_cache = TRUE within 
+the function 'instructions'. By choosing this option it is not possible to 
+use a different target for your figures (target_dir_figure = NULL).}
 }
 \description{
-This function is the heart of the package 'framework'. It is a 
-  wrapper for the following functions: 'prepare_instructions', 
-  'implement_instructions', 'check_instructions', 
-  'delete_deprecated_instructions', 'execute_instructions' and 
+This function is the heart of the package 'framework'. It is a
+  wrapper for the following functions: 'prepare_instructions',
+  'implement_instructions', 'check_instructions',
+  'delete_deprecated_instructions', 'execute_instructions' and
   'output_instructions'.
 }
 \author{
 Frederik Sachser
 }
 \seealso{
-\code{\link{prepare_instructions}}, 
-  \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
+\code{\link{prepare_instructions}},
+  \code{\link{implement_instructions}}, \code{\link{check_instructions}},
   \code{\link{delete_deprecated_instructions}},
   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 }

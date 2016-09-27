@@ -11,7 +11,7 @@ project_framework(project_dir, rstudio = TRUE, init_git = TRUE,
   target_dir_figure = "out/fig", target_dir_docs = "out/docs",
   target_dir_data = "out/data", devtools_create = TRUE,
   rename_figure = TRUE, rename_docs = TRUE, spin_index = 999,
-  cache_index = 999)
+  cache_index = 999, knitr_cache = FALSE)
 }
 \arguments{
 \item{project_dir}{Character. Specify the path to the directory where you 
@@ -85,11 +85,16 @@ want to spin all R-files.}
 of 'source_files' that should  be integrated into the cache. Choose 0 
 (zero) if you do not want to use the cache. Choose 999 if you want to use 
 the cache for all files.}
+
+\item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
+chunks of a file you should additionally specify knitr_cache = TRUE within 
+the function 'instructions'. By choosing this option it is not possible to 
+use a different target for your figures (target_dir_figure = NULL).}
 }
 \description{
 This function is probably the only function of the whole package
-  'framework' you need to call by hand. It is a wrapper for skeleton,
-  Rproj_init and git_init. Therefore it is straightforward to create a new
+  'framework' you need to call by hand. It is a wrapper for skeleton, 
+  Rproj_init and git_init. Therefore it is straightforward to create a new 
   project, change the working directory, generate basic directories/files and
   initialize a git repository. Optionally you can initialize a packrat repo.
 }

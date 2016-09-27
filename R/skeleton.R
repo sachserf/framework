@@ -26,7 +26,8 @@ skeleton <-
            rename_figure = TRUE,
            rename_docs = TRUE,
            spin_index,
-           cache_index) {
+           cache_index, 
+           knitr_cache) {
     # specify framework_dun directory
     framework_fun <- file.path(fun_dir, "framework")
     
@@ -70,7 +71,8 @@ skeleton <-
         rename_figure,
         rename_docs,
         spin_index,
-        cache_index
+        cache_index,
+        knitr_cache
       )
     } else {
       file.copy(from = custom_makeR,

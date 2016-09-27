@@ -1,17 +1,17 @@
 #' Check and correct instructions
-#' 
-#' @description This function will check and potentially correct your 
-#'   instructions (e.g. if you want to load a file from cache the image of the 
+#'
+#' @description This function will check and potentially correct your
+#'   instructions (e.g. if you want to load a file from cache the image of the
 #'   file should exist).
 #' @inheritParams project_framework
-#' @note This function is part of a family of functions each of which end with 
-#'   '_instructions'. The order to call these functions is: 
+#' @note This function is part of a family of functions each of which end with
+#'   '_instructions'. The order to call these functions is:
 #'   'prepare_instructions', 'implement_instructions', 'check_instructions',
 #'   'delete_deprecated_instructions', 'execute_instructions' and optionally
 #'   'output_instructions'. There is a wrapper for these functions called
 #'   'instructions'.
-#' @seealso \code{\link{prepare_instructions}}, 
-#'   \code{\link{implement_instructions}}, \code{\link{instructions}}, 
+#' @seealso \code{\link{prepare_instructions}},
+#'   \code{\link{implement_instructions}}, \code{\link{instructions}},
 #'   \code{\link{instructions}}, \code{\link{execute_instructions}},
 #'   \code{\link{output_instructions}}, \code{\link{delete_deprecated_instructions}}
 #' @author Frederik Sachser
@@ -111,10 +111,12 @@ check_instructions <-
 
     # check cache-files
     # make sure not to use the cache if rendered files from last session are missing
-    nofile_index <- basename(df_source_files$temp_docs_out) %in% tools::file_path_sans_ext(list.files(target_dir_docs, recursive = TRUE))
-    df_source_files$use_cache_qualified[which(nofile_index == FALSE & df_source_files$instruction_no_cache == "render")] <- FALSE
-    
-    
+    if (is.null(target_dir_docs) == FALSE) {
+      nofile_index <- basename(df_source_files$temp_docs_out) %in% tools::file_path_sans_ext(list.files(target_dir_docs, recursive = TRUE))
+      df_source_files$use_cache_qualified[which(nofile_index == FALSE & df_source_files$instruction_no_cache == "render")] <- FALSE
+    }
+
+
     # make sure not to use the cache if required files in cache are missing
     #cache_docs <- sapply(lapply(X = df_source_files$docs_cache,
     #                            FUN = list.files),

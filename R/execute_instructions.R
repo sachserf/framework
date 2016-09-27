@@ -1,18 +1,18 @@
 #' Execute your instructions!
-#' 
-#' @description The function will execute the instructions (source/render 
+#'
+#' @description The function will execute the instructions (source/render
 #'   specified files etc). Among other things it is a wrapper for the function
 #'   'specify_instructions'.
 #' @inheritParams project_framework
-#' @note This function is part of a family of functions each of which end with 
-#'   '_instructions'. The order to call these functions is: 
-#'   'prepare_instructions', 'implement_instructions', 'check_instructions', 
-#'   'delete_deprecated_instructions', 'execute_instructions' and optionally 
-#'   'output_instructions'. There is a wrapper for these functions called 
+#' @note This function is part of a family of functions each of which end with
+#'   '_instructions'. The order to call these functions is:
+#'   'prepare_instructions', 'implement_instructions', 'check_instructions',
+#'   'delete_deprecated_instructions', 'execute_instructions' and optionally
+#'   'output_instructions'. There is a wrapper for these functions called
 #'   'instructions'.
-#' @seealso \code{\link{prepare_instructions}}, 
-#'   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
-#'   \code{\link{delete_deprecated_instructions}}, \code{\link{instructions}}, 
+#' @seealso \code{\link{prepare_instructions}},
+#'   \code{\link{implement_instructions}}, \code{\link{check_instructions}},
+#'   \code{\link{delete_deprecated_instructions}}, \code{\link{instructions}},
 #'   \code{\link{output_instructions}}, \code{\link{specify_instructions}}
 #' @author Frederik Sachser
 #' @export
@@ -58,7 +58,8 @@ execute_instructions <-
         figure_source = df_source_files$figure_source[i],
         figure_out = df_source_files$figure_out[i],
         use_spin = df_source_files$use_spin[i],
-        file_ext = df_source_files$file_ext[i]
+        file_ext = df_source_files$file_ext[i],
+        knitr_cache
       )
     }
 
@@ -82,7 +83,7 @@ execute_instructions <-
                                                md5sum = TRUE,
                                                recursive = TRUE)
     saveRDS(object = snapshot_source_dir, file = path_snapshot_source_dir)
-    
+
     if (is.null(data_dir) == FALSE & length(list.files(data_dir)) > 0) {
       snapshot_data_dir <- utils::fileSnapshot(path = data_dir,
                                                md5sum = TRUE,

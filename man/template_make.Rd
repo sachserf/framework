@@ -9,7 +9,7 @@ template_make(target_makeR = "make.R", fun_dir = "in/fun",
   source_dir = "in/src", data_dir = "in/data",
   target_dir_figure = "out/figure", target_dir_docs = "out/docs",
   target_dir_data = "out/data", rename_figure = TRUE, rename_docs = TRUE,
-  spin_index, cache_index)
+  spin_index, cache_index, knitr_cache)
 }
 \arguments{
 \item{target_makeR}{Character. Target directory of the 'makefile'. Default is
@@ -62,6 +62,11 @@ want to spin all R-files.}
 of 'source_files' that should  be integrated into the cache. Choose 0 
 (zero) if you do not want to use the cache. Choose 999 if you want to use 
 the cache for all files.}
+
+\item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
+chunks of a file you should additionally specify knitr_cache = TRUE within 
+the function 'instructions'. By choosing this option it is not possible to 
+use a different target for your figures (target_dir_figure = NULL).}
 }
 \description{
 This function will create a template for a make-like file. It is

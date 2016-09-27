@@ -7,7 +7,7 @@
 prepare_instructions(source_files, spin_index = 0, cache_index = 0,
   cache_dir = ".cache", source_dir = "in/src", data_dir = "in/data",
   target_dir_figure = "out/figure", target_dir_docs = "out/docs",
-  rename_figure = TRUE, rename_docs = TRUE)
+  rename_figure = TRUE, rename_docs = TRUE, knitr_cache = TRUE)
 }
 \arguments{
 \item{source_files}{Character. Specify a vector of file paths, if you want to
@@ -47,6 +47,11 @@ and moved into a single directory.}
 
 \item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
 will be renamed and moved into a single directory.}
+
+\item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
+chunks of a file you should additionally specify knitr_cache = TRUE within 
+the function 'instructions'. By choosing this option it is not possible to 
+use a different target for your figures (target_dir_figure = NULL).}
 }
 \value{
 RData file within the cache directory containing all information of
@@ -56,8 +61,8 @@ RData file within the cache directory containing all information of
 This function processes the given instructions.
 }
 \note{
-This function is part of a family of functions each of which end with 
-  '_instructions'. The order to call these functions is: 
+This function is part of a family of functions each of which end with
+  '_instructions'. The order to call these functions is:
   'prepare_instructions', 'implement_instructions', 'check_instructions',
   'delete_deprecated_instructions', 'execute_instructions' and optionally
   'output_instructions'. There is a wrapper for these functions called
@@ -68,8 +73,8 @@ Frederik Sachser
 }
 \seealso{
 \code{\link{instructions}}, \code{\link{implement_instructions}},
-  \code{\link{check_instructions}}, 
-  \code{\link{delete_deprecated_instructions}}, 
+  \code{\link{check_instructions}},
+  \code{\link{delete_deprecated_instructions}},
   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 }
 
