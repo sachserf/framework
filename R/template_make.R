@@ -75,7 +75,7 @@ pkg_install(c('utils',
     attach = FALSE)
 
 # install and load packages:
-pkg_install(c('tidyr'),
+pkg_install(c('tidyverse'),
     attach = TRUE)
 
 ############ SOURCE ############
