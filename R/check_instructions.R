@@ -66,6 +66,7 @@ check_instructions <-
         # check file changes
         # specify changed files
         snapshot_data_dir <- readRDS(file = path_snapshot_data_dir)
+        snapshot_data_dir$path <- data_dir
         changed_files <- utils::changedFiles(snapshot_data_dir,
                                              md5sum = TRUE)$changed
         if (length(changed_files) > 0) {
@@ -86,6 +87,8 @@ check_instructions <-
       # specify changed files
       snapshot_source_dir <-
         readRDS(file = path_snapshot_source_dir)
+      snapshot_source_dir$path <- source_dir
+
       changed_files <- utils::changedFiles(snapshot_source_dir,
                                            md5sum = TRUE)$changed
       changed_files <- file.path(source_dir, changed_files)
