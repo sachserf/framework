@@ -110,16 +110,20 @@ check_instructions <-
     }
 
     # check cache-files
-
+    # make sure not to use the cache if rendered files from last session are missing
+    nofile_index <- basename(df_source_files$temp_docs_out) %in% tools::file_path_sans_ext(list.files(target_dir_docs, recursive = TRUE))
+    df_source_files$use_cache_qualified[which(nofile_index == FALSE & df_source_files$instruction_no_cache == "render")] <- FALSE
+    
+    
     # make sure not to use the cache if required files in cache are missing
-    cache_docs <- sapply(lapply(X = df_source_files$docs_cache,
-                                FUN = list.files),
-                         length)
-    if (any(cache_docs == 0)) {
-      df_source_files$use_cache_qualified[which(cache_docs ==
-                                                  0 &&
-                                                  df_source_files$file_ext != "R")] <- FALSE
-    }
+    #cache_docs <- sapply(lapply(X = df_source_files$docs_cache,
+    #                            FUN = list.files),
+    #                     length)
+    #if (any(cache_docs == 0)) {
+    #  df_source_files$use_cache_qualified[which(cache_docs ==
+    #                                              0 &&
+    #                                              df_source_files$file_ext != "R")] <- FALSE
+    #}
 
     # check order of source-files
 
