@@ -13,20 +13,18 @@ Rproj_init <- function(project_dir){
     sink(paste0(projname, '.Rproj'))
     cat("Version: 1.0
 
-RestoreWorkspace: No
-SaveWorkspace: No
+RestoreWorkspace: Default
+SaveWorkspace: Default
 AlwaysSaveHistory: Default
-
+        
 EnableCodeIndexing: Yes
-Encoding: UTF-8
-
-AutoAppendNewline: Yes
-StripTrailingWhitespace: Yes
-
-BuildType: Package
-PackageUseDevtools: Yes
-PackageInstallArgs: --no-multiarch --with-keep.source
-PackageRoxygenize: rd,collate,namespace")
+UseSpacesForTab: Yes
+NumSpacesForTab: 4
+      
+RnwWeave: knitr
+LaTeX: Default
+        
+AutoAppendNewline: Yes")
 sink()
 }
 }

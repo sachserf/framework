@@ -6,10 +6,11 @@
 \usage{
 project_framework(project_dir, rstudio = TRUE, init_git = TRUE,
   init_packrat = FALSE, custom_makeR = NULL, target_makeR = "make.R",
-  fun_dir = "R", source_files = c("load.R", "report.Rmd"),
-  cache_dir = ".cache", source_dir = "scripts", data_dir = "data",
+  fun_dir = "R", source_files = c("prepare.Rmd", "visualize.Rmd",
+  "analyze.Rmd", "report.Rmd"), cache_dir = ".cache",
+  source_dir = "scripts", data_dir = "data",
   target_dir_figure = "out/fig", target_dir_docs = "out/docs",
-  target_dir_data = "out/data", devtools_create = TRUE,
+  target_dir_data = "out/data", devtools_create = FALSE,
   rename_figure = TRUE, rename_docs = TRUE, spin_index = 999,
   cache_index = 999, knitr_cache = FALSE)
 }

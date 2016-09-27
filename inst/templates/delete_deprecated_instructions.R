@@ -17,10 +17,10 @@
 #' @export
 delete_deprecated_instructions <- function(cache_dir = ".cache") {
   # check prerequisites
-  if (any(file.exists(
-    file.path(cache_dir, "df_source_files.rds"),
-    file.path(cache_dir, "instructions.RData")
-  ) == FALSE) == FALSE) {
+    if (isTRUE(any(file.exists(
+        file.path(cache_dir, "df_source_files_temp.rds"),
+        file.path(cache_dir, "instructions.RData")
+    ) == FALSE))) {
     # reload instructions
     load(file.path(cache_dir, "instructions.RData"))
     # reload df_source_files (last session)
