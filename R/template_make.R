@@ -82,7 +82,7 @@ pkg_install(c('tidyverse'),
 
 # fill in R/Rmd-files in chronological order
 instructions(
-    source_files = c('", paste(source_files, collapse = '\',\''),"'),   # relative to source_dir
+    source_files = c('", paste(source_files, collapse = '\',\''),"'), 
     spin_index = ", spin_index,",
     cache_index = ", cache_index,",
     cache_dir = '", cache_dir,"',
