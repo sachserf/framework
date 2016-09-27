@@ -33,6 +33,11 @@ template_make <- function(target_makeR = 'make.R',
 
 ############ PREAMBLE ############
 
+# detach package:framework
+if ('package:framework' %in% search() == TRUE) {
+  detach(package:framework)
+}
+
 # detach localfun
 if ('localfun' %in% search() == TRUE) {
     detach(localfun)
