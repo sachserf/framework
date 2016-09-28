@@ -149,6 +149,11 @@ check_instructions <-
         as.numeric(df_source_files_both$row_names.y)
       df_source_files$use_cache_qualified[which(df_source_files_both$pos_match !=
                                                   0)] <- FALSE
+      df_source_files$order_change <- FALSE
+      df_source_files$order_change[which(df_source_files_both$pos_match !=
+                                                    0)] <- TRUE
+      df_source_files$use_cache_qualified[which(df_source_files_both$pos_match !=
+                                                    0)] <- FALSE
       # make sure not to use cache if instruction changed
       df_source_files$instruction_equal <-
         ifelse(

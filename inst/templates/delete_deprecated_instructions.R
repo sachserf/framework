@@ -17,19 +17,44 @@
 #' @export
 delete_deprecated_instructions <- function(cache_dir = ".cache") {
   # check prerequisites
-    if (isTRUE(any(file.exists(
+    if (all(file.exists(
         file.path(cache_dir, "df_source_files_temp.rds"),
+        file.path(cache_dir, "df_source_files.rds"),
         file.path(cache_dir, "instructions.RData")
-    ) == FALSE))) {
+    ) == TRUE)) {
     # reload instructions
     load(file.path(cache_dir, "instructions.RData"))
     # reload df_source_files (last session)
     df_last_session <-
       readRDS(file = file.path(cache_dir, "df_source_files.rds"))
+    
 
     # specify index of source-files that have been excluded since the last session
     delete_index <-
       which(df_last_session$filename %in% source_files == FALSE)
+
+
+########## hier weiter ##########        
+    df_source_files <-  readRDS(file = file.path(cache_dir, "df_source_files_temp.rds"))
+    delete_index_2 <- which(df_last_session$filename %in% df_source_files$filename[which(df_source_files$order_change == TRUE)] == TRUE)
+    delete_index <- unique(c(delete_index, delete_index_2))
+#    if (isTRUE(delete_index > 0)) {
+#        delete_index <- delete_index:nrow(df_last_session)
+ #   }
+    #    which(df_last_session$order_change == TRUE)
+#    which(df_source_files$order_change == TRUE)
+#    
+#    delete_index <- unique(c(delete_index, which(df_last_session$order_change == TRUE)))
+#################################
+#################################    
+    # delete deprecated files from of input that will be processed 
+#    df_source_files$filename[which(df_source_files$order_change == TRUE)]
+
+    
+#    grep(pattern = paste(df_source_files$filename[which(df_source_files$order_change == TRUE)]), x = df_last_session$filename, fixed = TRUE) 
+#    delete_index_2 <- which(df_source_files$instruction == "source" | df_source_files$instruction == "nothing")
+#    df_source_files[delete_index_2, ]
+    
 
     # figures
     the_figures <- df_last_session[delete_index, "figure_out"]
@@ -79,5 +104,6 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
         )
       ), recursive = TRUE)
     }
+    
   }
 }
