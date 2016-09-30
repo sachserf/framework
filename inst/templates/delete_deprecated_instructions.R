@@ -57,7 +57,7 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
     #    delete_index_2 <- which(df_source_files$instruction == "source" | df_source_files$instruction == "nothing")
     #    df_source_files[delete_index_2, ]
     
-    if (isTRUE(delete_index > 0)) {
+    if (isTRUE(length(delete_index) > 0)) {
       # figures
       the_figures <- df_last_session[delete_index, "figure_out"]
       for (i in seq_along(the_figures)) {
