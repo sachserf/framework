@@ -142,7 +142,12 @@ specify_instructions <-
 
         # specify instruction "source"
         if (instruction == "source") {
-          temp_fig_path <- file.path(figure_out, paste0(filename_noxt, "_files"))
+            if (is.null(target_dir_figure) == TRUE) {
+                temp_fig_path <- figure_source
+            } else {
+                temp_fig_path <- file.path(figure_out, paste0(basename(filename_noxt), "_files"))
+            }
+
           dir.create(path = temp_fig_path, showWarnings = FALSE, recursive = TRUE)
           pdf(file.path(temp_fig_path, paste0(basename_noxt, ".pdf")))
           source(filename)

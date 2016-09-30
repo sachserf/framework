@@ -41,6 +41,7 @@ skeleton <-
         file.path(target_dir_data),
         file.path(target_dir_docs)
       )
+    basic_dirs <- basic_dirs[!basic_dirs %in% "character(0)"]
     lapply(X = basic_dirs,
            FUN = dir.create,
            recursive = TRUE)
