@@ -49,7 +49,6 @@ However per default the following directory structure will be implemented:
       - \*\***data/** --> output data (per default all dataframes within the Global Environment) 
       - \*\***docs/** --> rendered html/pdf/docx-versions of your source-files (including temporary formats such as `md` etc. within a subdirectory) 
       - \*\***figure/** --> plots of rendered source-files (png and pdf per default) 
-      - **usr/** --> predefined directory for user-specified or custom output
 
 \* This directory further includes additional files and subdirectories: e.g. an 
 Rproj-file, packrat-repo, git-repo, git-ignore, a hidden cache-directory, a 
