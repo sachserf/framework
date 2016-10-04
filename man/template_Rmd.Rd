@@ -5,7 +5,7 @@
 \title{Create a template Rmd-file}
 \usage{
 template_Rmd(file, Author = Sys.info()["effective_user"],
-  Date = "`r Sys.Date()`")
+  Date = "`r Sys.Date()`", open = TRUE)
 }
 \arguments{
 \item{file}{Character. Specify the path to save the new file. Use relative 
@@ -17,6 +17,8 @@ for the YAML header). Default is the effective user of the system info.}
 
 \item{Date}{Character. Optionally customize the date (used for the YAML 
 header). Default is the current Date (format YYYY-MM-DD).}
+
+\item{open}{Logical. If TRUE the file will be opened (via `file.edit``).}
 }
 \description{
 This function will create an Rmd-file including some predefined 

@@ -33,7 +33,7 @@ check_instructions <-
     # reload temporary df_source_files
     df_source_files <-
       readRDS(file = file.path(cache_dir, "df_source_files_temp.rds"))
-
+    
     # Check if source dir is part of target_dirs
     if (grepl(
       pattern = paste(cache_dir, target_dir_figure,
@@ -53,11 +53,11 @@ check_instructions <-
         "Source_dir should neither be equal nor a subdirectory of target directories and/or cache directory! Change paths and retry."
       )
     }
-
-
-
+    
+    
+    
     # check snapshot of data-dir
-
+    
     # if snapshot is missing: do not use cache
     if (file.exists(path_snapshot_data_dir) == FALSE) {
       df_source_files$use_cache_qualified <- FALSE
@@ -75,9 +75,9 @@ check_instructions <-
         }
       }
     }
-
+    
     # check snapshot of source-dir
-
+    
     # if snapshot is missing: do not use cache
     if (file.exists(path_snapshot_source_dir) == FALSE) {
       df_source_files$use_cache_qualified <- FALSE
@@ -88,7 +88,7 @@ check_instructions <-
       snapshot_source_dir <-
         readRDS(file = path_snapshot_source_dir)
       snapshot_source_dir$path <- source_dir
-
+      
       changed_files <- utils::changedFiles(snapshot_source_dir,
                                            md5sum = TRUE)$changed
       changed_files <- file.path(source_dir, changed_files)
@@ -100,24 +100,24 @@ check_instructions <-
                                                     TRUE)] <- FALSE
       }
     }
-
+    
     # check image
-
+    
     # make sure not to use the cache if image of the file is missing
     image_exists <- file.exists(df_source_files$image_cache)
     if (any(image_exists == FALSE)) {
       df_source_files$use_cache_qualified[which(image_exists ==
                                                   FALSE)] <- FALSE
     }
-
+    
     # check cache-files
     # make sure not to use the cache if rendered files from last session are missing
     if (is.null(target_dir_docs) == FALSE) {
       nofile_index <- paste0(df_source_files$row_names, "_", df_source_files$basename_noxt) %in% tools::file_path_sans_ext(list.files(target_dir_docs, recursive = TRUE))
       df_source_files$use_cache_qualified[which(nofile_index == FALSE & df_source_files$instruction_no_cache == "render")] <- FALSE
     }
-
-
+    
+    
     # make sure not to use the cache if required files in cache are missing
     #cache_docs <- sapply(lapply(X = df_source_files$docs_cache,
     #                            FUN = list.files),
@@ -127,9 +127,9 @@ check_instructions <-
     #                                              0 &&
     #                                              df_source_files$file_ext != "R")] <- FALSE
     #}
-
+    
     # check order of source-files
-
+    
     # check if order of df_cache has changed
     if (file.exists(file.path(cache_dir, "df_source_files.rds"))) {
       df_source_files_old <-
@@ -151,9 +151,9 @@ check_instructions <-
                                                   0)] <- FALSE
       df_source_files$order_change <- FALSE
       df_source_files$order_change[which(df_source_files_both$pos_match !=
-                                                    0)] <- TRUE
+                                           0)] <- TRUE
       df_source_files$use_cache_qualified[which(df_source_files_both$pos_match !=
-                                                    0)] <- FALSE
+                                                  0)] <- FALSE
       # make sure not to use cache if instruction changed
       df_source_files$instruction_equal <-
         ifelse(
@@ -174,7 +174,7 @@ check_instructions <-
     else {
       df_source_files$use_cache_qualified <- FALSE
     }
-
+    
     # check existence of (rendered) files (if output should not be copied)
     if (is.null(target_dir_docs) == TRUE) {
       for (i in 1:nrow(df_source_files)) {
@@ -192,43 +192,51 @@ check_instructions <-
         }
       }
     }
-
-    # do not use cache if a file has been executed before
+    
+    # do not use cache if subsequent files are going to be processed
     if (length(which(df_source_files$use_cache_qualified == FALSE)) >
         0) {
       df_source_files$use_cache_qualified[min(which(df_source_files$use_cache_qualified ==
                                                       FALSE)):nrow(df_source_files)] <-
         FALSE
     }
-
+    
     # add final instructions
     df_source_files$instruction <-
       df_source_files$instruction_no_cache
+    
     # edit instruction according to use-cache
     if (any(df_source_files$use_cache_input == TRUE)) {
+      # do not use cache if subsequent files are not in cache_index
+      if (any(df_source_files$use_cache_input) == FALSE) {
+        df_source_files$use_cache_qualified[min(which(df_source_files$use_cache_input ==
+                                                        FALSE)):nrow(df_source_files)] <-
+          FALSE
+      }
       use_cache_index <- which(
         df_source_files$use_cache_input ==
           TRUE & df_source_files$use_cache_qualified == TRUE
       )
       df_source_files$instruction[use_cache_index] <- "nothing"
     }
-
+    
+    
     # delete deprecated files in cache
-#    deprecated_cache <-
-#      dirname(df_source_files$docs_cache[df_source_files$instruction !=
-#                                           "nothing"])
-#    if (length(deprecated_cache) > 0) {
-#      lapply(X = deprecated_cache,
-#             FUN = unlink,
-#             recursive = TRUE)
-#    }
-
+    #    deprecated_cache <-
+    #      dirname(df_source_files$docs_cache[df_source_files$instruction !=
+    #                                           "nothing"])
+    #    if (length(deprecated_cache) > 0) {
+    #      lapply(X = deprecated_cache,
+    #             FUN = unlink,
+    #             recursive = TRUE)
+    #    }
+    
     # make sure the most recent file in cache will be loaded
     if (any(df_source_files$instruction == "nothing")) {
       df_source_files$instruction[max(which(df_source_files$instruction ==
                                               "nothing"))] <- "load"
     }
-
+    
     # overwrite df_source_files_temp.rds
     saveRDS(object = df_source_files,
             file = file.path(cache_dir,

@@ -88,10 +88,10 @@ skeleton <-
     source_files_Rmd <-
       source_files[which(tools::file_ext(source_files) == "Rmd")]
     if (length(source_files_R) > 0) {
-      lapply(X = source_files_R, FUN = framework::template_R)
+      lapply(X = source_files_R, FUN = framework::template_R, open = FALSE)
     }
     if (length(source_files_Rmd) > 0) {
-      lapply(X = source_files_Rmd, FUN = framework::template_Rmd)
+      lapply(X = source_files_Rmd, FUN = framework::template_Rmd, open = FALSE)
     }
     
     #### write README.md ####

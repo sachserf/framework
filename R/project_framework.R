@@ -148,6 +148,5 @@ project_framework <-
     if (file.exists("DESCRIPTION")) {
       cat("Suggests:", "    rmarkdown (>= 0.9.6),", "    knitr", file = "DESCRIPTION", append = TRUE, sep = "\n")
     }
-    
   }
 

@@ -8,8 +8,8 @@ srcmake_addin()
 }
 \description{
 This addin only works when using RStudio. Call this function as an addin to
-source the file 'make.R'. Optionally it is possible to assign a custom 
-keybinding (see RStudio/Tools/Modify keyboard shortcuts... and search for 
+source the file 'make.R'. Optionally it is possible to assign a custom
+keybinding (see RStudio/Tools/Modify keyboard shortcuts... and search for
 "Execute source('make.R')").
 }
 

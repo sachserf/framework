@@ -13,6 +13,7 @@
 #'   for the YAML header). Default is the effective user of the system info.
 #' @param Date Character. Optionally customize the date (used for the YAML 
 #'   header). Default is the current Date (format YYYY-MM-DD).
+#' @param open Logical. If TRUE the file will be opened (via `file.edit``).
 #' @note Missing directories will be created recursively.
 #' @note It is not possible to overwrite existing files.
 #' @note Other YAML header options will be choosen automatically. Edit the 
@@ -23,7 +24,7 @@
 template_Rmd <-
   function(file,
             Author = Sys.info()["effective_user"],
-            Date = "`r Sys.Date()`")
+            Date = "`r Sys.Date()`", open = TRUE)
   {
     if (dir.exists(paths = dirname(file)) == FALSE) {
       dir.create(path = dirname(file), recursive = TRUE)
@@ -33,12 +34,15 @@ template_Rmd <-
              start = 1,
              stop = nchar(basename(file)) - 4)
     if (file.exists(file) == TRUE) {
-      stop("File exists.")
+      warning("File exists.")
     }
     else {
       cat("---\ntitle: '", header, "'\nauthor: '",Author, "'\ndate: '",Date, "'\noutput: \n  html_document: \n    number_sections: yes\n    toc: yes\n    toc_float: yes\n    theme: cosmo\n    highlight: textmate\n---\n\n```{r setup, include=FALSE}\n# additional pdf-output of figures\nknitr::opts_chunk$set(dev = c('png', 'pdf'), dpi = 100) # first 'dev'-value should be suitable for output format specifies in YAML metadata (e.g.: html_document and word_document: png or jpeg, pdf_document: pdf)  \n```\n\n# Note\nThis file was created by calling the function 'template_Rmd'.\n\n",
           file = file,
           sep = ""
       )
+      if (open == TRUE) {
+        file.edit(file)
+      }
     }
   }

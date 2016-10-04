@@ -5,22 +5,24 @@
 \title{A framework template for an R-script}
 \usage{
 template_R(file, Author = Sys.info()["effective_user"],
-  Date = "`r Sys.Date()`")
+  Date = "`r Sys.Date()`", open = TRUE)
 }
 \arguments{
-\item{file}{Character. Specify the path to save the new file. Use relative 
+\item{file}{Character. Specify the path to save the new file. Use relative
 file paths and specify the file extension; e.g. 'scripts/myfile.R'.}
 
-\item{Author}{Character. Optionally customize the name of the Author (used 
+\item{Author}{Character. Optionally customize the name of the Author (used
 for the YAML header). Default is the effective user of the system info.}
 
-\item{Date}{Character. Optionally customize the date (used for the YAML 
+\item{Date}{Character. Optionally customize the date (used for the YAML
 header). Default is the current Date (format YYYY-MM-DD).}
+
+\item{open}{Logical. If TRUE the file will be opened (via `file.edit``).}
 }
 \description{
-This function will create an R-script including some predefined 
-  lines. By using this template for R-scripts within a framework-project it 
-  is straightforward to save all plots you will specify within the script as 
+This function will create an R-script including some predefined
+  lines. By using this template for R-scripts within a framework-project it
+  is straightforward to save all plots you will specify within the script as
   pdf and png version (using knitr::spin or rmarkdown::render). The function
   is designed to save some time writing the same input again and again (e.g. Author, date
   and other things).
@@ -30,10 +32,10 @@ Missing directories will be created recursively.
 
 It is not possible to overwrite existing files.
 
-The file contains a YAML header and Roxygen comment prefixes. It is 
+The file contains a YAML header and Roxygen comment prefixes. It is
   possible to source these file as well as to spin it (using knitr).
 
-Other YAML header options will be choosen automatically. Edit the 
+Other YAML header options will be choosen automatically. Edit the
   resulting file to customize the YAML header.
 }
 \author{

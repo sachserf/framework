@@ -1,25 +1,31 @@
 #' Insert source('make.R') to console
 #'
 #' This addin only works when using RStudio. Call this function as an addin to
-#' print source("make.R") to console. Optionally it is possible to assign a custom 
-#' keybinding (see RStudio/Tools/Modify keyboard shortcuts... and search for 
+#' print source("make.R") to console. Optionally it is possible to assign a custom
+#' keybinding (see RStudio/Tools/Modify keyboard shortcuts... and search for
 #' "Execute source('make.R')").
 #'
 #' @export
 insert_srcmake_addin <- function() {
-  filepath_make <-
-    list.files(
-      path = rstudioapi::getActiveProject(),
-      pattern = "^make.R$",
-      recursive = TRUE,
-      all.files = TRUE,
-      full.names = TRUE
-    )
+  filesWD <-
+    list.files(path = getwd(),
+               recursive = TRUE,
+               full.names = TRUE)
   
-  if (length(filepath_make) != 1) {
-    stop("file make.R does not exist or is not unique within project directory")
+  minusBA <- grep(pattern = "BACKUP", x = filesWD)
+  
+  if (length(minusBA) > 0) {
+    filesWD <- filesWD[-minusBA]
+  }
+  
+  themake <- filesWD[grep(pattern = "make.R", x = filesWD)]
+  
+  if (length(themake) != 1) {
+    rstudioapi::sendToConsole(
+      code = print("warning('make.R is not unique: Open manually.')"),
+      execute = TRUE
+    )
   } else {
-    rstudioapi::sendToConsole(paste0("source('", filepath_make, "')"), execute = FALSE)
+    rstudioapi::sendToConsole(paste0("source('", themake, "')"), execute = FALSE)
   }
 }
-
