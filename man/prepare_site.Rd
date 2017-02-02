@@ -35,10 +35,9 @@ If there is no "index.Rmd" in input_Rmd a template will be used to
 
 Required Version of the package rmarkdown: v0.9.6
 }
-\author{
-Frederik Sachser
-}
 \seealso{
 \code{\link[rmarkdown]{render_site}}
 }
-
+\author{
+Frederik Sachser
+}

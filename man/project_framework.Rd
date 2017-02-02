@@ -102,11 +102,10 @@ This function is probably the only function of the whole package
 \note{
 Creation of the project_dir is recursive.
 }
-\author{
-Frederik Sachser
-}
 \seealso{
 \code{\link{Rproj_init}}, \code{\link{git_init}}, 
   \code{\link{skeleton}}
 }
-
+\author{
+Frederik Sachser
+}

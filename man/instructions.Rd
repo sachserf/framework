@@ -59,13 +59,12 @@ This function is the heart of the package 'framework'. It is a
   'delete_deprecated_instructions', 'execute_instructions' and
   'output_instructions'.
 }
-\author{
-Frederik Sachser
-}
 \seealso{
 \code{\link{prepare_instructions}},
   \code{\link{implement_instructions}}, \code{\link{check_instructions}},
   \code{\link{delete_deprecated_instructions}},
   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 }
-
+\author{
+Frederik Sachser
+}

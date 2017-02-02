@@ -5,16 +5,19 @@
 \title{Save a bunch of dataframes}
 \usage{
 write_dataframe(listofdf = "GlobalEnv", target_dir_data = "out/data",
-  file_format = "csv")
+  file_format = "csv", delete_target_dir = TRUE)
 }
 \arguments{
-\item{listofdf}{Character. Specify a vector of dataframes to write. Choose
-"GlobalEnv" if you want to write all dataframes within your Global
+\item{listofdf}{Character. Specify a vector of dataframes to write. Choose 
+"GlobalEnv" if you want to write all dataframes within your Global 
 Environment to separated files.}
 
 \item{target_dir_data}{Character. File path to the target directory.}
 
 \item{file_format}{Character. Choose between 'csv', 'rds' or 'RData'.}
+
+\item{delete_target_dir}{Logical. Set TRUE if you want to delete existing
+files in target dir before writing the data.}
 }
 \description{
 This function will write multiple dataframes into separate 
@@ -23,4 +26,3 @@ This function will write multiple dataframes into separate
 \author{
 Frederik Sachser
 }
-

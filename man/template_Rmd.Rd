@@ -36,10 +36,9 @@ It is not possible to overwrite existing files.
 Other YAML header options will be choosen automatically. Edit the 
   resulting file to customize the YAML header.
 }
-\author{
-Frederik Sachser
-}
 \seealso{
 \code{\link{template_R}}
 }
-
+\author{
+Frederik Sachser
+}

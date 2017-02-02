@@ -19,4 +19,3 @@ Directories will be created recursively.
 \author{
 Frederik Sachser
 }
-
