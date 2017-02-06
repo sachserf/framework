@@ -2,15 +2,17 @@
 #' 
 #' @description This function will write multiple dataframes into separate 
 #'   files. File extension can be of type 'RData', 'rds' or 'csv'.
-#' @param listofdf Character. Specify a vector of dataframes to write. Choose
-#'   "GlobalEnv" if you want to write all dataframes within your Global
+#' @param listofdf Character. Specify a vector of dataframes to write. Choose 
+#'   "GlobalEnv" if you want to write all dataframes within your Global 
 #'   Environment to separated files.
 #' @param target_dir_data Character. File path to the target directory.
 #' @param file_format Character. Choose between 'csv', 'rds' or 'RData'.
-#' @author Frederik Sachser 
+#' @param delete_target_dir Logical. Set TRUE if you want to delete existing
+#'   files in target dir before writing the data.
+#' @author Frederik Sachser
 #' @export
 write_dataframe <- 
-  function(listofdf = "GlobalEnv", target_dir_data = "out/data", file_format = "csv") 
+  function(listofdf = "GlobalEnv", target_dir_data = "out/data", file_format = "csv", delete_target_dir = TRUE) 
   {
     target_dir_data <- file.path(target_dir_data)
     if (listofdf == "GlobalEnv") {
@@ -21,8 +23,10 @@ write_dataframe <-
       dir.create(target_dir_data, recursive = TRUE)
     }
     
-    # delete all existing data
-    unlink(list.files(target_dir_data, full.names = TRUE), recursive = TRUE)
+    if (delete_target_dir == TRUE) {
+      # delete all existing data
+      unlink(list.files(target_dir_data, full.names = TRUE), recursive = TRUE)
+    }
     
     # write files
     if (file_format == "csv") {

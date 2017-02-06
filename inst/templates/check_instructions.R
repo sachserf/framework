@@ -237,6 +237,12 @@ check_instructions <-
                                               "nothing"))] <- "load"
     }
     
+    # make sure all subsequent files of rendered files will be rendered as well
+    if (any(df_source_files$instruction == "render")) {
+      df_source_files$instruction[min(which(df_source_files$instruction ==
+                                              "render")):nrow(df_source_files)] <- "render"
+    }
+    
     # overwrite df_source_files_temp.rds
     saveRDS(object = df_source_files,
             file = file.path(cache_dir,
