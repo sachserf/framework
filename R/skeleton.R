@@ -52,9 +52,9 @@ skeleton <-
     # [5] "instructions.R"           "output_instructions.R"   
     # [7] "pkg_install.R"            "prepare_instructions.R"  
     # [9] "prepare_site.R"           "session_info.R"          
-    # [11] "specify_instructions.R"   "summary_instructions.R"  
-    # [13] "template_R.R"             "template_Rmd.R"          
-    # [15] "write_dataframe.R"       "delete_deprecated_instructions"
+    # [11] "specify_instructions.R"  "summary_instructions.R"  
+    # [13] "template_html.R"         "write_dataframe.R"   
+    # [15] "delete_deprecated_instructions"
     invisible(lapply(X = list.files(system.file("templates", package = "framework"), full.names = TRUE), FUN = file.copy, to = framework_fun, recursive = TRUE))
    
     #### create make.R ####
@@ -88,10 +88,10 @@ skeleton <-
     source_files_Rmd <-
       source_files[which(tools::file_ext(source_files) == "Rmd")]
     if (length(source_files_R) > 0) {
-      lapply(X = source_files_R, FUN = framework::template_R, open = FALSE)
+      lapply(X = source_files_R, FUN = framework::template_html, open = FALSE)
     }
     if (length(source_files_Rmd) > 0) {
-      lapply(X = source_files_Rmd, FUN = framework::template_Rmd, open = FALSE)
+      lapply(X = source_files_Rmd, FUN = framework::template_html, open = FALSE)
     }
     
     #### write README.md ####

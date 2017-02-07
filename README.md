@@ -110,7 +110,7 @@ use packrat to ensure applicability of your project.
 
 ## Usage of a framework-project 
 - Create new files (`.R` or `.Rmd`) 
-    - Optionally use the functions `template_R(path/to/the/new/file.R)` and `template_Rmd(path/to/the/new/file.Rmd)` 
+    - Optionally use the function `template_html(path/to/the/new/file)`
 - make changes to the files and save them 
 - open the file `make.R` 
 - scroll down to the function `instructions` and add the `path/to/the/new/file.*` to the option `source_files` 
