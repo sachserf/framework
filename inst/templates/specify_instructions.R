@@ -166,7 +166,10 @@ specify_instructions <-
         }
         # specify instruction "knit"
         else if (instruction == "knit") {
-          knitr::knit2pdf(input = filename, envir = globalenv())
+          proj_wd <- getwd()
+          setwd(dirname(filename))
+          knitr::knit2pdf(input = basename(filename), envir = globalenv())
+          setwd(proj_wd)
           save(list = ls(.GlobalEnv), file = image_cache)
         }
       }

@@ -240,7 +240,9 @@ check_instructions <-
     # make sure all subsequent files of rendered files will be rendered as well
     if (any(df_source_files$instruction == "render")) {
       df_source_files$instruction[min(which(df_source_files$instruction ==
-                                              "render")):nrow(df_source_files)] <- "render"
+                                              "render")):nrow(df_source_files)] <-
+        df_source_files$instruction_no_cache[min(which(df_source_files$instruction ==
+                                                         "render")):nrow(df_source_files)]
     }
     
     # overwrite df_source_files_temp.rds
