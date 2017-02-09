@@ -169,6 +169,10 @@ specify_instructions <-
           proj_wd <- getwd()
           setwd(dirname(filename))
           knitr::knit2pdf(input = basename(filename), envir = globalenv())
+          dir.create(basename(figure_source), showWarnings = FALSE)
+          file.copy(from = "figure", to = basename(figure_source), recursive = TRUE)
+          file.remove(file.path("figure", list.files("figure")))
+          file.remove("figure")
           setwd(proj_wd)
           save(list = ls(.GlobalEnv), file = image_cache)
         }
