@@ -17,6 +17,7 @@ template_make <- function(target_makeR = 'make.R',
                           target_dir_data = 'out/data',
                           rename_figure = TRUE,
                           rename_docs = TRUE,
+                          log_filepath = 'log.csv',
                           spin_index,
                           cache_index,
                           knitr_cache) {
@@ -100,12 +101,17 @@ instructions(
 # save all data frames (within .GlobalEnv)
 write_dataframe(target_dir_data = '", target_dir_data, "', file_format = 'csv')
 
+# write log_entry
+log_entry(log_filepath = '", log_filepath, "')
+
+# View log summary
+# log_summary(log_filepath = '", log_filepath, "') # depends on dplyr
+
 # write session_info
 session_info()
 
 # backup (optionally change target directory and excluded files/dir)
-#backup(exclude_directories = 'packrat|.git|", data_dir,"|", cache_dir,"|", target_dir_data,"|", target_dir_figure,"|", target_dir_docs,"',
-#       exclude_files = '*.RData|*.Rhistory|*.rds', delete_target = TRUE)
+#backup(exclude_directories = 'packrat|.git|", data_dir,"|", cache_dir,"|", target_dir_data,"|", target_dir_figure,"|", target_dir_docs,"', exclude_files = '*.RData|*.Rhistory|*.rds', delete_target = TRUE)
 
 # print summary of instructions
 summary_instructions(cache_dir = '", cache_dir,"')

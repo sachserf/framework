@@ -149,9 +149,9 @@ specify_instructions <-
             }
 
           dir.create(path = temp_fig_path, showWarnings = FALSE, recursive = TRUE)
-          pdf(file.path(temp_fig_path, paste0(basename_noxt, ".pdf")))
+          grDevices::pdf(file.path(temp_fig_path, paste0(basename_noxt, ".pdf")))
           source(filename)
-          dev.off()
+          grDevices::dev.off()
           save(list = ls(.GlobalEnv), file = image_cache)
         }
         # specify instruction "render"

@@ -107,6 +107,6 @@ template_html <-
     }
     
     if (open == TRUE) {
-      file.edit(file)
+      utils::file.edit(file)
     }
   }

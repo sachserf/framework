@@ -25,10 +25,11 @@ skeleton <-
            target_dir_data = 'out/data',
            rename_figure = TRUE,
            rename_docs = TRUE,
+           log_filepath = 'log.csv',
            spin_index,
            cache_index, 
-           knitr_cache) {
-    # specify framework_dun directory
+           knitr_cache = FALSE) {
+    # specify framework_fun directory
     framework_fun <- file.path(fun_dir, "framework")
     
     #### create basic directories ####
@@ -45,16 +46,7 @@ skeleton <-
     lapply(X = basic_dirs,
            FUN = dir.create,
            recursive = TRUE)
-    
-    # copy the following functions to current project_directory
-    # [1] "backup.R"                 "check_instructions.R"    
-    # [3] "execute_instructions.R"   "implement_instructions.R"
-    # [5] "instructions.R"           "output_instructions.R"   
-    # [7] "pkg_install.R"            "prepare_instructions.R"  
-    # [9] "prepare_site.R"           "session_info.R"          
-    # [11] "specify_instructions.R"  "summary_instructions.R"  
-    # [13] "template_html.R"         "write_dataframe.R"   
-    # [15] "delete_deprecated_instructions"
+
     invisible(lapply(X = list.files(system.file("templates", package = "framework"), full.names = TRUE), FUN = file.copy, to = framework_fun, recursive = TRUE))
    
     #### create make.R ####
@@ -71,6 +63,7 @@ skeleton <-
         target_dir_data,
         rename_figure,
         rename_docs,
+        log_filepath,
         spin_index,
         cache_index,
         knitr_cache
@@ -80,6 +73,9 @@ skeleton <-
                 to = target_makeR,
                 overwrite = FALSE)
     }
+    
+    # write first logfile entry
+    log_entry(log_filepath)
     
     #### write templates for source-files ####
     source_files <- file.path(source_dir, source_files)

@@ -9,7 +9,7 @@ template_make(target_makeR = "make.R", fun_dir = "in/fun",
   source_dir = "in/src", data_dir = "in/data",
   target_dir_figure = "out/figure", target_dir_docs = "out/docs",
   target_dir_data = "out/data", rename_figure = TRUE, rename_docs = TRUE,
-  spin_index, cache_index, knitr_cache)
+  log_filepath = "log.csv", spin_index, cache_index, knitr_cache)
 }
 \arguments{
 \item{target_makeR}{Character. Target directory of the 'makefile'. Default is
@@ -52,6 +52,9 @@ and moved into a single directory.}
 
 \item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
 will be renamed and moved into a single directory.}
+
+\item{log_filepath}{Character. Specify relative file path (inlcuding the
+extension .csv) to write a log-file.}
 
 \item{spin_index}{Integer. Can be of length one or a vector. Specify index of
 'source_files' that should  be spinned (ignored for file extension 'Rmd'). 

@@ -42,6 +42,8 @@
 #' @param target_dir_data Character. Treat this directory as read-only. By using
 #'   the function 'framework::write_dataframe()' the directory will contain data
 #'   of type 'RData', 'rds' or 'csv'.
+#' @param log_filepath Character. Specify relative file path (inlcuding the
+#'   extension .csv) to write a log-file.
 #' @param devtools_create Logical. Choose TRUE if you want to call 
 #'   'devtools::create()' in order to prepare your project as an R-package. You 
 #'   might want to choose appropriate paths for other variables (e.g. fun_dir = 
@@ -88,6 +90,7 @@ project_framework <-
            devtools_create = FALSE,
            rename_figure = TRUE,
            rename_docs = TRUE,
+           log_filepath = 'log.csv',
            spin_index = 999,
            cache_index = 999,
            knitr_cache = FALSE) {
@@ -121,6 +124,7 @@ project_framework <-
       target_dir_data,
       rename_figure,
       rename_docs,
+      log_filepath,
       spin_index,
       cache_index,
       knitr_cache
@@ -129,6 +133,7 @@ project_framework <-
     # initialize git
     if (init_git == TRUE) {
       cat(".Rproj.user", ".Rhistory", ".RData", data_dir, target_dir_figure, target_dir_data, target_dir_docs, file = ".gitignore", sep = "\n")
+      cat(log_filepath, "merge=union", file = ".gitattributes")
       framework::git_init()
     }
     
