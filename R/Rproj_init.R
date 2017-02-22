@@ -26,5 +26,5 @@ LaTeX: Default
         
 AutoAppendNewline: Yes")
 sink()
-}
+  }
 }
