@@ -4,10 +4,10 @@
 \alias{session_info}
 \title{Write a file with current session info}
 \usage{
-session_info(file = "session_info.txt")
+session_info(session_info_filepath = "meta/session_info.txt")
 }
 \arguments{
-\item{file}{Character. File path to the target.}
+\item{session_info_filepath}{Character. File path to the target.}
 }
 \description{
 The function writes the current timestamp and session info to a
@@ -19,3 +19,4 @@ Directories will be created recursively.
 \author{
 Frederik Sachser
 }
+

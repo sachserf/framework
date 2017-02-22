@@ -22,3 +22,4 @@ It is not possible to overwrite an existing Rproj.
 \author{
 Frederik Sachser
 }
+

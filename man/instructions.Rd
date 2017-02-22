@@ -10,7 +10,7 @@ instructions(source_files, spin_index, cache_index, cache_dir, source_dir,
 }
 \arguments{
 \item{source_files}{Character. Specify a vector of file paths, if you want to
-create predefined templates for your analysis (relative to 'source_dir'). 
+create predefined templates for your analysis (relative to top-level). 
 Use file extensions '.R' or '.Rmd'.}
 
 \item{spin_index}{Integer. Can be of length one or a vector. Specify index of
@@ -59,12 +59,13 @@ This function is the heart of the package 'framework'. It is a
   'delete_deprecated_instructions', 'execute_instructions' and
   'output_instructions'.
 }
+\author{
+Frederik Sachser
+}
 \seealso{
 \code{\link{prepare_instructions}},
   \code{\link{implement_instructions}}, \code{\link{check_instructions}},
   \code{\link{delete_deprecated_instructions}},
   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 }
-\author{
-Frederik Sachser
-}
+

@@ -18,14 +18,15 @@ skeleton <-
            source_files = c('load.R',
                             'report.Rmd'),
            cache_dir = '.cache',
-           source_dir = 'in/src',
+           source_dir = 'in/docs',
            data_dir = 'in/data',
            target_dir_figure = 'out/figure',
            target_dir_docs = 'out/docs',
            target_dir_data = 'out/data',
            rename_figure = TRUE,
            rename_docs = TRUE,
-           log_filepath = 'log.csv',
+           log_filepath = 'meta/log.csv',
+           session_info_filepath = 'meta/session_info.txt',
            spin_index,
            cache_index, 
            knitr_cache = FALSE) {
@@ -40,12 +41,15 @@ skeleton <-
         file.path(framework_fun),
         file.path(target_dir_figure),
         file.path(target_dir_data),
-        file.path(target_dir_docs)
+        file.path(target_dir_docs),
+        file.path(dirname(log_filepath)),
+        file.path(dirname(session_info_filepath))
       )
     basic_dirs <- basic_dirs[!basic_dirs %in% "character(0)"]
     lapply(X = basic_dirs,
            FUN = dir.create,
-           recursive = TRUE)
+           recursive = TRUE, 
+           showWarnings = FALSE)
 
     invisible(lapply(X = list.files(system.file("templates", package = "framework"), full.names = TRUE), FUN = file.copy, to = framework_fun, recursive = TRUE))
    
@@ -64,6 +68,7 @@ skeleton <-
         rename_figure,
         rename_docs,
         log_filepath,
+        session_info_filepath,
         spin_index,
         cache_index,
         knitr_cache
@@ -98,7 +103,7 @@ skeleton <-
       Sys.info()['user'],
       '** at **',
       as.character(Sys.time()),
-      '**\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.',
+      '**\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.\n\n\n\n',
       file = 'README.md',
       sep = ''
     )
@@ -107,5 +112,5 @@ skeleton <-
 #    htm <-
 #      readLines(con = "https://raw.githubusercontent.com/sachserf/framework/vignettes/README.md")
     htg <- readLines(file.path(system.file(package = "framework"), "how_to_guide/README.md"))
-    cat(htg, file = "how-to-guide.md", sep = "\n")
+    cat(htg, file = "README.md", sep = "\n", append = TRUE)
   }

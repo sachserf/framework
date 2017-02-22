@@ -8,6 +8,10 @@
 #' @author Frederik Sachser
 #' @export
 log_entry <- function(log_filepath = "log.csv") {
+  if (dir.exists(dirname(file.path(log_filepath))) == FALSE) {
+    dir.create(path = dirname(file.path(log_filepath)), recursive = TRUE)
+  }
+  
   POSIX <- Sys.time()
   DATE <- strftime(POSIX, format = "%F")
   WEEKDAY <- strftime(POSIX, format = "%A")

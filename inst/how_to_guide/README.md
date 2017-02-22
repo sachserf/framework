@@ -19,13 +19,14 @@ of R-code:
 - Automatic installation of additional R-packages 
 - Automatically remove all objects in your .GlobalEnvironment to `ensure reproducibility` 
 - Automatic creation of **standard output**: 
-    - rendered documents of R and Rmd files (html, pdf, docx) 
+    - rendered documents of R, Rmd and Rnw files (html, pdf, docx) 
     - all plots will be saved with a meaningful name. You can easily specify the format (pdf, png, jpeg,etc) and the names of the files by using chunk-labels (and/or global chunk options). 
     - current session-info 
+    - log-file
     - all datasets will be saved as csv, RData or rds 
 - **Traceability** features: 
     - a how-to-file (kind of a FAQ) makes it easy to pass on your work to colleagues without the necessity of additional explanation of your project structure or processing steps 
-    - A Readme.md at the top level of your project 
+    - A Readme.md at the top level of your project including some predefined information to facilitate the first steps with framework-projects
     - Easy implementation of roxygen comments within R-files via templates.
 - **stand-alone integration**: 
     - Once you have initialized a framework-project there is no need of an installation of the package itself. As a result framework-projects can be passed on to colleagues 
@@ -42,18 +43,20 @@ However per default the following directory structure will be implemented:
  
 - \***Top-level** 
     - **make.R** --> Complete instructions to process the whole project 
-    - **scripts/** --> source-files (R-scripts, Rmd-files etc that should be processed)
-    - **R/** --> functions (will be loaded and attached to a new environment) 
-    - **data/** --> raw data files (directory will be monitored via snapshots - if files change the cache won´t be used)
+    - **in** --> all files that are needed to process the project (raw-data, R-Scripts)
+      - **docs/** --> source-files (R-scripts, Rmd-files etc that should be processed)
+      - **R/** --> functions (will be loaded and attached to a new environment) 
+      - **data/** --> raw data files (directory will be monitored via snapshots - if files change the cache won´t be used)
     - **out/** --> All resulting files after processing your project. By using a single directory for output it is easy to prevent intermixing of input and output. 
       - \*\***data/** --> output data (per default all dataframes within the Global Environment) 
       - \*\***docs/** --> rendered html/pdf/docx-versions of your source-files (including temporary formats such as `md` etc. within a subdirectory) 
       - \*\***figure/** --> plots of rendered source-files (png and pdf per default) 
+    - \*\***meta** --> directory which contains additional information about the project (log-file, session_info) 
 
 \* This directory further includes additional files and subdirectories: e.g. an 
 Rproj-file, packrat-repo, git-repo, git-ignore, a hidden cache-directory, a 
 backup-directory, a how-to-manual, a README.md and a current session info. 
-\*\* These directories should be treated as read only, because they will be deleted 
+\*\* These directories should be treated as read only because they will be deleted 
 and rebuilt every time you source the file `make.R`
 
 ## More information on the structure of framework-projects 
@@ -110,7 +113,7 @@ use packrat to ensure applicability of your project.
 
 ## Usage of a framework-project 
 - Create new files (`.R` or `.Rmd`) 
-    - Optionally use the functions `template_R(path/to/the/new/file.R)` and `template_Rmd(path/to/the/new/file.Rmd)` 
+    - Optionally use the function `template_html(path/to/the/new/file)`
 - make changes to the files and save them 
 - open the file `make.R` 
 - scroll down to the function `instructions` and add the `path/to/the/new/file.*` to the option `source_files` 

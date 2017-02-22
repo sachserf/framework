@@ -18,13 +18,13 @@
 #'   for the file 'make.R'.
 #' @param target_makeR Character. Target directory of the 'makefile'. Default is
 #'   'make.R'. Specify relative file path if you want to use subdirectories.
-#' @param fun_dir Character. Target directory of functions. Default is 'I-fun'. 
+#' @param fun_dir Character. Target directory of functions. Default is 'in/R'. 
 #'   Some functions of the framework-package will be copied to a subdirectory of
 #'   this folder. By using the framework template of the file 'make.R' all 
 #'   R-Scripts (functions) within this directory will be attached to a 
 #'   predefined environment.
 #' @param source_files Character. Specify a vector of file paths, if you want to
-#'   create predefined templates for your analysis (relative to 'source_dir'). 
+#'   create predefined templates for your analysis (relative to top-level). 
 #'   Use file extensions '.R' or '.Rmd'.
 #' @param cache_dir Character. Specify file path for the cache directory.
 #' @param source_dir Character. Specify file path to directory where you want to
@@ -65,6 +65,7 @@
 #'   the function 'instructions'. By choosing this option it is not possible to 
 #'   use a different target for your figures (target_dir_figure = NULL).
 #' @note Creation of the project_dir is recursive.
+#' @inheritParams session_info
 #' @seealso \code{\link{Rproj_init}}, \code{\link{git_init}}, 
 #'   \code{\link{skeleton}}
 #' @author Frederik Sachser
@@ -76,21 +77,22 @@ project_framework <-
            init_packrat = FALSE,
            custom_makeR = NULL,
            target_makeR = 'make.R',
-           fun_dir = 'R',
+           fun_dir = 'in/R',
            source_files = c('prepare.Rmd',
                             'visualize.Rmd',
                             'analyze.Rmd',
                             'report.Rmd'),
            cache_dir = '.cache',
-           source_dir = 'scripts',
-           data_dir = 'data',
+           source_dir = 'in/docs',
+           data_dir = 'in/data',
            target_dir_figure = 'out/fig',
            target_dir_docs = 'out/docs',
            target_dir_data = 'out/data',
            devtools_create = FALSE,
            rename_figure = TRUE,
            rename_docs = TRUE,
-           log_filepath = 'log.csv',
+           log_filepath = 'meta/log.csv',
+           session_info_filepath = 'meta/session_info.txt',
            spin_index = 999,
            cache_index = 999,
            knitr_cache = FALSE) {
@@ -125,6 +127,7 @@ project_framework <-
       rename_figure,
       rename_docs,
       log_filepath,
+      session_info_filepath,
       spin_index,
       cache_index,
       knitr_cache
@@ -147,7 +150,7 @@ project_framework <-
 
     # edit Rbuildignore and DESCRIPTION
     if (file.exists(".Rbuildignore")) {
-      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, target_dir_figure, target_dir_data, target_dir_docs, "session_info.txt", "how-to-guide.md", target_makeR, source_dir, data_dir), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
+      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, target_dir_figure, target_dir_data, target_dir_docs, session_info_filepath, "how-to-guide.md", target_makeR, source_dir, data_dir), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
     }
 
     if (file.exists("DESCRIPTION")) {

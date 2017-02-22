@@ -19,3 +19,4 @@ The function will work only if git is installed and '.git' is absent.
 \author{
 Frederik Sachser
 }
+

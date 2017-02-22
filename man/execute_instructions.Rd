@@ -22,12 +22,13 @@ This function is part of a family of functions each of which end with
   'output_instructions'. There is a wrapper for these functions called
   'instructions'.
 }
+\author{
+Frederik Sachser
+}
 \seealso{
 \code{\link{prepare_instructions}},
   \code{\link{implement_instructions}}, \code{\link{check_instructions}},
   \code{\link{delete_deprecated_instructions}}, \code{\link{instructions}},
   \code{\link{output_instructions}}, \code{\link{specify_instructions}}
 }
-\author{
-Frederik Sachser
-}
+

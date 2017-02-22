@@ -21,9 +21,10 @@ This function will summarize the information of a specific
 \note{
 The results are not necessarily as intended: It is assumed that you work once a day without breaks. Optionally adjust the logfile as well as the function log_summary to fit your needs.
 }
-\seealso{
-\code{\link{log_entry}}
-}
 \author{
 Frederik Sachser
 }
+\seealso{
+\code{\link{log_entry}}
+}
+

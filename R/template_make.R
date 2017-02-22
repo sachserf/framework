@@ -10,17 +10,18 @@ template_make <- function(target_makeR = 'make.R',
                           source_files = c('load.R',
                                            'report.Rmd'),
                           cache_dir = '.cache',
-                          source_dir = 'in/src',
+                          source_dir = 'in/docs',
                           data_dir = 'in/data',
                           target_dir_figure = 'out/figure',
                           target_dir_docs = 'out/docs',
                           target_dir_data = 'out/data',
                           rename_figure = TRUE,
                           rename_docs = TRUE,
-                          log_filepath = 'log.csv',
+                          log_filepath = 'meta/log.csv',
+                          session_info_filepath = 'meta/session_info.txt',
                           spin_index,
                           cache_index,
-                          knitr_cache) {
+                          knitr_cache = FALSE) {
     if (file.exists(target_makeR)) {
         stop("File exists. Delete the file and retry.")
     }
@@ -108,7 +109,7 @@ log_entry(log_filepath = '", log_filepath, "')
 # log_summary(log_filepath = '", log_filepath, "') # depends on dplyr
 
 # write session_info
-session_info()
+session_info(session_info_filepath = '", session_info_filepath, "')
 
 # backup (optionally change target directory and excluded files/dir)
 #backup(exclude_directories = 'packrat|.git|", data_dir,"|", cache_dir,"|", target_dir_data,"|", target_dir_figure,"|", target_dir_docs,"', exclude_files = '*.RData|*.Rhistory|*.rds', delete_target = TRUE)

@@ -6,10 +6,12 @@
 \usage{
 skeleton(custom_makeR = NULL, target_makeR = "make.R", fun_dir = "in/fun",
   source_files = c("load.R", "report.Rmd"), cache_dir = ".cache",
-  source_dir = "in/src", data_dir = "in/data",
+  source_dir = "in/docs", data_dir = "in/data",
   target_dir_figure = "out/figure", target_dir_docs = "out/docs",
   target_dir_data = "out/data", rename_figure = TRUE, rename_docs = TRUE,
-  log_filepath = "log.csv", spin_index, cache_index, knitr_cache = FALSE)
+  log_filepath = "meta/log.csv",
+  session_info_filepath = "meta/session_info.txt", spin_index, cache_index,
+  knitr_cache = FALSE)
 }
 \arguments{
 \item{custom_makeR}{Character. File path to a local make-like R-file. Specify
@@ -19,14 +21,14 @@ for the file 'make.R'.}
 \item{target_makeR}{Character. Target directory of the 'makefile'. Default is
 'make.R'. Specify relative file path if you want to use subdirectories.}
 
-\item{fun_dir}{Character. Target directory of functions. Default is 'I-fun'. 
+\item{fun_dir}{Character. Target directory of functions. Default is 'in/R'. 
 Some functions of the framework-package will be copied to a subdirectory of
 this folder. By using the framework template of the file 'make.R' all 
 R-Scripts (functions) within this directory will be attached to a 
 predefined environment.}
 
 \item{source_files}{Character. Specify a vector of file paths, if you want to
-create predefined templates for your analysis (relative to 'source_dir'). 
+create predefined templates for your analysis (relative to top-level). 
 Use file extensions '.R' or '.Rmd'.}
 
 \item{cache_dir}{Character. Specify file path for the cache directory.}
@@ -60,6 +62,8 @@ will be renamed and moved into a single directory.}
 \item{log_filepath}{Character. Specify relative file path (inlcuding the
 extension .csv) to write a log-file.}
 
+\item{session_info_filepath}{Character. File path to the target.}
+
 \item{spin_index}{Integer. Can be of length one or a vector. Specify index of
 'source_files' that should  be spinned (ignored for file extension 'Rmd'). 
 Choose 0 (zero) if you do not want to spin any R-files. Choose 999 if you 
@@ -86,9 +90,10 @@ The function creates a predefined directory structure and some
   files to enhance project organization. Among other things it is a wrapper
   for 'template_make'.
 }
-\seealso{
-\code{\link{project_framework}}
-}
 \author{
 Frederik Sachser
 }
+\seealso{
+\code{\link{project_framework}}
+}
+

@@ -20,3 +20,4 @@ The function checks whether the specified packages are installed
 \author{
 Frederik Sachser
 }
+

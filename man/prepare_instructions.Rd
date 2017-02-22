@@ -11,7 +11,7 @@ prepare_instructions(source_files, spin_index = 0, cache_index = 0,
 }
 \arguments{
 \item{source_files}{Character. Specify a vector of file paths, if you want to
-create predefined templates for your analysis (relative to 'source_dir'). 
+create predefined templates for your analysis (relative to top-level). 
 Use file extensions '.R' or '.Rmd'.}
 
 \item{spin_index}{Integer. Can be of length one or a vector. Specify index of
@@ -68,12 +68,13 @@ This function is part of a family of functions each of which end with
   'output_instructions'. There is a wrapper for these functions called
   'instructions'.
 }
+\author{
+Frederik Sachser
+}
 \seealso{
 \code{\link{instructions}}, \code{\link{implement_instructions}},
   \code{\link{check_instructions}},
   \code{\link{delete_deprecated_instructions}},
   \code{\link{execute_instructions}}, \code{\link{output_instructions}}
 }
-\author{
-Frederik Sachser
-}
+
