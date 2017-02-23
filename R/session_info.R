@@ -12,12 +12,7 @@ session_info <-
     if (dir.exists(dirname(session_info_filepath)) == FALSE) {
       dir.create(dirname(session_info_filepath), recursive = TRUE)
     }
-    cat("#### Memory Usage ####\n", append = FALSE, file = session_info_filepath)
-    sink(session_info_filepath, append = TRUE)
-    print(memory_usage())
-    sink()
-    
-    cat("\n\n#### Sys.time ####\n", append = TRUE, file = session_info_filepath)
+    cat("#### Sys.time ####\n", append = FALSE, file = session_info_filepath)
     sink(session_info_filepath, append = TRUE)
     print(Sys.time())
     sink()
