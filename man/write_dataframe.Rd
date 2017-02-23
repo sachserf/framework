@@ -26,4 +26,3 @@ This function will write multiple dataframes into separate
 \author{
 Frederik Sachser
 }
-

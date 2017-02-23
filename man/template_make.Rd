@@ -82,4 +82,3 @@ This function will create a template for a make-like file. It is
 \author{
 Frederik Sachser
 }
-

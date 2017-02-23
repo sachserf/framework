@@ -19,10 +19,9 @@ This function will add a log entry to the specified file.
 \note{
 If the file does not exist it will be written.
 }
-\author{
-Frederik Sachser
-}
 \seealso{
 \code{\link{log_summary}}
 }
-
+\author{
+Frederik Sachser
+}

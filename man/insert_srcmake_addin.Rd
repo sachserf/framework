@@ -12,4 +12,3 @@ print source("make.R") to console. Optionally it is possible to assign a custom
 keybinding (see RStudio/Tools/Modify keyboard shortcuts... and search for
 "Execute source('make.R')").
 }
-

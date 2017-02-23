@@ -90,10 +90,9 @@ The function creates a predefined directory structure and some
   files to enhance project organization. Among other things it is a wrapper
   for 'template_make'.
 }
-\author{
-Frederik Sachser
-}
 \seealso{
 \code{\link{project_framework}}
 }
-
+\author{
+Frederik Sachser
+}

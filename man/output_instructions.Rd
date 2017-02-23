@@ -20,13 +20,12 @@ This function is part of a family of functions each of which end with
   'execute_instructions' and optionally 'output_instructions'. There is a 
   wrapper for these functions called 'instructions'.
 }
-\author{
-Frederik Sachser
-}
 \seealso{
 \code{\link{prepare_instructions}}, 
   \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
   \code{\link{delete_deprecated_instructions}}, 
   \code{\link{execute_instructions}}, \code{\link{instructions}}
 }
-
+\author{
+Frederik Sachser
+}

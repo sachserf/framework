@@ -42,4 +42,3 @@ Other YAML header options will be choosen automatically. Edit the
 \author{
 Frederik Sachser
 }
-

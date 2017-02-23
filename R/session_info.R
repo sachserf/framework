@@ -6,16 +6,29 @@
 #' @note Directories will be created recursively.
 #' @author Frederik Sachser
 #' @export
-session_info <- 
-function(session_info_filepath = "meta/session_info.txt") 
-{
+session_info <-
+  function(session_info_filepath = "meta/session_info.txt")
+  {
     if (dir.exists(dirname(session_info_filepath)) == FALSE) {
-        dir.create(dirname(session_info_filepath), recursive = TRUE)
+      dir.create(dirname(session_info_filepath), recursive = TRUE)
     }
-    sink(session_info_filepath)
+    cat("#### Memory Usage ####\n", append = FALSE, file = session_info_filepath)
+    sink(session_info_filepath, append = TRUE)
+    print(memory_usage())
+    sink()
+    
+    cat("\n\n#### Sys.time ####\n", append = TRUE, file = session_info_filepath)
+    sink(session_info_filepath, append = TRUE)
     print(Sys.time())
+    sink()
+    
+    cat("\n\n#### Sys.info ####\n", append = TRUE, file = session_info_filepath)
+    sink(session_info_filepath, append = TRUE)
     print(Sys.info()["user"])
+    sink()
+    
+    cat("\n\n#### sessionInfo ####\n", append = TRUE, file = session_info_filepath)
+    sink(session_info_filepath, append = TRUE)
     print(utils::sessionInfo(package = NULL))
     sink()
-}
-
+  }
