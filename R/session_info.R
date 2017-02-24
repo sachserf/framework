@@ -22,6 +22,11 @@ session_info <-
     print(Sys.info()["user"])
     sink()
     
+    cat("\n\n#### memory usage ####\n", append = TRUE, file = session_info_filepath)
+    sink(session_info_filepath, append = TRUE)
+    print(memory_usage())
+    sink()
+    
     cat("\n\n#### sessionInfo ####\n", append = TRUE, file = session_info_filepath)
     sink(session_info_filepath, append = TRUE)
     print(utils::sessionInfo(package = NULL))
