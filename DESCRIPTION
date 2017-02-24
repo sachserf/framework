@@ -1,8 +1,8 @@
 Package: framework
 Type: Package
 Title: A framework for project organisation
-Version: 1.8.41
-Date: 2017-02-23
+Version: 1.8.42
+Date: 2017-02-24
 Author: Frederik Sachser
 Maintainer: <f.sachser@gmx.at>
 Description: The functions within the package facilitate the process of creating

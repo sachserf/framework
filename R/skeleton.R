@@ -96,6 +96,7 @@ skeleton <-
     }
     
     #### write README.md ####
+    framework_version <- paste0(unlist(utils::packageVersion('framework')), collapse = ".")
     cat(
       '# Readme of the project: ',
       basename(getwd()),
@@ -103,7 +104,11 @@ skeleton <-
       Sys.info()['user'],
       '** at **',
       as.character(Sys.time()),
-      '**\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.\n\n\n\n',
+      "**\n\n- This project was build by using the package `framework` (v", framework_version, ")
+      - visit https://github.com/sachserf/framework/blob/master/README.md for a short introduction
+      - visit https://sachserf.github.io for further information and tutorials",
+      
+      '\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.\n\n\n\n',
       file = 'README.md',
       sep = ''
     )

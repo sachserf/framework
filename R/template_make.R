@@ -25,13 +25,22 @@ template_make <- function(target_makeR = 'make.R',
     if (file.exists(target_makeR)) {
         stop("File exists. Delete the file and retry.")
     }
-  framework_version <- paste0(unlist(utils::packageVersion('framework')), collapse = ".")
+  
     cat(
 "############ make-like file ############
-
-# This project was build by using the package <<framework>> (v", framework_version, ")
-# visit https://github.com/sachserf/framework/blob/master/README.md for a short introduction
-# visit https://sachserf.github.io for further information and tutorials
+rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
+current_project <- '",basename(getwd()),"'
+############ files to process (chronological order) ############
+project_docs <- c('", paste(source_files, collapse = '\',\''),"')
+############ packages to install (not loading) ############
+pkg2install <- c('utils', 
+                 'tools',
+                 'rmarkdown',
+                 'knitr',
+                 'rstudioapi')
+############ packages to install AND load ############
+pkg2attach <- c('tidyverse', 
+                'stringi')
 
 ############ PREAMBLE ############
 
@@ -44,9 +53,6 @@ if ('package:framework' %in% search() == TRUE) {
 if ('localfun' %in% search() == TRUE) {
     detach(localfun)
 }
-
-# clear Global environment
-rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
 
 # initialize new environment: <<localfun>>
 localfun <- new.env(parent = .GlobalEnv)
@@ -69,22 +75,18 @@ rm(localfun)
 ############ PACKAGES ############
 
 # install packages without loading:
-pkg_install(c('utils', 
-        'tools',
-        'rmarkdown',
-        'knitr',
-        'rstudioapi'),
+pkg_install(pkg_names = pkg2install,
     attach = FALSE)
 
 # install and load packages:
-pkg_install(c('tidyverse'),
+pkg_install(pkg_names = pkg2attach,
     attach = TRUE)
 
 ############ SOURCE ############
 
 # fill in R/Rmd-files in chronological order
 instructions(
-    source_files = c('", paste(source_files, collapse = '\',\''),"'), 
+    source_files = project_docs, 
     spin_index = ", spin_index,",
     cache_index = ", cache_index,",
     cache_dir = '", cache_dir,"',
@@ -98,6 +100,9 @@ instructions(
 )
 
 ############ SUPPLEMENT ############
+
+# clean globalenv
+rm(pkg2attach, pkg2install, project_docs, current_project)
 
 # save all data frames (within .GlobalEnv)
 write_dataframe(target_dir_data = '", target_dir_data, "', file_format = 'csv')

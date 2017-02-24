@@ -1,5 +1,5 @@
 # A *framework* for project structure with R 
-**Write comprehensible R-projects without a time lag.**
+**Build-up well-conceived R-projects without a time lag.**
 
 Using R and RStudio facilitates the process of initializing R-projects to 
 structure your work. However it is advisable to standardize your workflow in 
@@ -17,7 +17,7 @@ of R-code:
 - Automatic integration of **packrat** 
 - Automatic **backup** of a predefined set of files (e.g. the input or output of your project) to a mounted volume (such as your web server, dropbox-cloud, external-usb-drive etc.) 
 - Automatic installation of additional R-packages 
-- Automatically remove all objects in your .GlobalEnvironment to `ensure reproducibility` 
+- Automatically remove all objects in your .GlobalEnvironment to **ensure reproducibility** 
 - Automatic creation of **standard output**: 
     - rendered documents of R, Rmd and Rnw files (html, pdf, docx) 
     - all plots will be saved with a meaningful name. You can easily specify the format (pdf, png, jpeg,etc) and the names of the files by using chunk-labels (and/or global chunk options). 
@@ -77,16 +77,23 @@ Although the package includes addins for RStudio **you can use ANY Text-Editor**
 
 ## A Metaphor on how to use a framework-project 
 Writing a book is similar to writing an R-project. 
-- First of all you will specify a title and make up a concept to work on: `framework::project_framework("path/2/your/new/project")` 
-- Afterwards you don´t want to loose time and start writing your "chapters" (alias
-source-files). To create a link you should specify the chapters in your table of
-contents: Add the path of your source-files within the file `make.R`. 
-- At some point you want to print the book and see if you forgot something to mention: 
+
+- First of all you will specify a title and make up a concept to work on:  
+`framework::project_framework("path/2/your/new/project")` 
+
+- Afterwards you don´t want to loose time and start writing your "chapters" (alias source-files). To create a link you should specify the chapters in your table of contents:  
+Add the path of your source-files to the file `make.R`. 
+
+- At some point you want to print the book and see if you forgot something to mention:  
 `source("make.R")` 
-- Because you can not write an entire book without interruption you should comment the stage of your work in a README and be sure that you backup your files: Frequently edit the file README.md and write 
-comments while coding. 
-- Sometimes you want to store several version of your book while keeping track of all changes: use git to commit snapshots of your project. 
-- Someday you want to pass on your work to colleagues and/or reviewers:
+
+- Because you can not write an entire book without interruption you should comment the stage of your work in a README and make sure to backup your files:  
+Frequently edit the file README.md and add comments to your code continuously. 
+
+- Sometimes you want to store several versions of your book while keeping track of all changes:  
+use git to commit snapshots of your project. 
+
+- Someday you want to pass on your work to colleagues and/or reviewers:  
 use packrat to ensure applicability of your project.
 
 ## Installation of the R-package `framework`
@@ -103,7 +110,8 @@ use packrat to ensure applicability of your project.
 - git 
 - packrat
 
-### Installation `devtools::install_github("sachserf/framework")`
+### Installation  
+`devtools::install_github("sachserf/framework")`
 
 ## Initialize a framework-project 
 - To start a new framework-project all you have to do is: `framework::project_framework("path/2/your/new/project")` 
@@ -116,16 +124,17 @@ use packrat to ensure applicability of your project.
     - Optionally use the function `template_html(path/to/the/new/file)`
 - make changes to the files and save them 
 - open the file `make.R` 
-- scroll down to the function `instructions` and add the `path/to/the/new/file.*` to the option `source_files` 
+- add the `path/to/the/new/file.*` to the object `project_docs` 
 - \*\*\*source the file `make.R`
 
 \*\*\* There are several ways to source the makefile: 
+
 1. open the R-console and type `source("make.R")` (Or use the Addin `insert source make R`) 
-2. open the file `make.R` and hit the `source`-button (upper-right corner of the source-pane
-in RStudio) 
-3. Use a keybinding for the Addin `source make R` to source the file
-`make.R` automatically (To enable this feature you will need to specify a custom
-keybinding within RStudio: Tools --> Modify Keyboard Shortcuts...)
+
+2. open the file `make.R` and hit the `source`-button (upper-right corner of the source-pane in RStudio) 
+
+3. Use a keybinding for the Addin `source make R` to source the file `make.R` automatically (To enable this feature you will need to specify a custom keybinding within RStudio: Tools --> Modify Keyboard Shortcuts...)
+
 4. Start a terminal in your project directory and use the command `RScript make.R`
 
 ## Further *Good behaviour* when working on framework-projects 
