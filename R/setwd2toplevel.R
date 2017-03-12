@@ -32,7 +32,14 @@ setwd2toplevel <- function(toplevel) {
         current_file_path <-
           normalizePath(rstudioapi::getActiveDocumentContext()$path)
         if (current_file_path == '') {
-          return(message('No Active Document. Skip setwd()'))
+          message('No Active Document. Try to set working directory to active project.')
+          current_file_path <-
+            rstudioapi::getActiveProject()
+          if (is.null(current_file_path)) {
+            return(message(
+              'No Active Document or Project. Skip setwd()'
+            ))
+          }
         }
       }
     }
