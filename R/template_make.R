@@ -76,11 +76,11 @@ setwd2toplevel <- function(toplevel) {
     }
   }
   # change wd to top level
-  if (grepl(pattern = '\\\\', x = current_file_path)) {
+  if (grepl(pattern = '\\\\\\\\', x = current_file_path)) {
     fp_split <-
-      unlist(strsplit(x = file.path(current_file_path), split = '\\\\'))
+      unlist(strsplit(x = file.path(current_file_path), split = '\\\\\\\\'))
     project_directory <-
-      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\'))
+      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\\\'))
   } else {
     fp_split <-
       unlist(strsplit(x = file.path(current_file_path), split = '/'))
