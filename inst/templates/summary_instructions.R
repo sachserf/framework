@@ -17,5 +17,6 @@ summary_instructions <- function(cache_dir) {
     filename = df_source_files$filename,
     instruction = df_source_files$instruction
   ))
+  cat("\n@WD: ", getwd())
   cat("\n--------------------------------------------\n")
 }
