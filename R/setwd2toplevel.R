@@ -52,7 +52,7 @@ setwd2toplevel <- function(toplevel) {
       project_directory <-
         file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\'))
     } else {
-      return(message('Can´t set working directory.'))
+      return(message('Cannot set working directory.'))
     }
   } else {
     fp_split <-
@@ -61,7 +61,7 @@ setwd2toplevel <- function(toplevel) {
       project_directory <-
         file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '/'))
     } else {
-      return(message('Can´t set working directory.'))
+      return(message('Cannot set working directory.'))
     }
   }
   if (dir.exists(project_directory) == FALSE) {
