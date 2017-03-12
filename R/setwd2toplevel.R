@@ -31,6 +31,9 @@ setwd2toplevel <- function(toplevel) {
         # http://stackoverflow.com/a/35842176/2292993
         current_file_path <-
           normalizePath(rstudioapi::getActiveDocumentContext()$path)
+        if (current_file_path == '') {
+          return(message('No Active Document. Skip setwd()'))
+        }
       }
     }
   }
