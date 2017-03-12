@@ -31,7 +31,7 @@ setwd2toplevel <- function(toplevel) {
         # http://stackoverflow.com/a/35842176/2292993
         current_file_path <-
           normalizePath(rstudioapi::getActiveDocumentContext()$path)
-        if (current_file_path == '') {
+        if (nchar(current_file_path) == 0) {
           message('No Active Document. Try to set working directory to active project.')
           current_file_path <-
             rstudioapi::getActiveProject()
@@ -48,13 +48,21 @@ setwd2toplevel <- function(toplevel) {
   if (grepl(pattern = '\\\\', x = current_file_path)) {
     fp_split <-
       unlist(strsplit(x = file.path(current_file_path), split = '\\\\'))
-    project_directory <-
-      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\'))
+    if (length(which(fp_split == toplevel)) > 0) {
+      project_directory <-
+        file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\'))
+    } else {
+      return(message('Can´t set working directory.'))
+    }
   } else {
     fp_split <-
       unlist(strsplit(x = file.path(current_file_path), split = '/'))
-    project_directory <-
-      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '/'))
+    if (length(which(fp_split == toplevel)) > 0) {
+      project_directory <-
+        file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '/'))
+    } else {
+      return(message('Can´t set working directory.'))
+    }
   }
   if (dir.exists(project_directory) == FALSE) {
     stop('Check typo of the top level directory')

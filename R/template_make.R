@@ -51,6 +51,7 @@ pkg2attach <- c('tidyverse',
 ############ ######## ############
 
 ############ SET WD ############
+
 setwd2toplevel <- function(toplevel) {
   cmdArgs <- commandArgs(trailingOnly = FALSE)
   needle <- '--file='
@@ -71,15 +72,15 @@ setwd2toplevel <- function(toplevel) {
       } else {
         # RStudio Run Selection
         current_file_path <-
-            normalizePath(rstudioapi::getActiveDocumentContext()$path)
-        if (current_file_path == '') {
-            message('No Active Document. Try to set working directory to active project.')
-            current_file_path <-
-                rstudioapi::getActiveProject()
-            if (is.null(current_file_path)) {
-                return(message(
-                    'No Active Document or Project. Skip setwd()'
-                ))
+          normalizePath(rstudioapi::getActiveDocumentContext()$path)
+        if (nchar(current_file_path) == 0) {
+          message('No Active Document. Try to set working directory to active project.')
+          current_file_path <-
+            rstudioapi::getActiveProject()
+          if (is.null(current_file_path)) {
+            return(message(
+              'No Active Document or Project. Skip setwd()'
+            ))
           }
         }
       }
@@ -89,13 +90,21 @@ setwd2toplevel <- function(toplevel) {
   if (grepl(pattern = '\\\\\\\\', x = current_file_path)) {
     fp_split <-
       unlist(strsplit(x = file.path(current_file_path), split = '\\\\\\\\'))
-    project_directory <-
-      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\\\'))
+    if (length(which(fp_split == toplevel)) > 0) {
+      project_directory <-
+        file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\\\'))
+    } else {
+      return(message('Can´t set working directory.'))
+    }
   } else {
     fp_split <-
       unlist(strsplit(x = file.path(current_file_path), split = '/'))
-    project_directory <-
-      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '/'))
+    if (length(which(fp_split == toplevel)) > 0) {
+      project_directory <-
+        file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '/'))
+    } else {
+      return(message('Can´t set working directory.'))
+    }
   }
   if (dir.exists(project_directory) == FALSE) {
     stop('Check typo of the top level directory')
