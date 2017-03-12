@@ -1,0 +1,17 @@
+LICENSE
+
+The framework package, an R package, is basically licensed under GPL (>= 2). But there is one exception:
+The function setwd2toplevel was adapted from different blog posts on stackoverflow. Therefore this function is licensed under CC BY-SA 3.0.
+The following posts were consulted and adapted:
+1. http://stackoverflow.com/a/36777602/7613841
+- Username: Jerry T (http://stackoverflow.com/users/2292993/jerry-t)
+2. http://stackoverflow.com/a/32016824/2292993
+- Username: aprstar (http://stackoverflow.com/users/4535465/aprstar)
+3. http://stackoverflow.com/a/35842176/2292993
+- Username: Richie Cotton (http://stackoverflow.com/users/134830/richie-cotton)
+4. http://stackoverflow.com/a/15373917/7613841
+- Username: steamer25 (http://stackoverflow.com/users/93345/steamer25)
+5. http://stackoverflow.com/a/1815743/7613841
+- Username: Suppressingfire (http://stackoverflow.com/users/49922/suppressingfire)
+6. http://stackoverflow.com/a/1816487/7613841
+- Username: hadley (http://stackoverflow.com/users/16632/hadley)

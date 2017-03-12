@@ -27,7 +27,9 @@ template_make <- function(target_makeR = 'make.R',
     }
   
     cat(
-"############ make-like file ############
+"############ ########### ############
+############ fast access ############
+############ ########### ############
 rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
 current_project <- '",basename(getwd()),"'
 ############ files to process (chronological order) ############
@@ -42,7 +44,55 @@ pkg2install <- c('utils',
 pkg2attach <- c('tidyverse', 
                 'stringi')
 
+
+
+############ ######## ############
 ############ PREAMBLE ############
+############ ######## ############
+
+############ SET WD ############
+setwd2toplevel <- function(toplevel) {
+  cmdArgs <- commandArgs(trailingOnly = FALSE)
+  needle <- '--file='
+  match <- grep(needle, cmdArgs)
+  if (length(match) > 0) {
+    # Rscript via command line
+    current_file_path <-
+      normalizePath(sub(needle, '', cmdArgs[match]))
+  } else {
+    ls_vars = ls(sys.frames()[[1]])
+    if ('fileName' %in% ls_vars) {
+      # Source'd via RStudio
+      current_file_path <- normalizePath(sys.frames()[[1]]$fileName)
+    } else {
+      if (!is.null(sys.frames()[[1]]$ofile)) {
+        # Source'd via R console
+        current_file_path <- normalizePath(sys.frames()[[1]]$ofile)
+      } else {
+        # RStudio Run Selection
+        current_file_path <-
+          normalizePath(rstudioapi::getActiveDocumentContext()$path)
+      }
+    }
+  }
+  # change wd to top level
+  if (grepl(pattern = '\\\\', x = current_file_path)) {
+    fp_split <-
+      unlist(strsplit(x = file.path(current_file_path), split = '\\\\'))
+    project_directory <-
+      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\'))
+  } else {
+    fp_split <-
+      unlist(strsplit(x = file.path(current_file_path), split = '/'))
+    project_directory <-
+      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '/'))
+  }
+  if (dir.exists(project_directory) == FALSE) {
+    stop('Check typo of the top level directory')
+  }
+  setwd(project_directory)
+}
+setwd2toplevel(toplevel = current_project)
 
 # detach package:framework
 if ('package:framework' %in% search() == TRUE) {
@@ -82,7 +132,13 @@ pkg_install(pkg_names = pkg2install,
 pkg_install(pkg_names = pkg2attach,
     attach = TRUE)
 
-############ SOURCE ############
+
+
+
+
+############ #### ############
+############ BODY ############
+############ #### ############
 
 # fill in R/Rmd-files in chronological order
 instructions(
@@ -99,7 +155,13 @@ instructions(
     knitr_cache = ", knitr_cache, "
 )
 
+
+
+
+
+############ ########## ############
 ############ SUPPLEMENT ############
+############ ########## ############
 
 # clean globalenv
 rm(pkg2attach, pkg2install, project_docs, current_project)

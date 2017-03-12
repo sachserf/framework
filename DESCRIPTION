@@ -1,13 +1,13 @@
 Package: framework
 Type: Package
 Title: A framework for project organisation
-Version: 1.8.43
-Date: 2017-02-24
+Version: 1.8.44
+Date: 2017-03-12
 Author: Frederik Sachser
 Maintainer: <f.sachser@gmx.at>
 Description: The functions within the package facilitate the process of creating
     customized project structures and enhance reproducibility of R-projects.
-License: GPL (>= 2)
+License: file LICENSE
 LazyData: TRUE
 Depends:
     R (>= 3.2)
