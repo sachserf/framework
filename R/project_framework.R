@@ -67,7 +67,7 @@
 #' @note Creation of the project_dir is recursive.
 #' @inheritParams session_info
 #' @seealso \code{\link{Rproj_init}}, \code{\link{git_init}}, 
-#'   \code{\link{skeleton}}
+#'   \code{\link{skeleton}}, \code{\link{package_framework}}
 #' @author Frederik Sachser
 #' @export
 project_framework <-
@@ -150,7 +150,7 @@ project_framework <-
 
     # edit Rbuildignore and DESCRIPTION
     if (file.exists(".Rbuildignore")) {
-      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, target_dir_figure, target_dir_data, target_dir_docs, session_info_filepath, "how-to-guide.md", target_makeR, source_dir, data_dir), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
+      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, target_dir_figure, target_dir_data, target_dir_docs, session_info_filepath, target_makeR, source_dir, data_dir, log_filepath), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
     }
 
     if (file.exists("DESCRIPTION")) {
@@ -158,5 +158,3 @@ project_framework <-
     }
 
   }
-
-

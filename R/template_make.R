@@ -186,7 +186,7 @@ instructions(
 rm(pkg2attach, pkg2install, project_docs, current_project)
 
 # save all data frames (within .GlobalEnv)
-write_dataframe(target_dir_data = '", target_dir_data, "', file_format = 'csv')
+write_dataframe(target_dir_data = '", target_dir_data, "', file_format = 'RData')
 
 # write log_entry
 log_entry(log_filepath = '", log_filepath, "')
