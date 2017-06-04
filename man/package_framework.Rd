@@ -8,10 +8,10 @@ package_framework(project_dir, rstudio = TRUE, init_git = TRUE,
   init_packrat = FALSE, custom_makeR = NULL, target_makeR = "make.R",
   fun_dir = "R", source_files = c("prepare.Rmd", "visualize.Rmd",
   "analyze.Rmd", "report.Rmd"), cache_dir = ".cache", source_dir = "docs",
-  data_dir = "data/raw", target_dir_figure = "inst/fig",
-  target_dir_docs = "docs/out", target_dir_data = "data",
+  data_dir = "inst/extdata", target_dir_figure = "inst/fig",
+  target_dir_docs = "inst/docs", target_dir_data = "data",
   devtools_create = TRUE, rename_figure = TRUE, rename_docs = TRUE,
-  log_filepath = "meta/log.csv",
+  log_filepath = "meta/log.csv", tree_target = "meta/tree.txt",
   session_info_filepath = "meta/session_info.txt", spin_index = 999,
   cache_index = 999, knitr_cache = FALSE)
 }
@@ -80,6 +80,8 @@ will be renamed and moved into a single directory.}
 
 \item{log_filepath}{Character. Specify relative file path (inlcuding the
 extension .csv) to write a log-file.}
+
+\item{tree_target}{Character. Optionally specify a file path to write the output to a file. default: stdout.}
 
 \item{session_info_filepath}{Character. File path to the target.}
 

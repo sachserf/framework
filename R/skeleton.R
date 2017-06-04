@@ -26,6 +26,7 @@ skeleton <-
            rename_figure = TRUE,
            rename_docs = TRUE,
            log_filepath = 'meta/log.csv',
+           tree_target = 'meta/tree.txt',
            session_info_filepath = 'meta/session_info.txt',
            spin_index,
            cache_index, 
@@ -43,6 +44,7 @@ skeleton <-
         file.path(target_dir_data),
         file.path(target_dir_docs),
         file.path(dirname(log_filepath)),
+        file.path(dirname(tree_target)),
         file.path(dirname(session_info_filepath))
       )
     basic_dirs <- basic_dirs[!basic_dirs %in% "character(0)"]
@@ -68,6 +70,7 @@ skeleton <-
         rename_figure,
         rename_docs,
         log_filepath,
+        tree_target,
         session_info_filepath,
         spin_index,
         cache_index,

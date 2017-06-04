@@ -1,7 +1,7 @@
 Package: framework
 Type: Package
 Title: A framework for project organisation
-Version: 1.8.46
+Version: 1.8.47
 Date: 2017-04-04
 Author: Frederik Sachser
 Maintainer: <f.sachser@gmx.at>
@@ -22,4 +22,4 @@ Suggests:
     knitr,
     devtools,
     dplyr
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1

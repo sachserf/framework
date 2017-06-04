@@ -12,6 +12,7 @@ project_framework(project_dir, rstudio = TRUE, init_git = TRUE,
   target_dir_figure = "out/fig", target_dir_docs = "out/docs",
   target_dir_data = "out/data", devtools_create = FALSE,
   rename_figure = TRUE, rename_docs = TRUE, log_filepath = "meta/log.csv",
+  tree_target = "meta/tree.txt",
   session_info_filepath = "meta/session_info.txt", spin_index = 999,
   cache_index = 999, knitr_cache = FALSE)
 }
@@ -80,6 +81,8 @@ will be renamed and moved into a single directory.}
 
 \item{log_filepath}{Character. Specify relative file path (inlcuding the
 extension .csv) to write a log-file.}
+
+\item{tree_target}{Character. Optionally specify a file path to write the output to a file. default: stdout.}
 
 \item{session_info_filepath}{Character. File path to the target.}
 

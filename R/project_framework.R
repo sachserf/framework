@@ -66,6 +66,7 @@
 #'   use a different target for your figures (target_dir_figure = NULL).
 #' @note Creation of the project_dir is recursive.
 #' @inheritParams session_info
+#' @inheritParams treedir
 #' @seealso \code{\link{Rproj_init}}, \code{\link{git_init}}, 
 #'   \code{\link{skeleton}}, \code{\link{package_framework}}
 #' @author Frederik Sachser
@@ -92,6 +93,7 @@ project_framework <-
            rename_figure = TRUE,
            rename_docs = TRUE,
            log_filepath = 'meta/log.csv',
+           tree_target = 'meta/tree.txt',
            session_info_filepath = 'meta/session_info.txt',
            spin_index = 999,
            cache_index = 999,
@@ -127,6 +129,7 @@ project_framework <-
       rename_figure,
       rename_docs,
       log_filepath,
+      tree_target,
       session_info_filepath,
       spin_index,
       cache_index,

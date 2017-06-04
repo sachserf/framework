@@ -18,6 +18,7 @@ template_make <- function(target_makeR = 'make.R',
                           rename_figure = TRUE,
                           rename_docs = TRUE,
                           log_filepath = 'meta/log.csv',
+                          tree_target = 'meta/tree.txt',
                           session_info_filepath = 'meta/session_info.txt',
                           spin_index,
                           cache_index,
@@ -187,6 +188,9 @@ rm(pkg2attach, pkg2install, project_docs, current_project)
 
 # save all data frames (within .GlobalEnv)
 write_dataframe(target_dir_data = '", target_dir_data, "', file_format = 'RData')
+
+# write tree
+treedir(tree_target = '", tree_target,"')
 
 # write log_entry
 log_entry(log_filepath = '", log_filepath, "')

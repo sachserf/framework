@@ -9,7 +9,7 @@ skeleton(custom_makeR = NULL, target_makeR = "make.R", fun_dir = "in/fun",
   source_dir = "in/docs", data_dir = "in/data",
   target_dir_figure = "out/figure", target_dir_docs = "out/docs",
   target_dir_data = "out/data", rename_figure = TRUE, rename_docs = TRUE,
-  log_filepath = "meta/log.csv",
+  log_filepath = "meta/log.csv", tree_target = "meta/tree.txt",
   session_info_filepath = "meta/session_info.txt", spin_index, cache_index,
   knitr_cache = FALSE)
 }
@@ -61,6 +61,8 @@ will be renamed and moved into a single directory.}
 
 \item{log_filepath}{Character. Specify relative file path (inlcuding the
 extension .csv) to write a log-file.}
+
+\item{tree_target}{Character. Optionally specify a file path to write the output to a file. default: stdout.}
 
 \item{session_info_filepath}{Character. File path to the target.}
 
