@@ -153,7 +153,7 @@ project_framework <-
 
     # edit Rbuildignore and DESCRIPTION
     if (file.exists(".Rbuildignore")) {
-      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, target_dir_figure, target_dir_data, target_dir_docs, session_info_filepath, target_makeR, source_dir, data_dir, log_filepath), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
+      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, target_dir_figure, target_dir_data, target_dir_docs, session_info_filepath, target_makeR, source_dir, data_dir, log_filepath, tree_target), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
     }
 
     if (file.exists("DESCRIPTION")) {
