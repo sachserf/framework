@@ -1,5 +1,5 @@
 #' write a log entry
-#' 
+#'
 #' @description This function will summarize the information of a specific
 #'   log-file.
 #' @return A list of dataframes including information about duration of work per
@@ -31,15 +31,15 @@ log_summary <-
       dplyr::summarise(SUM_HOURS = sum(DIFF_HOURS), SUM_MINS = sum(DIFF_MINS), N_DATE = length(unique(DATE))) %>%
       dplyr::ungroup() %>%
       dplyr::arrange(SUM_MINS)
-    
+
     per_DATE <- per_DATE_NODENAME %>%
       dplyr::group_by(DATE, WEEKDAY) %>%
       dplyr::summarise(SUM_HOURS = sum(DIFF_HOURS), SUM_MINS = sum(DIFF_MINS), N_NODENAME = length(unique(NODENAME))) %>%
       dplyr::ungroup() %>%
       dplyr::arrange(DATE)
-    
+
     log_summaries <- list("per_DATE_NODENAME" = per_DATE_NODENAME, "per_NODENAME" = per_NODENAME, "per_DATE" = per_DATE)
-    
-    print(log_summaries)
-    invisible(log_summaries)
+
+    #print(log_summaries)
+    return(log_summaries)
   }

@@ -1,5 +1,5 @@
 #' Initialize a git repo
-#' 
+#'
 #' @description Initialize a git repo within the current working directory.
 #' @return Add and commit all existing files to branch master. Afterwards
 #'   checkout to a newly created branch 'devel'.
@@ -8,13 +8,13 @@
 #' @export
 git_init <- function(){
   if (system('git --version') != 0) {
-    print("check if git is installed") 
+    print("check if git is installed")
   } else if (file.exists('.git')) {
     print(".git already exists")
   } else {
     system('git init')
     system("git add .")
-    system("git commit -am 'v0.0.0'")
+    system("git commit -m 'v0.0.0.9000'")
     system('git checkout -b devel')
     print("commit master and checkout devel: done")
   }

@@ -18,16 +18,16 @@
 #' @export
 prepare_instructions <-
   function(source_files,
-           spin_index = 0,
-           cache_index = 0,
-           cache_dir = ".cache",
-           source_dir = "in/src",
-           data_dir = "in/data",
-           target_dir_figure = "out/figure",
-           target_dir_docs = "out/docs",
-           rename_figure = TRUE,
-           rename_docs = TRUE,
-           knitr_cache = TRUE)
+           spin_index,
+           cache_index,
+           cache_dir,
+           source_dir,
+           data_dir,
+           target_dir_figure,
+           target_dir_docs,
+           rename_figure,
+           rename_docs,
+           knitr_cache)
   {
     # call file_path for input
     cache_dir <- file.path(cache_dir)
@@ -78,11 +78,11 @@ prepare_instructions <-
       unlink(x = file.path(cache_dir, "instructions.RData"),
              recursive = TRUE)
     }
-    
-    # if knitr_cache = TRUE make sure that target_dir_figure = NULL
+
+    # if knitr_cache = TRUE make sure that target_dir_figure = NULL (and delete previous figure dir)
     if (knitr_cache == TRUE) {
       target_dir_figure <- NULL
-    } 
+    }
 
     # write input to 'instructions.RData'
     save(
@@ -101,4 +101,34 @@ prepare_instructions <-
       knitr_cache,
       file = file.path(cache_dir, "instructions.RData")
     )
+
+    instructions <- list(source_files,
+                spin_index,
+                cache_index,
+                cache_dir,
+                source_dir,
+                data_dir,
+                target_dir_figure,
+                target_dir_docs,
+                path_snapshot_source_dir,
+                path_snapshot_data_dir,
+                rename_figure,
+                rename_docs,
+                knitr_cache)
+    names(instructions) <- c("source_files",
+                             "spin_index",
+                             "cache_index",
+                             "cache_dir",
+                             "source_dir",
+                             "data_dir",
+                             "target_dir_figure",
+                             "target_dir_docs",
+                             "path_snapshot_source_dir",
+                             "path_snapshot_data_dir",
+                             "rename_figure",
+                             "rename_docs",
+                             "knitr_cache")
+
+    return(instructions)
   }
+

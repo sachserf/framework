@@ -15,28 +15,28 @@
 #'   \code{\link{output_instructions}}
 #' @author Frederik Sachser
 #' @export
-delete_deprecated_instructions <- function(cache_dir = ".cache") {
+delete_deprecated_instructions <- function(source_files,
+                                           cache_dir,
+                                           data_dir,
+                                           df_source_files) {
   # check prerequisites
   if (all(file.exists(
     file.path(cache_dir, "df_source_files_temp.rds"),
     file.path(cache_dir, "df_source_files.rds"),
     file.path(cache_dir, "instructions.RData")
   ) == TRUE)) {
-    # reload instructions
-    load(file.path(cache_dir, "instructions.RData"))
+
     # reload df_source_files (last session)
     df_last_session <-
       readRDS(file = file.path(cache_dir, "df_source_files.rds"))
-    
-    
+
+
     # specify index of source-files that have been excluded since the last session
     delete_index <-
       which(df_last_session$filename %in% source_files == FALSE)
-    
-    
+
+
     ########## hier weiter ##########
-    df_source_files <-
-      readRDS(file = file.path(cache_dir, "df_source_files_temp.rds"))
     delete_index_2 <-
       which(df_last_session$filename %in% df_source_files$filename[which(df_source_files$order_change == TRUE)] == TRUE)
     delete_index <- unique(c(delete_index, delete_index_2))
@@ -51,12 +51,12 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
     #################################
     # delete deprecated files from of input that will be processed
     #    df_source_files$filename[which(df_source_files$order_change == TRUE)]
-    
-    
+
+
     #    grep(pattern = paste(df_source_files$filename[which(df_source_files$order_change == TRUE)]), x = df_last_session$filename, fixed = TRUE)
     #    delete_index_2 <- which(df_source_files$instruction == "source" | df_source_files$instruction == "nothing")
     #    df_source_files[delete_index_2, ]
-    
+
     if (isTRUE(length(delete_index) > 0)) {
       # figures
       the_figures <- df_last_session[delete_index, "figure_out"]
@@ -69,7 +69,7 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
           )
         ), recursive = TRUE)
       }
-      
+
       # temp_docs
       the_temp_docs <- df_last_session[delete_index, "temp_docs_out"]
       for (i in seq_along(the_temp_docs)) {
@@ -81,7 +81,7 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
           )
         ), recursive = TRUE)
       }
-      
+
       # docs
       the_docs <-
         paste0(df_last_session[delete_index, "docs_out"], "_", df_last_session[delete_index, "basename_noxt"])
@@ -94,7 +94,7 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
           )
         ), recursive = TRUE)
       }
-      
+
       # image_cache
       the_image <- df_last_session[delete_index, "image_cache"]
       for (i in seq_along(the_image)) {
@@ -106,7 +106,7 @@ delete_deprecated_instructions <- function(cache_dir = ".cache") {
           )
         ), recursive = TRUE)
       }
-      
+
     }
   }
 }

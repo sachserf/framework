@@ -17,23 +17,16 @@
 #' @author Frederik Sachser
 #' @export
 execute_instructions <-
-  function (cache_dir = ".cache")
+  function(cache_dir,
+            source_dir,
+            data_dir,
+            target_dir_figure,
+            target_dir_docs,
+            path_snapshot_source_dir,
+            path_snapshot_data_dir,
+            knitr_cache,
+           df_source_files)
   {
-    # check prerequisites
-    if (any(file.exists(
-      file.path(cache_dir, "df_source_files_temp.rds"),
-      file.path(cache_dir, "instructions.RData")
-    ) == FALSE)) {
-      stop(
-        "Required files in cache are missing. Recall preceding functions of the 'framework instructions'-family and retry. For details see ?instructions"
-      )
-    }
-    # reload instructions
-    load(file.path(cache_dir, "instructions.RData"))
-    # reload temporary df_source_files
-    df_source_files <-
-      readRDS(file = file.path(cache_dir, "df_source_files_temp.rds"))
-
     # create all required directories in cache
     sapply(
       X = dirname(df_source_files$image_cache),
@@ -59,7 +52,7 @@ execute_instructions <-
         figure_out = df_source_files$figure_out[i],
         use_spin = df_source_files$use_spin[i],
         file_ext = df_source_files$file_ext[i],
-        knitr_cache
+        knitr_cache = knitr_cache
       )
     }
 

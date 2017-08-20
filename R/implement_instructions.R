@@ -16,18 +16,15 @@
 #' @author Frederik Sachser
 #' @export
 implement_instructions <-
-  function(cache_dir = ".cache")
+  function(source_files,
+           spin_index,
+           cache_index,
+           cache_dir,
+           source_dir,
+           target_dir_figure,
+           target_dir_docs)
   {
-    # check prerequisites
-    if (file.exists(file.path(cache_dir, "instructions.RData")) ==
-        FALSE) {
-      stop(
-        "Required files in cache are missing. Recall preceding functions of the 'framework instructions'-family and retry. For details see ?instructions"
-      )
-    }
-    # reload instructions
 
-    load(file.path(cache_dir, "instructions.RData"))
 
     # prepare df_cache
     # specify rownames
@@ -55,6 +52,7 @@ implement_instructions <-
     image_cache <- paste0(file.path(cache_dir, filename_noxt,
                                     basename(filename_noxt)), ".RData")
 
+#    log <- file.path("meta", paste0(tools::file_path_sans_ext(basename(source_files)), ".log"))
 
     # specify names for target files in output
     filename_out <- gsub(pattern = source_dir, replacement = "",
@@ -92,6 +90,7 @@ implement_instructions <-
         figure_out,
         docs_out,
         temp_docs_out,
+#        log,
         stringsAsFactors = FALSE
       )
 
@@ -136,4 +135,6 @@ implement_instructions <-
     saveRDS(object = df_source_files,
             file = file.path(cache_dir,
                              "df_source_files_temp.rds"))
+    return(df_source_files)
+#    assign("df_source_files", df_source_files, pos = sys.frame())
   }
