@@ -60,12 +60,7 @@ RData file within the cache directory containing all information of
 This function processes the given instructions.
 }
 \note{
-This function is part of a family of functions each of which end with
-  '_instructions'. The order to call these functions is:
-  'prepare_instructions', 'implement_instructions', 'check_instructions',
-  'delete_deprecated_instructions', 'execute_instructions' and optionally
-  'output_instructions'. There is a wrapper for these functions called
-  'instructions'.
+This function was not designed to be run separately. Use framework::instructions() instead.
 }
 \seealso{
 \code{\link{instructions}}, \code{\link{implement_instructions}},

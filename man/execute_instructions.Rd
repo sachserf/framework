@@ -27,10 +27,16 @@ rendered plots that are specified within your input scripts.}
 the function 'framework::instructions()' the directory will contain 
 rendered documents (pdf, html, ...) of your input scripts.}
 
+\item{path_snapshot_source_dir}{Character. File path for the snapshot of the source directory.}
+
+\item{path_snapshot_data_dir}{Character. File path for the snapshot of the data directory.}
+
 \item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
 chunks of a file you should additionally specify knitr_cache = TRUE within 
 the function 'instructions'. By choosing this option it is not possible to 
 use a different target for your figures (target_dir_figure = NULL).}
+
+\item{df_source_files}{Object of class data.frame (i.e. output of the function framework::implement_instructions).}
 }
 \description{
 The function will execute the instructions (source/render
@@ -38,12 +44,7 @@ The function will execute the instructions (source/render
   'specify_instructions'.
 }
 \note{
-This function is part of a family of functions each of which end with
-  '_instructions'. The order to call these functions is:
-  'prepare_instructions', 'implement_instructions', 'check_instructions',
-  'delete_deprecated_instructions', 'execute_instructions' and optionally
-  'output_instructions'. There is a wrapper for these functions called
-  'instructions'.
+This function was not designed to be run separately. Use framework::instructions() instead.
 }
 \seealso{
 \code{\link{prepare_instructions}},

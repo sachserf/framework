@@ -6,7 +6,7 @@
 \usage{
 instructions(source_files, spin_index, cache_index, cache_dir, source_dir,
   data_dir, target_dir_figure, target_dir_docs, rename_figure, rename_docs,
-  knitr_cache)
+  knitr_cache, path_snapshot_data_dir, path_snapshot_source_dir)
 }
 \arguments{
 \item{source_files}{Character. Specify a vector of file paths, if you want to
@@ -51,6 +51,10 @@ will be renamed and moved into a single directory.}
 chunks of a file you should additionally specify knitr_cache = TRUE within 
 the function 'instructions'. By choosing this option it is not possible to 
 use a different target for your figures (target_dir_figure = NULL).}
+
+\item{path_snapshot_data_dir}{Character. File path for the snapshot of the data directory.}
+
+\item{path_snapshot_source_dir}{Character. File path for the snapshot of the source directory.}
 }
 \description{
 This function is the heart of the package 'framework'. It is a

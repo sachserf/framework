@@ -30,6 +30,12 @@ rendered plots that are specified within your input scripts.}
 \item{target_dir_docs}{Character. Treat this directory as read-only. By using
 the function 'framework::instructions()' the directory will contain 
 rendered documents (pdf, html, ...) of your input scripts.}
+
+\item{path_snapshot_source_dir}{Character. File path for the snapshot of the source directory.}
+
+\item{path_snapshot_data_dir}{Character. File path for the snapshot of the data directory.}
+
+\item{df_source_files}{Object of class data.frame (i.e. output of the function framework::implement_instructions).}
 }
 \description{
 This function will check and potentially correct your
@@ -37,12 +43,7 @@ This function will check and potentially correct your
   file should exist).
 }
 \note{
-This function is part of a family of functions each of which end with
-  '_instructions'. The order to call these functions is:
-  'prepare_instructions', 'implement_instructions', 'check_instructions',
-  'delete_deprecated_instructions', 'execute_instructions' and optionally
-  'output_instructions'. There is a wrapper for these functions called
-  'instructions'.
+This function was not designed to be run separately. Use framework::instructions() instead.
 }
 \seealso{
 \code{\link{prepare_instructions}},

@@ -14,12 +14,14 @@ Depends:
 Imports:
     tools,
     utils,
-    grDevices
+    grDevices,
+    magrittr
 Suggests:
     rstudioapi (>= 0.5),
     rmarkdown (>= 0.9.6),
     packrat,
     knitr,
     devtools,
-    dplyr
+    dplyr,
+    git2r
 RoxygenNote: 6.0.1

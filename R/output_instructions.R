@@ -3,11 +3,8 @@
 #' @description This function will rename and move the whole output of your
 #'   instructions into predefined target directories.
 #' @inheritParams project_framework
-#' @note This function is part of a family of functions each of which end with
-#'   '_instructions'. The order to call these functions is:
-#'   'prepare_instructions', 'implement_instructions', 'check_instructions',
-#'   'execute_instructions' and optionally 'output_instructions'. There is a
-#'   wrapper for these functions called 'instructions'.
+#' @inheritParams check_instructions
+#' @note This function was not designed to be run separately. Use framework::instructions() instead.
 #' @seealso \code{\link{prepare_instructions}},
 #'   \code{\link{implement_instructions}}, \code{\link{check_instructions}},
 #'   \code{\link{delete_deprecated_instructions}},

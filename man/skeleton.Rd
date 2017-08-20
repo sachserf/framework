@@ -22,8 +22,11 @@ skeleton(custom_makeR = NULL, target_makeR = "make.R",
 this option if you want to use a customized version instead of the template
 for the file 'make.R'.}
 
-\item{target_makeR}{Character. Target directory of the 'makefile'. Default is
+\item{target_makeR}{Character. Filename of the 'makefile'. Default is
 'make.R'. Specify relative file path if you want to use subdirectories.}
+
+\item{target_params}{Character. Filename of the 'makefile'. Default is
+'make.R'. Specify relative file path if you want to use subdirectories. Should be the same directory as target_makeR.}
 
 \item{source_files}{Character. Specify a vector of file paths, if you want to
 create predefined templates for your analysis (relative to top-level). 

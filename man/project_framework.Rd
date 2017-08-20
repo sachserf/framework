@@ -37,8 +37,11 @@ your desktop.}
 this option if you want to use a customized version instead of the template
 for the file 'make.R'.}
 
-\item{target_makeR}{Character. Target directory of the 'makefile'. Default is
+\item{target_makeR}{Character. Filename of the 'makefile'. Default is
 'make.R'. Specify relative file path if you want to use subdirectories.}
+
+\item{target_params}{Character. Filename of the 'makefile'. Default is
+'make.R'. Specify relative file path if you want to use subdirectories. Should be the same directory as target_makeR.}
 
 \item{fun_dir}{Character. Target directory of functions. Default is 'in/R'. 
 Some functions of the framework-package will be copied to a subdirectory of

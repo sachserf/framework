@@ -16,7 +16,7 @@ A list of dataframes including information about duration of work per
 }
 \description{
 This function will summarize the information of a specific
-  log-file.
+  log-file (the output of framework::log_entry()).
 }
 \note{
 The results are not necessarily as intended: It is assumed that you work once a day without breaks. Optionally adjust the logfile as well as the function log_summary to fit your needs.

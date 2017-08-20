@@ -4,12 +4,10 @@
 #'   instructions (e.g. if you want to load a file from cache the image of the
 #'   file should exist).
 #' @inheritParams project_framework
-#' @note This function is part of a family of functions each of which end with
-#'   '_instructions'. The order to call these functions is:
-#'   'prepare_instructions', 'implement_instructions', 'check_instructions',
-#'   'delete_deprecated_instructions', 'execute_instructions' and optionally
-#'   'output_instructions'. There is a wrapper for these functions called
-#'   'instructions'.
+#' @param path_snapshot_source_dir Character. File path for the snapshot of the source directory.
+#' @param path_snapshot_data_dir Character. File path for the snapshot of the data directory.
+#' @param df_source_files Object of class data.frame (i.e. output of the function framework::implement_instructions).
+#' @note This function was not designed to be run separately. Use framework::instructions() instead.
 #' @seealso \code{\link{prepare_instructions}},
 #'   \code{\link{implement_instructions}}, \code{\link{instructions}},
 #'   \code{\link{instructions}}, \code{\link{execute_instructions}},

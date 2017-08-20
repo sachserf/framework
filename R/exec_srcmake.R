@@ -4,7 +4,7 @@
 #' source the file 'make.R'. Optionally it is possible to assign a custom
 #' keybinding (see RStudio/Tools/Modify keyboard shortcuts... and search for
 #' "Execute source('make.R')").
-#'
+#' @author Frederik Sachser
 #' @export
 srcmake_addin <- function() {
   filesWD <-

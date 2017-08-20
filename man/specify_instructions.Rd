@@ -9,77 +9,49 @@ specify_instructions(target_dir_docs, target_dir_figure, source_dir, filename,
   temp_docs_out, figure_source, figure_out, use_spin, file_ext, knitr_cache)
 }
 \arguments{
-\item{target_dir_docs}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{target_dir_docs}{Character. Treat this directory as read-only. By using
+the function 'framework::instructions()' the directory will contain 
+rendered documents (pdf, html, ...) of your input scripts.}
 
-\item{target_dir_figure}{For further information and examples run the
-function 'instructions' and open the file 'df_source_files.rds' within the
-cache directory.}
+\item{target_dir_figure}{Character. Treat this directory as read-only. By 
+using the function 'framework::instructions()' the directory will contain 
+rendered plots that are specified within your input scripts.}
 
-\item{source_dir}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{source_dir}{Character. Specify file path to directory where you want to
+store all your input files.}
 
-\item{filename}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{filename}{Column output from framework::implement_instructions.}
 
-\item{image_cache}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{image_cache}{Column output from framework::implement_instructions.}
 
-\item{instruction}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{instruction}{Column output from framework::implement_instructions.}
 
-\item{docs_out}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{docs_out}{Column output from framework::implement_instructions.}
 
-\item{filename_noxt}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{filename_noxt}{Column output from framework::implement_instructions.}
 
-\item{basename_noxt}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{basename_noxt}{Column output from framework::implement_instructions.}
 
-\item{temp_docs_out}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{temp_docs_out}{Column output from framework::implement_instructions.}
 
-\item{figure_source}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{figure_source}{Column output from framework::implement_instructions.}
 
-\item{figure_out}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{figure_out}{Column output from framework::implement_instructions.}
 
-\item{use_spin}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{use_spin}{Column output from framework::implement_instructions.}
 
-\item{file_ext}{For further information and examples run the function
-'instructions' and open the file 'df_source_files.rds' within the cache
-directory.}
+\item{file_ext}{Column output from framework::implement_instructions.}
 
-\item{knitr_cache}{knitr_cache Logical. If you want to use the package
-'knitr' to cache chunks of a file you should additionally specify
-knitr_cache = TRUE.}
+\item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
+chunks of a file you should additionally specify knitr_cache = TRUE within 
+the function 'instructions'. By choosing this option it is not possible to 
+use a different target for your figures (target_dir_figure = NULL).}
 }
 \description{
-This function is not meant to be called directly by the user. It
-  is integrated into the function 'execute_instructions'.
+This function will source/render/knit input files depending on the parameters.
 }
 \note{
-This function is part of a family of functions each of which end with
-  '_instructions'. The order to call these functions is:
-  'prepare_instructions', 'implement_instructions', 'check_instructions',
-  'delete_deprecated_instructions', 'execute_instructions' and optionally
-  'output_instructions'. There is a wrapper for these functions called
-  'instructions'.
+This function was not designed to be run separately. Use framework::instructions() instead.
 }
 \seealso{
 \code{\link{prepare_instructions}},

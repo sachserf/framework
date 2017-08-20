@@ -1,58 +1,20 @@
 #' Specify instructions!
 #'
-#' @description This function is not meant to be called directly by the user. It
-#'   is integrated into the function 'execute_instructions'.
-#' @param target_dir_docs For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param target_dir_figure For further information and examples run the
-#'   function 'instructions' and open the file 'df_source_files.rds' within the
-#'   cache directory.
-#' @param source_dir For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param filename For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param image_cache For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param instruction For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param docs_out For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param filename_noxt For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param basename_noxt For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param temp_docs_out For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param figure_source For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param figure_out For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param use_spin For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param file_ext For further information and examples run the function
-#'   'instructions' and open the file 'df_source_files.rds' within the cache
-#'   directory.
-#' @param knitr_cache knitr_cache Logical. If you want to use the package
-#'   'knitr' to cache chunks of a file you should additionally specify
-#'   knitr_cache = TRUE.
-#' @note This function is part of a family of functions each of which end with
-#'   '_instructions'. The order to call these functions is:
-#'   'prepare_instructions', 'implement_instructions', 'check_instructions',
-#'   'delete_deprecated_instructions', 'execute_instructions' and optionally
-#'   'output_instructions'. There is a wrapper for these functions called
-#'   'instructions'.
+#' @description This function will source/render/knit input files depending on the parameters.
+#' @inheritParams project_framework
+#' @inheritParams check_instructions
+#' @param filename Column output from framework::implement_instructions.
+#' @param image_cache Column output from framework::implement_instructions.
+#' @param instruction Column output from framework::implement_instructions.
+#' @param docs_out Column output from framework::implement_instructions.
+#' @param filename_noxt Column output from framework::implement_instructions.
+#' @param basename_noxt Column output from framework::implement_instructions.
+#' @param temp_docs_out Column output from framework::implement_instructions.
+#' @param figure_source Column output from framework::implement_instructions.
+#' @param figure_out Column output from framework::implement_instructions.
+#' @param use_spin Column output from framework::implement_instructions.
+#' @param file_ext Column output from framework::implement_instructions.
+#' @note This function was not designed to be run separately. Use framework::instructions() instead.
 #' @seealso \code{\link{prepare_instructions}},
 #'   \code{\link{implement_instructions}}, \code{\link{check_instructions}},
 #'   \code{\link{instructions}}, \code{\link{execute_instructions}},
@@ -76,6 +38,8 @@ specify_instructions <-
            file_ext,
            knitr_cache)
   {
+    prj_toplvl <- basename(unlist(strsplit(normalizePath(filename), filename)))
+    
     # deprecated source_files
     files_source_dir <- list.files(source_dir, full.names = TRUE, recursive = TRUE)
     filename_dot <- paste0(filename_noxt, ".")

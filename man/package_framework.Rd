@@ -6,16 +6,17 @@
 \usage{
 package_framework(project_dir, rstudio = TRUE, init_git = TRUE,
   init_packrat = FALSE, custom_makeR = NULL, target_makeR = "make.R",
-  fun_dir = "R", source_files = c("prepare.R", "visualize.Rmd"),
-  cache_dir = ".cache", pkg_cran_install = c("utils", "tools", "rmarkdown",
-  "knitr", "rstudioapi"), pkg_cran_load = c("tidyverse"),
-  pkg_gh_install = NULL, pkg_gh_load = NULL, source_dir = "files",
-  data_dir = "inst/extdata", target_dir_figure = "figr",
-  target_dir_docs = "docs", target_dir_data = "data",
-  listofdf = "GlobalEnv", file_format = "RData", delete_target_dir = TRUE,
-  devtools_create = TRUE, rename_figure = TRUE, rename_docs = TRUE,
-  log_filepath = "meta/log.csv", tree_target = "meta/tree.txt",
-  include_hidden = FALSE, filepath_git_summary = "meta/git_summary.txt",
+  target_params = "params.R", fun_dir = "R", source_files = c("prepare.R",
+  "visualize.Rmd"), cache_dir = ".cache", pkg_cran_install = c("utils",
+  "tools", "rmarkdown", "knitr", "rstudioapi"),
+  pkg_cran_load = c("tidyverse"), pkg_gh_install = NULL,
+  pkg_gh_load = NULL, source_dir = "files", data_dir = "inst/extdata",
+  target_dir_figure = "figr", target_dir_docs = "docs",
+  target_dir_data = "data", listofdf = "GlobalEnv", file_format = "RData",
+  delete_target_dir = TRUE, devtools_create = TRUE, rename_figure = TRUE,
+  rename_docs = TRUE, log_filepath = "meta/log.csv",
+  tree_target = "meta/tree.txt", include_hidden = FALSE,
+  filepath_git_summary = "meta/git_summary.txt",
   session_info_filepath = "meta/session_info.txt", spin_index = 999,
   cache_index = 999, knitr_cache = FALSE)
 }
@@ -36,8 +37,11 @@ your desktop.}
 this option if you want to use a customized version instead of the template
 for the file 'make.R'.}
 
-\item{target_makeR}{Character. Target directory of the 'makefile'. Default is
+\item{target_makeR}{Character. Filename of the 'makefile'. Default is
 'make.R'. Specify relative file path if you want to use subdirectories.}
+
+\item{target_params}{Character. Filename of the 'makefile'. Default is
+'make.R'. Specify relative file path if you want to use subdirectories. Should be the same directory as target_makeR.}
 
 \item{fun_dir}{Character. Target directory of functions. Default is 'in/R'. 
 Some functions of the framework-package will be copied to a subdirectory of

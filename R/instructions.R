@@ -6,6 +6,7 @@
 #'   'delete_deprecated_instructions', 'execute_instructions' and
 #'   'output_instructions'.
 #' @inheritParams project_framework
+#' @inheritParams check_instructions
 #' @seealso \code{\link{prepare_instructions}},
 #'   \code{\link{implement_instructions}}, \code{\link{check_instructions}},
 #'   \code{\link{delete_deprecated_instructions}},
@@ -23,7 +24,9 @@ instructions <-
             target_dir_docs,
             rename_figure,
             rename_docs,
-            knitr_cache)
+            knitr_cache,
+           path_snapshot_data_dir,
+           path_snapshot_source_dir)
   {
     list2env(prepare_instructions(
       source_files,
@@ -59,7 +62,6 @@ instructions <-
                                    cache_dir,
                                    data_dir,
                                    df_source_files)
-    # hier weiter:
     execute_instructions(cache_dir,
                          source_dir,
                          data_dir,

@@ -23,7 +23,7 @@ The function checks whether the specified packages are installed
 pkg_names must be specified in the following format: username/repo[/subdir][@ref|#pull]
 }
 \seealso{
-\code{\link{pkg_cran}}, \code{\link{devtools::install_github}}
+\code{\link{pkg_cran}}, \code{\link[devtools]{install_github}}
 }
 \author{
 Frederik Sachser

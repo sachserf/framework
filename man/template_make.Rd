@@ -13,13 +13,17 @@ template_make(target_makeR = "make.R", target_params = "params.R",
   target_dir_docs = "out/docs", target_dir_data = "out/data",
   rename_figure = TRUE, rename_docs = TRUE, log_filepath = "meta/log.csv",
   tree_target = "meta/tree.txt",
-  session_info_filepath = "meta/session_info.txt", listofdf = "GlobalEnv",
+  session_info_filepath = "meta/session_info.txt",
+  filepath_git_summary = "meta/git_summary.txt", listofdf = "GlobalEnv",
   file_format = "RData", include_hidden = FALSE, delete_target_dir = TRUE,
   knitr_cache = FALSE)
 }
 \arguments{
-\item{target_makeR}{Character. Target directory of the 'makefile'. Default is
+\item{target_makeR}{Character. Filename of the 'makefile'. Default is
 'make.R'. Specify relative file path if you want to use subdirectories.}
+
+\item{target_params}{Character. Filename of the 'makefile'. Default is
+'make.R'. Specify relative file path if you want to use subdirectories. Should be the same directory as target_makeR.}
 
 \item{source_files}{Character. Specify a vector of file paths, if you want to
 create predefined templates for your analysis (relative to top-level). 
@@ -79,6 +83,8 @@ extension .csv) to write a log-file.}
 \item{tree_target}{Character. Optionally specify a file path to write the output to a file. default: stdout.}
 
 \item{session_info_filepath}{Character. File path to the target.}
+
+\item{filepath_git_summary}{Character. File path to the target.}
 
 \item{listofdf}{Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.}
 

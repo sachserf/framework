@@ -26,17 +26,15 @@ and moved into a single directory.}
 
 \item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
 will be renamed and moved into a single directory.}
+
+\item{df_source_files}{Object of class data.frame (i.e. output of the function framework::implement_instructions).}
 }
 \description{
 This function will rename and move the whole output of your
   instructions into predefined target directories.
 }
 \note{
-This function is part of a family of functions each of which end with
-  '_instructions'. The order to call these functions is:
-  'prepare_instructions', 'implement_instructions', 'check_instructions',
-  'execute_instructions' and optionally 'output_instructions'. There is a
-  wrapper for these functions called 'instructions'.
+This function was not designed to be run separately. Use framework::instructions() instead.
 }
 \seealso{
 \code{\link{prepare_instructions}},
