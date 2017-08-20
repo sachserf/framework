@@ -4,14 +4,18 @@
 \alias{skeleton}
 \title{Create a framework-project skeleton}
 \usage{
-skeleton(custom_makeR = NULL, target_makeR = "make.R", fun_dir = "in/fun",
-  source_files = c("load.R", "report.Rmd"), cache_dir = ".cache",
-  source_dir = "in/docs", data_dir = "in/data",
-  target_dir_figure = "out/figure", target_dir_docs = "out/docs",
-  target_dir_data = "out/data", rename_figure = TRUE, rename_docs = TRUE,
-  log_filepath = "meta/log.csv", tree_target = "meta/tree.txt",
-  session_info_filepath = "meta/session_info.txt", spin_index, cache_index,
-  knitr_cache = FALSE)
+skeleton(custom_makeR = NULL, target_makeR = "make.R",
+  target_params = "params.R", source_files = c("load.R", "report.Rmd"),
+  pkg_cran_install = c("utils", "tools", "rmarkdown", "knitr", "rstudioapi"),
+  pkg_cran_load = c("tidyverse"), fun_dir = "in/fun", spin_index = 0,
+  cache_index = 999, cache_dir = ".cache", source_dir = "in/docs",
+  data_dir = "in/data", target_dir_figure = "out/figure",
+  target_dir_docs = "out/docs", target_dir_data = "out/data",
+  rename_figure = TRUE, rename_docs = TRUE, log_filepath = "meta/log.csv",
+  tree_target = "meta/tree.txt",
+  session_info_filepath = "meta/session_info.txt", listofdf = "GlobalEnv",
+  file_format = "RData", delete_target_dir = TRUE, include_hidden = FALSE,
+  knitr_cache = FALSE, filepath_git_summary = "meta/git_summary.txt")
 }
 \arguments{
 \item{custom_makeR}{Character. File path to a local make-like R-file. Specify
@@ -21,15 +25,29 @@ for the file 'make.R'.}
 \item{target_makeR}{Character. Target directory of the 'makefile'. Default is
 'make.R'. Specify relative file path if you want to use subdirectories.}
 
+\item{source_files}{Character. Specify a vector of file paths, if you want to
+create predefined templates for your analysis (relative to top-level). 
+Use file extensions '.R' or '.Rmd'.}
+
+\item{pkg_cran_install}{Character. Specify which packages should be installed from cran.}
+
+\item{pkg_cran_load}{Character. Specify which packages should be installed and loaded from cran.}
+
 \item{fun_dir}{Character. Target directory of functions. Default is 'in/R'. 
 Some functions of the framework-package will be copied to a subdirectory of
 this folder. By using the framework template of the file 'make.R' all 
 R-Scripts (functions) within this directory will be attached to a 
 predefined environment.}
 
-\item{source_files}{Character. Specify a vector of file paths, if you want to
-create predefined templates for your analysis (relative to top-level). 
-Use file extensions '.R' or '.Rmd'.}
+\item{spin_index}{Integer. Can be of length one or a vector. Specify index of
+'source_files' that should  be spinned (ignored for file extension 'Rmd'). 
+Choose 0 (zero) if you do not want to spin any R-files. Choose 999 if you 
+want to spin all R-files.}
+
+\item{cache_index}{Integer. Can be of length one or a vector. Specify index 
+of 'source_files' that should  be integrated into the cache. Choose 0 
+(zero) if you do not want to use the cache. Choose 999 if you want to use 
+the cache for all files.}
 
 \item{cache_dir}{Character. Specify file path for the cache directory.}
 
@@ -66,20 +84,19 @@ extension .csv) to write a log-file.}
 
 \item{session_info_filepath}{Character. File path to the target.}
 
-\item{spin_index}{Integer. Can be of length one or a vector. Specify index of
-'source_files' that should  be spinned (ignored for file extension 'Rmd'). 
-Choose 0 (zero) if you do not want to spin any R-files. Choose 999 if you 
-want to spin all R-files.}
+\item{listofdf}{Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.}
 
-\item{cache_index}{Integer. Can be of length one or a vector. Specify index 
-of 'source_files' that should  be integrated into the cache. Choose 0 
-(zero) if you do not want to use the cache. Choose 999 if you want to use 
-the cache for all files.}
+\item{delete_target_dir}{Logical. Set TRUE if you want to delete existing
+files in target dir before writing the data.}
+
+\item{include_hidden}{Logical. If set to false: all hidden directories and files will be omitted.}
 
 \item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
 chunks of a file you should additionally specify knitr_cache = TRUE within 
 the function 'instructions'. By choosing this option it is not possible to 
 use a different target for your figures (target_dir_figure = NULL).}
+
+\item{filepath_git_summary}{Character. File path to the target.}
 }
 \value{
 The output are several files and directories within your working 

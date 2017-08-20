@@ -88,6 +88,7 @@ project_framework <-
            init_packrat = FALSE,
            custom_makeR = NULL,
            target_makeR = 'make.R',
+           target_params = 'params.R',
            fun_dir = 'in/R',
            source_files = c('prepare.R',
                             'visualize.Rmd'),
@@ -109,6 +110,7 @@ project_framework <-
            rename_docs = TRUE,
            log_filepath = 'meta/log.csv',
            tree_target = 'meta/tree.txt',
+           #tree_directory = getwd(),
            include_hidden = FALSE,
            filepath_git_summary = 'meta/git_summary.txt',
            session_info_filepath = 'meta/session_info.txt',
@@ -135,8 +137,15 @@ project_framework <-
     framework::skeleton(
       custom_makeR,
       target_makeR,
-      fun_dir,
+      target_params,
       source_files,
+      pkg_cran_install,
+      pkg_cran_load,
+ #     pkg_gh_install,
+#      pkg_gh_load,
+      fun_dir,
+      spin_index,
+      cache_index,
       cache_dir,
       source_dir,
       data_dir,
@@ -148,10 +157,13 @@ project_framework <-
       log_filepath,
       tree_target,
       session_info_filepath,
-      spin_index,
-      cache_index,
-      knitr_cache
-    )
+      listofdf,
+      file_format,
+      delete_target_dir,
+      include_hidden,
+   #   tree_directory,
+      knitr_cache,
+      filepath_git_summary)
     
     # initialize git
     if (init_git == TRUE) {
@@ -170,7 +182,7 @@ project_framework <-
 
     # edit Rbuildignore and DESCRIPTION
     if (file.exists(".Rbuildignore")) {
-      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, source_dir, data_dir, target_dir_figure, target_dir_docs, tree_target, log_filepath, session_info_filepath, filepath_git_summary, target_makeR), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
+      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, source_dir, data_dir, target_dir_figure, target_dir_docs, tree_target, log_filepath, session_info_filepath, filepath_git_summary, target_makeR, target_params), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
     }
 
     if (file.exists("DESCRIPTION")) {

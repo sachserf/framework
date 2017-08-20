@@ -6,13 +6,17 @@
 \usage{
 project_framework(project_dir, rstudio = TRUE, init_git = TRUE,
   init_packrat = FALSE, custom_makeR = NULL, target_makeR = "make.R",
-  fun_dir = "in/R", source_files = c("prepare.Rmd", "visualize.Rmd",
-  "analyze.Rmd", "report.Rmd"), cache_dir = ".cache",
-  source_dir = "in/docs", data_dir = "in/data",
-  target_dir_figure = "out/fig", target_dir_docs = "out/docs",
-  target_dir_data = "out/data", devtools_create = FALSE,
-  rename_figure = TRUE, rename_docs = TRUE, log_filepath = "meta/log.csv",
-  tree_target = "meta/tree.txt",
+  target_params = "params.R", fun_dir = "in/R",
+  source_files = c("prepare.R", "visualize.Rmd"), cache_dir = ".cache",
+  pkg_cran_install = c("utils", "tools", "rmarkdown", "knitr", "rstudioapi"),
+  pkg_cran_load = c("tidyverse"), pkg_gh_install = NULL,
+  pkg_gh_load = NULL, source_dir = "in/docs", data_dir = "in/data",
+  target_dir_figure = "out/figr", target_dir_docs = "out/docs",
+  target_dir_data = "out/data", listofdf = "GlobalEnv",
+  file_format = "RData", delete_target_dir = TRUE,
+  devtools_create = FALSE, rename_figure = TRUE, rename_docs = TRUE,
+  log_filepath = "meta/log.csv", tree_target = "meta/tree.txt",
+  include_hidden = FALSE, filepath_git_summary = "meta/git_summary.txt",
   session_info_filepath = "meta/session_info.txt", spin_index = 999,
   cache_index = 999, knitr_cache = FALSE)
 }
@@ -48,6 +52,14 @@ Use file extensions '.R' or '.Rmd'.}
 
 \item{cache_dir}{Character. Specify file path for the cache directory.}
 
+\item{pkg_cran_install}{Character. Specify which packages should be installed from cran.}
+
+\item{pkg_cran_load}{Character. Specify which packages should be installed and loaded from cran.}
+
+\item{pkg_gh_install}{Character. Specify which packages should be installed from github.}
+
+\item{pkg_gh_load}{Character. Specify which packages should be installed and loaded from github.}
+
 \item{source_dir}{Character. Specify file path to directory where you want to
 store all your input files.}
 
@@ -68,6 +80,11 @@ rendered documents (pdf, html, ...) of your input scripts.}
 the function 'framework::write_dataframe()' the directory will contain data
 of type 'RData', 'rds' or 'csv'.}
 
+\item{listofdf}{Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.}
+
+\item{delete_target_dir}{Logical. Set TRUE if you want to delete existing
+files in target dir before writing the data.}
+
 \item{devtools_create}{Logical. Choose TRUE if you want to call 
 'devtools::create()' in order to prepare your project as an R-package. You 
 might want to choose appropriate paths for other variables (e.g. fun_dir = 
@@ -83,6 +100,10 @@ will be renamed and moved into a single directory.}
 extension .csv) to write a log-file.}
 
 \item{tree_target}{Character. Optionally specify a file path to write the output to a file. default: stdout.}
+
+\item{include_hidden}{Logical. If set to false: all hidden directories and files will be omitted.}
+
+\item{filepath_git_summary}{Character. File path to the target.}
 
 \item{session_info_filepath}{Character. File path to the target.}
 
@@ -100,6 +121,8 @@ the cache for all files.}
 chunks of a file you should additionally specify knitr_cache = TRUE within 
 the function 'instructions'. By choosing this option it is not possible to 
 use a different target for your figures (target_dir_figure = NULL).}
+
+\item{file_format.}{Character. Choose between 'csv', 'rds' or 'RData'.}
 }
 \description{
 This function is probably the only function of the whole package

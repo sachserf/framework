@@ -13,7 +13,7 @@
 #' @author Frederik Sachser
 #' @export
 instructions <-
-  function (source_files,
+  function(source_files,
             spin_index,
             cache_index,
             cache_dir,
@@ -25,7 +25,7 @@ instructions <-
             rename_docs,
             knitr_cache)
   {
-    prepare_instructions(
+    list2env(prepare_instructions(
       source_files,
       spin_index,
       cache_index,
@@ -37,14 +37,47 @@ instructions <-
       rename_figure,
       rename_docs,
       knitr_cache
-    )
-    implement_instructions(cache_dir)
-    check_instructions(cache_dir)
-    delete_deprecated_instructions(cache_dir)
-    execute_instructions(cache_dir)
+    ), envir = environment())
+    df_source_files <- implement_instructions(source_files,
+                           spin_index,
+                           cache_index,
+                           cache_dir,
+                           source_dir,
+                           target_dir_figure,
+                           target_dir_docs)
+    df_source_files <- check_instructions(source_files,
+                       cache_dir,
+                       source_dir,
+                       data_dir,
+                       target_dir_figure,
+                       target_dir_docs,
+                       path_snapshot_source_dir,
+                       path_snapshot_data_dir,
+                       df_source_files)
+
+    delete_deprecated_instructions(source_files,
+                                   cache_dir,
+                                   data_dir,
+                                   df_source_files)
+    # hier weiter:
+    execute_instructions(cache_dir,
+                         source_dir,
+                         data_dir,
+                         target_dir_figure,
+                         target_dir_docs,
+                         path_snapshot_source_dir,
+                         path_snapshot_data_dir,
+                         knitr_cache,
+                         df_source_files)
     if (is.null(target_dir_figure) == FALSE |
         is.null(target_dir_docs) == FALSE) {
-      output_instructions(cache_dir)
+      output_instructions(cache_dir,
+                          source_dir,
+                          target_dir_figure,
+                          target_dir_docs,
+                          rename_figure,
+                          rename_docs,
+                          df_source_files)
     } else {
       unlink(c(target_dir_figure, target_dir_docs), recursive = TRUE)
     }

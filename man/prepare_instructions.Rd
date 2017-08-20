@@ -4,10 +4,9 @@
 \alias{prepare_instructions}
 \title{prepare_instructions}
 \usage{
-prepare_instructions(source_files, spin_index = 0, cache_index = 0,
-  cache_dir = ".cache", source_dir = "in/src", data_dir = "in/data",
-  target_dir_figure = "out/figure", target_dir_docs = "out/docs",
-  rename_figure = TRUE, rename_docs = TRUE, knitr_cache = TRUE)
+prepare_instructions(source_files, spin_index, cache_index, cache_dir,
+  source_dir, data_dir, target_dir_figure, target_dir_docs, rename_figure,
+  rename_docs, knitr_cache)
 }
 \arguments{
 \item{source_files}{Character. Specify a vector of file paths, if you want to

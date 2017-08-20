@@ -14,13 +14,13 @@
 skeleton <-
   function(custom_makeR = NULL,
            target_makeR = 'make.R',
-           target_params = "params.R",
+           target_params = 'params.R',
            source_files = c('load.R',
                             'report.Rmd'),
            pkg_cran_install = c('utils', 'tools', 'rmarkdown', 'knitr', 'rstudioapi'),
            pkg_cran_load = c('tidyverse'),
-           pkg_gh_install = NULL,
-           pkg_gh_load = NULL,
+        #   pkg_gh_install = NULL,
+        #   pkg_gh_load = NULL,
            fun_dir = 'in/fun',
            spin_index = 0,
            cache_index = 999,
@@ -39,8 +39,9 @@ skeleton <-
            file_format = 'RData',
            delete_target_dir = TRUE,
            include_hidden = FALSE,
-           tree_directory = getwd(),
-           knitr_cache = FALSE) {
+         #  tree_directory = getwd(),
+           knitr_cache = FALSE,
+           filepath_git_summary = "meta/git_summary.txt") {
     # specify framework_fun directory
     framework_fun <- file.path(fun_dir, "framework")
     
@@ -55,7 +56,8 @@ skeleton <-
         file.path(target_dir_docs),
         file.path(dirname(log_filepath)),
         file.path(dirname(tree_target)),
-        file.path(dirname(session_info_filepath))
+        file.path(dirname(session_info_filepath)),
+        file.path(dirname(filepath_git_summary))
       )
     basic_dirs <- basic_dirs[!basic_dirs %in% "character(0)"]
     lapply(X = basic_dirs,
@@ -68,33 +70,33 @@ skeleton <-
     #### create make.R ####
     if (is.null(custom_makeR) == TRUE) {
       template_make(
-        target_makeR,
-        target_params,
-        source_files,
-        pkg_cran_install,
-        pkg_cran_load,
-        pkg_gh_install,
-        pkg_gh_load,
-        spin_index,
-        cache_index,
-        cache_dir,
-        source_dir,
-        fun_dir,
-        data_dir,
-        target_dir_figure,
-        target_dir_docs,
-        rename_figure,
-        rename_docs,
-        knitr_cache,
-        target_dir_data,
-        listofdf,
-        file_format,
-        delete_target_dir,
-        tree_directory,
-        tree_target,
-        include_hidden,
-        log_filepath,
-        session_info_filepath)
+        target_makeR = target_makeR,
+        target_params = target_params,
+        source_files = source_files,
+        pkg_cran_install = pkg_cran_install,
+        pkg_cran_load = pkg_cran_load,
+      #  pkg_gh_install,
+      #  pkg_gh_load,
+        spin_index = spin_index,
+        cache_index = cache_index,
+        cache_dir = cache_dir,
+        source_dir = source_dir,
+        fun_dir = fun_dir,
+        data_dir = data_dir,
+        target_dir_figure = target_dir_figure,
+        target_dir_docs = target_dir_docs,
+        rename_figure = rename_figure,
+        rename_docs = rename_docs,
+        knitr_cache = knitr_cache,
+        target_dir_data = target_dir_data,
+        listofdf = listofdf,
+        file_format = file_format,
+        delete_target_dir = delete_target_dir,
+     #   tree_directory,
+        tree_target = tree_target,
+        include_hidden = include_hidden,
+        log_filepath = log_filepath,
+        session_info_filepath = session_info_filepath)
     } else {
       file.copy(from = custom_makeR,
                 to = target_makeR,
@@ -111,10 +113,10 @@ skeleton <-
     source_files_Rmd <-
       source_files[which(tools::file_ext(source_files) == "Rmd")]
     if (length(source_files_R) > 0) {
-      lapply(X = source_files_R, FUN = framework::template_html, open = FALSE)
+      lapply(X = source_files_R, FUN = framework::template_doc, open = FALSE)
     }
     if (length(source_files_Rmd) > 0) {
-      lapply(X = source_files_Rmd, FUN = framework::template_html, open = FALSE)
+      lapply(X = source_files_Rmd, FUN = framework::template_doc, open = FALSE)
     }
     
     #### write README.md ####
@@ -130,9 +132,14 @@ skeleton <-
       - visit https://github.com/sachserf/framework/blob/master/README.md for a short introduction
       - visit https://sachserf.github.io for further information and tutorials",
       
-      '\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.\n\n\n\n',
+      '\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.\n\n\n',
       
-      'for further information see system.file(package = "framework"), "how_to_guide/README.md")', 
+      '# Brief usage of framework projects:
+      1. write scripts (R, Rmd, Rnw)
+      2. add file_path of scripts to params.R
+      3. source(make.R")
+
+      --> For further information see system.file(package = "framework", "how_to_guide/README.md")', 
       file = 'README.md',
       sep = ''
     )
@@ -140,6 +147,6 @@ skeleton <-
     #### write how-to-guide.md
 #    htm <-
 #      readLines(con = "https://raw.githubusercontent.com/sachserf/framework/vignettes/README.md")
-    htg <- readLines(file.path(system.file(package = "framework"), "how_to_guide/README.md"))
-    cat(htg, file = "README.md", sep = "\n", append = TRUE)
+#    htg <- readLines(file.path(system.file(package = "framework"), "how_to_guide/README.md"))
+#    cat(htg, file = "README.md", sep = "\n", append = TRUE)
   }

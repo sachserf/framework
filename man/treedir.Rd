@@ -4,7 +4,7 @@
 \alias{treedir}
 \title{Tree-view a directory structure}
 \usage{
-treedir(tree_directory, tree_target, include_hidden = FALSE)
+treedir(tree_directory = getwd(), tree_target, include_hidden = FALSE)
 }
 \arguments{
 \item{tree_directory}{Character. Specify a path to a directory. default: current working directory.}

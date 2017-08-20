@@ -4,10 +4,32 @@
 \alias{check_instructions}
 \title{Check and correct instructions}
 \usage{
-check_instructions(cache_dir = ".cache")
+check_instructions(source_files, cache_dir, source_dir, data_dir,
+  target_dir_figure, target_dir_docs, path_snapshot_source_dir,
+  path_snapshot_data_dir, df_source_files)
 }
 \arguments{
+\item{source_files}{Character. Specify a vector of file paths, if you want to
+create predefined templates for your analysis (relative to top-level). 
+Use file extensions '.R' or '.Rmd'.}
+
 \item{cache_dir}{Character. Specify file path for the cache directory.}
+
+\item{source_dir}{Character. Specify file path to directory where you want to
+store all your input files.}
+
+\item{data_dir}{Character. Specify file path to directory where you want to 
+store your data files. This directory will be monitored. When files change 
+in this directory the cache will be ignored (when using the framework 
+template of the file 'make.R').}
+
+\item{target_dir_figure}{Character. Treat this directory as read-only. By 
+using the function 'framework::instructions()' the directory will contain 
+rendered plots that are specified within your input scripts.}
+
+\item{target_dir_docs}{Character. Treat this directory as read-only. By using
+the function 'framework::instructions()' the directory will contain 
+rendered documents (pdf, html, ...) of your input scripts.}
 }
 \description{
 This function will check and potentially correct your

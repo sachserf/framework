@@ -74,12 +74,7 @@ template_doc <-
   
     # count number of subdirs from top level to file
     source_dir <- dirname(file)
-    
-    nr_subdir <- nchar(source_dir) - nchar(gsub(pattern = "/", 
-                                                replacement = "", x = source_dir))
-    nr_subdir <- nr_subdir + 1
-    paste_nr_subdir <- paste(rep("..", nr_subdir), collapse = "/")
-    
+
     # check if file exists
     if (file.exists(file) == TRUE) {
       stop("File exists. Choose different file path.")
@@ -94,7 +89,7 @@ template_doc <-
         Author,
         "'\n#' date: '",
         Date, 
-        "'\n#' output: \n#'  html_document:\n#'    theme: journal\n#'    highlight: tango\n#'    df_print: kable\n#'    fig_caption: yes\n#'    number_sections: yes\n#'    collapsed: yes\n#'    code_folding: hide\n#'    toc: yes\n#'    toc_float: yes\n#'    toc_depth: 5\n#' #    keep_md: yes\n#'---\n\n#+ setup_", header, ", include=FALSE\n# set knitr chunk options\n   # pdf AND png output of figures\n      # first 'dev'-value should be suitable for output format specified in YAML metadata (html+word = raster graphics, pdf = vector graphics)\n          # for raster graphics: optionally adjust dpi\nknitr::opts_chunk$set(dev = c('png', 'pdf'), \n                      dpi = 100)\n\n# set knitr package options\n    # set working directory to top level of the current project (this option only changes the behaviour of the code chunks --> the working directory for markdown will be the same as this document)\nknitr::opts_knit$set(root.dir = normalizePath('", paste_nr_subdir, "')) \n\n#' # Note\n#' This file was created by calling the function 'framework::template_doc'.\n#+ chunk_label\n\n",
+        "'\n#' output: \n#'  html_document:\n#'    theme: journal\n#'    highlight: tango\n#'    df_print: kable\n#'    fig_caption: yes\n#'    number_sections: yes\n#'    collapsed: yes\n#'    code_folding: hide\n#'    toc: yes\n#'    toc_float: yes\n#'    toc_depth: 5\n#' #    keep_md: yes\n#'---\n\n#+ setup_", header, ", include=FALSE\n# set knitr chunk options\n   # pdf AND png output of figures\n      # first 'dev'-value should be suitable for output format specified in YAML metadata (html+word = raster graphics, pdf = vector graphics)\n          # for raster graphics: optionally adjust dpi\nknitr::opts_chunk$set(dev = c('png', 'pdf'), \n                      dpi = 100)\n#' # Note\n#' This file was created by calling the function 'framework::template_doc'.\n#+ chunk_label\n\n",
         file = file,
         sep = ""
       )
@@ -109,7 +104,7 @@ template_doc <-
         Author,
         "'\ndate: '",
         Date, 
-        "'\noutput: \n  html_document:\n    theme: journal\n    highlight: tango\n    df_print: kable\n    fig_caption: yes\n    number_sections: yes\n    collapsed: yes\n    code_folding: hide\n    toc: yes\n    toc_float: yes\n    toc_depth: 5\n#    keep_md: yes\n# bibliography: path2.bib\nlink-citations: yes\n# csl: path2.csl # https://github.com/citation-style-language/styles\n---\n\n```{r setup_", header, ", include=FALSE}\n# set knitr chunk options\n   # pdf AND png output of figures\n      # first 'dev'-value should be suitable for output format specified in YAML metadata (html+word = raster graphics, pdf = vector graphics)\n          # for raster graphics: optionally adjust dpi\nknitr::opts_chunk$set(dev = c('png', 'pdf'), \n                      dpi = 100)\n\n# set knitr package options\n    # set working directory to top level of the current project (this option only changes the behaviour of the code chunks --> the working directory for markdown will be the same as this document)\nknitr::opts_knit$set(root.dir = normalizePath('", paste_nr_subdir, "'))\n``` \n\n# Note\nThis file was created by calling the function 'framework::template_doc'.\n\n",
+        "'\noutput: \n  html_document:\n    theme: journal\n    highlight: tango\n    df_print: kable\n    fig_caption: yes\n    number_sections: yes\n    collapsed: yes\n    code_folding: hide\n    toc: yes\n    toc_float: yes\n    toc_depth: 5\n#    keep_md: yes\n# bibliography: path2.bib\nlink-citations: yes\n# csl: path2.csl # https://github.com/citation-style-language/styles\n---\n\n```{r setup_", header, ", include=FALSE}\n# set knitr chunk options\n   # pdf AND png output of figures\n      # first 'dev'-value should be suitable for output format specified in YAML metadata (html+word = raster graphics, pdf = vector graphics)\n          # for raster graphics: optionally adjust dpi\nknitr::opts_chunk$set(dev = c('png', 'pdf'), \n                      dpi = 100)\n``` \n\n# Note\nThis file was created by calling the function 'framework::template_doc'.\n\n",
         file = file,
         sep = ""
       )
@@ -121,7 +116,7 @@ template_doc <-
           Author,
           "'\ndate: '",
           Date, 
-          "'\noutput: \n  pdf_document:\n    highlight: tango\n    df_print: kable\n    fig_caption: yes\n    number_sections: yes\n    toc: yes\n    toc_depth: 5\n#    keep_tex: yes\n    latex_engine: xelatex\nmainfont: 'Arial'\nlinkcolor: 'blue'\nurlcolor: 'blue'\ncitecolor: 'blue'\nfontsize: 12pt\ngeometry: margin=1in\nclassoption: oneside\ntoc: yes\nlot: yes\nlof: yes\n# bibliography: path2.bib\nlink-citations: yes\n# csl: path2.csl # https://github.com/citation-style-language/styles\n---\n\n```{r setup_", header, ", include=FALSE}\n# set knitr chunk options\n   # pdf AND png output of figures\n      # first 'dev'-value should be suitable for output format specified in YAML metadata (html+word = raster graphics, pdf = vector graphics)\n          # for raster graphics: optionally adjust dpi\nknitr::opts_chunk$set(dev = c('png', 'pdf'), \n                      dpi = 100)\n\n# set knitr package options\n    # set working directory to top level of the current project (this option only changes the behaviour of the code chunks --> the working directory for markdown will be the same as this document)\nknitr::opts_knit$set(root.dir = normalizePath('", paste_nr_subdir, "'))\n``` \n\n# Note\nThis file was created by calling the function 'framework::template_doc'.\n\n",
+          "'\noutput: \n  pdf_document:\n    highlight: tango\n    df_print: kable\n    fig_caption: yes\n    number_sections: yes\n    toc: yes\n    toc_depth: 5\n#    keep_tex: yes\n    latex_engine: xelatex\nmainfont: 'Arial'\nlinkcolor: 'blue'\nurlcolor: 'blue'\ncitecolor: 'blue'\nfontsize: 12pt\ngeometry: margin=1in\nclassoption: oneside\ntoc: yes\nlot: yes\nlof: yes\n# bibliography: path2.bib\nlink-citations: yes\n# csl: path2.csl # https://github.com/citation-style-language/styles\n---\n\n```{r setup_", header, ", include=FALSE}\n# set knitr chunk options\n   # pdf AND png output of figures\n      # first 'dev'-value should be suitable for output format specified in YAML metadata (html+word = raster graphics, pdf = vector graphics)\n          # for raster graphics: optionally adjust dpi\nknitr::opts_chunk$set(dev = c('png', 'pdf'), \n                      dpi = 100)\n``` \n\n# Note\nThis file was created by calling the function 'framework::template_doc'.\n\n",
           file = file,
           sep = ""
         )
@@ -133,7 +128,7 @@ template_doc <-
           Author,
           "'\ndate: '",
           Date, 
-          "'\noutput: \n  word_document:\n    highlight: tango\n    df_print: kable\n    fig_caption: yes\n    toc: yes\n    keep_md: yes\n# bibliography: path2.bib\nlink-citations: yes\n# csl: path2.csl # https://github.com/citation-style-language/styles\n---\n\n```{r setup_", header, ", include=FALSE}\n# set knitr chunk options\n   # pdf AND png output of figures\n      # first 'dev'-value should be suitable for output format specified in YAML metadata (html+word = raster graphics, pdf = vector graphics)\n          # for raster graphics: optionally adjust dpi\nknitr::opts_chunk$set(dev = c('png', 'pdf'), \n                      dpi = 100)\n\n# set knitr package options\n    # set working directory to top level of the current project (this option only changes the behaviour of the code chunks --> the working directory for markdown will be the same as this document)\nknitr::opts_knit$set(root.dir = normalizePath('", paste_nr_subdir, "'))\n``` \n\n# Note\nThis file was created by calling the function 'framework::template_doc'.\n\n",
+          "'\noutput: \n  word_document:\n    highlight: tango\n    df_print: kable\n    fig_caption: yes\n    toc: yes\n    keep_md: yes\n# bibliography: path2.bib\nlink-citations: yes\n# csl: path2.csl # https://github.com/citation-style-language/styles\n---\n\n```{r setup_", header, ", include=FALSE}\n# set knitr chunk options\n   # pdf AND png output of figures\n      # first 'dev'-value should be suitable for output format specified in YAML metadata (html+word = raster graphics, pdf = vector graphics)\n          # for raster graphics: optionally adjust dpi\nknitr::opts_chunk$set(dev = c('png', 'pdf'), \n                      dpi = 100)\n``` \n\n# Note\nThis file was created by calling the function 'framework::template_doc'.\n\n",
           file = file,
           sep = ""
         )

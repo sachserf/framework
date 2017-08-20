@@ -4,10 +4,33 @@
 \alias{execute_instructions}
 \title{Execute your instructions!}
 \usage{
-execute_instructions(cache_dir = ".cache")
+execute_instructions(cache_dir, source_dir, data_dir, target_dir_figure,
+  target_dir_docs, path_snapshot_source_dir, path_snapshot_data_dir,
+  knitr_cache, df_source_files)
 }
 \arguments{
 \item{cache_dir}{Character. Specify file path for the cache directory.}
+
+\item{source_dir}{Character. Specify file path to directory where you want to
+store all your input files.}
+
+\item{data_dir}{Character. Specify file path to directory where you want to 
+store your data files. This directory will be monitored. When files change 
+in this directory the cache will be ignored (when using the framework 
+template of the file 'make.R').}
+
+\item{target_dir_figure}{Character. Treat this directory as read-only. By 
+using the function 'framework::instructions()' the directory will contain 
+rendered plots that are specified within your input scripts.}
+
+\item{target_dir_docs}{Character. Treat this directory as read-only. By using
+the function 'framework::instructions()' the directory will contain 
+rendered documents (pdf, html, ...) of your input scripts.}
+
+\item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
+chunks of a file you should additionally specify knitr_cache = TRUE within 
+the function 'instructions'. By choosing this option it is not possible to 
+use a different target for your figures (target_dir_figure = NULL).}
 }
 \description{
 The function will execute the instructions (source/render

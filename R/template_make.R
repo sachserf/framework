@@ -6,13 +6,13 @@
 #' @author Frederik Sachser
 #' @export
 template_make <- function(target_makeR = 'make.R',
-                          target_params = "params.R",
+                          target_params = 'params.R',
                           source_files = c('load.R',
                                            'report.Rmd'),
                           pkg_cran_install = c('utils', 'tools', 'rmarkdown', 'knitr', 'rstudioapi'),
                           pkg_cran_load = c('tidyverse'),
-                          pkg_gh_install = NULL,
-                          pkg_gh_load = NULL,
+                      #    pkg_gh_install = NULL,
+                      #    pkg_gh_load = NULL,
                           fun_dir = 'in/fun',
                           spin_index = 0,
                           cache_index = 999,
@@ -27,24 +27,25 @@ template_make <- function(target_makeR = 'make.R',
                           log_filepath = 'meta/log.csv',
                           tree_target = 'meta/tree.txt',
                           session_info_filepath = 'meta/session_info.txt',
+                          filepath_git_summary = 'meta/git_summary.txt',
                           listofdf = 'GlobalEnv',
                           file_format = 'RData',
                           include_hidden = FALSE,
                           delete_target_dir = TRUE,
-                          tree_directory = getwd(),
+                        #  tree_directory = getwd(),
                           knitr_cache = FALSE) {
-    if (file.exists(target_makeR) | file.exists(target_params)) {
-        stop("File(s) exists. Specify a different directory or delete the file(s) and retry.")
+    if (file.exists(target_makeR)) {
+        stop("File exists. Specify a different directory or delete the file and retry.")
     }
   
     cat(
 "# This file is dependent on parameters specified in external files (default: params.R)
 # .rs.restartR() # only RStudio
-cat('\014')
+cat('\\014')
 options(warn = 1)
 rm(list = ls(all.names = TRUE, envir = .GlobalEnv))
-current_project <- ", basename(getwd()), 
-"filepath_instructions <- c('params.R')
+current_project <- '", basename(getwd()), "'
+filepath_instructions <- c('params.R')
 
 setwd2toplevel <- function(toplevel) {
   cmdArgs <- commandArgs(trailingOnly = FALSE)
@@ -79,12 +80,12 @@ setwd2toplevel <- function(toplevel) {
       }
     }
     # change wd to top level
-    if (grepl(pattern = '\\\\', x = current_file_path)) {
+    if (grepl(pattern = '\\\\\\\\', x = current_file_path)) {
       fp_split <-
-        unlist(strsplit(x = file.path(current_file_path), split = '\\\\'))
+        unlist(strsplit(x = file.path(current_file_path), split = '\\\\\\\\'))
       if (length(which(fp_split == toplevel)) > 0) {
         project_directory <-
-          file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\'))
+          file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\\\'))
     } else {
       return(message('Cannot set working directory.'))
     }
@@ -108,7 +109,7 @@ setwd2toplevel(toplevel = current_project)
 
 prj_toplvl <- getwd()
 
-cat(message('#############################################\n############ WARNINGS & MESSAGES ############\n#############################################'), '\n')
+cat(message('#############################################\\n############ WARNINGS & MESSAGES ############\\n#############################################'), '\\n')
 
 sapply(file.path(getwd(), filepath_instructions), source) # neu
 
@@ -184,58 +185,64 @@ log_entry(log_filepath = log_filepath)
 # write session_info
 session_info(session_info_filepath = session_info_filepath)
     
-message('\n#############################################\n################## SUMMARY ##################\n#############################################')
+message('\\n#############################################\\n################## SUMMARY ##################\\n#############################################')
     
 # log summary
 if ('dplyr' %in% installed.packages()) {
-  message('\nlog:\n')
+  message('\\nlog:\\n')
   print(log_summary(log_filepath = 'meta/log.csv')$per_NODENAME)
-  cat('\n--------------------------------------------\n')
+  cat('\\n--------------------------------------------\\n')
 }
     
 # git summary
-message('\ngit:\n')
-summary_git(git_repo = prj_toplvl)
+message('\\ngit:\\n')
+summary_git(git_repo = prj_toplvl, filepath_git_summary = filepath_git_summary)
     
-cat('\n--------------------------------------------\n')
+cat('\\n--------------------------------------------\\n')
     
 # print summary of instructions
-message('\nSummary of executed instructions:\n')
+message('\\nSummary of executed instructions:\\n')
 summary_instructions(cache_dir = cache_dir)
     
-cat('\n--------------------------------------------\n')
+cat('\\n--------------------------------------------\\n')
     
 # memory
-message('\nMemory Usage:'); print(memory_usage())
+message('\\nMemory Usage:'); print(memory_usage())
 # getwd
 df_source_files <- readRDS(file = file.path(cache_dir, 'df_source_files.rds'))
 message(
-  '\nProcessed ', 
+  '\\nProcessed ', 
   nrow(df_source_files) - which(df_source_files$instruction == 'load'), 
   '/', 
   nrow(df_source_files), 
   ' files @WD:')
-cat(getwd(), '\n')
+cat(getwd(), '\\n')
     
-message('\n#############################################\n###### FINISHED at ', Sys.time(), ' ######\n#############################################')
+message('\\n#############################################\\n###### FINISHED at ', Sys.time(), ' ######\\n#############################################')
     
 # clean globalenv
 rm(framework_object_list, 
+  df_source_files,
   list = paste(framework_object_list), 
   envir = .GlobalEnv)
 ", file = target_makeR, sep = ""
     )
 
-cat("
-source_files = ", source_files, "
 
-pkg_cran_install <- ", pkg_cran_install, "
-pkg_cran_load <- ", pkg_cran_load, "
+#if (file.exists(target_params)) {
+#  stop("File exists. Specify a different directory or delete the file and retry.")
+#}
+
+cat("# Specify parameters for make.R
+source_files = c('", paste(source_files, collapse = '\',\''),"')
+
+pkg_cran_install <- c('", paste(pkg_cran_install, collapse = '\',\''),"')
+pkg_cran_load <- c('", paste(pkg_cran_load, collapse = '\',\''),"')
 if (system('git --version') == 0) {
   pkg_cran_load <- c(pkg_cran_load, 'git2r')
 }
-pkg_gh_install <- ", pkg_gh_install, "
-pkg_gh_load <- ", pkg_gh_load, "
+pkg_gh_install <- ", paste('NULL'), "
+pkg_gh_load <- ", paste('NULL'), "
 
 spin_index = ", spin_index, "
 cache_index = ", cache_index, "
@@ -250,14 +257,16 @@ rename_docs = ", rename_docs, "
 knitr_cache = ", knitr_cache, "
 
 target_dir_data = '", target_dir_data, "'
-listofdf = ", listofdf, "
+listofdf = '", listofdf, "'
 file_format = '", file_format, "'
 delete_target_dir = ", delete_target_dir, "
 
-tree_directory = ", tree_directory, "
+tree_directory = ", paste('getwd()'), "
 tree_target = '", tree_target, "'
 include_hidden = ", include_hidden, "
 log_filepath = '", log_filepath, "'
-session_info_filepath = '", session_info_filepath, "'", 
+session_info_filepath = '", session_info_filepath, "'
+filepath_git_summary = '", filepath_git_summary, "'
+", 
 file = target_params, sep = "")
 }

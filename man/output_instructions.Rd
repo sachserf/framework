@@ -4,26 +4,44 @@
 \alias{output_instructions}
 \title{Reorganize your output!}
 \usage{
-output_instructions(cache_dir = ".cache")
+output_instructions(cache_dir, source_dir, target_dir_figure, target_dir_docs,
+  rename_figure, rename_docs, df_source_files)
 }
 \arguments{
 \item{cache_dir}{Character. Specify file path for the cache directory.}
+
+\item{source_dir}{Character. Specify file path to directory where you want to
+store all your input files.}
+
+\item{target_dir_figure}{Character. Treat this directory as read-only. By 
+using the function 'framework::instructions()' the directory will contain 
+rendered plots that are specified within your input scripts.}
+
+\item{target_dir_docs}{Character. Treat this directory as read-only. By using
+the function 'framework::instructions()' the directory will contain 
+rendered documents (pdf, html, ...) of your input scripts.}
+
+\item{rename_figure}{Logical. If TRUE the rendered figures will be renamed 
+and moved into a single directory.}
+
+\item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
+will be renamed and moved into a single directory.}
 }
 \description{
 This function will rename and move the whole output of your
   instructions into predefined target directories.
 }
 \note{
-This function is part of a family of functions each of which end with 
-  '_instructions'. The order to call these functions is: 
-  'prepare_instructions', 'implement_instructions', 'check_instructions', 
-  'execute_instructions' and optionally 'output_instructions'. There is a 
+This function is part of a family of functions each of which end with
+  '_instructions'. The order to call these functions is:
+  'prepare_instructions', 'implement_instructions', 'check_instructions',
+  'execute_instructions' and optionally 'output_instructions'. There is a
   wrapper for these functions called 'instructions'.
 }
 \seealso{
-\code{\link{prepare_instructions}}, 
-  \code{\link{implement_instructions}}, \code{\link{check_instructions}}, 
-  \code{\link{delete_deprecated_instructions}}, 
+\code{\link{prepare_instructions}},
+  \code{\link{implement_instructions}}, \code{\link{check_instructions}},
+  \code{\link{delete_deprecated_instructions}},
   \code{\link{execute_instructions}}, \code{\link{instructions}}
 }
 \author{

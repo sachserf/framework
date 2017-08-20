@@ -4,10 +4,20 @@
 \alias{delete_deprecated_instructions}
 \title{Keep your output clean!}
 \usage{
-delete_deprecated_instructions(cache_dir = ".cache")
+delete_deprecated_instructions(source_files, cache_dir, data_dir,
+  df_source_files)
 }
 \arguments{
+\item{source_files}{Character. Specify a vector of file paths, if you want to
+create predefined templates for your analysis (relative to top-level). 
+Use file extensions '.R' or '.Rmd'.}
+
 \item{cache_dir}{Character. Specify file path for the cache directory.}
+
+\item{data_dir}{Character. Specify file path to directory where you want to 
+store your data files. This directory will be monitored. When files change 
+in this directory the cache will be ignored (when using the framework 
+template of the file 'make.R').}
 }
 \description{
 This function will delete all deprecated files frem your last

@@ -1,0 +1,3 @@
+fe <- function(...) {
+  file.edit(...)
+}
