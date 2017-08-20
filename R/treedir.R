@@ -6,11 +6,7 @@
 #' @param include_hidden Logical. If set to false: all hidden directories and files will be omitted.
 #' @author Frederik Sachser
 #' @export
-treedir <- function(tree_directory, tree_target, include_hidden = FALSE) {
-  
-  if (missing(tree_directory) == TRUE) {
-    tree_directory <- getwd()
-  }
+treedir <- function(tree_directory = getwd(), tree_target, include_hidden = FALSE) {
   
   if (missing(tree_target) == TRUE) {
     tree_target <- stdout()

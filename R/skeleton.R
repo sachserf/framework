@@ -14,9 +14,16 @@
 skeleton <-
   function(custom_makeR = NULL,
            target_makeR = 'make.R',
-           fun_dir = 'in/fun',
+           target_params = "params.R",
            source_files = c('load.R',
                             'report.Rmd'),
+           pkg_cran_install = c('utils', 'tools', 'rmarkdown', 'knitr', 'rstudioapi'),
+           pkg_cran_load = c('tidyverse'),
+           pkg_gh_install = NULL,
+           pkg_gh_load = NULL,
+           fun_dir = 'in/fun',
+           spin_index = 0,
+           cache_index = 999,
            cache_dir = '.cache',
            source_dir = 'in/docs',
            data_dir = 'in/data',
@@ -28,8 +35,11 @@ skeleton <-
            log_filepath = 'meta/log.csv',
            tree_target = 'meta/tree.txt',
            session_info_filepath = 'meta/session_info.txt',
-           spin_index,
-           cache_index, 
+           listofdf = 'GlobalEnv',
+           file_format = 'RData',
+           delete_target_dir = TRUE,
+           include_hidden = FALSE,
+           tree_directory = getwd(),
            knitr_cache = FALSE) {
     # specify framework_fun directory
     framework_fun <- file.path(fun_dir, "framework")
@@ -59,23 +69,32 @@ skeleton <-
     if (is.null(custom_makeR) == TRUE) {
       template_make(
         target_makeR,
-        fun_dir,
+        target_params,
         source_files,
+        pkg_cran_install,
+        pkg_cran_load,
+        pkg_gh_install,
+        pkg_gh_load,
+        spin_index,
+        cache_index,
         cache_dir,
         source_dir,
+        fun_dir,
         data_dir,
         target_dir_figure,
         target_dir_docs,
-        target_dir_data,
         rename_figure,
         rename_docs,
-        log_filepath,
+        knitr_cache,
+        target_dir_data,
+        listofdf,
+        file_format,
+        delete_target_dir,
+        tree_directory,
         tree_target,
-        session_info_filepath,
-        spin_index,
-        cache_index,
-        knitr_cache
-      )
+        include_hidden,
+        log_filepath,
+        session_info_filepath)
     } else {
       file.copy(from = custom_makeR,
                 to = target_makeR,
@@ -112,6 +131,8 @@ skeleton <-
       - visit https://sachserf.github.io for further information and tutorials",
       
       '\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.\n\n\n\n',
+      
+      'for further information see system.file(package = "framework"), "how_to_guide/README.md")', 
       file = 'README.md',
       sep = ''
     )

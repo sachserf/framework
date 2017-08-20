@@ -1,7 +1,7 @@
-summary_git <- function(git_repo) {
+summary_git <- function(git_repo, filepath_git_summary) {
 #  git2r::summary(git2r::repository(git_repo))
   if ("git2r" %in% installed.packages()) {
-  sink("meta/git_summary.txt")
+  sink(filepath_git_summary)
   git2r::summary(git2r::repository(git_repo))
   sink()
   git2r::summary(git2r::repository(git_repo))
