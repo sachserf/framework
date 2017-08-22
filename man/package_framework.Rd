@@ -85,6 +85,8 @@ of type 'RData', 'rds' or 'csv'.}
 
 \item{listofdf}{Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.}
 
+\item{file_format}{Character. Choose between 'csv', 'rds' or 'RData'.}
+
 \item{delete_target_dir}{Logical. Set TRUE if you want to delete existing
 files in target dir before writing the data.}
 

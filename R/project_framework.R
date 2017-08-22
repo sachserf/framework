@@ -5,6 +5,7 @@
 #'   Rproj_init and git_init. Therefore it is straightforward to create a new 
 #'   project, change the working directory, generate basic directories/files and
 #'   initialize a git repository. Optionally you can initialize a packrat repo.
+#' @inheritParams write_dataframe
 #' @param project_dir Character. Specify the path to the directory where you 
 #'   want to create a new project. The last directory will be the project 
 #'   directory itself. The name of the project will be the name of the project 
@@ -49,7 +50,6 @@
 #'   the function 'framework::write_dataframe()' the directory will contain data
 #'   of type 'RData', 'rds' or 'csv'.
 #' @param listofdf Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.
-#' @param file_format. Character. Choose between 'csv', 'rds' or 'RData'.
 #' @param delete_target_dir Logical. Set TRUE if you want to delete existing
 #'   files in target dir before writing the data.
 #' @param log_filepath Character. Specify relative file path (inlcuding the

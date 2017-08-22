@@ -85,6 +85,8 @@ of type 'RData', 'rds' or 'csv'.}
 
 \item{listofdf}{Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.}
 
+\item{file_format}{Character. Choose between 'csv', 'rds' or 'RData'.}
+
 \item{delete_target_dir}{Logical. Set TRUE if you want to delete existing
 files in target dir before writing the data.}
 
@@ -124,8 +126,6 @@ the cache for all files.}
 chunks of a file you should additionally specify knitr_cache = TRUE within 
 the function 'instructions'. By choosing this option it is not possible to 
 use a different target for your figures (target_dir_figure = NULL).}
-
-\item{file_format.}{Character. Choose between 'csv', 'rds' or 'RData'.}
 }
 \description{
 This function is probably the only function of the whole package
