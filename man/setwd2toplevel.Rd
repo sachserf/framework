@@ -14,9 +14,11 @@ This function will determine the path of the executing script and set the workin
 }
 \note{
 The name of your project should be unique (avoid parent directories with identical names).
+
+The function is a wrapper for framework::curfp
 }
 \seealso{
-\url{http://stackoverflow.com/a/36777602/7613841}, \url{http://stackoverflow.com/a/32016824/2292993}, \url{http://stackoverflow.com/a/35842176/2292993}, \url{http://stackoverflow.com/a/15373917/7613841}, \url{http://stackoverflow.com/a/1815743/7613841}, \url{http://stackoverflow.com/a/1816487/7613841}
+\url{http://stackoverflow.com/a/36777602/7613841}, \url{http://stackoverflow.com/a/32016824/2292993}, \url{http://stackoverflow.com/a/35842176/2292993}, \url{http://stackoverflow.com/a/15373917/7613841}, \url{http://stackoverflow.com/a/1815743/7613841}, \url{http://stackoverflow.com/a/1816487/7613841}, \code{\link{curfp}}
 }
 \author{
 Frederik Sachser, Jerry T, aprstar, Richie Cotton, steamer25, Suppressingfire, hadley

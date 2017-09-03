@@ -42,7 +42,7 @@
 #' @param rebuild_figures Logical. Delete figures before rendering. Choose FALSE
 #'   if you want to use knitr::cache.
 #' @param Rplots_device Character. Function that should be passed to write
-#'   figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'.
+#'   figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'. Choose NULL if you want to write figures manually (e.g. using ggsave for ggplot2-graphics).
 #' @inheritParams write_dataframe
 #' @inheritParams write_session_info
 #' @inheritParams write_log

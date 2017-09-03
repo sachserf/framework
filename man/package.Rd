@@ -96,7 +96,7 @@ filename or collapse directories and rename symbolic links.}
 if you want to use knitr::cache.}
 
 \item{Rplots_device}{Character. Function that should be passed to write
-figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'.}
+figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'. Choose NULL if you want to write figures manually (e.g. using ggsave for ggplot2-graphics).}
 
 \item{target_dir_data}{Character. Target directory for data.}
 

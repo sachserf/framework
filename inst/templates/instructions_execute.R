@@ -106,8 +106,10 @@ instructions_execute <-
                                                recursive = TRUE)
     saveRDS(object = snapshot_source_dir, file = path_snapshot_source_dir)
 
+    if (length(list.files(path = data_dir, recursive = TRUE, all.files = TRUE)) > 0) {
       snapshot_data_dir <- utils::fileSnapshot(path = data_dir,
                                                md5sum = TRUE,
                                                recursive = TRUE)
       saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)
   }
+}

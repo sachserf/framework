@@ -68,18 +68,22 @@ instructions_check <-
 
     # check snapshot of data-dir
     # if snapshot is missing: do not use cache
-    if (file.exists(path_snapshot_data_dir) == FALSE) {
-      df_source_files$use_cache_qualified <- FALSE
-    } else {
-      if (is.null(data_dir) == FALSE & length(list.files(data_dir)) > 0) {
-        # check file changes
-        # specify changed files
-        snapshot_data_dir <- readRDS(file = path_snapshot_data_dir)
-        snapshot_data_dir$path <- data_dir
-        unchanged_files <- utils::changedFiles(snapshot_data_dir, md5sum = TRUE)$unchanged
-        if (length(unchanged_files) != length(list.files(data_dir))) {
+    if (!is.null(data_dir)) {
+      if (file.exists(path_snapshot_data_dir) == FALSE) {
+        if (length(list.files(data_dir, all.files = TRUE, recursive = TRUE)) > 0) {
           df_source_files$use_cache_qualified <- FALSE
-          message("Cache will be ignored because files in data_dir have changed.")
+        }
+      } else {
+        if (length(list.files(data_dir)) > 0) {
+          # check file changes
+          # specify changed files
+          snapshot_data_dir <- readRDS(file = path_snapshot_data_dir)
+          snapshot_data_dir$path <- data_dir
+          unchanged_files <- utils::changedFiles(before = snapshot_data_dir, md5sum = TRUE)$unchanged
+          if (length(unchanged_files) != length(list.files(data_dir))) {
+            df_source_files$use_cache_qualified <- FALSE
+            message("Cache will be ignored because files in data_dir have changed.")
+          }
         }
       }
     }

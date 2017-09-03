@@ -3,6 +3,7 @@
 export(Rproj_init)
 export(assign_missing_params)
 export(backup)
+export(curfp)
 export(dput_function)
 export(escape)
 export(fe)
