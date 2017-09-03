@@ -4,115 +4,132 @@
 \alias{skeleton}
 \title{Create a framework-project skeleton}
 \usage{
-skeleton(custom_makeR = NULL, target_makeR = "make.R",
-  target_params = "params.R", source_files = c("load.R", "report.Rmd"),
+skeleton(project_dir, input_files = c("prepare.R", "visualize.Rmd"),
   pkg_cran_install = c("utils", "tools", "rmarkdown", "knitr", "rstudioapi"),
-  pkg_cran_load = c("tidyverse"), fun_dir = "in/fun", spin_index = 0,
-  cache_index = 999, cache_dir = ".cache", source_dir = "in/docs",
-  data_dir = "in/data", target_dir_figure = "out/figure",
-  target_dir_docs = "out/docs", target_dir_data = "out/data",
-  rename_figure = TRUE, rename_docs = TRUE, log_filepath = "meta/log.csv",
-  tree_target = "meta/tree.txt",
-  session_info_filepath = "meta/session_info.txt", listofdf = "GlobalEnv",
-  file_format = "RData", delete_target_dir = TRUE, include_hidden = FALSE,
-  knitr_cache = FALSE, filepath_git_summary = "meta/git_summary.txt")
+  pkg_cran_load = c("tidyverse"), pkg_gh_install = NULL,
+  pkg_gh_load = NULL, input_dir = "files", data_dir = "inst/extdata",
+  cache_dir = ".cache", fun_dir = "R", spin_index = 0,
+  cache_index = 999, symlink_dir_input = "in",
+  symlink_dir_docs = "out/docs", symlink_dir_figure = "out",
+  rename_symlink_input = TRUE, rename_symlink_docs = TRUE,
+  rename_symlink_figure = TRUE, rebuild_figures = TRUE,
+  Rplots_device = "grDevices::png", target_dir_data = "data",
+  listofdf = "GlobalEnv", data_extension = "RData",
+  rebuild_target_dir_data = TRUE,
+  filepath_session_info = "meta/session_info.txt",
+  filepath_log = "meta/log.csv", filepath_tree = "meta/tree.txt",
+  filepath_warnings = "meta/warnings.Rout", tree_directory = "getwd()",
+  include_hidden_tree = FALSE, quiet_processing = TRUE,
+  summarize_session_info = FALSE, summarize_df = FALSE,
+  summarize_memory = FALSE, summarize_log = FALSE, summarize_git = TRUE,
+  summarize_tree = FALSE, summarize_warnings = FALSE)
 }
 \arguments{
-\item{custom_makeR}{Character. File path to a local make-like R-file. Specify
-this option if you want to use a customized version instead of the template
-for the file 'make.R'.}
+\item{project_dir}{Character. File path to your project top level.}
 
-\item{target_makeR}{Character. Filename of the 'makefile'. Default is
-'make.R'. Specify relative file path if you want to use subdirectories.}
+\item{input_files}{character vector. File paths to your input files. Should
+be found within the directory 'input dir'. Use file extension 'R' or 'Rmd'.}
 
-\item{target_params}{Character. Filename of the 'makefile'. Default is
-'make.R'. Specify relative file path if you want to use subdirectories. Should be the same directory as target_makeR.}
+\item{pkg_cran_install}{Character vector. Package names that should be
+installed from your default cran mirror.}
 
-\item{source_files}{Character. Specify a vector of file paths, if you want to
-create predefined templates for your analysis (relative to top-level). 
-Use file extensions '.R' or '.Rmd'.}
+\item{pkg_cran_load}{Character vector. Package names that should be installed
+from your default cran mirror and additionally loaded.}
 
-\item{pkg_cran_install}{Character. Specify which packages should be installed from cran.}
+\item{pkg_gh_install}{Character vector. Package names that should be
+installed from github. Depends on the package 'devtools'.}
 
-\item{pkg_cran_load}{Character. Specify which packages should be installed and loaded from cran.}
+\item{pkg_gh_load}{Character vector. Package names that should be installed
+from github and additionally loaded. Depends on the package 'devtools'.}
 
-\item{fun_dir}{Character. Target directory of functions. Default is 'in/R'. 
-Some functions of the framework-package will be copied to a subdirectory of
-this folder. By using the framework template of the file 'make.R' all 
-R-Scripts (functions) within this directory will be attached to a 
-predefined environment.}
+\item{input_dir}{Character. Source directory for your input_files.}
 
-\item{spin_index}{Integer. Can be of length one or a vector. Specify index of
-'source_files' that should  be spinned (ignored for file extension 'Rmd'). 
-Choose 0 (zero) if you do not want to spin any R-files. Choose 999 if you 
-want to spin all R-files.}
+\item{data_dir}{Character. Source directory for raw data. This directory will
+be monitored. When files change in this directory the cache will be ignored
+(when using the framework template of the file 'make.R').}
 
-\item{cache_index}{Integer. Can be of length one or a vector. Specify index 
-of 'source_files' that should  be integrated into the cache. Choose 0 
-(zero) if you do not want to use the cache. Choose 999 if you want to use 
-the cache for all files.}
+\item{cache_dir}{Character. Directory for the cache.}
 
-\item{cache_dir}{Character. Specify file path for the cache directory.}
+\item{fun_dir}{Character. Directory for user-written functions. When using
+the framework template of the file 'make.R' all R-Scripts (functions)
+within this directory will be attached to a predefined environment.}
 
-\item{source_dir}{Character. Specify file path to directory where you want to
-store all your input files.}
+\item{spin_index}{Integer vector. Subset of input_files that should be
+spinned. Files extensions other than '.R' will be ignored. (0 = none, 999 =
+all)}
 
-\item{data_dir}{Character. Specify file path to directory where you want to 
-store your data files. This directory will be monitored. When files change 
-in this directory the cache will be ignored (when using the framework 
-template of the file 'make.R').}
+\item{cache_index}{Integer vector. Subset of input_files that should be
+cached. (0 = none, 999 = all)}
 
-\item{target_dir_figure}{Character. Treat this directory as read-only. By 
-using the function 'framework::instructions()' the directory will contain 
-rendered plots that are specified within your input scripts.}
+\item{symlink_dir_input}{Character. Target directory for symbolic links to
+input_files. Should betreated as read-only.}
 
-\item{target_dir_docs}{Character. Treat this directory as read-only. By using
-the function 'framework::instructions()' the directory will contain 
-rendered documents (pdf, html, ...) of your input scripts.}
+\item{symlink_dir_docs}{Character. Target directory for symbolic links to
+rendered files. Should betreated as read-only.}
 
-\item{target_dir_data}{Character. Treat this directory as read-only. By using
-the function 'framework::write_dataframe()' the directory will contain data
-of type 'RData', 'rds' or 'csv'.}
+\item{symlink_dir_figure}{Character. Target directory for symbolic links to
+rendered figures. Should betreated as read-only.}
 
-\item{rename_figure}{Logical. If TRUE the rendered figures will be renamed 
-and moved into a single directory.}
+\item{rename_symlink_input}{Logical. Preserve directory structure and
+filename or collapse directories and rename symbolic links.}
 
-\item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
-will be renamed and moved into a single directory.}
+\item{rename_symlink_docs}{Logical. Preserve directory structure and filename
+or collapse directories and rename symbolic links.}
 
-\item{log_filepath}{Character. Specify relative file path (inlcuding the
-extension .csv) to write a log-file.}
+\item{rename_symlink_figure}{Logical. Preserve directory structure and
+filename or collapse directories and rename symbolic links.}
 
-\item{tree_target}{Character. Optionally specify a file path to write the output to a file. default: stdout.}
+\item{rebuild_figures}{Logical. Delete figures before rendering. Choose FALSE
+if you want to use knitr::cache.}
 
-\item{session_info_filepath}{Character. File path to the target.}
+\item{Rplots_device}{Character. Function that should be passed to write
+figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'.}
 
-\item{listofdf}{Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.}
+\item{target_dir_data}{Character. Target directory for data.}
 
-\item{file_format}{Character. Choose between 'csv', 'rds' or 'RData'.}
+\item{listofdf}{Character vector. Specify a vector of dataframes to write. Choose 'GlobalEnv' to write all data frames currently inside your global environment.}
 
-\item{delete_target_dir}{Logical. Set TRUE if you want to delete existing
-files in target dir before writing the data.}
+\item{data_extension}{Character. Specify file extension for data frames. Possible values: 'csv', 'RData' and 'rds'.}
 
-\item{include_hidden}{Logical. If set to false: all hidden directories and files will be omitted.}
+\item{rebuild_target_dir_data}{Logical. Delete target_dir_data before writing current data frames.}
 
-\item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
-chunks of a file you should additionally specify knitr_cache = TRUE within 
-the function 'instructions'. By choosing this option it is not possible to 
-use a different target for your figures (target_dir_figure = NULL).}
+\item{filepath_session_info}{Character. Specify file path to write the session info file.}
 
-\item{filepath_git_summary}{Character. File path to the target.}
+\item{filepath_log}{Character. Specify file path to write the log file.}
+
+\item{filepath_tree}{Character. Specify file path to write the tree file.}
+
+\item{filepath_warnings}{Character. Specify file path to write the warnings file.}
+
+\item{tree_directory}{Character. Specify input directory as top level for the tree.}
+
+\item{include_hidden_tree}{Logical. Include/Exclude hidden directories and files to build the tree.}
+
+\item{quiet_processing}{Logical. Specify if processing of files should be
+quiet.}
+
+\item{summarize_session_info}{Logical. Should session info be printed to console?}
+
+\item{summarize_df}{Logical. Should a list of written data frames be printed to console?}
+
+\item{summarize_memory}{Logical. Should memory usage be printed to console?}
+
+\item{summarize_log}{Logical. Should a summary of the log file be printed to console? Depends on dplyr.}
+
+\item{summarize_git}{Logical. If TRUE git2r::summary() will be called.}
+
+\item{summarize_tree}{Logical. Should the directory structure (tree) be printed to console?}
+
+\item{summarize_warnings}{Logical. Should filepath_warnings be printed to console?}
 }
 \value{
-The output are several files and directories within your working 
-  directory. The structure contains a how-to-guide.txt, README.md, 
-  directories for input and output, some file-templates and several functions
-  for proper functioning of the project.
+The output are several files and directories within your working
+  directory.
 }
 \description{
-The function creates a predefined directory structure and some 
+The function creates a predefined directory structure and some
   files to enhance project organization. Among other things it is a wrapper
-  for 'template_make'.
+  for 'template_params'.
 }
 \seealso{
 \code{\link{project_framework}}

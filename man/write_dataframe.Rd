@@ -2,26 +2,25 @@
 % Please edit documentation in R/write_dataframe.R
 \name{write_dataframe}
 \alias{write_dataframe}
-\title{Save a bunch of dataframes}
+\title{Write a bunch of dataframes}
 \usage{
 write_dataframe(listofdf = "GlobalEnv", target_dir_data = "out/data",
-  file_format = "csv", delete_target_dir = TRUE)
+  data_extension = "csv", rebuild_target_dir_data = TRUE,
+  summarize_df = TRUE)
 }
 \arguments{
-\item{listofdf}{Character. Specify a vector of dataframes to write. Choose 
-"GlobalEnv" if you want to write all dataframes within your Global 
-Environment to separated files.}
+\item{listofdf}{Character vector. Specify a vector of dataframes to write. Choose 'GlobalEnv' to write all data frames currently inside your global environment.}
 
-\item{target_dir_data}{Character. File path to the target directory.}
+\item{target_dir_data}{Character. Target directory for data.}
 
-\item{file_format}{Character. Choose between 'csv', 'rds' or 'RData'.}
+\item{data_extension}{Character. Specify file extension for data frames. Possible values: 'csv', 'RData' and 'rds'.}
 
-\item{delete_target_dir}{Logical. Set TRUE if you want to delete existing
-files in target dir before writing the data.}
+\item{rebuild_target_dir_data}{Logical. Delete target_dir_data before writing current data frames.}
+
+\item{summarize_df}{Logical. Should a list of written data frames be printed to console?}
 }
 \description{
-This function will write multiple dataframes into separate 
-  files. File extension can be of type 'RData', 'rds' or 'csv'.
+This function will write multiple dataframes into separate files.
 }
 \author{
 Frederik Sachser

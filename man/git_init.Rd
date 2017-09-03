@@ -13,9 +13,6 @@ Add and commit all existing files to branch master. Afterwards
 \description{
 Initialize a git repo within the current working directory.
 }
-\note{
-The function will work only if git is installed and '.git' is absent.
-}
 \author{
 Frederik Sachser
 }

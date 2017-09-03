@@ -1,124 +1,67 @@
 #' Initialize a framework-project
-#' 
+#'
 #' @description This function is probably the only function of the whole package
-#'   'framework' you need to call by hand. It is a wrapper for skeleton, 
-#'   Rproj_init and git_init. Therefore it is straightforward to create a new 
+#'   'framework' you need to call by hand. It is a wrapper for skeleton,
+#'   Rproj_init and git_init. Therefore it is straightforward to create a new
 #'   project, change the working directory, generate basic directories/files and
 #'   initialize a git repository. Optionally you can initialize a packrat repo.
-#' @inheritParams write_dataframe
-#' @param project_dir Character. Specify the path to the directory where you 
-#'   want to create a new project. The last directory will be the project 
-#'   directory itself. The name of the project will be the name of the project 
-#'   directory. E.g. '~/Desktop/MyProject' will create a project directory on 
-#'   your desktop.
+#' @inheritParams template_params
 #' @param rstudio Logical. TRUE calls the function Rproj_init.
 #' @param init_git Logical. TRUE calls the function git_init.
 #' @param init_packrat Logical. TRUE initializes a packrat repo.
-#' @param custom_makeR Character. File path to a local make-like R-file. Specify
-#'   this option if you want to use a customized version instead of the template
-#'   for the file 'make.R'.
-#' @param target_makeR Character. Filename of the 'makefile'. Default is
-#'   'make.R'. Specify relative file path if you want to use subdirectories.
-#' @param target_params Character. Filename of the 'makefile'. Default is
-#'   'make.R'. Specify relative file path if you want to use subdirectories. Should be the same directory as target_makeR.
-#' @param fun_dir Character. Target directory of functions. Default is 'in/R'. 
-#'   Some functions of the framework-package will be copied to a subdirectory of
-#'   this folder. By using the framework template of the file 'make.R' all 
-#'   R-Scripts (functions) within this directory will be attached to a 
-#'   predefined environment.
-#' @param source_files Character. Specify a vector of file paths, if you want to
-#'   create predefined templates for your analysis (relative to top-level). 
-#'   Use file extensions '.R' or '.Rmd'.
-#' @param cache_dir Character. Specify file path for the cache directory.
-#' @param pkg_cran_install Character. Specify which packages should be installed from cran.
-#' @param pkg_cran_load Character. Specify which packages should be installed and loaded from cran.
-#' @param pkg_gh_install Character. Specify which packages should be installed from github.
-#' @param pkg_gh_load Character. Specify which packages should be installed and loaded from github.
-#' @param source_dir Character. Specify file path to directory where you want to
-#'   store all your input files.
-#' @param data_dir Character. Specify file path to directory where you want to 
-#'   store your data files. This directory will be monitored. When files change 
-#'   in this directory the cache will be ignored (when using the framework 
-#'   template of the file 'make.R').
-#' @param target_dir_figure Character. Treat this directory as read-only. By 
-#'   using the function 'framework::instructions()' the directory will contain 
-#'   rendered plots that are specified within your input scripts.
-#' @param target_dir_docs Character. Treat this directory as read-only. By using
-#'   the function 'framework::instructions()' the directory will contain 
-#'   rendered documents (pdf, html, ...) of your input scripts.
-#' @param target_dir_data Character. Treat this directory as read-only. By using
-#'   the function 'framework::write_dataframe()' the directory will contain data
-#'   of type 'RData', 'rds' or 'csv'.
-#' @param listofdf Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.
-#' @param delete_target_dir Logical. Set TRUE if you want to delete existing
-#'   files in target dir before writing the data.
-#' @param log_filepath Character. Specify relative file path (inlcuding the
-#'   extension .csv) to write a log-file.
-#' @param devtools_create Logical. Choose TRUE if you want to call 
-#'   'devtools::create()' in order to prepare your project as an R-package. You 
-#'   might want to choose appropriate paths for other variables (e.g. fun_dir = 
-#'   'R', data_dir = inst/extdata, and so on).
-#' @param rename_figure Logical. If TRUE the rendered figures will be renamed 
-#'   and moved into a single directory.
-#' @param rename_docs Logical. If TRUE the rendered documents (html, pdf, docx) 
-#'   will be renamed and moved into a single directory.
-#' @param spin_index Integer. Can be of length one or a vector. Specify index of
-#'   'source_files' that should  be spinned (ignored for file extension 'Rmd'). 
-#'   Choose 0 (zero) if you do not want to spin any R-files. Choose 999 if you 
-#'   want to spin all R-files.
-#' @param cache_index Integer. Can be of length one or a vector. Specify index 
-#'   of 'source_files' that should  be integrated into the cache. Choose 0 
-#'   (zero) if you do not want to use the cache. Choose 999 if you want to use 
-#'   the cache for all files.
-#' @param knitr_cache Logical. If you want to use the package 'knitr' to cache 
-#'   chunks of a file you should additionally specify knitr_cache = TRUE within 
-#'   the function 'instructions'. By choosing this option it is not possible to 
-#'   use a different target for your figures (target_dir_figure = NULL).
-#' @param tree_target Character. Optionally specify a file path to write the output to a file. default: stdout.
-#' @param include_hidden Logical. If set to false: all hidden directories and files will be omitted.
-#' @param filepath_git_summary Character. File path to the target.
-#' @param session_info_filepath Character. File path to the target.
+#' @param devtools_create Logical. Choose TRUE if you want to call
+#'   'devtools::create()' in order to prepare your project as an R-package. You
+#'   might want to choose appropriate paths for other variables (e.g. fun_dir =
+#'   'R', data_dir = inst/extdata, and so on). See alias 'package
+#' @param project_dir Character. Specify the path to the directory where you
+#'   want to create a new project. The last directory will be the top level of the project and additionally the name of your project. E.g. '~/Desktop/MyProject' will create a project called 'MyProject'.
 #' @note Creation of the project_dir is recursive.
-#' @seealso \code{\link{Rproj_init}}, \code{\link{git_init}}, 
-#'   \code{\link{skeleton}}, \code{\link{package_framework}}
+#' @seealso \code{\link{skeleton}}, \code{\link{package}}
 #' @author Frederik Sachser
 #' @export
 project_framework <-
   function(project_dir,
+           devtools_create = FALSE,
            rstudio = TRUE,
            init_git = TRUE,
            init_packrat = FALSE,
-           custom_makeR = NULL,
-           target_makeR = 'make.R',
-           target_params = 'params.R',
-           fun_dir = 'in/R',
-           source_files = c('prepare.R',
-                            'visualize.Rmd'),
-           cache_dir = '.cache',
+           input_files = c('prepare.R', 'visualize.Rmd'),
            pkg_cran_install = c('utils', 'tools', 'rmarkdown', 'knitr', 'rstudioapi'),
            pkg_cran_load = c('tidyverse'),
            pkg_gh_install = NULL,
            pkg_gh_load = NULL,
-           source_dir = 'in/docs',
-           data_dir = 'in/data',
-           target_dir_figure = 'out/figr',
-           target_dir_docs = 'out/docs',
-           target_dir_data = 'out/data',
-           listofdf = "GlobalEnv",
-           file_format = "RData",
-           delete_target_dir = TRUE,
-           devtools_create = FALSE,
-           rename_figure = TRUE,
-           rename_docs = TRUE,
-           log_filepath = 'meta/log.csv',
-           tree_target = 'meta/tree.txt',
-           #tree_directory = getwd(),
-           include_hidden = FALSE,
-           filepath_git_summary = 'meta/git_summary.txt',
-           session_info_filepath = 'meta/session_info.txt',
-           spin_index = 999,
+           input_dir = 'files',
+           data_dir = 'data/in',
+           cache_dir = '.cache',
+           fun_dir = 'R',
+           spin_index = 0,
            cache_index = 999,
-           knitr_cache = FALSE) {
+           symlink_dir_input = 'in',
+           symlink_dir_docs = 'out/docs',
+           symlink_dir_figure = 'out',
+           rename_symlink_input = TRUE,
+           rename_symlink_docs = TRUE,
+           rename_symlink_figure = TRUE,
+           rebuild_figures = TRUE,
+           Rplots_device = 'grDevices::png',
+           target_dir_data = 'data/out',
+           listofdf = 'GlobalEnv',
+           data_extension = 'RData',
+           rebuild_target_dir_data = TRUE,
+           filepath_session_info = 'meta/session_info.txt',
+           filepath_log = 'meta/log.csv',
+           filepath_tree = 'meta/tree.txt',
+           filepath_warnings = 'meta/warnings.Rout',
+           tree_directory = 'getwd()',
+           include_hidden_tree = FALSE,
+           quiet_processing = TRUE,
+           summarize_session_info = FALSE,
+           summarize_df = FALSE,
+           summarize_memory = FALSE,
+           summarize_log = FALSE,
+           summarize_git = TRUE,
+           summarize_tree = FALSE,
+           summarize_warnings = FALSE) {
     # create project directory
     if (dir.exists(project_dir) == TRUE) {
       stop("Project directory exists. Choose a different path and retry")
@@ -128,52 +71,82 @@ project_framework <-
     # set working directory
     setwd(project_dir)
     # create R-project
-    if ('devtools' %in% utils::installed.packages() == TRUE &
+    if ('devtools' %in% utils::installed.packages() &&
         devtools_create == TRUE) {
-      devtools::create(path = project_dir)
+      devtools::create(path = project_dir, rstudio = TRUE)
     } else if (rstudio == TRUE) {
       framework::Rproj_init(project_dir)
     }
-    
+
     # create skeleton for a framework project
     framework::skeleton(
-      custom_makeR,
-      target_makeR,
-      target_params,
-      source_files,
-      pkg_cran_install,
-      pkg_cran_load,
- #     pkg_gh_install,
-#      pkg_gh_load,
-      fun_dir,
-      spin_index,
-      cache_index,
-      cache_dir,
-      source_dir,
-      data_dir,
-      target_dir_figure,
-      target_dir_docs,
-      target_dir_data,
-      rename_figure,
-      rename_docs,
-      log_filepath,
-      tree_target,
-      session_info_filepath,
-      listofdf,
-      file_format,
-      delete_target_dir,
-      include_hidden,
-   #   tree_directory,
-      knitr_cache,
-      filepath_git_summary)
-    
+      project_dir = project_dir,
+      input_files = input_files,
+      pkg_cran_install = pkg_cran_install,
+      pkg_cran_load = pkg_cran_load,
+      pkg_gh_install = pkg_gh_install,
+      pkg_gh_load = pkg_gh_load,
+      input_dir = input_dir,
+      data_dir = data_dir,
+      cache_dir = cache_dir,
+      fun_dir = fun_dir,
+      spin_index = spin_index,
+      cache_index = cache_index,
+      symlink_dir_input = symlink_dir_input,
+      symlink_dir_docs = symlink_dir_docs,
+      symlink_dir_figure = symlink_dir_figure,
+      rename_symlink_input = rename_symlink_input,
+      rename_symlink_docs = rename_symlink_docs,
+      rename_symlink_figure = rename_symlink_figure,
+      rebuild_figures = rebuild_figures,
+      Rplots_device = Rplots_device,
+      target_dir_data = target_dir_data,
+      listofdf = listofdf,
+      data_extension = data_extension,
+      rebuild_target_dir_data = rebuild_target_dir_data,
+      filepath_session_info = filepath_session_info,
+      filepath_log = filepath_log,
+      filepath_tree = filepath_tree,
+      filepath_warnings = filepath_warnings,
+      tree_directory = tree_directory,
+      include_hidden_tree = include_hidden_tree,
+      quiet_processing = quiet_processing,
+      summarize_session_info = summarize_session_info,
+      summarize_df = summarize_df,
+      summarize_memory = summarize_memory,
+      summarize_log = summarize_log,
+      summarize_git = summarize_git,
+      summarize_tree = summarize_tree,
+      summarize_warnings = summarize_warnings)
+
     # initialize git
     if (init_git == TRUE) {
-      cat(".Rproj.user", ".Rhistory", ".RData", data_dir, target_dir_figure, target_dir_data, target_dir_docs, file = ".gitignore", sep = "\n")
-      cat(log_filepath, "merge=union", file = ".gitattributes")
-      framework::git_init()
+      if (system('git --version') != 0) {
+        warning("Cannot locate git on your machine.")
+      } else if (file.exists('.git')) {
+        warning(".git already exists.")
+      } else {
+        framework::git_init()
+        cat(
+          ".Rproj.user",
+          ".Rhistory",
+          ".RData",
+          "*.pdf",
+          "*.html",
+          "*.docx",
+          data_dir,
+          symlink_dir_figure,
+          symlink_dir_input,
+          symlink_dir_docs,
+          target_dir_data,
+          data_dir,
+          file = ".gitignore",
+          sep = "\n"
+        )
+        cat(filepath_log, "merge=union", file = ".gitattributes")
+      }
     }
-    
+
     # initialize packrat
     if (init_packrat == TRUE) {
       if ('packrat' %in% rownames(utils::installed.packages()) == FALSE) {
@@ -184,11 +157,7 @@ project_framework <-
 
     # edit Rbuildignore and DESCRIPTION
     if (file.exists(".Rbuildignore")) {
-      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, source_dir, data_dir, target_dir_figure, target_dir_docs, tree_target, log_filepath, session_info_filepath, filepath_git_summary, target_makeR, target_params), FUN = function(thedir) if (is.null(thedir) == FALSE) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n"))
+      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, input_dir, symlink_dir_input, symlink_dir_docs, data_dir, symlink_dir_figure, filepath_session_info, filepath_log, filepath_tree, filepath_warnings), FUN = function(thedir) if (!is.null(thedir)) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n")) 
     }
-
-    if (file.exists("DESCRIPTION")) {
-      cat("Suggests:", "    rmarkdown (>= 0.9.6),", "    knitr", file = "DESCRIPTION", append = TRUE, sep = "\n")
-    }
-
   }
+

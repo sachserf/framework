@@ -1,8 +1,8 @@
 Package: framework
 Type: Package
 Title: A framework for project organisation
-Version: 1.8.50
-Date: 2017-08-20
+Version: 1.8.51
+Date: 2017-09-02
 Author: Frederik Sachser
 Maintainer: <f.sachser@gmx.at>
 Description: The functions within the package facilitate the process of creating
@@ -24,4 +24,4 @@ Suggests:
     devtools,
     dplyr,
     git2r
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000

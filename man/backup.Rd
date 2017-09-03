@@ -4,37 +4,37 @@
 \alias{backup}
 \title{Copy a directory into timestamp-dir}
 \usage{
-backup(target_dir = "project_subdir", source_dir = file.path(getwd()),
-  delete_target = FALSE, exclude_directories = FALSE,
-  exclude_files = FALSE)
+backup(target_dir_backup = "project_subdir",
+  source_dir_backup = file.path(getwd()), rebuild_target_dir_backup = FALSE,
+  exclude_dir_backup = FALSE, exclude_files_backup = FALSE)
 }
 \arguments{
-\item{target_dir}{Character. Path to the target directory. Alternatively use 
+\item{target_dir_backup}{Character. Path to the target directory. Alternatively use
 'project_subdir' to point to a subfolder of your current working directory.}
 
-\item{source_dir}{Character. Path to the source directory. Default is the 
+\item{source_dir_backup}{Character. Path to the source directory. Default is the
 current working directory.}
 
-\item{delete_target}{Logical. If TRUE all directories within the target 
-directory will be deleted! Only the current version of your backup will be 
+\item{rebuild_target_dir_backup}{Logical. If TRUE all directories within the target
+directory will be deleted! Only the current version of your backup will be
 existent.}
 
-\item{exclude_directories}{Character. Specify directories to exclude from 
-backup. If you want to exclude multiple directories use | as separator. 
-Choose FALSE if you don not want to exclude any directories.}
+\item{exclude_dir_backup}{Character. Specify directories to exclude from
+backup. If you want to exclude multiple directories use | as separator.
+Choose FALSE if you don not want to exclude any directories. E.g. 'packrat|.git|in/data|out|.cache'}
 
-\item{exclude_files}{Character. Specify files to exclude from backup. If you 
-want to exclude multiple directories use | as separator. Choose FALSE if 
-you don not want to exclude any files}
+\item{exclude_files_backup}{Character. Specify files to exclude from backup. If you
+want to exclude multiple directories use | as separator. Choose FALSE if
+you don not want to exclude any files. E.g. '*.RData|*.Rhistory'}
 }
 \description{
-The function will copy the specified directory and create a 
+The function will copy the specified directory and create a
   directory at the target. The target directory will be named after the
   current date and time.
 }
 \note{
-Beware! If you choose an existing target directory and option 
-  delete_target = TRUE: ALL EXISTING FILES WILL BE DELETED!
+Beware! If you choose an existing target directory and option
+  rebuild_target_dir_backup = TRUE: ALL EXISTING FILES WILL BE DELETED!
 }
 \author{
 Frederik Sachser

@@ -8,13 +8,27 @@
 #' @author Frederik Sachser
 #' @export
 summary_instructions <- function(cache_dir) {
+
   # reload df_source_files
   df_source_files <-
     readRDS(file = file.path(cache_dir, "df_source_files.rds"))
+
+  message('\nSummary of executed instructions:\n')
+
   # print output
   print(data.frame(
     filename = df_source_files$filename,
     instruction = df_source_files$instruction
   ))
-}
 
+  ftl <- which(df_source_files$instruction == 'load')
+
+  message(
+    '\nProcessed ',
+    nrow(df_source_files) - ifelse(length(ftl) > 0, ftl, 0),
+    '/',
+    nrow(df_source_files),
+    ' files @WD:'
+  )
+  writeLines(getwd(), '\n', con = stdout())
+}

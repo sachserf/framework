@@ -1,18 +1,11 @@
-#' Summarize a git repository
+#' Wrapper for git2r::summary
 #'
-#' @description This function is an alias for git2r::summary. It will print the output to the console as well as redirect it to a file.
-#' @inheritParams project_framework
-#' @param git_repo Character. File path to your repository.
-#' @author Frederik Sachser
+#' @param git_repo Character. Directory of your git repository.
+#'
 #' @export
-summary_git <- function(git_repo, filepath_git_summary) {
-#  git2r::summary(git2r::repository(git_repo))
-  if ("git2r" %in% utils::installed.packages()) {
-  sink(filepath_git_summary)
-  git2r::summary(git2r::repository(git_repo))
-  sink()
-  git2r::summary(git2r::repository(git_repo))
+summary_git <- function(git_repo) {
+  if ('git2r' %in% utils::installed.packages()) {
+    message('\ngit:\n')
+    git2r::summary(git2r::repository(git_repo))
   }
 }
-
-

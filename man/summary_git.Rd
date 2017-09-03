@@ -2,18 +2,13 @@
 % Please edit documentation in R/summary_git.R
 \name{summary_git}
 \alias{summary_git}
-\title{Summarize a git repository}
+\title{Wrapper for git2r::summary}
 \usage{
-summary_git(git_repo, filepath_git_summary)
+summary_git(git_repo)
 }
 \arguments{
-\item{git_repo}{Character. File path to your repository.}
-
-\item{filepath_git_summary}{Character. File path to the target.}
+\item{git_repo}{Character. Directory of your git repository.}
 }
 \description{
-This function is an alias for git2r::summary. It will print the output to the console as well as redirect it to a file.
-}
-\author{
-Frederik Sachser
+Wrapper for git2r::summary
 }

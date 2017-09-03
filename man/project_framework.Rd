@@ -4,28 +4,35 @@
 \alias{project_framework}
 \title{Initialize a framework-project}
 \usage{
-project_framework(project_dir, rstudio = TRUE, init_git = TRUE,
-  init_packrat = FALSE, custom_makeR = NULL, target_makeR = "make.R",
-  target_params = "params.R", fun_dir = "in/R",
-  source_files = c("prepare.R", "visualize.Rmd"), cache_dir = ".cache",
-  pkg_cran_install = c("utils", "tools", "rmarkdown", "knitr", "rstudioapi"),
-  pkg_cran_load = c("tidyverse"), pkg_gh_install = NULL,
-  pkg_gh_load = NULL, source_dir = "in/docs", data_dir = "in/data",
-  target_dir_figure = "out/figr", target_dir_docs = "out/docs",
-  target_dir_data = "out/data", listofdf = "GlobalEnv",
-  file_format = "RData", delete_target_dir = TRUE,
-  devtools_create = FALSE, rename_figure = TRUE, rename_docs = TRUE,
-  log_filepath = "meta/log.csv", tree_target = "meta/tree.txt",
-  include_hidden = FALSE, filepath_git_summary = "meta/git_summary.txt",
-  session_info_filepath = "meta/session_info.txt", spin_index = 999,
-  cache_index = 999, knitr_cache = FALSE)
+project_framework(project_dir, devtools_create = FALSE, rstudio = TRUE,
+  init_git = TRUE, init_packrat = FALSE, input_files = c("prepare.R",
+  "visualize.Rmd"), pkg_cran_install = c("utils", "tools", "rmarkdown",
+  "knitr", "rstudioapi"), pkg_cran_load = c("tidyverse"),
+  pkg_gh_install = NULL, pkg_gh_load = NULL, input_dir = "files",
+  data_dir = "data/in", cache_dir = ".cache", fun_dir = "R",
+  spin_index = 0, cache_index = 999, symlink_dir_input = "in",
+  symlink_dir_docs = "out/docs", symlink_dir_figure = "out",
+  rename_symlink_input = TRUE, rename_symlink_docs = TRUE,
+  rename_symlink_figure = TRUE, rebuild_figures = TRUE,
+  Rplots_device = "grDevices::png", target_dir_data = "data/out",
+  listofdf = "GlobalEnv", data_extension = "RData",
+  rebuild_target_dir_data = TRUE,
+  filepath_session_info = "meta/session_info.txt",
+  filepath_log = "meta/log.csv", filepath_tree = "meta/tree.txt",
+  filepath_warnings = "meta/warnings.Rout", tree_directory = "getwd()",
+  include_hidden_tree = FALSE, quiet_processing = TRUE,
+  summarize_session_info = FALSE, summarize_df = FALSE,
+  summarize_memory = FALSE, summarize_log = FALSE, summarize_git = TRUE,
+  summarize_tree = FALSE, summarize_warnings = FALSE)
 }
 \arguments{
-\item{project_dir}{Character. Specify the path to the directory where you 
-want to create a new project. The last directory will be the project 
-directory itself. The name of the project will be the name of the project 
-directory. E.g. '~/Desktop/MyProject' will create a project directory on 
-your desktop.}
+\item{project_dir}{Character. Specify the path to the directory where you
+want to create a new project. The last directory will be the top level of the project and additionally the name of your project. E.g. '~/Desktop/MyProject' will create a project called 'MyProject'.}
+
+\item{devtools_create}{Logical. Choose TRUE if you want to call
+'devtools::create()' in order to prepare your project as an R-package. You
+might want to choose appropriate paths for other variables (e.g. fun_dir =
+'R', data_dir = inst/extdata, and so on). See alias 'package}
 
 \item{rstudio}{Logical. TRUE calls the function Rproj_init.}
 
@@ -33,104 +40,105 @@ your desktop.}
 
 \item{init_packrat}{Logical. TRUE initializes a packrat repo.}
 
-\item{custom_makeR}{Character. File path to a local make-like R-file. Specify
-this option if you want to use a customized version instead of the template
-for the file 'make.R'.}
+\item{input_files}{character vector. File paths to your input files. Should
+be found within the directory 'input dir'. Use file extension 'R' or 'Rmd'.}
 
-\item{target_makeR}{Character. Filename of the 'makefile'. Default is
-'make.R'. Specify relative file path if you want to use subdirectories.}
+\item{pkg_cran_install}{Character vector. Package names that should be
+installed from your default cran mirror.}
 
-\item{target_params}{Character. Filename of the 'makefile'. Default is
-'make.R'. Specify relative file path if you want to use subdirectories. Should be the same directory as target_makeR.}
+\item{pkg_cran_load}{Character vector. Package names that should be installed
+from your default cran mirror and additionally loaded.}
 
-\item{fun_dir}{Character. Target directory of functions. Default is 'in/R'. 
-Some functions of the framework-package will be copied to a subdirectory of
-this folder. By using the framework template of the file 'make.R' all 
-R-Scripts (functions) within this directory will be attached to a 
-predefined environment.}
+\item{pkg_gh_install}{Character vector. Package names that should be
+installed from github. Depends on the package 'devtools'.}
 
-\item{source_files}{Character. Specify a vector of file paths, if you want to
-create predefined templates for your analysis (relative to top-level). 
-Use file extensions '.R' or '.Rmd'.}
+\item{pkg_gh_load}{Character vector. Package names that should be installed
+from github and additionally loaded. Depends on the package 'devtools'.}
 
-\item{cache_dir}{Character. Specify file path for the cache directory.}
+\item{input_dir}{Character. Source directory for your input_files.}
 
-\item{pkg_cran_install}{Character. Specify which packages should be installed from cran.}
+\item{data_dir}{Character. Source directory for raw data. This directory will
+be monitored. When files change in this directory the cache will be ignored
+(when using the framework template of the file 'make.R').}
 
-\item{pkg_cran_load}{Character. Specify which packages should be installed and loaded from cran.}
+\item{cache_dir}{Character. Directory for the cache.}
 
-\item{pkg_gh_install}{Character. Specify which packages should be installed from github.}
+\item{fun_dir}{Character. Directory for user-written functions. When using
+the framework template of the file 'make.R' all R-Scripts (functions)
+within this directory will be attached to a predefined environment.}
 
-\item{pkg_gh_load}{Character. Specify which packages should be installed and loaded from github.}
+\item{spin_index}{Integer vector. Subset of input_files that should be
+spinned. Files extensions other than '.R' will be ignored. (0 = none, 999 =
+all)}
 
-\item{source_dir}{Character. Specify file path to directory where you want to
-store all your input files.}
+\item{cache_index}{Integer vector. Subset of input_files that should be
+cached. (0 = none, 999 = all)}
 
-\item{data_dir}{Character. Specify file path to directory where you want to 
-store your data files. This directory will be monitored. When files change 
-in this directory the cache will be ignored (when using the framework 
-template of the file 'make.R').}
+\item{symlink_dir_input}{Character. Target directory for symbolic links to
+input_files. Should betreated as read-only.}
 
-\item{target_dir_figure}{Character. Treat this directory as read-only. By 
-using the function 'framework::instructions()' the directory will contain 
-rendered plots that are specified within your input scripts.}
+\item{symlink_dir_docs}{Character. Target directory for symbolic links to
+rendered files. Should betreated as read-only.}
 
-\item{target_dir_docs}{Character. Treat this directory as read-only. By using
-the function 'framework::instructions()' the directory will contain 
-rendered documents (pdf, html, ...) of your input scripts.}
+\item{symlink_dir_figure}{Character. Target directory for symbolic links to
+rendered figures. Should betreated as read-only.}
 
-\item{target_dir_data}{Character. Treat this directory as read-only. By using
-the function 'framework::write_dataframe()' the directory will contain data
-of type 'RData', 'rds' or 'csv'.}
+\item{rename_symlink_input}{Logical. Preserve directory structure and
+filename or collapse directories and rename symbolic links.}
 
-\item{listofdf}{Character. Specify dataframes that should be written to file. Default ("GlobalEnv") will write all dataframes within .GlobalEnv.}
+\item{rename_symlink_docs}{Logical. Preserve directory structure and filename
+or collapse directories and rename symbolic links.}
 
-\item{file_format}{Character. Choose between 'csv', 'rds' or 'RData'.}
+\item{rename_symlink_figure}{Logical. Preserve directory structure and
+filename or collapse directories and rename symbolic links.}
 
-\item{delete_target_dir}{Logical. Set TRUE if you want to delete existing
-files in target dir before writing the data.}
+\item{rebuild_figures}{Logical. Delete figures before rendering. Choose FALSE
+if you want to use knitr::cache.}
 
-\item{devtools_create}{Logical. Choose TRUE if you want to call 
-'devtools::create()' in order to prepare your project as an R-package. You 
-might want to choose appropriate paths for other variables (e.g. fun_dir = 
-'R', data_dir = inst/extdata, and so on).}
+\item{Rplots_device}{Character. Function that should be passed to write
+figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'.}
 
-\item{rename_figure}{Logical. If TRUE the rendered figures will be renamed 
-and moved into a single directory.}
+\item{target_dir_data}{Character. Target directory for data.}
 
-\item{rename_docs}{Logical. If TRUE the rendered documents (html, pdf, docx) 
-will be renamed and moved into a single directory.}
+\item{listofdf}{Character vector. Specify a vector of dataframes to write. Choose 'GlobalEnv' to write all data frames currently inside your global environment.}
 
-\item{log_filepath}{Character. Specify relative file path (inlcuding the
-extension .csv) to write a log-file.}
+\item{data_extension}{Character. Specify file extension for data frames. Possible values: 'csv', 'RData' and 'rds'.}
 
-\item{tree_target}{Character. Optionally specify a file path to write the output to a file. default: stdout.}
+\item{rebuild_target_dir_data}{Logical. Delete target_dir_data before writing current data frames.}
 
-\item{include_hidden}{Logical. If set to false: all hidden directories and files will be omitted.}
+\item{filepath_session_info}{Character. Specify file path to write the session info file.}
 
-\item{filepath_git_summary}{Character. File path to the target.}
+\item{filepath_log}{Character. Specify file path to write the log file.}
 
-\item{session_info_filepath}{Character. File path to the target.}
+\item{filepath_tree}{Character. Specify file path to write the tree file.}
 
-\item{spin_index}{Integer. Can be of length one or a vector. Specify index of
-'source_files' that should  be spinned (ignored for file extension 'Rmd'). 
-Choose 0 (zero) if you do not want to spin any R-files. Choose 999 if you 
-want to spin all R-files.}
+\item{filepath_warnings}{Character. Specify file path to write the warnings file.}
 
-\item{cache_index}{Integer. Can be of length one or a vector. Specify index 
-of 'source_files' that should  be integrated into the cache. Choose 0 
-(zero) if you do not want to use the cache. Choose 999 if you want to use 
-the cache for all files.}
+\item{tree_directory}{Character. Specify input directory as top level for the tree.}
 
-\item{knitr_cache}{Logical. If you want to use the package 'knitr' to cache 
-chunks of a file you should additionally specify knitr_cache = TRUE within 
-the function 'instructions'. By choosing this option it is not possible to 
-use a different target for your figures (target_dir_figure = NULL).}
+\item{include_hidden_tree}{Logical. Include/Exclude hidden directories and files to build the tree.}
+
+\item{quiet_processing}{Logical. Specify if processing of files should be
+quiet.}
+
+\item{summarize_session_info}{Logical. Should session info be printed to console?}
+
+\item{summarize_df}{Logical. Should a list of written data frames be printed to console?}
+
+\item{summarize_memory}{Logical. Should memory usage be printed to console?}
+
+\item{summarize_log}{Logical. Should a summary of the log file be printed to console? Depends on dplyr.}
+
+\item{summarize_git}{Logical. If TRUE git2r::summary() will be called.}
+
+\item{summarize_tree}{Logical. Should the directory structure (tree) be printed to console?}
+
+\item{summarize_warnings}{Logical. Should filepath_warnings be printed to console?}
 }
 \description{
 This function is probably the only function of the whole package
-  'framework' you need to call by hand. It is a wrapper for skeleton, 
-  Rproj_init and git_init. Therefore it is straightforward to create a new 
+  'framework' you need to call by hand. It is a wrapper for skeleton,
+  Rproj_init and git_init. Therefore it is straightforward to create a new
   project, change the working directory, generate basic directories/files and
   initialize a git repository. Optionally you can initialize a packrat repo.
 }
@@ -138,8 +146,7 @@ This function is probably the only function of the whole package
 Creation of the project_dir is recursive.
 }
 \seealso{
-\code{\link{Rproj_init}}, \code{\link{git_init}}, 
-  \code{\link{skeleton}}, \code{\link{package_framework}}
+\code{\link{skeleton}}, \code{\link{package}}
 }
 \author{
 Frederik Sachser

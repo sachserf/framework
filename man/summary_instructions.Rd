@@ -7,7 +7,7 @@
 summary_instructions(cache_dir)
 }
 \arguments{
-\item{cache_dir}{Character. Specify file path for the cache directory.}
+\item{cache_dir}{Character. Directory for the cache.}
 }
 \description{
 This function reads information from your cache and prints the

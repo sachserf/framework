@@ -2,16 +2,18 @@
 % Please edit documentation in R/fe.R
 \name{fe}
 \alias{fe}
-\title{Alias for file.edit()}
+\title{framework version of file.edit}
 \usage{
-fe(...)
+fe(file, ...)
 }
 \arguments{
-\item{...}{Arguments passed to file.edit().}
+\item{file}{Character or integer. Specify full file path to open or create a file. If the value is an integer and 'framework_params' is in your search path it will look up the index of the input_file (at the point in time of the last processing) to open it.}
+
+\item{...}{Arguments passed to 'utile::file_edit'.}
 }
 \description{
-This function is just a (shorter) assignment for file.edit().
+This function will open existing files or create a new one by calling 'framework::template_rmd'.
 }
 \seealso{
-\code{\link[utils]{file.edit}}
+\code{\link[utils]{file.edit}}, \code{\link{template_rmd}}
 }

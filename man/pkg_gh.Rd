@@ -20,7 +20,7 @@ The function checks whether the specified packages are installed
   installed.
 }
 \note{
-pkg_names must be specified in the following format: username/repo[/subdir][@ref|#pull]
+pkg_names must be specified in the following format: username/repo[/subdir][@ref|#pull] see ?devtools::install_github
 }
 \seealso{
 \code{\link{pkg_cran}}, \code{\link[devtools]{install_github}}

@@ -5,7 +5,7 @@
 #'   installed.
 #' @inheritParams pkg_cran
 #' @param ... Further parameters passed to devtools::install_github().
-#' @note pkg_names must be specified in the following format: username/repo[/subdir][@ref|#pull]
+#' @note pkg_names must be specified in the following format: username/repo[/subdir][@ref|#pull] see ?devtools::install_github
 #' @author Frederik Sachser
 #' @seealso \code{\link{pkg_cran}}, \code{\link[devtools]{install_github}}
 #' @export
