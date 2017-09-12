@@ -1,10 +1,10 @@
-#' Escape from input_files
+#' Breakpoint for input_files
 #'
 #' @description This function will write a new function called framework_escape_hook. The make-like file checks whether this function exists or not and calls it next time you source the file 'make.R'. This feature becomes useful when you are reviewing or working on a specific part of your analysis and do not want to run subsequent files of your project.
 #' @param up2thisfile Character or integer. Specify the file you want to work on. Next time you source the file 'make.R' all files prior to this file will be processed while subsequent files will be skipped. If input is an integer value it will be used as an index for the position of the current input_file. Otherwise file path should be relative to the top level of the project.
-#' @note The hook will be removed after sourcing the file 'make.R' (escape works only once). You can cancel a breakpoint by deleting the function framework_escape_hook.
+#' @note The hook will be removed after sourcing the file 'make.R' (breakpoint works only once). You can cancel a breakpoint by deleting the function framework_escape_hook.
 #' @export
-escape <- function(up2thisfile) {
+breakpoint <- function(up2thisfile) {
   if ('framework_params' %in% search() == FALSE) {
     stop("Cannot find environment 'framework_params'. Source 'make.R' and retry.")
   }

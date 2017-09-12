@@ -73,7 +73,7 @@ template_rmd <-
 
 yaml_r_docx <- paste0("#' ---\n#' title: '", header,"'\n#' author: '", Author, "'\n#' date: '", Date, "'\n#' output:\n#'  word_document: default\n#' ---")
 
-yaml_r_html <- paste0("#' ---\n#' title: '", header,"'\n#' author: '", Author, "'\n#' date: '", Date, "'\n#' output:\n#'  html_document:\n#'    theme: journal\n#'    highlight: tango\n#'    df_print: kable\n#'    fig_caption: yes\n#'    number_sections: yes\n#'    collapsed: yes\n#'    code_folding: hide\n#'    toc: yes\n#'    toc_float: yes\n#'    toc_depth: 5\n#'     keep_md: yes\n#' ---")
+yaml_r_html <- paste0("#' ---\n#' title: '", header,"'\n#' author: '", Author, "'\n#' date: '", Date, "'\n#' output:\n#'  html_document:\n#'    theme: journal\n#'    highlight: tango\n#'    df_print: kable\n#'    fig_caption: yes\n#'    number_sections: yes\n#'    collapsed: yes\n#'    code_folding: hide\n#'    toc: yes\n#'    toc_float: yes\n#'    toc_depth: 5\n#'    keep_md: yes\n#' ---")
 
 yaml_r_pdf <- paste0("#' ---\n#' title: '", header,"'\n#' author: '", Author, "'\n#' date: '", Date, "'\n#' output:\n#'   pdf_document:\n#'     highlight: tango\n#'     df_print: kable\n#'     fig_caption: yes\n#'     number_sections: yes\n#'     toc: yes\n#'     toc_depth: 5\n#'     keep_tex: yes\n#'     latex_engine: xelatex\n#' mainfont: 'Arial'\n#' linkcolor: 'blue'\n#' urlcolor: 'blue'\n#' citecolor: 'blue'\n#' fontsize: 12pt\n#' geometry: margin=1in\n#' classoption: oneside\n#' toc: yes\n#' lot: yes\n#' lof: yes\n#' # bibliography: path2.bib\n#' link-citations: yes\n#' # csl: path2.csl # https://github.com/citation-style-language/styles\n#' ---")
 

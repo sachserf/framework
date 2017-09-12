@@ -17,12 +17,12 @@ insert_srcmake_addin <- function() {
   if (length(minusBA) > 0) {
     filesWD <- filesWD[-minusBA]
   }
-  
-  themake <- filesWD[grep(pattern = "make.R", x = filesWD)]
-  
+
+  themake <- filesWD[basename(filesWD) %in% "make.R"]
+
   if (length(themake) != 1) {
     rstudioapi::sendToConsole(
-      code = print("warning('make.R is not unique: Open manually.')"),
+      code = stop("Cannot locate file 'make.R'. Open manually."),
       execute = TRUE
     )
   } else {

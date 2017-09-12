@@ -8,26 +8,21 @@
 #' @author Frederik Sachser, Jerry T, aprstar, Richie Cotton, steamer25, Suppressingfire, hadley
 #' @export
 setwd2toplevel <- function(toplevel) {
-  current_file_path <- curfp
+  current_file_path <- rstudioapi::getActiveProject()
+  if (is.null(current_file_path)) {
+    current_file_path <- curfp()
+  }
   # change wd to top level
-  if (grepl(pattern = '\\\\', x = current_file_path)) {
-    fp_split <-
-      unlist(strsplit(x = file.path(current_file_path), split = '\\\\'))
-    if (length(which(fp_split == toplevel)) > 0) {
-      project_directory <-
-        file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '\\'))
-    } else {
-      return(message('Cannot set working directory.'))
-    }
+  fp_split <-
+    unlist(strsplit(
+      x = file.path(current_file_path),
+      split = .Platform$file.sep
+    ))
+  if (length(which(fp_split == toplevel)) > 0) {
+    project_directory <-
+      file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = .Platform$file.sep))
   } else {
-    fp_split <-
-      unlist(strsplit(x = file.path(current_file_path), split = '/'))
-    if (length(which(fp_split == toplevel)) > 0) {
-      project_directory <-
-        file.path(paste(fp_split[1:max(which(fp_split == toplevel))], collapse = '/'))
-    } else {
-      return(message('Cannot set working directory.'))
-    }
+    return(message('Cannot set working directory.'))
   }
   if (dir.exists(project_directory) == FALSE) {
     stop('Check typo of the top level directory')
