@@ -26,7 +26,7 @@ srcmake_addin <- function() {
       execute = TRUE
     )
   } else {
-    rstudioapi::sendToConsole(paste0("source('", themake, "')"), execute = FALSE)
+    rstudioapi::sendToConsole(paste0("source('", themake, "')"), execute = TRUE)
   }
   
 }

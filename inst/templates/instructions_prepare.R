@@ -47,6 +47,8 @@ instructions_prepare <-
     filepath_warnings <- ls_instructions$filepath_warnings
     tree_directory <- ls_instructions$tree_directory
     include_hidden_tree <- ls_instructions$include_hidden_tree
+    filepath_image <- ls_instructions$filepath_image
+    filepath_pkg_bib <- ls_instructions$filepath_pkg_bib
     quiet_processing <- ls_instructions$quiet_processing
     summarize_session_info <- ls_instructions$summarize_session_info
     summarize_df <- ls_instructions$summarize_df
@@ -55,7 +57,7 @@ instructions_prepare <-
     summarize_git <- ls_instructions$summarize_git
     summarize_tree <- ls_instructions$summarize_tree
     summarize_warnings <- ls_instructions$summarize_warnings
-    
+
     if (!dir.exists(cache_dir))
       dir.create(cache_dir, recursive = TRUE)
 
@@ -137,6 +139,8 @@ instructions_prepare <-
       tree_directory,
       filepath_tree,
       include_hidden_tree,
+      filepath_image,
+      filepath_pkg_bib,
       filepath_log,
       filepath_session_info,
       filepath_warnings,
@@ -177,6 +181,8 @@ instructions_prepare <-
       "tree_directory",
       "filepath_tree",
       "include_hidden_tree",
+      "filepath_image",
+      "filepath_pkg_bib",
       "filepath_log",
       "filepath_session_info",
       "filepath_warnings",
@@ -217,6 +223,8 @@ instructions_prepare <-
           "tree_target",
           "log_filepath",
           "filepath_session_info",
+          "filepath_image",
+          "filepath_pkg_bib",
           "filepath_log",
           "filepath_tree",
           "filepath_warnings"

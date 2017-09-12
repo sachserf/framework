@@ -17,7 +17,8 @@ summary_instructions <- function(cache_dir) {
 
   # print output
   print(data.frame(
-    filename = df_source_files$filename,
+    filename = df_source_files$filename_noxt,
+    ext = df_source_files$file_ext,
     instruction = df_source_files$instruction
   ))
 

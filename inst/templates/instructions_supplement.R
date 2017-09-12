@@ -37,7 +37,9 @@ instructions_supplement <- function(ls_instructions) {
    summarize_git <- ls_instructions$summarize_git
    toplvl <- ls_instructions$toplvl
    cache_dir <- ls_instructions$cache_dir
-   
+   filepath_image <- ls_instructions$filepath_image
+   filepath_pkg_bib <- ls_instructions$filepath_pkg_bib
+
 # } else {
 #   stop(
 #     "Did not find file: '",
@@ -65,6 +67,16 @@ instructions_supplement <- function(ls_instructions) {
                       summarize_df)
     }
 
+  # IMAGE
+  if (!is.null(filepath_image)) {
+    save.image(file = filepath_image)
+  }
+
+  # PKG_BIB
+  if (!is.null(filepath_pkg_bib)) {
+    suppressWarnings(knitr::write_bib(file = filepath_pkg_bib))
+  }
+
   # SESSION INFO
     if (!is.null(filepath_session_info)) {
       write_session_info(filepath_session_info, summarize_session_info)
@@ -88,7 +100,7 @@ instructions_supplement <- function(ls_instructions) {
       summary_memory_usage()
     }
 
-  # MEMORY
+  # GIT
     if (summarize_git == TRUE) {
       summary_git(git_repo = toplvl)
     }

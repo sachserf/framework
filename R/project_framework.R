@@ -54,6 +54,8 @@ project_framework <-
            filepath_warnings = 'meta/warnings.Rout',
            tree_directory = 'getwd()',
            include_hidden_tree = FALSE,
+           filepath_pkg_bib = 'meta/pkg.bib',
+           filepath_image = '.RData',
            quiet_processing = TRUE,
            summarize_session_info = FALSE,
            summarize_df = FALSE,
@@ -110,6 +112,8 @@ project_framework <-
       filepath_warnings = filepath_warnings,
       tree_directory = tree_directory,
       include_hidden_tree = include_hidden_tree,
+      filepath_pkg_bib = filepath_pkg_bib,
+      filepath_image = filepath_image,
       quiet_processing = quiet_processing,
       summarize_session_info = summarize_session_info,
       summarize_df = summarize_df,
@@ -157,7 +161,7 @@ project_framework <-
 
     # edit Rbuildignore and DESCRIPTION
     if (file.exists(".Rbuildignore")) {
-      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, input_dir, symlink_dir_input, symlink_dir_docs, data_dir, symlink_dir_figure, filepath_session_info, filepath_log, filepath_tree, filepath_warnings), FUN = function(thedir) if (!is.null(thedir)) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n")) 
+      lapply(X = c(file.path(fun_dir, "framework"), cache_dir, input_dir, symlink_dir_input, symlink_dir_docs, data_dir, symlink_dir_figure, filepath_session_info, filepath_log, filepath_tree, filepath_warnings, filepath_pkg_bib), FUN = function(thedir) if (!is.null(thedir)) cat(thedir, file = ".Rbuildignore", append = TRUE, sep = "\n")) 
     }
   }
 

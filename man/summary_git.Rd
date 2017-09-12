@@ -12,3 +12,6 @@ summary_git(git_repo)
 \description{
 Wrapper for git2r::summary
 }
+\seealso{
+\code{\link[utils]{installed.packages}}, \code{\link[git2r]{repository}}
+}

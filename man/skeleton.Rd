@@ -19,7 +19,8 @@ skeleton(project_dir, input_files = c("prepare.R", "visualize.Rmd"),
   filepath_session_info = "meta/session_info.txt",
   filepath_log = "meta/log.csv", filepath_tree = "meta/tree.txt",
   filepath_warnings = "meta/warnings.Rout", tree_directory = "getwd()",
-  include_hidden_tree = FALSE, quiet_processing = TRUE,
+  include_hidden_tree = FALSE, filepath_pkg_bib = "meta/pkg.bib",
+  filepath_image = ".RData", quiet_processing = TRUE,
   summarize_session_info = FALSE, summarize_df = FALSE,
   summarize_memory = FALSE, summarize_log = FALSE, summarize_git = TRUE,
   summarize_tree = FALSE, summarize_warnings = FALSE)
@@ -104,6 +105,10 @@ figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'. Choose
 \item{tree_directory}{Character. Specify input directory as top level for the tree.}
 
 \item{include_hidden_tree}{Logical. Include/Exclude hidden directories and files to build the tree.}
+
+\item{filepath_pkg_bib}{Character. Target filepath to write bib-file of packages. See ?knitr::write_bib()}
+
+\item{filepath_image}{Character. Target filepath to write final image.}
 
 \item{quiet_processing}{Logical. Specify if processing of files should be
 quiet.}

@@ -1,30 +1,30 @@
 #' Create a template script-file
-#' 
-#' @description This function will create an R or Rmd-file (depending on the 
+#'
+#' @description This function will create an R or Rmd-file (depending on the
 #'   file extension of the input) including some predefined lines. The function
 #'   is designed to save some time writing the same input again and again (e.g.
 #'   Author, date and other things). By using this template all warnings and
 #'   messages will be written to a file ('filename_warnings.Rout') and errors
 #'   will interupt rendering.
-#' @param file Character. Specify the path to save the new file. Use relative 
+#' @param file Character. Specify the path to save the new file. Use relative
 #'   file paths and specify the file extension; e.g. 'filesnew_dir/myfile.Rmd'.
 #'   or 'in/src/new_dir/myfile.R'. If the extension is neither .R nor .Rmd (e.g.
 #'   no extension) an .R-extension will be added by default.
-#' @param Author Character. Optionally customize the name of the Author (used 
+#' @param Author Character. Optionally customize the name of the Author (used
 #'   for the YAML header). Default is the effective user of the system info.
-#' @param Date Character. Optionally customize the date (used for the YAML 
+#' @param Date Character. Optionally customize the date (used for the YAML
 #'   header). Default is the current Date (format YYYY-MM-DD).
 #' @param open Logical. If TRUE the file will be opened (via `file.edit``).
 #' @param doctype Character. Specify file extension for different output formats
 #'   of Rmd-files (pdf, html, docx).
 #' @note Missing directories will be created recursively.
 #' @note It is not possible to overwrite existing files.
-#' @note Other YAML header options will be choosen automatically. Edit the 
+#' @note Other YAML header options will be choosen automatically. Edit the
 #'   resulting file to customize the YAML header.
 #' @note R files will be ready to be spinned via knitr. Therefore the script
 #'   contains some preceding roxygen comments.
 #' @author Frederik Sachser
-#' 
+#'
 #' @export
 template_rmd <-
   function(file,
@@ -69,7 +69,6 @@ template_rmd <-
       file.edit(file)
       return(message("Unknown file extension. Using file.edit()"))
     }
-
 
 yaml_r_docx <- paste0("#' ---\n#' title: '", header,"'\n#' author: '", Author, "'\n#' date: '", Date, "'\n#' output:\n#'  word_document: default\n#' ---")
 
