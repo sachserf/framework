@@ -123,6 +123,10 @@ instructions_check <-
                                            0)] <- TRUE
       df_source_files$use_cache_qualified[which(df_source_files_both$pos_match !=
                                                   0)] <- FALSE
+      
+      # always process additional files (not in df_source_files_last):
+      df_source_files$use_cache_qualified[which(!df_source_files$input_files %in% df_source_files_last$input_files)] <- FALSE
+      
       # REVIEW
       # check comment out
       # make sure not to use cache if instruction changed
