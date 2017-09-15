@@ -13,7 +13,8 @@ pkg_gh <-
   function(pkg_names, attach = TRUE, ...)
   {
     github_reponames <-
-      sapply(strsplit(gsub("\\[", "", pkg_names), "/"), "[[", 2)
+      #      sapply(strsplit(sapply(strsplit(paste0(pkg_names), "/"), "[[", 2), "\u0040"), "[[", 1)
+      sapply(strsplit(paste0(pkg_names), "/"), "[[", 2)
     exist_pack <-
       github_reponames %in% rownames(utils::installed.packages())
     if (any(!exist_pack))

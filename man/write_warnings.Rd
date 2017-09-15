@@ -17,3 +17,9 @@ This function will put together all '_warnings.Rout'-files of current input file
 \note{
 The function assumes you are working in a framework project and will otherwise fail.
 }
+\seealso{
+\code{\link{summary_warnings}}
+}
+\author{
+Frederik Sachser
+}

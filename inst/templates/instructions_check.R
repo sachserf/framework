@@ -74,13 +74,13 @@ instructions_check <-
           df_source_files$use_cache_qualified <- FALSE
         }
       } else {
-        if (length(list.files(data_dir)) > 0) {
+        if (length(list.files(data_dir, all.files = TRUE)) > 0) {
           # check file changes
           # specify changed files
           snapshot_data_dir <- readRDS(file = path_snapshot_data_dir)
           snapshot_data_dir$path <- data_dir
           unchanged_files <- utils::changedFiles(before = snapshot_data_dir, md5sum = TRUE)$unchanged
-          if (length(unchanged_files) != length(list.files(data_dir))) {
+          if (length(unchanged_files) != length(list.files(data_dir, recursive = TRUE))) {
             df_source_files$use_cache_qualified <- FALSE
             message("Cache will be ignored because files in data_dir have changed.")
           }
@@ -123,6 +123,10 @@ instructions_check <-
                                            0)] <- TRUE
       df_source_files$use_cache_qualified[which(df_source_files_both$pos_match !=
                                                   0)] <- FALSE
+      
+      # always process additional files (not in df_source_files_last):
+      df_source_files$use_cache_qualified[which(!df_source_files$input_files %in% df_source_files_last$input_files)] <- FALSE
+      
       # REVIEW
       # check comment out
       # make sure not to use cache if instruction changed

@@ -4,6 +4,8 @@
 #' @param filepath_warnings Character. Specify file path to write the warnings file.
 #' @param summarize_warnings Logical. Should filepath_warnings be printed to console?
 #'
+#' @seealso \code{\link{summary_warnings}}
+#' @author Frederik Sachser
 #' @note The function assumes you are working in a framework project and will otherwise fail.
 #' @export
 write_warnings <-
@@ -46,7 +48,8 @@ write_warnings <-
 
         if (summarize_warnings == TRUE) {
           message("\nwarnings:\n")
-          writeLines(readLines(filepath_warnings), con = stdout())
+          #writeLines(readLines(filepath_warnings), con = stdout())
+          summary_warnings(filepath_warnings)
         }
       }
     } else {

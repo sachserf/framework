@@ -5,17 +5,13 @@
 #' @note The hook will be removed after sourcing the file 'make.R' (breakpoint works only once). You can cancel a breakpoint by deleting the function framework_escape_hook.
 #' @export
 breakpoint <- function(up2thisfile) {
-  if ('framework_params' %in% search() == FALSE) {
-    stop("Cannot find environment 'framework_params'. Source 'make.R' and retry.")
-  }
-  out_dir <- get("ls_instructions", pos = "framework_params")$fun_dir
-
-  writeLines(paste0("framework_escape_hook <-  function() {\n  if (is.numeric(", up2thisfile, ")) {\n    if (", up2thisfile, " > 1) {\n      input_files <- framework_params$input_files[1:(", up2thisfile, " - 1)]\n    } else {\n      input_files <- framework_params$input_files[1]\n    }\n  } else if (", up2thisfile, " %in% framework_params$input_files) {\n    index <- grep(", up2thisfile, ", framework_params$input_files) - 1\n    if (index > 0) {\n      input_files <- framework_params$input_files[1:index]\n    } else {\n      input_files <- framework_params$input_files[1]\n    }\n  } else {\n    stop('Can not find file name in input_files. Check spelling.')\n  }\n  assign(x = 'input_files', value = input_files, envir = framework_params)\n}"), con = file.path(out_dir, "framework/framework_escape_hook.R"))
   
+  if (class(up2thisfile) == "numeric") {
+    writeLines(paste0("framework_escape_hook <-  function() {\n  if (", up2thisfile, " > 1) {\n      input_files <- framework_params$input_files[1:(", up2thisfile, " - 1)]\n    } else {\n      input_files <- framework_params$input_files[1]\n    }\n assign(x = 'input_files', value = input_files, envir = framework_params)\n}"), con = file.path("framework_escape_hook.R"))
+  } else if (class(up2thisfile) == "character") {
+    writeLines(paste0("framework_escape_hook <-  function() {\n if ('", up2thisfile, "' %in% framework_params$input_files) {\n    index <- grep('", up2thisfile, "', framework_params$input_files) - 1\n    if (index > 0) {\n      input_files <- framework_params$input_files[1:index]\n    } else {\n      input_files <- framework_params$input_files[1]\n    }\n  } else {\n    stop('Can not find file name in input_files. Check spelling.')\n  }\n  assign(x = 'input_files', value = input_files, envir = framework_params)\n}"), con = file.path("framework_escape_hook.R"))
+  } else {
+    stop("Input should be of type numeric or character.")
+  }
 }
-
-
-
-
-
 
