@@ -2,6 +2,7 @@
 
 export(Rproj_init)
 export(assign_missing_params)
+export(autosnapshot)
 export(breakpoint)
 export(dput_function)
 export(fe)

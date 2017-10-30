@@ -23,7 +23,7 @@ template_params(project_dir, input_files = c("prepare.R", "visualize.Rmd"),
   filepath_image = ".RData", quiet_processing = TRUE,
   summarize_session_info = FALSE, summarize_df = FALSE,
   summarize_memory = FALSE, summarize_log = FALSE, summarize_git = TRUE,
-  summarize_tree = FALSE, summarize_warnings = FALSE)
+  summarize_tree = FALSE, summarize_warnings = FALSE, autobranch = NULL)
 }
 \arguments{
 \item{project_dir}{Character. File path to your project top level.}

@@ -22,7 +22,8 @@ assign_missing_params <- function(optional_objects_null = c(
   "filepath_warnings",
   "Rplots_device",
   "filepath_image",
-  "filepath_pkg_bib"
+  "filepath_pkg_bib",
+  "autobranch"
 ),
 optional_objects_false = c(
   "rename_symlink_figure",
