@@ -31,7 +31,7 @@ autosnapshot <- function(repopath = getwd(), autobranch = NULL) {
       )
     )
     return(message(paste0(
-      "commit-message: auto-snapshot via git2r from ",
+      "commit-message: auto-snapshot at branch ", autobranch, " via git2r from ",
       Sys.info()["user"],
       " at ",
       Sys.time()
