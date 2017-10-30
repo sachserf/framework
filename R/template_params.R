@@ -90,6 +90,7 @@ template_params <- function(project_dir,
                             include_hidden_tree = FALSE,
                             filepath_pkg_bib = 'meta/pkg.bib',
                             filepath_image = '.RData',
+                            autobranch = NULL,
                             quiet_processing = TRUE,
                             summarize_session_info = FALSE,
                             summarize_df = FALSE,
@@ -97,8 +98,7 @@ template_params <- function(project_dir,
                             summarize_log = FALSE,
                             summarize_git = TRUE,
                             summarize_tree = FALSE,
-                            summarize_warnings = FALSE,
-                            autobranch = NULL) {
+                            summarize_warnings = FALSE) {
   if (file.exists('params.R')) {
     stop("File params.R exists. Choose another target directory and retry.")
   } else {
