@@ -5,7 +5,8 @@
 #' @param repopath Character. Specify path to existing repository.
 #' @param autobranch Character. Specify the name of an existing branch. Only if HEAD is pointing to this branch an auto-snapshot will be created. Exception: Choose NULL (default) to ignore branch-dependency.
 #'
-#' @seealso \code{\link[git2r]{repository}}, \code{\link[git2r]{head}}, \code{\link[git2r]{status}}, \code{\link[git2r]{add}}, \code{\link[git2r]{commit}}
+#' @seealso \code{\link[git2r]{repository}}, \code{\link[git2r]{status}}, \code{\link[git2r]{add}}, \code{\link[git2r]{commit}}
+#' 
 #' @export
 autosnapshot <- function(repopath = getwd(), autobranch = NULL) {
   gr <- git2r::repository(path = repopath)
@@ -23,14 +24,14 @@ autosnapshot <- function(repopath = getwd(), autobranch = NULL) {
     git2r::commit(
       gr,
       paste0(
-        "framework: auto-snapshot via git2r from ",
+        "auto-snapshot via git2r from ",
         Sys.info()["user"],
         " at ",
         Sys.time()
       )
     )
     return(message(paste0(
-      "framework: auto-snapshot via git2r from ",
+      "commit-message: auto-snapshot via git2r from ",
       Sys.info()["user"],
       " at ",
       Sys.time()

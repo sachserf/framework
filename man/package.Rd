@@ -21,7 +21,7 @@ package(project_dir, devtools_create = TRUE, rstudio = TRUE,
   filepath_log = "meta/log.csv", filepath_tree = "meta/tree.txt",
   filepath_warnings = "meta/warnings.Rout", tree_directory = "getwd()",
   include_hidden_tree = FALSE, filepath_pkg_bib = "meta/pkg.bib",
-  filepath_image = ".RData", quiet_processing = TRUE,
+  filepath_image = ".RData", autobranch = NULL, quiet_processing = TRUE,
   summarize_session_info = FALSE, summarize_df = FALSE,
   summarize_memory = FALSE, summarize_log = FALSE, summarize_git = TRUE,
   summarize_tree = FALSE, summarize_warnings = FALSE)
@@ -122,6 +122,8 @@ figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'. Choose
 \item{filepath_pkg_bib}{Character. Target filepath to write bib-file of packages. See ?knitr::write_bib()}
 
 \item{filepath_image}{Character. Target filepath to write final image.}
+
+\item{autobranch}{Character. Specify the name of an existing branch. Only if HEAD is pointing to this branch an auto-snapshot will be created. Exception: Choose NULL (default) to ignore branch-dependency.}
 
 \item{quiet_processing}{Logical. Specify if processing of files should be
 quiet.}

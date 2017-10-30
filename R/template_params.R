@@ -45,6 +45,7 @@
 #'   figures of R-files if sourced. E.g. 'grDevices::pdf' or 'grDevices::png'. Choose NULL if you want to write figures manually (e.g. using ggsave for ggplot2-graphics).
 #' @param filepath_pkg_bib Character. Target filepath to write bib-file of packages. See ?knitr::write_bib()
 #' @param filepath_image Character. Target filepath to write final image.
+#' @inheritParams autosnapshot
 #' @inheritParams write_dataframe
 #' @inheritParams write_session_info
 #' @inheritParams write_log

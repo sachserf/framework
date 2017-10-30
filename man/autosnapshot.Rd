@@ -15,5 +15,5 @@ autosnapshot(repopath = getwd(), autobranch = NULL)
 This function will stage all changes and commit a snapshot with a predefined message (including user and timestamp) via git2r.
 }
 \seealso{
-\code{\link[git2r]{repository}}, \code{\link[git2r]{head}}, \code{\link[git2r]{status}}, \code{\link[git2r]{add}}, \code{\link[git2r]{commit}}
+\code{\link[git2r]{repository}}, \code{\link[git2r]{status}}, \code{\link[git2r]{add}}, \code{\link[git2r]{commit}}
 }
