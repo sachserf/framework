@@ -11,7 +11,7 @@
 #' @export
 skeleton <-
   function(project_dir,
-           input_files = c('prepare.R', 'visualize.Rmd'),
+           input_files = c('load_data.R'),
            pkg_cran_install = c('utils', 'tools', 'rmarkdown', 'knitr', 'rstudioapi'),
            pkg_cran_load = c('tidyverse'),
            pkg_gh_install = NULL,

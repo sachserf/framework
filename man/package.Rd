@@ -5,12 +5,12 @@
 \title{Initialize a framework-package}
 \usage{
 package(project_dir, devtools_create = TRUE, rstudio = TRUE,
-  init_git = TRUE, init_packrat = FALSE, input_files = c("prepare.R",
-  "visualize.Rmd"), pkg_cran_install = c("utils", "tools", "rmarkdown",
-  "knitr", "rstudioapi"), pkg_cran_load = c("tidyverse"),
-  pkg_gh_install = NULL, pkg_gh_load = NULL, input_dir = "files",
-  data_dir = "inst/extdata", cache_dir = ".cache", fun_dir = "R",
-  spin_index = 0, cache_index = 999, symlink_dir_input = NULL,
+  init_git = TRUE, init_packrat = FALSE, input_files = c("load_data.R"),
+  pkg_cran_install = c("utils", "tools", "rmarkdown", "knitr", "rstudioapi"),
+  pkg_cran_load = c("tidyverse"), pkg_gh_install = NULL,
+  pkg_gh_load = NULL, input_dir = "files", data_dir = "inst/extdata",
+  cache_dir = ".cache", fun_dir = "R", spin_index = 0,
+  cache_index = 999, symlink_dir_input = NULL,
   symlink_dir_docs = "out/docs", symlink_dir_figure = "out",
   rename_symlink_input = TRUE, rename_symlink_docs = TRUE,
   rename_symlink_figure = TRUE, rebuild_figures = TRUE,

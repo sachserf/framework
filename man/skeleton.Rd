@@ -4,7 +4,7 @@
 \alias{skeleton}
 \title{Create a framework-project skeleton}
 \usage{
-skeleton(project_dir, input_files = c("prepare.R", "visualize.Rmd"),
+skeleton(project_dir, input_files = c("load_data.R"),
   pkg_cran_install = c("utils", "tools", "rmarkdown", "knitr", "rstudioapi"),
   pkg_cran_load = c("tidyverse"), pkg_gh_install = NULL,
   pkg_gh_load = NULL, input_dir = "files", data_dir = "inst/extdata",
