@@ -6,7 +6,7 @@
 \usage{
 template_rmd(file, Author = Sys.info()["effective_user"],
   Date = "`r Sys.Date()`", open = TRUE, doctype = "html",
-  knitr_sidecar = TRUE)
+  knitr_sidecar = FALSE)
 }
 \arguments{
 \item{file}{Character. Specify the path to save the new file. Use relative

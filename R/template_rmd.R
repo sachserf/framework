@@ -33,7 +33,7 @@ template_rmd <-
            Date = "`r Sys.Date()`",
            open = TRUE,
            doctype = "html",
-           knitr_sidecar = TRUE)
+           knitr_sidecar = FALSE)
   {
     if (dir.exists(paths = dirname(file)) == FALSE) {
       dir.create(path = dirname(file), recursive = TRUE)
@@ -63,9 +63,9 @@ template_rmd <-
                stop = nchar(basename(file)) - 2)
       #  file <- paste0(header, ".R")
     } else if (tools::file_path_sans_ext(file) == file.path(file)) {
-      fileext <- ".R"
+      fileext <- ".Rmd"
       header <- basename(file)
-      file <- paste0(file, ".R")
+      file <- paste0(file, fileext)
       print("File extension is neither .Rmd nor .R: using .R per default")
     } else {
       file.edit(file)
