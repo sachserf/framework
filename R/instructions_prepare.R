@@ -107,8 +107,11 @@ instructions_prepare <-
       )
     }
 
-    # vectorize indices
-    if (length(cache_index) == 1 && cache_index == 999) {
+        # vectorize indices
+    # unlink cache-dir
+    if (is.null(cache_index)) {
+      unlink(x = cache_dir, recursive = TRUE)
+    } else if (length(cache_index) == 1 && cache_index == 999) {
       cache_index <- 1:length(input_files)
     }
     if (length(spin_index) == 1 && spin_index == 999) {

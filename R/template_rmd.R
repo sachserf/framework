@@ -66,7 +66,7 @@ template_rmd <-
       fileext <- ".Rmd"
       header <- basename(file)
       file <- paste0(file, fileext)
-      print("File extension is neither .Rmd nor .R: using .R per default")
+      print("File extension is neither .Rmd nor .R: using .Rmd per default")
     } else {
       file.edit(file)
       return(message("Unknown file extension. Using file.edit()"))
