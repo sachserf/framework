@@ -1,7 +1,7 @@
 Package: framework
 Type: Package
 Title: A framework for project organisation
-Version: 1.8.531
+Version: 1.8.532
 Date: 2018-02-13
 Author: Frederik Sachser
 Maintainer: <f.sachser@gmx.at>
@@ -15,13 +15,13 @@ Imports:
     tools,
     utils,
     grDevices,
-    magrittr
+    magrittr,
+    git2r
 Suggests:
     rstudioapi (>= 0.5),
     rmarkdown (>= 0.9.6),
     packrat,
     knitr,
     devtools,
-    dplyr,
-    git2r
+    dplyr
 RoxygenNote: 6.0.1.9000
