@@ -9,11 +9,12 @@ assign_missing_params(optional_objects_null = c("symlink_dir_figure",
   "data_extension", "tree_directory", "filepath_tree", "filepath_log",
   "filepath_session_info", "filepath_warnings", "Rplots_device",
   "filepath_image", "filepath_pkg_bib", "autobranch"),
-  optional_objects_false = c("rename_symlink_figure", "rename_symlink_docs",
-  "rename_symlink_input", "rebuild_target_dir_data", "rebuild_figures",
-  "include_hidden_tree", "quiet_processing", "summarize_session_info",
-  "summarize_df", "summarize_memory", "summarize_log", "summarize_git",
-  "summarize_tree", "summarize_warnings"), pos)
+  optional_objects_false = c("rename_symlink_figure",
+  "rename_symlink_docs", "rename_symlink_input", "rebuild_target_dir_data",
+  "rebuild_figures", "include_hidden_tree", "quiet_processing",
+  "summarize_session_info", "summarize_df", "summarize_memory",
+  "summarize_log", "summarize_git", "summarize_tree",
+  "summarize_warnings"), pos)
 }
 \arguments{
 \item{optional_objects_null}{Character vector. Specify optional parameters that should be NULL if missing.}

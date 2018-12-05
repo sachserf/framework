@@ -76,7 +76,7 @@ project_framework <-
     # create R-project
     if ('devtools' %in% utils::installed.packages() &&
         devtools_create == TRUE) {
-      devtools::create(path = project_dir, rstudio = TRUE)
+      usethis::create_project(path = project_dir, rstudio = TRUE)
     } else if (rstudio == TRUE) {
       framework::Rproj_init(project_dir)
     }

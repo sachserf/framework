@@ -57,7 +57,8 @@ instructions_prepare <-
     summarize_git <- ls_instructions$summarize_git
     summarize_tree <- ls_instructions$summarize_tree
     summarize_warnings <- ls_instructions$summarize_warnings
-
+    autobranch <- ls_instructions$autobranch
+    
     if (!dir.exists(cache_dir))
       dir.create(cache_dir, recursive = TRUE)
 
@@ -158,7 +159,8 @@ instructions_prepare <-
       summarize_log,
       summarize_git,
       summarize_tree,
-      summarize_warnings
+      summarize_warnings,
+      autobranch
     )
     names_ls_instructions <- list(
       "input_files",
@@ -200,7 +202,8 @@ instructions_prepare <-
       "summarize_log",
       "summarize_git",
       "summarize_tree",
-      "summarize_warnings"
+      "summarize_warnings",
+      "autobranch"
     )
     names(ls_instructions) <- names_ls_instructions
 

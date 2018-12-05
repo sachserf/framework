@@ -112,4 +112,4 @@ instructions_execute <-
                                                recursive = TRUE)
       saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)
   }
-}
+  }
