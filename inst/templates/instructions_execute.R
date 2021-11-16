@@ -16,21 +16,21 @@
 instructions_execute <-
   function(ls_instructions, df_source_files)
   {
- #   list2env(ls_instructions, envir = environment())
-
-
+    #   list2env(ls_instructions, envir = environment())
+    
+    
     # if (file.exists(file.path(cache_dir, "ls_instructions.rds"))) {
     #   ls_instructions <- readRDS(file = file.path(cache_dir, "ls_instructions.rds"))
-       toplvl <- ls_instructions$toplvl
-       input_dir <- ls_instructions$input_dir
-       data_dir <- ls_instructions$data_dir
-       path_snapshot_source_dir <- ls_instructions$path_snapshot_source_dir
-       path_snapshot_data_dir <- ls_instructions$path_snapshot_data_dir
-       rebuild_figures <- ls_instructions$rebuild_figures
-       quiet_processing <- ls_instructions$quiet_processing
-       cache_dir <- ls_instructions$cache_dir
-       Rplots_device <- ls_instructions$Rplots_device
-       
+    toplvl <- ls_instructions$toplvl
+    input_dir <- ls_instructions$input_dir
+    data_dir <- ls_instructions$data_dir
+    path_snapshot_source_dir <- ls_instructions$path_snapshot_source_dir
+    path_snapshot_data_dir <- ls_instructions$path_snapshot_data_dir
+    rebuild_figures <- ls_instructions$rebuild_figures
+    quiet_processing <- ls_instructions$quiet_processing
+    cache_dir <- ls_instructions$cache_dir
+    Rplots_device <- ls_instructions$Rplots_device
+    
     # } else {
     #   stop("Did not find file: '", file.path(cache_dir, "ls_instructions.rds"), "'. Run 'framework::prepare_instructions()' and 'framework::implement_instructions()' and retry.")
     # }
@@ -40,7 +40,7 @@ instructions_execute <-
     # } else {
     #   stop("Did not find file: '", file.path(cache_dir, "df_source_files.rds"), "'. Run 'framework::prepare_instructions()', 'framework::implement_instructions()' and 'framework::check_instructions()' and retry.")
     # }
-
+    
     # create all required directories in cache
     sapply(
       X = dirname(df_source_files$image_cache),
@@ -48,22 +48,22 @@ instructions_execute <-
       recursive = TRUE,
       showWarnings = FALSE
     )
-
-# call specify_instructions()
+    
+    # call specify_instructions()
     for (i in 1:nrow(df_source_files)) {
       instructions_specify(input_files = df_source_files$input_files[i],
-        image_cache = df_source_files$image_cache[i],
-        instruction = df_source_files$instruction[i],
-        filename_noxt = df_source_files$filename_noxt[i],
-        basename_noxt = df_source_files$basename_noxt[i],
-        figure_source = df_source_files$figure_source[i],
-        toplvl = toplvl,
-        rebuild_figures = rebuild_figures,
-        quiet_processing = quiet_processing,
-        Rplots_device = Rplots_device
+                           image_cache = df_source_files$image_cache[i],
+                           instruction = df_source_files$instruction[i],
+                           filename_noxt = df_source_files$filename_noxt[i],
+                           basename_noxt = df_source_files$basename_noxt[i],
+                           figure_source = df_source_files$figure_source[i],
+                           toplvl = toplvl,
+                           rebuild_figures = rebuild_figures,
+                           quiet_processing = quiet_processing,
+                           Rplots_device = Rplots_device
       )
     }
-
+    
     if (file.exists(file.path(cache_dir, "df_source_files_last.rds"))) {
       df_source_files_last <- readRDS(file.path(cache_dir, "df_source_files_last.rds"))
       remove_image <- df_source_files_last$image_cache[!df_source_files_last$image_cache %in% df_source_files$image_cache]
@@ -79,7 +79,7 @@ instructions_execute <-
     saveRDS(object = df_source_files,
             file = file.path(cache_dir,
                              "df_source_files_last.rds"))
-
+    
     if (file.exists(file.path(cache_dir, "ls_instructions_last.rds"))) {
       ls_instructions_last <- readRDS(file.path(cache_dir, "ls_instructions_last.rds"))
       # assign df_source_files_last to environment framework_params
@@ -91,7 +91,7 @@ instructions_execute <-
     saveRDS(object = ls_instructions,
             file = file.path(cache_dir,
                              "ls_instructions_last.rds"))
-
+    
     # remove deprecated snapshots
     if (file.exists(path_snapshot_source_dir) == TRUE) {
       file.remove(path_snapshot_source_dir)
@@ -99,17 +99,20 @@ instructions_execute <-
     if (file.exists(path_snapshot_data_dir) == TRUE) {
       file.remove(path_snapshot_data_dir)
     }
-
+    
     # write new snapshots
     snapshot_source_dir <- utils::fileSnapshot(path = input_dir,
                                                md5sum = TRUE,
                                                recursive = TRUE)
     saveRDS(object = snapshot_source_dir, file = path_snapshot_source_dir)
+    
+    if (!is.null(data_dir)) {
+      if (length(list.files(path = data_dir, recursive = TRUE, all.files = TRUE)) > 0) {
+        snapshot_data_dir <- utils::fileSnapshot(path = data_dir,
+                                                 md5sum = TRUE,
+                                                 recursive = TRUE)
+        saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)
+      }
+    }
+  }
 
-    if (length(list.files(path = data_dir, recursive = TRUE, all.files = TRUE)) > 0) {
-      snapshot_data_dir <- utils::fileSnapshot(path = data_dir,
-                                               md5sum = TRUE,
-                                               recursive = TRUE)
-      saveRDS(object = snapshot_data_dir, file = path_snapshot_data_dir)
-  }
-  }

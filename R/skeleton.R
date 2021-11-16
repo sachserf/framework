@@ -148,10 +148,9 @@ skeleton <-
       Sys.info()['user'],
       '** at **',
       as.character(Sys.time()),
-      '**\n\n- This project was build by using the package `framework` (v', framework_version, ')
-      - visit [framework@github](https://github.com/sachserf/framework) for further information',
+      '(using R-package `framework` v', framework_version, ', [framework@github](https://github.com/sachserf/framework))',
 
-      '\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Work Log\nWrite log entries.\n\n',
+      '\n\n## Outline\nGive an outline of your project.\n\n## To Do\nList your ideas.\n\n## Decisions/milestones\nWrite log entries.\n\n',
 
       '# Brief usage of framework projects:
       1. write scripts (R, Rmd, Rnw)
